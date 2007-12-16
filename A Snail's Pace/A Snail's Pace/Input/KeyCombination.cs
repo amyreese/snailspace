@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace A_Snail_s_Pace
+namespace A_Snail_s_Pace.Input
 {
-    class KeyCombination
+    public class KeyCombination
     {
         private List<Keys> keys;
         public List<Keys> getKeys()
@@ -30,8 +30,9 @@ namespace A_Snail_s_Pace
         public KeyCombination(Keys[] keys)
         {
             this.keys = new List<Keys>();
-            foreach( Keys key in keys ) {
-                this.keys.Add( key );
+            foreach (Keys key in keys)
+            {
+                this.keys.Add(key);
             }
         }
 
@@ -52,7 +53,7 @@ namespace A_Snail_s_Pace
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof( KeyCombination ))
+            if (obj.GetType() == typeof(KeyCombination))
             {
                 // This is done this way just for quickness-sake.
                 // There is almost definately a way we could make this faster
@@ -91,6 +92,20 @@ namespace A_Snail_s_Pace
                 hashcode = hashcode + key.GetHashCode();
             }
             return hashcode;
+        }
+
+        public override string ToString()
+        {
+            String output = "";
+            foreach (Keys key in keys)
+            {
+                if (output.Length != 0)
+                {
+                    output = output + " + ";
+                }
+                output = output + key.ToString();
+            }
+            return output;
         }
     }
 }

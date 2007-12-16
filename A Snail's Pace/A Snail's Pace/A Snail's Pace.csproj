@@ -55,11 +55,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionMapping.cs">
+    <Compile Include="Graphics\GenericBackgroundSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GenericBackgroundSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\GenericSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GenericSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\GenericBulletSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GenericBulletSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\TestGraphics\TextureTestSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TextureTestSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\TestGraphics\TransparencyTestSprite.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>TransparencyTestSprite</Name>
+    </Compile>
+    <Compile Include="Input\ActionMapping.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>ActionMapping</Name>
     </Compile>
-    <Compile Include="KeyCombination.cs">
+    <Compile Include="Input\KeyCombination.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>KeyCombination</Name>
     </Compile>
@@ -83,6 +103,26 @@
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>GameThumbnail</Name>
+    </Content>
+    <Content Include="Textures\riemerstexture.bmp">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>riemerstexture</Name>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Effects\effects.fx">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Name>effects</Name>
+    </Content>
+    <Content Include="Textures\blendingtexture.jpg">
+      <XNAUseContentPipeline>true</XNAUseContentPipeline>
+      <Importer>TextureImporter</Importer>
+      <Processor>SpriteTextureProcessor</Processor>
+      <Name>blendingtexture</Name>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
