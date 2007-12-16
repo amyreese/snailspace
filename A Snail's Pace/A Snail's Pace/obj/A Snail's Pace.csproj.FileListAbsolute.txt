@@ -1,0 +1,5 @@
+H:\2D Graphics\A Snail's Pace\A Snail's Pace\obj\x86\Debug\ResolveAssemblyReference.cache
+H:\2D Graphics\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.exe
+H:\2D Graphics\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.pdb
+H:\2D Graphics\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A Snail's Pace.exe
+H:\2D Graphics\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A Snail's Pace.pdb

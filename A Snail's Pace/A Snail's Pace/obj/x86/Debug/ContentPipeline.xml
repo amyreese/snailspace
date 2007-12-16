@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <RootDirectory>H:\2D Graphics\A Snail's Pace\A Snail's Pace\</RootDirectory>
+      <IntermediateDirectory>H:\2D Graphics\A Snail's Pace\A Snail's Pace\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>H:\2D Graphics\A Snail's Pace\A Snail's Pace\bin\x86\Debug\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\1.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2007-12-06T22:01:29.484375-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
