@@ -104,7 +104,7 @@
       <Processor>SpriteTextureProcessor</Processor>
       <Name>GameThumbnail</Name>
     </Content>
-    <Content Include="Textures\riemerstexture.bmp">
+    <Content Include="Resources\Textures\riemerstexture.bmp">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
@@ -112,18 +112,33 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Effects\effects.fx">
+    <Content Include="Resources\Effects\effects.fx">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Name>effects</Name>
     </Content>
-    <Content Include="Textures\blendingtexture.jpg">
+    <Content Include="Resources\Libraries\lua51.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>lua51</Name>
+    </Content>
+    <Content Include="Resources\Libraries\LuaInterface.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LuaInterface</Name>
+    </Content>
+    <Content Include="Resources\Libraries\luanet.dll">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>luanet</Name>
+    </Content>
+    <Content Include="Resources\Textures\blendingtexture.jpg">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
       <Processor>SpriteTextureProcessor</Processor>
       <Name>blendingtexture</Name>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Documents\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA\Game Studio Express\v1.0\Microsoft.Xna.ContentPipeline.targets" />
