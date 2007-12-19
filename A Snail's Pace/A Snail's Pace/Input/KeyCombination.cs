@@ -7,20 +7,10 @@ namespace A_Snail_s_Pace.Input
 {
     public class KeyCombination
     {
-        private List<Keys> keys;
-        public List<Keys> getKeys()
+        private Keys[] keys;
+        public Keys[] getKeys()
         {
-            List<Keys> clone = new List<Keys>(keys);
-            return clone;
-        }
-
-        /// <summary>
-        /// Creates a new KeyCombination object representing the pressing of a multiple keys
-        /// </summary>
-        /// <param name="keys"></param>
-        public KeyCombination(List<Keys> keys)
-        {
-            this.keys = keys;
+            return (Keys[])keys.Clone();
         }
 
         /// <summary>
@@ -29,11 +19,7 @@ namespace A_Snail_s_Pace.Input
         /// <param name="keys"></param>
         public KeyCombination(Keys[] keys)
         {
-            this.keys = new List<Keys>();
-            foreach (Keys key in keys)
-            {
-                this.keys.Add(key);
-            }
+            this.keys = keys;
         }
 
         /// <summary>
@@ -42,8 +28,8 @@ namespace A_Snail_s_Pace.Input
         /// <param name="key"></param>
         public KeyCombination(Keys key)
         {
-            keys = new List<Keys>();
-            keys.Add(key);
+            keys = new Keys[1];
+            keys[0] = key;
         }
 
         /// <summary>
@@ -55,28 +41,53 @@ namespace A_Snail_s_Pace.Input
         {
             if (obj.GetType() == typeof(KeyCombination))
             {
-                // This is done this way just for quickness-sake.
-                // There is almost definately a way we could make this faster
-                List<Keys> objKeys = ((KeyCombination)obj).keys;
-                foreach (Keys key in objKeys)
+                Keys[] objKeys = ((KeyCombination)obj).keys;
+                // Might be able to be done faster
+                if (objKeys.Length != keys.Length)
                 {
-                    if (!keys.Contains(key))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                foreach (Keys key in keys)
+                else
                 {
-                    if (!objKeys.Contains(key))
+                    bool containsKey = false;
+                    for (int index = 0; index < keys.Length; index++)
                     {
-                        return false;
+                        containsKey = false;
+                        for (int index2 = 0; index2 < objKeys.Length; index2++)
+                        {
+                            if (keys[index] == objKeys[index2])
+                            {
+                                containsKey = true;
+                                break;
+                            }
+                        }
+                        if (!containsKey)
+                        {
+                            return false;
+                        }
                     }
+                    for (int index = 0; index < objKeys.Length; index++)
+                    {
+                        containsKey = false;
+                        for (int index2 = 0; index2 < keys.Length; index2++)
+                        {
+                            if (objKeys[index] == keys[index2])
+                            {
+                                containsKey = true;
+                                break;
+                            }
+                        }
+                        if (!containsKey)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
                 }
-                return true;
             }
             else
             {
-                return base.Equals(obj);
+                return false;
             }
         }
 
@@ -87,9 +98,8 @@ namespace A_Snail_s_Pace.Input
         public override int GetHashCode()
         {
             int hashcode = 0;
-            foreach (Keys key in keys)
-            {
-                hashcode = hashcode + key.GetHashCode();
+            for( int index = 0; index < keys.Length; index++ ) {
+                hashcode = hashcode + keys[index].GetHashCode();
             }
             return hashcode;
         }
@@ -97,13 +107,13 @@ namespace A_Snail_s_Pace.Input
         public override string ToString()
         {
             String output = "";
-            foreach (Keys key in keys)
+            for (int index = 0; index < keys.Length; index++)
             {
                 if (output.Length != 0)
                 {
                     output = output + " + ";
                 }
-                output = output + key.ToString();
+                output = output + keys[index].ToString();
             }
             return output;
         }

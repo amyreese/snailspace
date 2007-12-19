@@ -106,19 +106,10 @@ namespace A_Snail_s_Pace
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferMultiSampling = false;
             graphics.IsFullScreen = false;
-            this.graphics.DeviceReset += new EventHandler(graphics_DeviceReset);
             IsMouseVisible = true;
 
             base.Initialize();
         }
-
-        void graphics_DeviceReset(object sender, EventArgs e)
-        {
-            // Uncommenting this breaks toggle fullscreen
-            //int targetFPS = graphics.GraphicsDevice.DisplayMode.RefreshRate;
-            //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (1 / targetFPS * 1000));
-        }
-
 
         /// <summary>
         /// Load your graphics content.  If loadAllContent is true, you should
@@ -205,31 +196,27 @@ namespace A_Snail_s_Pace
         protected override void Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            foreach (KeyCombination keyCombination in keyMapping.Keys)
+            Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
+            while (keyMapEnum.MoveNext())
             {
+                KeyCombination keyCombination = keyMapEnum.Current.Key;
+                ActionMapping actionMap = keyMapEnum.Current.Value;
                 bool keyDown = true;
-                foreach (Keys key in keyCombination.getKeys())
+                Keys[] keys = keyCombination.getKeys();
+                for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
                 {
-                    if (keyboardState.IsKeyUp(key))
+                    if (keyboardState.IsKeyUp(keys[keyIndex]))
                     {
                         keyDown = false;
                     }
                 }
-                ActionMapping actionMap;
-                if (keyMapping.TryGetValue(keyCombination, out actionMap))
+                if (keyDown)
                 {
-                    if (keyDown)
-                    {
-                        actionMap.keyDown(gameTime);
-                    }
-                    else
-                    {
-                        actionMap.keyUp(gameTime);
-                    }
+                    actionMap.keyDown(gameTime);
                 }
                 else
                 {
-                    // This shouldn't ever happen, but we should probably handle this properly.
+                    actionMap.keyUp(gameTime);
                 }
             }
             base.Update(gameTime);
@@ -249,9 +236,9 @@ namespace A_Snail_s_Pace
             graphics.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.CornflowerBlue, 1.0f, 0);
 
-            foreach (GenericSprite sprite in sprites)
+            for (int spriteIndex = 0; spriteIndex < sprites.Length; spriteIndex++)
             {
-                sprite.draw(graphics.GraphicsDevice);
+                sprites[spriteIndex].draw(graphics.GraphicsDevice);
             }
 
 #if DEBUG
