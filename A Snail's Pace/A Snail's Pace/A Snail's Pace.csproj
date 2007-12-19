@@ -4,7 +4,7 @@
     <ProjectTypeGuids>{9F340DF3-2AED-4330-AC16-78AC2D9B4738};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>A_Snail_s_Pace</RootNamespace>
     <AssemblyName>A Snail%27s Pace</AssemblyName>
@@ -14,6 +14,8 @@
     <XNAGlobalContentPipelineAssemblies>Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll;Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll;Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll;Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</XNAGlobalContentPipelineAssemblies>
     <XNAProjectContentPipelineAssemblies>
     </XNAProjectContentPipelineAssemblies>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LuaInterface, Version=1.5.3.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Libraries\LuaInterface.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework">
       <Private>False</Private>
     </Reference>
@@ -55,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lua\LuaConfig.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LuaConfig</Name>
+    </Compile>
     <Compile Include="Graphics\GenericBackgroundSprite.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>GenericBackgroundSprite</Name>
@@ -83,7 +93,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>KeyCombination</Name>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>AssemblyInfo</Name>
+    </Compile>
     <Compile Include="Program.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Program</Name>
@@ -118,18 +131,20 @@
       <Processor>EffectProcessor</Processor>
       <Name>effects</Name>
     </Content>
-    <Content Include="Resources\Libraries\lua51.dll">
+    <EmbeddedResource Include="Resources\Libraries\lua51.dll">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>lua51</Name>
-    </Content>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Resources\Libraries\LuaInterface.dll">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LuaInterface</Name>
     </Content>
-    <Content Include="Resources\Libraries\luanet.dll">
+    <EmbeddedResource Include="Resources\Libraries\luanet.dll">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>luanet</Name>
-    </Content>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Resources\Textures\blendingtexture.jpg">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>TextureImporter</Importer>
