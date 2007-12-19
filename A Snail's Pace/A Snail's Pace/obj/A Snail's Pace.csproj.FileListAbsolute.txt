@@ -8,9 +8,6 @@ H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A Snail's
 H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A Snail's Pace.pdb
 H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.exe
 H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.pdb
-H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Textures\riemerstexture.xnb
-H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Effects\effects.xnb
-H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Textures\blendingtexture.xnb
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.exe
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\bin\x86\Debug\A Snail's Pace.pdb
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\obj\x86\Debug\ResolveAssemblyReference.cache
@@ -19,3 +16,11 @@ C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A Snail's Pace.
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Textures\riemerstexture.xnb
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Textures\blendingtexture.xnb
 C:\Workspace\2dgames\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Effects\effects.xnb
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Textures\riemerstexture.xnb
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Textures\blendingtexture.xnb
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Effects\effects.xnb
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Libraries\lua51.dll
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\Resources\Libraries\luanet.dll
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\bin\x86\Debug\LuaInterface.dll
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A_Snail_s_Pace.Resources.Libraries.lua51.dll
+H:\2D Graphics Programming\A Snail's Pace\A Snail's Pace\obj\x86\Debug\A_Snail_s_Pace.Resources.Libraries.luanet.dll

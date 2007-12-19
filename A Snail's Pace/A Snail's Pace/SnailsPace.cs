@@ -114,8 +114,9 @@ namespace A_Snail_s_Pace
 
         void graphics_DeviceReset(object sender, EventArgs e)
         {
-            int targetFPS = graphics.GraphicsDevice.DisplayMode.RefreshRate;
-            TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (1 / targetFPS * 1000));
+            // Uncommenting this breaks toggle fullscreen
+            //int targetFPS = graphics.GraphicsDevice.DisplayMode.RefreshRate;
+            //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, (1 / targetFPS * 1000));
         }
 
 
