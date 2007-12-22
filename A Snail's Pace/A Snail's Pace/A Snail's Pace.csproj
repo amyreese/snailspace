@@ -161,6 +161,10 @@
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Design Document</Name>
     </None>
+    <None Include="Documents\Class Diagram.dia">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Class Diagram</Name>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA\Game Studio Express\v1.0\Microsoft.Xna.ContentPipeline.targets" />
