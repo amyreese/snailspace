@@ -125,6 +125,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Documents\readme.txt">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>readme</Name>
+    </Content>
     <Content Include="Resources\Effects\effects.fx">
       <XNAUseContentPipeline>true</XNAUseContentPipeline>
       <Importer>EffectImporter</Importer>
@@ -153,7 +157,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Documents\" />
+    <None Include="Documents\Design Document.doc">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Design Document</Name>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA\Game Studio Express\v1.0\Microsoft.Xna.ContentPipeline.targets" />
