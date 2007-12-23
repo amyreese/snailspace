@@ -19,71 +19,102 @@ namespace A_Snail_s_Pace
     /// </summary>
     public class SnailsPace : Microsoft.Xna.Framework.Game
     {
-        private GraphicsDeviceManager graphics;
-        private ContentManager content;
+        public Matrix viewMatrix;
+        public Matrix projectionMatrix;
 
-        private Dictionary<KeyCombination, ActionMapping> keyMapping;
-
+        #region Constructor & Instancing
         public SnailsPace()
         {
+            if (_instance != null)
+            {
+                throw new Exception("There was an attempt to create two Snail's Pace instances.");
+            }
+            _instance = this;
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
-            initializeKeyMappings();
+            initializeGameScreens();
         }
 
-        protected void initializeKeyMappings()
+        private static SnailsPace _instance;
+        public static SnailsPace getInstance()
         {
-            keyMapping = new Dictionary<KeyCombination, ActionMapping>();
-
-            // Exit
-            assignKeyToAction(new KeyCombination(Keys.Escape),
-                            new ActionMapping(new ActionMapping.KeyAction(this.exitGame),
-                            ActionMapping.Perform.OnKeyDown));
-
-            // Full screen toggle
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.RightAlt, Keys.Enter }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.toggleFullscreen),
-                            ActionMapping.Perform.OnKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.LeftAlt, Keys.Enter }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.toggleFullscreen),
-                            ActionMapping.Perform.OnKeyDown));
-
-            // Motion
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.Q }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.rotateCounterClockwise),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.E }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.rotateClockwise),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.W }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.moveUp),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.A }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.moveLeft),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.S }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.moveDown),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.D }),
-                            new ActionMapping(new ActionMapping.KeyAction(this.moveRight),
-                            ActionMapping.Perform.WhileKeyDown));
-        }
-
-        public void assignKeyToAction(KeyCombination keyCombination, ActionMapping action)
-        {
-            if (keyMapping.ContainsKey(keyCombination))
+            if (_instance == null)
             {
-#if DEBUG
-                ActionMapping oldAction;
-                keyMapping.TryGetValue(keyCombination, out oldAction);
-                debug("Key Combination \"" + keyCombination.ToString() + "\" re-assigned from \"" +
-                    oldAction.ToString() + "\" to \"" + action.ToString() + "\"");
-#endif
-                keyMapping.Remove(keyCombination);
+                throw new Exception("There was an attempt to get the Snail's Pace instance before it was created.");
             }
-            keyMapping.Add(keyCombination, action);
+            return _instance;
+        }
+        #endregion
+
+        #region Graphics and Content Managers
+
+        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager graphics
+        {
+            get
+            {
+                return _graphics;
+            }
+            private set
+            {
+                _graphics = value;
+            }
         }
 
+        private ContentManager _content;
+        public ContentManager content
+        {
+            get
+            {
+                return _content;
+            }
+            private set
+            {
+                _content = value;
+            }
+        }
+
+        #endregion
+
+        #region Game States and Screens
+
+        public enum GameStates
+        {
+            MainMenuLoading,
+            MainMenu,
+            GameLoading,
+            Game
+        }
+
+        private GameStates currentGameState = GameStates.MainMenuLoading;
+
+        public void changeState(GameStates toState)
+        {
+            if (!screens.ContainsKey(toState))
+            {
+                throw new Exception("Attempt to change to a state without a screen.");
+            }
+            currentGameState = toState;
+        }
+
+        private Dictionary<GameStates, Screen> screens;
+        internal Screen getScreen(GameStates forState)
+        {
+            return screens[forState];
+        }
+
+        protected void initializeGameScreens()
+        {
+            screens = new Dictionary<GameStates, Screen>();
+            screens.Add(GameStates.MainMenuLoading, new Screens.MainMenuLoadingScreen());
+            screens.Add(GameStates.MainMenu, new Screens.MainMenuScreen());
+            screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen());
+            screens.Add(GameStates.Game, new Screens.GameScreen());
+        }
+
+        #endregion
+
+        #region Debug Helpers
         /// <summary>
         /// Writes out a debug statement, if we're in debug mode
         /// </summary>
@@ -93,7 +124,9 @@ namespace A_Snail_s_Pace
         {
             Debug.WriteLine(msg);
         }
+        #endregion
 
+        #region Initialization, Loading, and Unloading
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -107,7 +140,6 @@ namespace A_Snail_s_Pace
             graphics.PreferMultiSampling = false;
             graphics.IsFullScreen = false;
             IsMouseVisible = true;
-
             base.Initialize();
         }
 
@@ -119,28 +151,11 @@ namespace A_Snail_s_Pace
         /// <param name="loadAllContent">Which type of content to load.</param>
         protected override void LoadGraphicsContent(bool loadAllContent)
         {
-            if (loadAllContent)
+            Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();
+            while (screenEnumerator.MoveNext())
             {
-                // TODO: Load any ResourceManagementMode.Automatic content
-                viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-                projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, this.Window.ClientBounds.Width / this.Window.ClientBounds.Height, 0.2f, 500.0f);
-                initializeSprites();
+                screenEnumerator.Current.Value.LoadGraphicsContent(loadAllContent);
             }
-
-            // TODO: Load any ResourceManagementMode.Manual content
-        }
-
-        public static Matrix viewMatrix;
-        public static Matrix projectionMatrix;
-
-        GenericSprite[] sprites;
-        protected void initializeSprites()
-        {
-            sprites = new GenericSprite[4];
-            sprites[0] = new Graphics.TestGraphics.TextureTestSprite(content, new Vector2(8, 5), new Vector2(0, 0), 0.01f);
-            sprites[1] = new Graphics.TestGraphics.TextureTestSprite(content, new Vector2(2, 2), new Vector2(4, 4), 0.00f);
-            sprites[2] = new Graphics.TestGraphics.TextureTestSprite(content, new Vector2(3, 3), new Vector2(0, 4), 0.02f);
-            sprites[3] = new Graphics.TestGraphics.TransparencyTestSprite(content, new Vector2(5, 8), new Vector2(8, 4), 0.00f);
         }
 
         /// <summary>
@@ -152,42 +167,19 @@ namespace A_Snail_s_Pace
         /// <param name="unloadAllContent">Which type of content to unload.</param>
         protected override void UnloadGraphicsContent(bool unloadAllContent)
         {
+            Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();
+            while (screenEnumerator.MoveNext())
+            {
+                screenEnumerator.Current.Value.UnloadGraphicsContent(unloadAllContent);
+            }
             if (unloadAllContent)
             {
-                // TODO: Unload any ResourceManagementMode.Automatic content
                 content.Unload();
             }
+        }
+        #endregion
 
-            // TODO: Unload any ResourceManagementMode.Manual content
-        }
-
-        protected void rotateClockwise(GameTime gameTime)
-        {
-            sprites[2].rotateClockwise(0.1f);
-        }
-
-        protected void rotateCounterClockwise(GameTime gameTime)
-        {
-            sprites[2].rotateCounterClockwise(0.1f);
-        }
-
-        protected void moveRight(GameTime gameTime)
-        {
-            sprites[2].moveRight(0.1f);
-        }
-        protected void moveLeft(GameTime gameTime)
-        {
-            sprites[2].moveLeft(0.1f);
-        }
-        protected void moveUp(GameTime gameTime)
-        {
-            sprites[2].moveUp(0.1f);
-        }
-        protected void moveDown(GameTime gameTime)
-        {
-            sprites[2].moveDown(0.1f);
-        }
-
+        #region Update & Draw
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input and playing audio.
@@ -195,34 +187,9 @@ namespace A_Snail_s_Pace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState keyboardState = Keyboard.GetState();
-            Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
-            while (keyMapEnum.MoveNext())
-            {
-                KeyCombination keyCombination = keyMapEnum.Current.Key;
-                ActionMapping actionMap = keyMapEnum.Current.Value;
-                bool keyDown = true;
-                Keys[] keys = keyCombination.getKeys();
-                for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
-                {
-                    if (keyboardState.IsKeyUp(keys[keyIndex]))
-                    {
-                        keyDown = false;
-                    }
-                }
-                if (keyDown)
-                {
-                    actionMap.keyDown(gameTime);
-                }
-                else
-                {
-                    actionMap.keyUp(gameTime);
-                }
-            }
+            screens[currentGameState].Update(gameTime);
             base.Update(gameTime);
         }
-
-
 
 #if DEBUG
         private int frames = 0;
@@ -233,14 +200,6 @@ namespace A_Snail_s_Pace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
-                Color.CornflowerBlue, 1.0f, 0);
-
-            for (int spriteIndex = 0; spriteIndex < sprites.Length; spriteIndex++)
-            {
-                sprites[spriteIndex].draw(graphics.GraphicsDevice);
-            }
-
 #if DEBUG
             frames = frames + 1;
             double fps = 0;
@@ -250,14 +209,16 @@ namespace A_Snail_s_Pace
             debug("FPS: " + fps);
             debug("Slow? " + gameTime.IsRunningSlowly);
 #endif
-
+            screens[currentGameState].Draw(gameTime);
             base.Draw(gameTime);
         }
+        #endregion
 
+        #region General Game Commands
         /// <summary>
         /// Toggles the game between full screen and windowed mode
         /// </summary>
-        protected void toggleFullscreen(GameTime gameTime)
+        public void toggleFullscreen(GameTime gameTime)
         {
             graphics.ToggleFullScreen();
         }
@@ -265,9 +226,20 @@ namespace A_Snail_s_Pace
         /// <summary>
         /// Exits the game
         /// </summary>
-        protected void exitGame(GameTime gameTime)
+        public void exitGame(GameTime gameTime)
         {
             this.Exit();
         }
+
+        public void startGame(GameTime gameTime)
+        {
+            changeState(GameStates.GameLoading);
+        }
+
+        public void goToMainMenu(GameTime gameTime)
+        {
+            changeState(GameStates.MainMenuLoading);
+        }
+        #endregion
     }
 }

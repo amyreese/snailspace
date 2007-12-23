@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using A_Snail_s_Pace.Graphics;
+using A_Snail_s_Pace.Input;
+
+namespace A_Snail_s_Pace.Screens
+{
+    class GameScreen : InputReadyScreen
+    {
+        public GameScreen()
+            : base()
+        {
+        }
+
+        #region Graphics Stuff
+        public override void LoadGraphicsContent(bool loadAllContent)
+        {
+            if (loadAllContent)
+            {
+                viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+                projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, SnailsPace.getInstance().Window.ClientBounds.Width / SnailsPace.getInstance().Window.ClientBounds.Height, 0.2f, 500.0f);
+                SnailsPace.getInstance().viewMatrix = viewMatrix;
+                SnailsPace.getInstance().projectionMatrix = projectionMatrix;
+                initializeSprites();
+            }
+        }
+
+        public override void UnloadGraphicsContent(bool unloadAllContent)
+        {
+            if (unloadAllContent)
+            {
+            }
+        }
+        protected Matrix viewMatrix;
+        protected Matrix projectionMatrix;
+        protected GenericSprite[] sprites;
+        protected void initializeSprites()
+        {
+            sprites = new GenericSprite[4];
+            sprites[0] = new Graphics.TestGraphics.TextureTestSprite(SnailsPace.getInstance().content, new Vector2(8, 5), new Vector2(0, 0), 0.01f);
+            sprites[1] = new Graphics.TestGraphics.TextureTestSprite(SnailsPace.getInstance().content, new Vector2(2, 2), new Vector2(4, 4), 0.00f);
+            sprites[2] = new Graphics.TestGraphics.TextureTestSprite(SnailsPace.getInstance().content, new Vector2(3, 3), new Vector2(0, 4), 0.02f);
+            sprites[3] = new Graphics.TestGraphics.TransparencyTestSprite(SnailsPace.getInstance().content, new Vector2(5, 8), new Vector2(8, 4), 0.00f);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            SnailsPace.getInstance().graphics.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
+                Color.CornflowerBlue, 1.0f, 0);
+
+            for (int spriteIndex = 0; spriteIndex < sprites.Length; spriteIndex++)
+            {
+                sprites[spriteIndex].draw(SnailsPace.getInstance().graphics.GraphicsDevice);
+            }
+        }
+        #endregion
+
+        public override bool ready()
+        {
+            return DateTime.Now.Second % 5 == 0;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            base.Update(gameTime);
+        }
+
+        #region Input Commands
+        protected override void initializeKeyMappings()
+        {
+            // Exit
+            assignKeyToAction(new KeyCombination(Keys.Escape),
+                            new ActionMapping(new ActionMapping.KeyAction(SnailsPace.getInstance().goToMainMenu),
+                            ActionMapping.Perform.OnKeyDown));
+
+            // Full screen toggle
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.RightAlt, Keys.Enter }),
+                            new ActionMapping(new ActionMapping.KeyAction(SnailsPace.getInstance().toggleFullscreen),
+                            ActionMapping.Perform.OnKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.LeftAlt, Keys.Enter }),
+                            new ActionMapping(new ActionMapping.KeyAction(SnailsPace.getInstance().toggleFullscreen),
+                            ActionMapping.Perform.OnKeyDown));
+
+            // Motion
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.Q }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.rotateCounterClockwise),
+                            ActionMapping.Perform.WhileKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.E }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.rotateClockwise),
+                            ActionMapping.Perform.WhileKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.W }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.moveUp),
+                            ActionMapping.Perform.WhileKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.A }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.moveLeft),
+                            ActionMapping.Perform.WhileKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.S }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.moveDown),
+                            ActionMapping.Perform.WhileKeyDown));
+            assignKeyToAction(new KeyCombination(new Keys[] { Keys.D }),
+                            new ActionMapping(new ActionMapping.KeyAction(this.moveRight),
+                            ActionMapping.Perform.WhileKeyDown));
+        }
+
+        protected void rotateClockwise(GameTime gameTime)
+        {
+            sprites[2].rotateClockwise(0.1f);
+        }
+
+        protected void rotateCounterClockwise(GameTime gameTime)
+        {
+            sprites[2].rotateCounterClockwise(0.1f);
+        }
+
+        protected void moveRight(GameTime gameTime)
+        {
+            sprites[2].moveRight(0.1f);
+        }
+        protected void moveLeft(GameTime gameTime)
+        {
+            sprites[2].moveLeft(0.1f);
+        }
+        protected void moveUp(GameTime gameTime)
+        {
+            sprites[2].moveUp(0.1f);
+        }
+        protected void moveDown(GameTime gameTime)
+        {
+            sprites[2].moveDown(0.1f);
+        }
+        #endregion
+
+
+    }
+}

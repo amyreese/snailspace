@@ -133,8 +133,8 @@ namespace A_Snail_s_Pace.Graphics
         protected void loadEffects(ContentManager content)
         {
             effect = content.Load<Effect>("Resources/Effects/effects");
-            effect.Parameters["xView"].SetValue(SnailsPace.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(SnailsPace.projectionMatrix);
+            effect.Parameters["xView"].SetValue(SnailsPace.getInstance().viewMatrix);
+            effect.Parameters["xProjection"].SetValue(SnailsPace.getInstance().projectionMatrix);
         }
 
         protected virtual void prepareEffect(GraphicsDevice graph, Effect effect)

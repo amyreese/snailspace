@@ -61,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>Screen</Name>
+    </Compile>
     <Compile Include="Lua\LuaConfig.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>LuaConfig</Name>
@@ -100,6 +104,30 @@
     <Compile Include="Program.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
       <Name>Program</Name>
+    </Compile>
+    <Compile Include="Screens\MainMenuScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>MainMenuScreen</Name>
+    </Compile>
+    <Compile Include="Screens\GameLoadingScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GameLoadingScreen</Name>
+    </Compile>
+    <Compile Include="Screens\GameScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>GameScreen</Name>
+    </Compile>
+    <Compile Include="Screens\InputReadyScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>InputReadyScreen</Name>
+    </Compile>
+    <Compile Include="Screens\LoadingScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>LoadingScreen</Name>
+    </Compile>
+    <Compile Include="Screens\MainMenuLoadingScreen.cs">
+      <XNAUseContentPipeline>false</XNAUseContentPipeline>
+      <Name>MainMenuLoadingScreen</Name>
     </Compile>
     <Compile Include="SnailsPace.cs">
       <XNAUseContentPipeline>false</XNAUseContentPipeline>
