@@ -1,0 +1,169 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{3508366f-62df-46b4-982e-907eed797697}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>A_Snail_s_Pace</RootNamespace>
+    <AssemblyName>A Snail%27s Pace</AssemblyName>
+    <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <StartupObject>
+    </StartupObject>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <XnaCrossPlatformGroupID>{87475da2-dd52-45d3-bf70-1f36bf9b6d8a}</XnaCrossPlatformGroupID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LuaInterface, Version=1.5.3.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Libraries\LuaInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Screen.cs">
+      <Name>Screen</Name>
+    </Compile>
+    <Compile Include="Lua\LuaConfig.cs">
+      <Name>LuaConfig</Name>
+    </Compile>
+    <Compile Include="Graphics\GenericBackgroundSprite.cs">
+      <Name>GenericBackgroundSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\GenericSprite.cs">
+      <Name>GenericSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\GenericBulletSprite.cs">
+      <Name>GenericBulletSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\TestGraphics\TextureTestSprite.cs">
+      <Name>TextureTestSprite</Name>
+    </Compile>
+    <Compile Include="Graphics\TestGraphics\TransparencyTestSprite.cs">
+      <Name>TransparencyTestSprite</Name>
+    </Compile>
+    <Compile Include="Input\ActionMapping.cs">
+      <Name>ActionMapping</Name>
+    </Compile>
+    <Compile Include="Input\KeyCombination.cs">
+      <Name>KeyCombination</Name>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <Name>AssemblyInfo</Name>
+    </Compile>
+    <Compile Include="Program.cs">
+      <Name>Program</Name>
+    </Compile>
+    <Compile Include="Screens\MainMenuScreen.cs">
+      <Name>MainMenuScreen</Name>
+    </Compile>
+    <Compile Include="Screens\GameLoadingScreen.cs">
+      <Name>GameLoadingScreen</Name>
+    </Compile>
+    <Compile Include="Screens\GameScreen.cs">
+      <Name>GameScreen</Name>
+    </Compile>
+    <Compile Include="Screens\InputReadyScreen.cs">
+      <Name>InputReadyScreen</Name>
+    </Compile>
+    <Compile Include="Screens\LoadingScreen.cs">
+      <Name>LoadingScreen</Name>
+    </Compile>
+    <Compile Include="Screens\MainMenuLoadingScreen.cs">
+      <Name>MainMenuLoadingScreen</Name>
+    </Compile>
+    <Compile Include="SnailsPace.cs">
+      <Name>SnailsPace</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico">
+      <Name>Game</Name>
+    </Content>
+    <Content Include="GameThumbnail.png">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documents\readme.txt">
+      <Name>readme</Name>
+    </Content>
+    <EmbeddedResource Include="Resources\Libraries\lua51.dll">
+      <Name>lua51</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Resources\Libraries\LuaInterface.dll">
+      <Name>LuaInterface</Name>
+    </Content>
+    <EmbeddedResource Include="Resources\Libraries\luanet.dll">
+      <Name>luanet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Documents\Design Document.doc">
+      <Name>Design Document</Name>
+    </None>
+    <None Include="Documents\Class Diagram.dia">
+      <Name>Class Diagram</Name>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <NestedContentProject Include="Content.contentproj">
+      <Project>{6e9d3ed5-2070-4a99-b89d-7d9d6a735f81}</Project>
+      <Visible>False</Visible>
+    </NestedContentProject>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.NestedContent.targets" />
+</Project>
