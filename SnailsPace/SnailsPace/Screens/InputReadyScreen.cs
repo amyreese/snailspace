@@ -11,7 +11,7 @@ namespace A_Snail_s_Pace.Screens
     {
         protected Dictionary<KeyCombination, ActionMapping> keyMapping;
 
-        public InputReadyScreen( Game game ) : base( game )
+        public InputReadyScreen( SnailsPace game ) : base( game )
         {
             keyMapping = new Dictionary<KeyCombination, ActionMapping>();
             initializeKeyMappings();

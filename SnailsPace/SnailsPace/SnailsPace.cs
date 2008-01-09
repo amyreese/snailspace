@@ -30,8 +30,8 @@ namespace A_Snail_s_Pace
                 throw new Exception("There was an attempt to create two Snail's Pace instances.");
             }
             _instance = this;
+
             graphics = new GraphicsDeviceManager(this);
-            content = new ContentManager(Services);
             initializeGameScreens();
         }
 
@@ -60,20 +60,6 @@ namespace A_Snail_s_Pace
                 _graphics = value;
             }
         }
-
-        private ContentManager _content;
-        public ContentManager content
-        {
-            get
-            {
-                return _content;
-            }
-            private set
-            {
-                _content = value;
-            }
-        }
-
         #endregion
 
         #region Game States and Screens
@@ -181,7 +167,6 @@ namespace A_Snail_s_Pace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            screens[currentGameState].Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -203,7 +188,6 @@ namespace A_Snail_s_Pace
             debug("FPS: " + fps);
             debug("Slow? " + gameTime.IsRunningSlowly);
 #endif
-            screens[currentGameState].Draw(gameTime);
             base.Draw(gameTime);
         }
         #endregion

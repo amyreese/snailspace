@@ -8,7 +8,7 @@ namespace A_Snail_s_Pace.Screens
 {
     class MainMenuLoadingScreen : LoadingScreen
     {
-        public MainMenuLoadingScreen( Game game )
+        public MainMenuLoadingScreen( SnailsPace game )
             : base(game, SnailsPace.GameStates.MainMenu)
         {
         }
@@ -23,7 +23,7 @@ namespace A_Snail_s_Pace.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            SnailsPace.getInstance().graphics.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
+            GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Green, 1.0f, 0);
         }
 
