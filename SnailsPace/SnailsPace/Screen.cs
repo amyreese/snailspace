@@ -7,11 +7,23 @@ namespace A_Snail_s_Pace
     {
         protected SnailsPace snailsPace;
 
-        protected Screen(SnailsPace game) : base(game) 
+        protected Screen(SnailsPace game)
+            : base(game)
         {
             snailsPace = game;
         }
 
-        public abstract bool ready();
+        private bool _ready = false;
+        public bool ready
+        {
+            get
+            {
+                return _ready;
+            }
+            protected set
+            {
+                _ready = value;
+            }
+        }
     }
 }

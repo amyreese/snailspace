@@ -27,10 +27,13 @@ namespace A_Snail_s_Pace.Screens
             snailsPace.viewMatrix = viewMatrix;
             snailsPace.projectionMatrix = projectionMatrix;
             initializeSprites();
+            base.LoadContent();
+            ready = true;
         }
 
         protected override void UnloadContent()
         {
+            base.UnloadContent();
         }
 
         protected Matrix viewMatrix;
@@ -57,14 +60,8 @@ namespace A_Snail_s_Pace.Screens
         }
         #endregion
 
-        public override bool ready()
-        {
-            return DateTime.Now.Second % 5 == 0;
-        }
-
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
         }
 

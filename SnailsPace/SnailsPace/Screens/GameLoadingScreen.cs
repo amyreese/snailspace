@@ -9,7 +9,7 @@ namespace A_Snail_s_Pace.Screens
 {
     class GameLoadingScreen : LoadingScreen
     {
-        public GameLoadingScreen( SnailsPace game )
+        public GameLoadingScreen(SnailsPace game)
             : base(game, SnailsPace.GameStates.Game)
         {
         }
@@ -26,11 +26,6 @@ namespace A_Snail_s_Pace.Screens
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Red, 1.0f, 0);
-        }
-
-        public override bool ready()
-        {
-            return true;
         }
     }
 }

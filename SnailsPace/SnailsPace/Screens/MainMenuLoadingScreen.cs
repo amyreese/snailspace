@@ -8,7 +8,7 @@ namespace A_Snail_s_Pace.Screens
 {
     class MainMenuLoadingScreen : LoadingScreen
     {
-        public MainMenuLoadingScreen( SnailsPace game )
+        public MainMenuLoadingScreen(SnailsPace game)
             : base(game, SnailsPace.GameStates.MainMenu)
         {
         }
@@ -25,11 +25,6 @@ namespace A_Snail_s_Pace.Screens
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Green, 1.0f, 0);
-        }
-
-        public override bool ready()
-        {
-            return true;
         }
     }
 }

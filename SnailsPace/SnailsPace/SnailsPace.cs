@@ -32,6 +32,7 @@ namespace A_Snail_s_Pace
             _instance = this;
 
             graphics = new GraphicsDeviceManager(this);
+            //Content.RootDirectory = "Content";
             initializeGameScreens();
         }
 
@@ -68,6 +69,7 @@ namespace A_Snail_s_Pace
         {
             MainMenuLoading,
             MainMenu,
+            SettingsMenu,
             GameLoading,
             Game
         }
@@ -97,7 +99,8 @@ namespace A_Snail_s_Pace
         {
             screens = new Dictionary<GameStates, Screen>();
             screens.Add(GameStates.MainMenuLoading, new Screens.MainMenuLoadingScreen(this));
-            screens.Add(GameStates.MainMenu, new Screens.MainMenuScreen(this));
+            screens.Add(GameStates.MainMenu, new Screens.Menus.MainMenuScreen(this));
+            screens.Add(GameStates.SettingsMenu, new Screens.Menus.SettingsMenuScreen(this));
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
             Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();

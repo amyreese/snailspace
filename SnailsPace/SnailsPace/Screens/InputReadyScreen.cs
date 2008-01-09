@@ -11,7 +11,8 @@ namespace A_Snail_s_Pace.Screens
     {
         protected Dictionary<KeyCombination, ActionMapping> keyMapping;
 
-        public InputReadyScreen( SnailsPace game ) : base( game )
+        public InputReadyScreen(SnailsPace game)
+            : base(game)
         {
             keyMapping = new Dictionary<KeyCombination, ActionMapping>();
             initializeKeyMappings();
@@ -19,32 +20,47 @@ namespace A_Snail_s_Pace.Screens
 
         protected abstract void initializeKeyMappings();
 
+        private TimeSpan timeSinceUpdatesStarted = new TimeSpan();
+        private int millisecondsBeforeInputAccepted = 250;
         public override void Update(GameTime gameTime)
         {
-            KeyboardState keyboardState = Keyboard.GetState();
-            Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
-            while (keyMapEnum.MoveNext())
+            if (timeSinceUpdatesStarted.TotalMilliseconds > millisecondsBeforeInputAccepted)
             {
-                KeyCombination keyCombination = keyMapEnum.Current.Key;
-                ActionMapping actionMap = keyMapEnum.Current.Value;
-                bool keyDown = true;
-                Keys[] keys = keyCombination.getKeys();
-                for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
+                KeyboardState keyboardState = Keyboard.GetState();
+                Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
+                while (keyMapEnum.MoveNext())
                 {
-                    if (keyboardState.IsKeyUp(keys[keyIndex]))
+                    KeyCombination keyCombination = keyMapEnum.Current.Key;
+                    ActionMapping actionMap = keyMapEnum.Current.Value;
+                    bool keyDown = true;
+                    Keys[] keys = keyCombination.getKeys();
+                    for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
                     {
-                        keyDown = false;
+                        if (keyboardState.IsKeyUp(keys[keyIndex]))
+                        {
+                            keyDown = false;
+                        }
+                    }
+                    if (keyDown)
+                    {
+                        actionMap.keyDown(gameTime);
+                    }
+                    else
+                    {
+                        actionMap.keyUp(gameTime);
                     }
                 }
-                if (keyDown)
-                {
-                    actionMap.keyDown(gameTime);
-                }
-                else
-                {
-                    actionMap.keyUp(gameTime);
-                }
             }
+            else
+            {
+                timeSinceUpdatesStarted = timeSinceUpdatesStarted.Add(gameTime.ElapsedRealTime);
+            }
+        }
+
+        protected override void OnEnabledChanged(object sender, EventArgs args)
+        {
+            timeSinceUpdatesStarted = new TimeSpan();
+            base.OnEnabledChanged(sender, args);
         }
 
         public void assignKeyToAction(KeyCombination keyCombination, ActionMapping action)
