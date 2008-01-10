@@ -19,6 +19,8 @@ namespace A_Snail_s_Pace.Screens
         {
         }
 
+		private Helix helix;
+
         #region Graphics Stuff
         protected override void LoadContent()
         {
@@ -27,8 +29,13 @@ namespace A_Snail_s_Pace.Screens
             snailsPace.viewMatrix = viewMatrix;
             snailsPace.projectionMatrix = projectionMatrix;
             initializeSprites();
+<<<<<<< .mine
+			helix = new Helix(this.Game);
+			helix.Initialize();
+=======
             base.LoadContent();
             ready = true;
+>>>>>>> .r430
         }
 
         protected override void UnloadContent()
@@ -52,7 +59,7 @@ namespace A_Snail_s_Pace.Screens
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.CornflowerBlue, 1.0f, 0);
-
+			helix.draw();
             for (int spriteIndex = 0; spriteIndex < sprites.Length; spriteIndex++)
             {
                 sprites[spriteIndex].draw(GraphicsDevice);
@@ -114,11 +121,17 @@ namespace A_Snail_s_Pace.Screens
 
         protected void moveRight(GameTime gameTime)
         {
-            sprites[2].moveRight(0.1f);
+            //sprites[2].moveRight(0.1f);
+			helix.moveRight(1);
+			helix.update(gameTime);
+			
         }
         protected void moveLeft(GameTime gameTime)
         {
-            sprites[2].moveLeft(0.1f);
+            //sprites[2].moveLeft(0.1f);
+			helix.moveLeft(1);
+			helix.update(gameTime);
+			
         }
         protected void moveUp(GameTime gameTime)
         {

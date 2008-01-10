@@ -54,6 +54,37 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
+<<<<<<< .mine
+  <ItemGroup>
+    <Compile Include="Resources\Textures\Bee_1.png">
+      <Name>Bee_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Resources\Textures\BlackAnt_1.png">
+      <Name>BlackAnt_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Resources\Textures\FireAnt_1.png">
+      <Name>FireAnt_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Resources\Textures\Helix.png">
+      <Name>Helix</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Textures\HelixTable.png">
+      <Name>HelixTable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+=======
   <ItemGroup>
     <Compile Include="menufont.spritefont">
       <Name>menufont</Name>
@@ -61,6 +92,7 @@
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
+>>>>>>> .r430
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

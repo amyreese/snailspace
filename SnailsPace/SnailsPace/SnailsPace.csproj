@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< .mine
+    <Compile Include="Graphics\Helix.cs" />
+=======
     <Compile Include="GameEngine.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Objects\Map.cs" />
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Trigger.cs" />
+>>>>>>> .r430
     <Compile Include="Screen.cs">
       <Name>Screen</Name>
     </Compile>
@@ -145,6 +149,11 @@
     <Content Include="Resources\Libraries\LuaInterface.dll">
       <Name>LuaInterface</Name>
     </Content>
+    <Content Include="Resources\Textures\Bee_1.png" />
+    <Content Include="Resources\Textures\BlackAnt_1.png" />
+    <Content Include="Resources\Textures\FireAnt_1.png" />
+    <Content Include="Resources\Textures\Helix.png" />
+    <Content Include="Resources\Textures\HelixTable.png" />
     <EmbeddedResource Include="Resources\Libraries\luanet.dll">
       <Name>luanet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
