@@ -80,7 +80,7 @@ namespace A_Snail_s_Pace.Graphics
 					}
 				}
 			}
-			//base.Update(gameTime);
+			base.Update(gameTime);
 		}
 		
 		public void moveLeft(int amt)

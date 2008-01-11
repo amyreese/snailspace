@@ -29,13 +29,10 @@ namespace A_Snail_s_Pace.Screens
             snailsPace.viewMatrix = viewMatrix;
             snailsPace.projectionMatrix = projectionMatrix;
             initializeSprites();
-<<<<<<< .mine
 			helix = new Helix(this.Game);
 			helix.Initialize();
-=======
             base.LoadContent();
             ready = true;
->>>>>>> .r430
         }
 
         protected override void UnloadContent()

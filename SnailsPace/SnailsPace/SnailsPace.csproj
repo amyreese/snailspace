@@ -60,9 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< .mine
     <Compile Include="Graphics\Helix.cs" />
-=======
     <Compile Include="GameEngine.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
@@ -72,7 +70,6 @@
     <Compile Include="Objects\Map.cs" />
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Trigger.cs" />
->>>>>>> .r430
     <Compile Include="Screen.cs">
       <Name>Screen</Name>
     </Compile>
