@@ -39,7 +39,7 @@ namespace SnailsPace
 			helSprite.image = new Objects.Image();
 			helSprite.image.filename = "Resources/Textures/HelixTable";
 			helSprite.image.blocks = new Vector2(4.0f, 4.0f);
-			helSprite.image.size = new Vector2(10.0f, 10.0f);
+			helSprite.image.size = new Vector2(128.0f, 128.0f);
 			helSprite.visible = true;
 			helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
 			helix.sprites.Add("Snail", helSprite);

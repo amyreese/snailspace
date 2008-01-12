@@ -23,7 +23,7 @@ namespace SnailsPace
 
 		VertexPositionTexture[] vertices;
 
-		private Texture2D texture;
+		private Dictionary<String, Texture2D> texture;
 
         public GameRenderer()
         {
@@ -31,8 +31,25 @@ namespace SnailsPace
 			cameraTargetPosition = new Vector3(0, 0, normalCameraDistance);
 			cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0,0,-1), Vector3.Up);
 			setUpVertices();
-			texture = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/riemerstexture");
+
+			//TODO: Iterate through game objects, take filename from sprite image, create texture 2D for it, put into dictionary, maps image filename to texture2D
+
         }
+
+		public void createTextures(List<Objects.GameObject> objects)
+		{
+			List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
+			while (objectEnumerator.MoveNext())
+			{
+				Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
+				while (spriteEnumerator.MoveNext())
+				{
+					ContentManager aLoader = SnailsPace.getInstance().Content;
+					Texture2D temp = aLoader.Load<Texture2D>(spriteEnumerator.Current.image.filename) as Texture2D;
+					texture.Add(spriteEnumerator.Current.image.filename, temp);
+				}
+			}
+		}
 
         public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
@@ -80,7 +97,7 @@ namespace SnailsPace
 							spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(worldMatrix);
 
 							// TODO: pull the appropraite texture
-							spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture);
+							spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
 
 							spriteEnumerator.Current.effect.Begin();
 							foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
