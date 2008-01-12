@@ -33,8 +33,8 @@ namespace A_Snail_s_Pace
         {
             lua = new Lua();
 
-            doubleDefaultValues = defaultDoubles;
-            stringDefaultValues = defaultStrings;
+            doubleDefaultValues = new Dictionary<string,double>(defaultDoubles);
+            stringDefaultValues = new Dictionary<string,string>(defaultStrings);
 
             doubleValues = new Dictionary<string, double>();
             stringValues = new Dictionary<string, string>();
