@@ -188,4 +188,7 @@
   </ProjectExtensions>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.NestedContent.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(ProjectDir)Resources\Libraries\*" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
