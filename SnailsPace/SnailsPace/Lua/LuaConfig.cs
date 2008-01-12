@@ -43,7 +43,7 @@ namespace A_Snail_s_Pace
         /**
          * Return the combined double values
          */
-        public Dictionary<String, Double> getStrings()
+        public Dictionary<String, Double> getDoubles()
         {
             Dictionary<String, Double> doubles = new Dictionary<String, Double>(doubleDefaultValues);
 
