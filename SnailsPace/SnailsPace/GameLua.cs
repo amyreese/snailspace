@@ -10,17 +10,35 @@ namespace SnailsPace
         public GameLua()
             : base()
         {
+        }
+
+        public void init()
+        {
             #region Lua initialization of C# classes
             String initCode = @" 
 
-load_assembly('SnailsPace'); 
-Bullet = import_type('SnailsPace.Objects.Bullet');
+using = luanet.load_assembly;
+import = luanet.import_type;
+
+using('SnailsPace');
+
+Trigger = import('SnailsPace.Objects.Trigger');
+
+Image = import('SnailsPace.Objects.Image');
+Sprite = import('SnailsPace.Objects.Sprite');
+Text = import('SnailsPace.Objects.Text');
+
+GameObject = import('SnailsPace.Objects.GameObject');
+Bullet = import('SnailsPace.Objects.Bullet');
+Character = import('SnailsPace.Objects.Character');
+Helix = import('SnailsPace.Objects.Helix');
+
+Map = import('SnailsPace.Objects.Map');
             
             ";
             #endregion
 
             this.DoString(initCode);
-
         }
     }
 }

@@ -22,6 +22,9 @@ namespace SnailsPace
         // Constructors
         public GameEngine(String map)
         {
+            GameLua lua = new GameLua();
+            lua.init();
+
             // TODO: Load the map object from Lua
 
             // TODO: Initialize Helix;
