@@ -90,10 +90,9 @@ namespace A_Snail_s_Pace.Screens.Menus
         }
         #endregion
 
-        TimeSpan timeSinceLastMenuMove = new TimeSpan(0,0,5);
+        TimeSpan timeOfLastMenuMove = new TimeSpan();
         public override void Update(GameTime gameTime)
         {
-            timeSinceLastMenuMove = timeSinceLastMenuMove.Add(gameTime.ElapsedRealTime);
             base.Update(gameTime);
         }
 
@@ -129,9 +128,9 @@ namespace A_Snail_s_Pace.Screens.Menus
         int minimumMillisecondsBetweenMenuMoves = 150;
 		protected void PreviousMenuItem(GameTime gameTime)
         {
-            if (timeSinceLastMenuMove.Milliseconds > minimumMillisecondsBetweenMenuMoves)
+            if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves )
             {
-                timeSinceLastMenuMove = new TimeSpan();
+                timeOfLastMenuMove = gameTime.TotalRealTime;
                 menuItems[menuItemIndex].Selected = false;
                 menuItemIndex--;
                 if (menuItemIndex < 0)
@@ -143,10 +142,10 @@ namespace A_Snail_s_Pace.Screens.Menus
         }
 		protected void NextMenuItem(GameTime gameTime)
         {
-            if (timeSinceLastMenuMove.Milliseconds > minimumMillisecondsBetweenMenuMoves)
-            {
-                timeSinceLastMenuMove = new TimeSpan();
-                menuItems[menuItemIndex].Selected = false;
+			if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
+			{
+				timeOfLastMenuMove = gameTime.TotalRealTime;
+				menuItems[menuItemIndex].Selected = false;
                 menuItemIndex++;
                 if (menuItemIndex >= menuItems.Length)
                 {

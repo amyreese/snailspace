@@ -18,8 +18,15 @@ namespace A_Snail_s_Pace
     /// This is the main type for your game
     /// </summary>
     public class SnailsPace : Microsoft.Xna.Framework.Game
-    {
-        public Matrix viewMatrix;
+	{
+		#region Debug flags
+#if DEBUG
+		public const bool debugFramerate = true;
+		public const bool debugKeyAssignments = true;
+#endif
+		#endregion
+
+		public Matrix viewMatrix;
         public Matrix projectionMatrix;
 
         #region Constructor & Instancing
@@ -186,13 +193,16 @@ namespace A_Snail_s_Pace
         protected override void Draw(GameTime gameTime)
         {
 #if DEBUG
-            frames = frames + 1;
-            double fps = 0;
-            fps = Math.Round(frames / gameTime.TotalRealTime.TotalSeconds);
-            debug("Average FPS: " + fps);
-            fps = Math.Round(1000 / gameTime.ElapsedRealTime.TotalMilliseconds);
-            debug("FPS: " + fps);
-            debug("Slow? " + gameTime.IsRunningSlowly);
+			if (debugFramerate)
+			{
+				frames = frames + 1;
+				double fps = 0;
+				fps = Math.Round(frames / gameTime.TotalRealTime.TotalSeconds);
+				debug("Average FPS: " + fps);
+				fps = Math.Round(1000 / gameTime.ElapsedRealTime.TotalMilliseconds);
+				debug("FPS: " + fps);
+				debug("Slow? " + gameTime.IsRunningSlowly);
+			}
 #endif
             base.Draw(gameTime);
         }

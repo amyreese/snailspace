@@ -20,46 +20,47 @@ namespace A_Snail_s_Pace.Screens
 
         protected abstract void initializeKeyMappings();
 
-        private TimeSpan timeSinceUpdatesStarted = new TimeSpan();
+        private TimeSpan timeWhenUpdatesStart = new TimeSpan();
         private int millisecondsBeforeInputAccepted = 250;
         public override void Update(GameTime gameTime)
         {
-            if (timeSinceUpdatesStarted.TotalMilliseconds > millisecondsBeforeInputAccepted)
-            {
-                KeyboardState keyboardState = Keyboard.GetState();
-                Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
-                while (keyMapEnum.MoveNext())
-                {
-                    KeyCombination keyCombination = keyMapEnum.Current.Key;
-                    ActionMapping actionMap = keyMapEnum.Current.Value;
-                    bool keyDown = true;
-                    Keys[] keys = keyCombination.getKeys();
-                    for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
-                    {
-                        if (keyboardState.IsKeyUp(keys[keyIndex]))
-                        {
-                            keyDown = false;
-                        }
-                    }
-                    if (keyDown)
-                    {
-                        actionMap.keyDown(gameTime);
-                    }
-                    else
-                    {
-                        actionMap.keyUp(gameTime);
-                    }
-                }
-            }
-            else
-            {
-                timeSinceUpdatesStarted = timeSinceUpdatesStarted.Add(gameTime.ElapsedRealTime);
-            }
+			if (timeWhenUpdatesStart.TotalMilliseconds == 0)
+			{
+				timeWhenUpdatesStart = gameTime.TotalGameTime.Add(new TimeSpan(0, 0, 0, 0, millisecondsBeforeInputAccepted));
+			}
+			if (gameTime.TotalGameTime.Subtract(timeWhenUpdatesStart).TotalMilliseconds > 0)
+			{
+				KeyboardState keyboardState = Keyboard.GetState();
+				Dictionary<KeyCombination, ActionMapping>.Enumerator keyMapEnum = keyMapping.GetEnumerator();
+				while (keyMapEnum.MoveNext())
+				{
+					KeyCombination keyCombination = keyMapEnum.Current.Key;
+					ActionMapping actionMap = keyMapEnum.Current.Value;
+					bool keyDown = true;
+					Keys[] keys = keyCombination.getKeys();
+					for (int keyIndex = 0; keyDown && keyIndex < keys.Length; keyIndex++)
+					{
+						if (keyboardState.IsKeyUp(keys[keyIndex]))
+						{
+							keyDown = false;
+						}
+					}
+					if (keyDown)
+					{
+						actionMap.keyDown(gameTime);
+					}
+					else
+					{
+						actionMap.keyUp(gameTime);
+					}
+				}
+			}
         }
 
         protected override void OnEnabledChanged(object sender, EventArgs args)
         {
-            timeSinceUpdatesStarted = new TimeSpan();
+
+			timeWhenUpdatesStart = new TimeSpan();
             base.OnEnabledChanged(sender, args);
         }
 
@@ -68,10 +69,13 @@ namespace A_Snail_s_Pace.Screens
             if (keyMapping.ContainsKey(keyCombination))
             {
 #if DEBUG
-                ActionMapping oldAction;
-                keyMapping.TryGetValue(keyCombination, out oldAction);
-                SnailsPace.debug("Key Combination \"" + keyCombination.ToString() + "\" re-assigned from \"" +
-                    oldAction.ToString() + "\" to \"" + action.ToString() + "\"");
+				if (SnailsPace.debugKeyAssignments)
+				{
+					ActionMapping oldAction;
+					keyMapping.TryGetValue(keyCombination, out oldAction);
+					SnailsPace.debug("Key Combination \"" + keyCombination.ToString() + "\" re-assigned from \"" +
+						oldAction.ToString() + "\" to \"" + action.ToString() + "\"");
+				}
 #endif
                 keyMapping.Remove(keyCombination);
             }
