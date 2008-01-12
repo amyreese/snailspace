@@ -10,10 +10,10 @@
     <AssemblyName>A Snail%27s Pace</AssemblyName>
     <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Game.ico</ApplicationIcon>
     <StartupObject>
     </StartupObject>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>Resources\GameThumbnail.png</Thumbnail>
     <XnaCrossPlatformGroupID>{87475da2-dd52-45d3-bf70-1f36bf9b6d8a}</XnaCrossPlatformGroupID>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -129,10 +129,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game.ico">
+    <Content Include="Resources\Game.ico">
       <Name>Game</Name>
     </Content>
-    <Content Include="GameThumbnail.png">
+    <Content Include="Resources\GameThumbnail.png">
     </Content>
   </ItemGroup>
   <ItemGroup>
