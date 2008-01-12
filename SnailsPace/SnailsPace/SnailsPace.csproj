@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Graphics\Helix.cs" />
     <Compile Include="GameEngine.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\GameObject.cs" />

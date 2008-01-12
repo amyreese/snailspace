@@ -33,6 +33,9 @@ namespace A_Snail_s_Pace
 
             graphics = new GraphicsDeviceManager(this);
             //Content.RootDirectory = "Content";
+
+            InputManager inputs = new InputManager();
+
             initializeGameScreens();
         }
 
