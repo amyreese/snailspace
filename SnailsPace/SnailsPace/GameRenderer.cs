@@ -16,6 +16,7 @@ namespace SnailsPace
 		public Matrix cameraProjection;
 		public const float normalCameraDistance = 5.0f;
 		public const float minimumCameraMovement = 0.001f;
+		public const float cameraSpeed = 2.0f;
 
 		// Set distance from the camera of the near and far clipping planes.
 		static float nearClip = 0.1f;
@@ -38,6 +39,7 @@ namespace SnailsPace
 
 		public void createTextures(List<Objects.GameObject> objects)
 		{
+			texture = new Dictionary<string, Texture2D>();
 			List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
 			while (objectEnumerator.MoveNext())
 			{
@@ -56,7 +58,7 @@ namespace SnailsPace
 			SnailsPace.getInstance().GraphicsDevice.Clear(Color.CornflowerBlue);
 			if (!cameraPosition.Equals(cameraTargetPosition))
 			{
-				Vector3 cameraPositionMovement = ( ( cameraTargetPosition - cameraPosition ) / 2.0f ) * ( Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1) * 2.0f );
+				Vector3 cameraPositionMovement = ( ( cameraTargetPosition - cameraPosition ) / 2.0f ) * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1) * cameraSpeed;
 				cameraPosition = cameraPosition + cameraPositionMovement;
 				if (Math.Abs(cameraPositionMovement.X) < minimumCameraMovement)
 				{

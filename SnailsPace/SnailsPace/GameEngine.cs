@@ -59,6 +59,7 @@ namespace SnailsPace
 			bullets = new List<Objects.Bullet>();
 
 			gameRenderer = new GameRenderer();
+			gameRenderer.createTextures(allObjects());
         }
 
         public void think(GameTime gameTime)
@@ -97,10 +98,15 @@ namespace SnailsPace
         {
             // TODO: iterate through map.objects, map.characters, and this.bullets to gather all visible sprites
             // and then send the list of sprites to the rendering system.
+			// TODO: add bullets
+			gameRenderer.render(allObjects(), null, gameTime);
+        }
+
+		private List<Objects.GameObject> allObjects()
+		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.Add(helix);
-			// TODO: add bullets
-			gameRenderer.render(objects, null, gameTime);
-        }
+			return objects;
+		}
     }
 }
