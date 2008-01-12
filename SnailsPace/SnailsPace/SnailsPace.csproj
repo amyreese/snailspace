@@ -108,6 +108,7 @@
     <Compile Include="Program.cs">
       <Name>Program</Name>
     </Compile>
+    <Compile Include="Screens\OldGameScreen.cs" />
     <Compile Include="Screens\Menus\SettingsMenuScreen.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
     <Compile Include="Screens\Menus\MainMenuScreen.cs">
