@@ -27,6 +27,7 @@ namespace A_Snail_s_Pace.Screens
 			// TODO pass in a map
 			engine = new GameEngine("");
 			base.LoadContent();
+			this.ready = true;
         }
 
         protected override void UnloadContent()
