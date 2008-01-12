@@ -152,7 +152,11 @@ namespace A_Snail_s_Pace.Graphics
 
         public void draw(GraphicsDevice graph)
         {
-            prepareEffect(graph, effect);
+			effect.CurrentTechnique = effect.Techniques["Textured"];
+			Matrix worldMatrix = Matrix.CreateScale(size) * Matrix.CreateRotationZ(rotation) *
+				Matrix.CreateTranslation(position);
+			effect.Parameters["xWorld"].SetValue(worldMatrix);
+			effect.Parameters["xTexture"].SetValue(texture);
             effect.Begin();
             foreach (EffectPass pass in effect.CurrentTechnique.Passes)
             {

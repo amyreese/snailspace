@@ -16,12 +16,17 @@ namespace A_Snail_s_Pace
         // Bullets
         public List<Objects.Bullet> bullets;
 
+		// Renderer
+		public GameRenderer gameRenderer;
+
         // Constructors
         public GameEngine(String map)
         {
             // TODO: Load the map object from Lua
 
             // TODO: Initialize Helix;
+
+			gameRenderer = new GameRenderer();
         }
 
         public void think(GameTime gameTime)
@@ -42,6 +47,7 @@ namespace A_Snail_s_Pace
         {
             // TODO: iterate through map.objects, map.characters, and this.bullets to gather all visible sprites
             // and then send the list of sprites to the rendering system.
+			gameRenderer.render(null, null);
         }
     }
 }
