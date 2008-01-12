@@ -10,10 +10,10 @@ namespace SnailsPace
     class GameRenderer
     {
         // Camera information
-        private Vector3 cameraPosition;
-        private Vector3 cameraTargetPosition;
-        private Matrix cameraView;
-		private Matrix cameraProjection;
+        public Vector3 cameraPosition;
+        public Vector3 cameraTargetPosition;
+        public Matrix cameraView;
+		public Matrix cameraProjection;
 		public const float normalCameraDistance = 5.0f;
 		public const float minimumCameraMovement = 0.001f;
 

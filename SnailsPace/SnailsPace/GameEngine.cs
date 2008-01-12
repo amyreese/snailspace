@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SnailsPace
@@ -57,10 +58,20 @@ namespace SnailsPace
 				charEnum.Current.think(gameTime);
 			}
 
+			KeyboardState keyboardState = Keyboard.GetState();
+			if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
+			{
+				helix.position.X -= 0.15f;
+				gameRenderer.cameraTargetPosition.X -= 0.15f;
+			}
+			else if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+			{
+				helix.position.X += 0.15f;
+				gameRenderer.cameraTargetPosition.X += 0.15f;
+			}
+
             // TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
-
-
         }
 
 		public void physics(GameTime gameTime)
