@@ -25,15 +25,63 @@ namespace A_Snail_s_Pace
         /**
          * Initialize the dictionaries and the interpreter
          */
-        public LuaConfig()
+        public LuaConfig() : this( new Dictionary<string, double>(), new Dictionary<string, string>() )
+        {     
+        }
+
+        public LuaConfig(Dictionary<String, Double> defaultDoubles, Dictionary<String, String> defaultStrings)
         {
             lua = new Lua();
 
-            doubleDefaultValues = new Dictionary<string, double>();
-            stringDefaultValues = new Dictionary<string, string>();
+            doubleDefaultValues = defaultDoubles;
+            stringDefaultValues = defaultStrings;
 
             doubleValues = new Dictionary<string, double>();
             stringValues = new Dictionary<string, string>();
+        }
+
+        /**
+         * Return the combined double values
+         */
+        public Dictionary<String, Double> getStrings()
+        {
+            Dictionary<String, Double> doubles = new Dictionary<String, Double>(doubleDefaultValues);
+
+            foreach (KeyValuePair<String, Double> pair in doubleValues)
+            {
+                if (doubles.ContainsKey(pair.Key))
+                {
+                    doubles[pair.Key] = pair.Value;
+                }
+                else
+                {
+                    doubles.Add(pair.Key, pair.Value);
+                }
+            }
+
+            return doubles;
+        }
+
+        /**
+         * Return the combined string values
+         */
+        public Dictionary<String, String> getStrings()
+        {
+            Dictionary<String, String> strings = new Dictionary<string,string>(stringDefaultValues);
+
+            foreach (KeyValuePair<String, String> pair in stringValues)
+            {
+                if (strings.ContainsKey(pair.Key))
+                {
+                    strings[pair.Key] = pair.Value;
+                }
+                else
+                {
+                    strings.Add(pair.Key, pair.Value);
+                }
+            }
+
+            return strings;
         }
 
         /**
