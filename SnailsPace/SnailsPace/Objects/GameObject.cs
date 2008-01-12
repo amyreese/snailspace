@@ -9,6 +9,7 @@ namespace A_Snail_s_Pace.Objects
     {
         // The game object's position and velocity.
         public Vector2 position;
+        public Vector2 rotation;
         public Vector2 velocity;
        
         // The sprite's layer and parallax.

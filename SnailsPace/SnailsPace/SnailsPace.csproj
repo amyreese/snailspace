@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Config\GameConfig.cs" />
     <Compile Include="Config\VideoConfig.cs" />
+    <Compile Include="GameLua.cs" />
     <Compile Include="GameRenderer.cs" />
     <Compile Include="Graphics\Helix.cs" />
     <Compile Include="GameEngine.cs" />
