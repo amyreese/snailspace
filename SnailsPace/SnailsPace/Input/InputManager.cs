@@ -54,7 +54,7 @@ namespace A_Snail_s_Pace.Input
                 return KeyState.Up;
             }
         }
-
+        
         /**
          * Update the input states.
          */

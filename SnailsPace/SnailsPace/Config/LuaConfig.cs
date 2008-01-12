@@ -179,8 +179,7 @@ namespace A_Snail_s_Pace
         {
             try {
                 lua.DoFile(filename);
-            } catch( Exception e ) {
-                Console.WriteLine( "Error loading configuration file: \n" + e.Message );
+            } catch( LuaException e ) {
             }
 
             foreach (KeyValuePair<string, double> pair in doubleDefaultValues)
