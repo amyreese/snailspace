@@ -9,8 +9,9 @@ namespace SnailsPace.Objects
     class Text
     {
         // Text position and such
-        public Vector3 position;
-        public Vector3 rotation;
+        public Vector2 position;
+        public float rotation;
+		public Vector2 scale;
 
         // Text properties
         public String content;

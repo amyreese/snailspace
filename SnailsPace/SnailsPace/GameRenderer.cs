@@ -40,6 +40,23 @@ namespace SnailsPace
         {
 			SnailsPace.getInstance().GraphicsDevice.Clear(Color.CornflowerBlue);
 
+			List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
+			while (objectEnumerator.MoveNext())
+			{
+				Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
+				while( spriteEnumerator.MoveNext()){
+				}
+			}
+
+			SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
+			List<Objects.Text>.Enumerator textEnumerator = strings.GetEnumerator();
+			batch.Begin();
+			while (textEnumerator.MoveNext())
+			{
+				batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
+			}
+			batch.End();
+
 
 			effect.CurrentTechnique = effect.Techniques["Textured"];
 			effect.Parameters["xView"].SetValue(cameraView);
@@ -51,15 +68,14 @@ namespace SnailsPace
 
 			effect.Parameters["xWorld"].SetValue(Matrix.Identity);
 
-			effect.Parameters["xTexture"].SetValue(texture);
-
-
-			Vector3 position = new Vector3(1, 1, 0);
-			Vector3 scale = new Vector3(1,1,1);
+			Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, -objectEnumerator.Current.layer);
+			Vector3 objectScale = new Vector3(1,1,1);
+			Vector3 objectRotation = new Vector3(objectEnumerator.Current.rotation, 0);
 			VertexPositionTexture[] objectVertices = new VertexPositionTexture[4];
-			for( int vertexIndex = 0; vertexIndex < vertices.Length; vertexIndex++ ) {
+			for (int vertexIndex = 0; vertexIndex < vertices.Length; vertexIndex++)
+			{
 				objectVertices[vertexIndex] = vertices[vertexIndex];
-				objectVertices[vertexIndex].Position = objectVertices[vertexIndex].Position * scale + position;
+				objectVertices[vertexIndex].Position = objectVertices[vertexIndex].Position * objectScale + objectPosition;
 			}
 
 			effect.Begin();
