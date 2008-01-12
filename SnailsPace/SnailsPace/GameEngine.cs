@@ -32,7 +32,7 @@ namespace SnailsPace
 			helix.sprites = new Dictionary<string, global::SnailsPace.Objects.Sprite>();
 			Objects.Sprite helSprite = new Objects.Sprite();
 			helSprite.image = new Objects.Image();
-			helSprite.image.filename = "Resources/Textures/Helix";
+			helSprite.image.filename = "Resources/Textures/HelixTable";
 			helSprite.image.blocks = new Vector2(4.0f, 4.0f);
 			helSprite.image.size = new Vector2(10.0f, 10.0f);
 			helix.sprites.Add("Snail", helSprite);
