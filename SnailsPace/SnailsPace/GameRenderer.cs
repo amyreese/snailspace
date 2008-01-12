@@ -41,15 +41,15 @@ namespace SnailsPace
 			{
 				Vector3 cameraPositionMovement = ( ( cameraTargetPosition - cameraPosition ) / 2.0f ) * ( Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1) * 2.0f );
 				cameraPosition = cameraPosition + cameraPositionMovement;
-				if (cameraPositionMovement.X < minimumCameraMovement)
+				if (Math.Abs(cameraPositionMovement.X) < minimumCameraMovement)
 				{
 					cameraPosition.X = cameraTargetPosition.X;
 				}
-				if (cameraPositionMovement.Y < minimumCameraMovement)
+				if (Math.Abs(cameraPositionMovement.Y) < minimumCameraMovement)
 				{
 					cameraPosition.Y = cameraTargetPosition.Y;
 				}
-				if (cameraPositionMovement.Z < minimumCameraMovement)
+				if (Math.Abs(cameraPositionMovement.Z) < minimumCameraMovement)
 				{
 					cameraPosition.Z = cameraTargetPosition.Z;
 				}

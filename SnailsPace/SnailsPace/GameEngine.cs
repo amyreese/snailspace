@@ -34,7 +34,7 @@ namespace SnailsPace
 
 			// TODO: Initialize Helix;
 			helix = new Objects.Helix();
-			helix.sprites = new Dictionary<string, global::SnailsPace.Objects.Sprite>();
+			helix.sprites = new Dictionary<string, Objects.Sprite>();
 			Objects.Sprite helSprite = new Objects.Sprite();
 			helSprite.image = new Objects.Image();
 			helSprite.image.filename = "Resources/Textures/HelixTable";
@@ -43,6 +43,18 @@ namespace SnailsPace
 			helSprite.visible = true;
 			helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
 			helix.sprites.Add("Snail", helSprite);
+
+			Objects.Sprite backgroundSprite = new Objects.Sprite();
+			backgroundSprite.image = new Objects.Image();
+			backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
+			backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			backgroundSprite.image.size = new Vector2(2048.0f, 1024.0f);
+			backgroundSprite.visible = true;
+			backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+			Objects.GameObject bkg = new Objects.GameObject();
+			bkg.sprites = new Dictionary<string, Objects.Sprite>();
+			bkg.sprites.Add("Bkg", backgroundSprite);
+			this.map.objects.Add(bkg);
 
 			bullets = new List<Objects.Bullet>();
 
