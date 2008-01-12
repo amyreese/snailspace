@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using A_Snail_s_Pace.Input;
+using SnailsPace.Input;
 
-namespace A_Snail_s_Pace.Screens.Menus
+namespace SnailsPace.Screens.Menus
 {
     class MenuItem : Microsoft.Xna.Framework.IDrawable
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using A_Snail_s_Pace.Input;
+using SnailsPace.Input;
 
-namespace A_Snail_s_Pace.Screens
+namespace SnailsPace.Screens
 {
     abstract class InputReadyScreen : Screen
     {

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Content;
 
-namespace A_Snail_s_Pace.Graphics
+namespace SnailsPace.Graphics
 {
 	/// <summary>
 	/// This is a game component that implements IUpdateable.

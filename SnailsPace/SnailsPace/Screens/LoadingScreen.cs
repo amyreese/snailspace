@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace A_Snail_s_Pace.Screens
+namespace SnailsPace.Screens
 {
     abstract class LoadingScreen : Screen
     {

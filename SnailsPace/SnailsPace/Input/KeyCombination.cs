@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace A_Snail_s_Pace.Input
+namespace SnailsPace.Input
 {
     public class KeyCombination
     {

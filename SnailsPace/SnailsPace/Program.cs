@@ -1,6 +1,6 @@
 using System;
 
-namespace A_Snail_s_Pace
+namespace SnailsPace
 {
     static class Program
     {

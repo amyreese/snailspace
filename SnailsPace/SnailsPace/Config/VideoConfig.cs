@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace A_Snail_s_Pace.Config
+namespace SnailsPace.Config
 {
     class VideoConfig : LuaConfig
     {

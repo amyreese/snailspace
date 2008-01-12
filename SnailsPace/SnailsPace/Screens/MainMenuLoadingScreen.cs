@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace A_Snail_s_Pace.Screens
+namespace SnailsPace.Screens
 {
     class MainMenuLoadingScreen : LoadingScreen
     {

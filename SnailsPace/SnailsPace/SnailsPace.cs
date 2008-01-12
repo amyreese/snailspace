@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using A_Snail_s_Pace.Graphics;
-using A_Snail_s_Pace.Input;
-using A_Snail_s_Pace.Config;
+using SnailsPace.Graphics;
+using SnailsPace.Input;
+using SnailsPace.Config;
 #endregion
 
-namespace A_Snail_s_Pace
+namespace SnailsPace
 {
     /// <summary>
     /// This is the main type for your game

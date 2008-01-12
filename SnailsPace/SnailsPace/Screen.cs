@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace A_Snail_s_Pace
+namespace SnailsPace
 {
     abstract class Screen : Microsoft.Xna.Framework.DrawableGameComponent
     {

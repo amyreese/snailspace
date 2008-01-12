@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace A_Snail_s_Pace.Objects
+namespace SnailsPace.Objects
 {
     class Sprite
     {

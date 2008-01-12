@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using LuaInterface;
 
-namespace A_Snail_s_Pace
+namespace SnailsPace
 {
     class LuaConfig
     {

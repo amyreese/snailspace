@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace A_Snail_s_Pace.Graphics.TestGraphics
+namespace SnailsPace.Graphics.TestGraphics
 {
     class TextureTestSprite : GenericBackgroundSprite
     {

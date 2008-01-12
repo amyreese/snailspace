@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using A_Snail_s_Pace.Graphics;
-using A_Snail_s_Pace.Input;
+using SnailsPace.Graphics;
+using SnailsPace.Input;
 
-namespace A_Snail_s_Pace.Screens.Menus
+namespace SnailsPace.Screens.Menus
 {
     class MainMenuScreen : MenuScreen
     {
