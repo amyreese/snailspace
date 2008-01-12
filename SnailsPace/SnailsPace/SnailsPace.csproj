@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\GameConfig.cs" />
+    <Compile Include="Config\VideoConfig.cs" />
+    <Compile Include="GameRenderer.cs" />
     <Compile Include="Graphics\Helix.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Input\InputManager.cs" />
@@ -74,7 +77,7 @@
     <Compile Include="Screen.cs">
       <Name>Screen</Name>
     </Compile>
-    <Compile Include="Lua\LuaConfig.cs">
+    <Compile Include="Config\LuaConfig.cs">
       <Name>LuaConfig</Name>
     </Compile>
     <Compile Include="Graphics\GenericBackgroundSprite.cs">
