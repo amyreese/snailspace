@@ -35,58 +35,59 @@ namespace SnailsPace
 			texture = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/riemerstexture");
         }
 
-		float rot = 0;
         public void render(List<Objects.GameObject> objects, List<Objects.Text> strings)
         {
 			SnailsPace.getInstance().GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
-			while (objectEnumerator.MoveNext())
-			{
-				Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
-				while( spriteEnumerator.MoveNext()){
-				}
-			}
-
-			SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
-			List<Objects.Text>.Enumerator textEnumerator = strings.GetEnumerator();
-			batch.Begin();
-			while (textEnumerator.MoveNext())
-			{
-				batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
-			}
-			batch.End();
-
-
-			effect.CurrentTechnique = effect.Techniques["Textured"];
-			effect.Parameters["xView"].SetValue(cameraView);
-
 			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
 			float aspectRatio = (float)viewport.Width / (float)viewport.Height;
 			cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
-			effect.Parameters["xProjection"].SetValue(cameraProjection);
 
-			effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-
-			Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, -objectEnumerator.Current.layer);
-			Vector3 objectScale = new Vector3(1,1,1);
-			Vector3 objectRotation = new Vector3(objectEnumerator.Current.rotation, 0);
-			VertexPositionTexture[] objectVertices = new VertexPositionTexture[4];
-			for (int vertexIndex = 0; vertexIndex < vertices.Length; vertexIndex++)
+			if (objects != null)
 			{
-				objectVertices[vertexIndex] = vertices[vertexIndex];
-				objectVertices[vertexIndex].Position = objectVertices[vertexIndex].Position * objectScale + objectPosition;
+				List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
+				while (objectEnumerator.MoveNext())
+				{
+					Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
+					while (spriteEnumerator.MoveNext())
+					{
+						if (spriteEnumerator.Current.visible)
+						{
+							Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, -objectEnumerator.Current.layer);
+							Vector3 objectScale = new Vector3(1, 1, 1);
+
+							Matrix worldMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation) *
+								Matrix.CreateTranslation(objectPosition);
+							spriteEnumerator.Current.effect.CurrentTechnique = spriteEnumerator.Current.effect.Techniques["Textured"];
+							spriteEnumerator.Current.effect.Parameters["xView"].SetValue(cameraView);
+							spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
+							spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(worldMatrix);
+
+							spriteEnumerator.Current.effect.Begin();
+							foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
+							{
+								pass.Begin();
+								SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
+								SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, vertices, 0, 2);
+								pass.End();
+							}
+							spriteEnumerator.Current.effect.End();
+						}
+					}
+				}
 			}
 
-			effect.Begin();
-			foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+			if (strings != null)
 			{
-				pass.Begin();
-				SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
-				SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objectVertices, 0, 2);
-				pass.End();
+				SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
+				List<Objects.Text>.Enumerator textEnumerator = strings.GetEnumerator();
+				batch.Begin();
+				while (textEnumerator.MoveNext())
+				{
+					batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
+				}
+				batch.End();
 			}
-			effect.End();
         }
 
 		private void setUpVertices()
