@@ -11,17 +11,26 @@ namespace A_Snail_s_Pace.Config
         public VideoConfig()
             : base()
         {
-            Dictionary<String, Double> doubles = new Dictionary<string, double>();
+            #region Default values
 
-            // Default values
+            // Default double values
+            Dictionary<String, Double> doubles = new Dictionary<String, Double>();
             doubles.Add("height", 600);
             doubles.Add("width", 800);
             setDefaults(doubles);
 
+            // Default string values
+            Dictionary<String, String> strings = new Dictionary<String, String>();
+            strings.Add("fullscreen", "yes");
+            setDefaults(strings);
+
+            #endregion
+
             // Load user preferences
             this.readFile(videoConfigFile);
 
-            // Validation
+            #region User preference validation
+
             if (getDouble("height") < 480)
             {
                 setDouble("height", 480);
@@ -31,6 +40,13 @@ namespace A_Snail_s_Pace.Config
             {
                 setDouble("width", 640);
             }
+
+            if (getString("fullscreen").ToLower() != "yes" && getString("fullscreen").ToLower() != "no")
+            {
+                setString("fullscreen", "no");
+            }
+
+            #endregion
         }
 
         public void save()

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using A_Snail_s_Pace.Graphics;
 using A_Snail_s_Pace.Input;
+using A_Snail_s_Pace.Config;
 #endregion
 
 namespace A_Snail_s_Pace
@@ -29,6 +30,10 @@ namespace A_Snail_s_Pace
 		public Matrix viewMatrix;
         public Matrix projectionMatrix;
 
+        static InputManager inputManager;
+        static GameConfig gameConfig;
+        static VideoConfig videoConfig;
+
         #region Constructor & Instancing
         public SnailsPace()
         {
@@ -41,7 +46,9 @@ namespace A_Snail_s_Pace
             graphics = new GraphicsDeviceManager(this);
             //Content.RootDirectory = "Content";
 
-            InputManager inputs = new InputManager();
+            inputManager = new InputManager();
+            gameConfig = new GameConfig();
+            videoConfig = new VideoConfig();
 
             initializeGameScreens();
         }
@@ -145,10 +152,14 @@ namespace A_Snail_s_Pace
         /// </summary>
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            int width = (int)videoConfig.getDouble("width");
+            int height = (int)videoConfig.getDouble("height");
+            String fullscreen = videoConfig.getString("fullscreen").ToLower();
+
+            graphics.PreferredBackBufferWidth = width;
+            graphics.PreferredBackBufferHeight = height;
             graphics.PreferMultiSampling = false;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = (fullscreen == "yes" ? true : false);
             IsMouseVisible = true;
             base.Initialize();
         }
