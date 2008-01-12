@@ -50,8 +50,16 @@ namespace SnailsPace
         public void think(GameTime gameTime)
         {
             // TODO: iterate through map.characters calling think() on each one.
+			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
+			while (charEnum.MoveNext())
+			{
+				charEnum.Current.think(gameTime);
+			}
 
             // TODO: handle player inputs to change Helix's attributes.
+			helix.think(gameTime);
+
+
         }
 
 		public void physics(GameTime gameTime)

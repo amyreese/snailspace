@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace SnailsPace.Objects
 {
@@ -10,7 +11,7 @@ namespace SnailsPace.Objects
         public int health;
 
         // Character AI to be overridden by Lua
-        public void think()
+        public void think(GameTime gameTime)
         {
         }
     }
