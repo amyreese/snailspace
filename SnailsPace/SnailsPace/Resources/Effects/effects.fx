@@ -50,8 +50,8 @@ technique Pretransformed
 {
 	pass Pass0
     {   
-    	VertexShader = compile vs_1_1 PretransformedVS();
-        PixelShader  = compile ps_1_1 PretransformedPS();
+    	VertexShader = compile vs_2_0 PretransformedVS();
+        PixelShader  = compile ps_2_0 PretransformedPS();
     }
 }
 
@@ -87,8 +87,8 @@ technique Colored
 {
 	pass Pass0
     {   
-    	VertexShader = compile vs_1_1 ColoredVS();
-        PixelShader  = compile ps_1_1 ColoredPS();
+    	VertexShader = compile vs_2_0 ColoredVS();
+        PixelShader  = compile ps_2_0 ColoredPS();
     }
 }
 
@@ -124,8 +124,8 @@ technique Textured
 {
 	pass Pass0
     {   
-    	VertexShader = compile vs_1_1 TexturedVS();
-        PixelShader  = compile ps_1_1 TexturedPS();
+    	VertexShader = compile vs_2_0 TexturedVS();
+        PixelShader  = compile ps_2_0 TexturedPS();
     }
 }
 
@@ -165,8 +165,8 @@ technique PointSprites
 	pass Pass0
     {   
     	PointSpriteEnable = true;
-    	VertexShader = compile vs_1_1 PointSpritesVS();
-        PixelShader  = compile ps_1_1 PointSpritesPS();
+    	VertexShader = compile vs_2_0 PointSpritesVS();
+        PixelShader  = compile ps_2_0 PointSpritesPS();
     }
 }
 
