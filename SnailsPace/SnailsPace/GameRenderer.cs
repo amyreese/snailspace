@@ -21,8 +21,6 @@ namespace SnailsPace
 
 		VertexPositionTexture[] vertices;
 
-		protected Effect effect;
-
 		private Texture2D texture;
 
         public GameRenderer()
@@ -31,7 +29,6 @@ namespace SnailsPace
 			cameraTargetPosition = new Vector3(0, 0, 0);
 			cameraView = Matrix.CreateLookAt(cameraPosition, cameraTargetPosition, Vector3.Up);
 			setUpVertices();
-			effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
 			texture = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/riemerstexture");
         }
 
@@ -62,6 +59,9 @@ namespace SnailsPace
 							spriteEnumerator.Current.effect.Parameters["xView"].SetValue(cameraView);
 							spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
 							spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(worldMatrix);
+
+							// TODO: pull the appropraite texture
+							spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture);
 
 							spriteEnumerator.Current.effect.Begin();
 							foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
