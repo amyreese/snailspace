@@ -105,10 +105,10 @@ namespace A_Snail_s_Pace.Screens.Menus
                             new ActionMapping(new ActionMapping.KeyAction(this.ActivateSelectedMenuItem),
                             ActionMapping.Perform.OnKeyDown));
             assignKeyToAction(new KeyCombination(Keys.Down),
-                            new ActionMapping(new ActionMapping.KeyAction(this.PreviousMenuItem),
+                            new ActionMapping(new ActionMapping.KeyAction(this.NextMenuItem),
                             ActionMapping.Perform.WhileKeyDown));
             assignKeyToAction(new KeyCombination(Keys.Up),
-                            new ActionMapping(new ActionMapping.KeyAction(this.NextMenuItem),
+							new ActionMapping(new ActionMapping.KeyAction(this.PreviousMenuItem),
                             ActionMapping.Perform.WhileKeyDown));
 
             // Full screen toggle
@@ -127,7 +127,7 @@ namespace A_Snail_s_Pace.Screens.Menus
 
         // Make the time a large number so they can move right away on startup
         int minimumMillisecondsBetweenMenuMoves = 150;
-        protected void NextMenuItem(GameTime gameTime)
+		protected void PreviousMenuItem(GameTime gameTime)
         {
             if (timeSinceLastMenuMove.Milliseconds > minimumMillisecondsBetweenMenuMoves)
             {
@@ -141,7 +141,7 @@ namespace A_Snail_s_Pace.Screens.Menus
                 menuItems[menuItemIndex].Selected = true;
             }
         }
-        protected void PreviousMenuItem(GameTime gameTime)
+		protected void NextMenuItem(GameTime gameTime)
         {
             if (timeSinceLastMenuMove.Milliseconds > minimumMillisecondsBetweenMenuMoves)
             {
