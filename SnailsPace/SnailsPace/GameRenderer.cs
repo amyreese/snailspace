@@ -14,6 +14,8 @@ namespace SnailsPace
         private Vector3 cameraTargetPosition;
         private Matrix cameraView;
 		private Matrix cameraProjection;
+		public const float normalCameraDistance = 5.0f;
+		public const float minimumCameraMovement = 0.001f;
 
 		// Set distance from the camera of the near and far clipping planes.
 		static float nearClip = 0.1f;
@@ -25,20 +27,37 @@ namespace SnailsPace
 
         public GameRenderer()
         {
-			cameraPosition = new Vector3(0, 0, 5);
-			cameraTargetPosition = new Vector3(0, 0, 0);
-			cameraView = Matrix.CreateLookAt(cameraPosition, cameraTargetPosition, Vector3.Up);
+			cameraPosition = new Vector3(-100, 0, normalCameraDistance);
+			cameraTargetPosition = new Vector3(0, 0, normalCameraDistance);
+			cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0,0,-1), Vector3.Up);
 			setUpVertices();
 			texture = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/riemerstexture");
         }
 
-        public void render(List<Objects.GameObject> objects, List<Objects.Text> strings)
+        public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
 			SnailsPace.getInstance().GraphicsDevice.Clear(Color.CornflowerBlue);
-
+			if (!cameraPosition.Equals(cameraTargetPosition))
+			{
+				Vector3 cameraPositionMovement = ( ( cameraTargetPosition - cameraPosition ) / 2.0f ) * ( Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1) * 2.0f );
+				cameraPosition = cameraPosition + cameraPositionMovement;
+				if (cameraPositionMovement.X < minimumCameraMovement)
+				{
+					cameraPosition.X = cameraTargetPosition.X;
+				}
+				if (cameraPositionMovement.Y < minimumCameraMovement)
+				{
+					cameraPosition.Y = cameraTargetPosition.Y;
+				}
+				if (cameraPositionMovement.Z < minimumCameraMovement)
+				{
+					cameraPosition.Z = cameraTargetPosition.Z;
+				}
+			}
 			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
 			float aspectRatio = (float)viewport.Width / (float)viewport.Height;
 			cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
+			cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
 
 			if (objects != null)
 			{

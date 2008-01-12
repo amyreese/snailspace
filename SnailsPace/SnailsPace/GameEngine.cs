@@ -28,7 +28,8 @@ namespace SnailsPace
 
             // TODO: Load the map object from Lua
 			this.map = new Objects.Map();
-			this.map.objects = new List<global::SnailsPace.Objects.GameObject>();
+			this.map.objects = new List<Objects.GameObject>();
+			this.map.characters = new List<Objects.Character>();
 
 			// TODO: Initialize Helix;
 			helix = new Objects.Helix();
@@ -76,7 +77,7 @@ namespace SnailsPace
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.Add(helix);
 			// TODO: add bullets
-			gameRenderer.render(objects, null);
+			gameRenderer.render(objects, null, gameTime);
         }
     }
 }
