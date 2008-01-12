@@ -16,7 +16,7 @@ namespace A_Snail_s_Pace
         {
         }
 
-        public void render(List<Objects.Sprite> sprites, List<Objects.Text> strings)
+        public void render(List<Objects.GameObject> objects, List<Objects.Text> strings)
         {
         }
     }
