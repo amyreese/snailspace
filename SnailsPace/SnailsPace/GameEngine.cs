@@ -43,6 +43,7 @@ namespace SnailsPace
 			helSprite.visible = true;
 			helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
 			helix.sprites.Add("Snail", helSprite);
+            helix.velocity = new Vector2(1.5f, 1.0f);
 
 			Objects.Sprite backgroundSprite = new Objects.Sprite();
 			backgroundSprite.image = new Objects.Image();
@@ -74,14 +75,28 @@ namespace SnailsPace
 			KeyboardState keyboardState = Keyboard.GetState();
 			if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
 			{
-				helix.position.X -= 0.15f;
-				gameRenderer.cameraTargetPosition.X -= 0.15f;
+                float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
+				helix.position.X -= movement;
+				gameRenderer.cameraTargetPosition.X -= movement;
 			}
-			else if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
-			{
-				helix.position.X += 0.15f;
-				gameRenderer.cameraTargetPosition.X += 0.15f;
-			}
+            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+            {
+                float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
+                helix.position.X += movement;
+                gameRenderer.cameraTargetPosition.X += movement;
+            }
+            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Right))
+            {
+                float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
+                helix.position.Y += movement;
+                gameRenderer.cameraTargetPosition.Y += movement;
+            }
+            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Right))
+            {
+                float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
+                helix.position.Y -= movement;
+                gameRenderer.cameraTargetPosition.Y -= movement;
+            }
 
             // TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);

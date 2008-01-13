@@ -15,8 +15,8 @@ namespace SnailsPace
         public Matrix cameraView;
 		public Matrix cameraProjection;
 		public const float normalCameraDistance = 5.0f;
-		public const float minimumCameraMovement = 0.001f;
-		public const float cameraSpeed = 2.0f;
+		public const float minimumCameraMovement = 0.5f;
+		public const float cameraSpeed = 2.5f;
 
 		// Set distance from the camera of the near and far clipping planes.
 		static float nearClip = 0.1f;
@@ -28,7 +28,7 @@ namespace SnailsPace
 
         public GameRenderer()
         {
-			cameraPosition = new Vector3(-100, 0, normalCameraDistance);
+			cameraPosition = new Vector3(-10, 0, normalCameraDistance);
 			cameraTargetPosition = new Vector3(0, 0, normalCameraDistance);
 			cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0,0,-1), Vector3.Up);
 			setUpVertices();
@@ -58,21 +58,42 @@ namespace SnailsPace
 			SnailsPace.getInstance().GraphicsDevice.Clear(Color.CornflowerBlue);
 			if (!cameraPosition.Equals(cameraTargetPosition))
 			{
-				Vector3 cameraPositionMovement = ( ( cameraTargetPosition - cameraPosition ) / 2.0f ) * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1) * cameraSpeed;
-				cameraPosition = cameraPosition + cameraPositionMovement;
-				if (Math.Abs(cameraPositionMovement.X) < minimumCameraMovement)
-				{
-					cameraPosition.X = cameraTargetPosition.X;
-				}
-				if (Math.Abs(cameraPositionMovement.Y) < minimumCameraMovement)
-				{
-					cameraPosition.Y = cameraTargetPosition.Y;
-				}
-				if (Math.Abs(cameraPositionMovement.Z) < minimumCameraMovement)
-				{
-					cameraPosition.Z = cameraTargetPosition.Z;
-				}
-			}
+                float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
+                float minMovement = elapsedTime * minimumCameraMovement;
+                Vector3 cameraDifference = cameraTargetPosition - cameraPosition;
+                Vector3 cameraPositionMovement = cameraDifference * cameraDifference.Length() * elapsedTime * cameraSpeed;
+                if (minMovement > 0)
+                {
+                    if (Math.Abs(cameraPositionMovement.X) < minMovement)
+                    {
+                        cameraPositionMovement.X = minMovement;
+                    }
+                    if (Math.Abs(cameraPositionMovement.Y) < minMovement)
+                    {
+                        cameraPositionMovement.Y = minMovement;
+                    }
+                    if (Math.Abs(cameraPositionMovement.Z) < minMovement)
+                    {
+                        cameraPositionMovement.Z = minMovement;
+                    }
+                }
+                cameraPosition = cameraPosition + cameraPositionMovement;
+                if (minMovement > 0)
+                {
+                    if (Math.Abs(cameraDifference.X) < minMovement)
+                    {
+                        cameraPosition.X = cameraTargetPosition.X;
+                    }
+                    if (Math.Abs(cameraDifference.Y) < minMovement)
+                    {
+                        cameraPosition.Y = cameraTargetPosition.Y;
+                    }
+                    if (Math.Abs(cameraDifference.Z) < minMovement)
+                    {
+                        cameraPosition.Z = cameraTargetPosition.Z;
+                    }
+                }
+            }
 			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
 			float aspectRatio = (float)viewport.Width / (float)viewport.Height;
 			cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
@@ -98,7 +119,7 @@ namespace SnailsPace
 							spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
 							spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(worldMatrix);
 
-							// TODO: pull the appropraite texture
+							// TODO: pull the appropraite part of the texture
 							spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
 
 							spriteEnumerator.Current.effect.Begin();
