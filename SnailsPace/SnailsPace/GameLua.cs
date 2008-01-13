@@ -10,10 +10,6 @@ namespace SnailsPace
         public GameLua()
             : base()
         {
-        }
-
-        public void init()
-        {
             #region Lua initialization of C# classes
             String initCode = @" 
 
@@ -36,9 +32,8 @@ Helix = import('SnailsPace.Objects.Helix');
 Map = import('SnailsPace.Objects.Map');
             
             ";
-            #endregion
-
             this.DoString(initCode);
+            #endregion
         }
     }
 }

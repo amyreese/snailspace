@@ -28,8 +28,7 @@ namespace SnailsPace
         public GameEngine(String map)
         {
             GameLua lua = new GameLua();
-            lua.init();
-
+            
             // TODO: Load the map object from Lua
 			this.map = new Objects.Map();
 			this.map.objects = new List<Objects.GameObject>();
