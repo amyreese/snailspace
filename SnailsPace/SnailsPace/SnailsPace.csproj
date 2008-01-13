@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SnailsPace</RootNamespace>
-    <AssemblyName>A Snail%27s Pace</AssemblyName>
+    <AssemblyName>SnailsPace</AssemblyName>
     <XnaFrameworkVersion>v2.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <ApplicationIcon>Resources\Game.ico</ApplicationIcon>
@@ -134,6 +134,7 @@
     <Compile Include="SnailsPace.cs">
       <Name>SnailsPace</Name>
     </Compile>
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Game.ico">
