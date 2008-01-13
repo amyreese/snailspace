@@ -9,6 +9,9 @@ namespace SnailsPace
 {
     class GameEngine
     {
+        // Game font
+        public SpriteFont gameFont;
+
         // Game map
         public Objects.Map map;
 
@@ -33,32 +36,64 @@ namespace SnailsPace
 			this.map.characters = new List<Objects.Character>();
 
 			// TODO: Initialize Helix;
-			helix = new Objects.Helix();
-			helix.sprites = new Dictionary<string, Objects.Sprite>();
-			Objects.Sprite helSprite = new Objects.Sprite();
-			helSprite.image = new Objects.Image();
-			helSprite.image.filename = "Resources/Textures/HelixTable";
-			helSprite.image.blocks = new Vector2(4.0f, 4.0f);
-			helSprite.image.size = new Vector2(128.0f, 128.0f);
-			helSprite.visible = true;
-			helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
-			helix.sprites.Add("Snail", helSprite);
+            helix = new Objects.Helix();
+            helix.sprites = new Dictionary<string, Objects.Sprite>();
+            Objects.Sprite helSprite = new Objects.Sprite();
+            helSprite.image = new Objects.Image();
+            helSprite.image.filename = "Resources/Textures/HelixTable";
+            helSprite.image.blocks = new Vector2(4.0f, 4.0f);
+            helSprite.image.size = new Vector2(128.0f, 128.0f);
+            helSprite.visible = true;
+            helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            helix.sprites.Add("Snail", helSprite);
             helix.velocity = new Vector2(1.5f, 1.0f);
 
-			Objects.Sprite backgroundSprite = new Objects.Sprite();
-			backgroundSprite.image = new Objects.Image();
-			backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
-			backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			backgroundSprite.image.size = new Vector2(2048.0f, 1024.0f);
-			backgroundSprite.visible = true;
-			backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
-			Objects.GameObject bkg = new Objects.GameObject();
-			bkg.sprites = new Dictionary<string, Objects.Sprite>();
-			bkg.sprites.Add("Bkg", backgroundSprite);
-			this.map.objects.Add(bkg);
 
-			bullets = new List<Objects.Bullet>();
+            Objects.Helix helix2 = new Objects.Helix();
+            helix2.position = new Vector2(0.5f, -1.0f);
+            helix2.sprites = new Dictionary<string, Objects.Sprite>();
+            helix2.sprites.Add("Snail", helSprite);
+            helix2.layer = 1;
+            this.map.objects.Add(helix2);
 
+            Objects.Sprite backgroundSprite = new Objects.Sprite();
+            backgroundSprite.image = new Objects.Image();
+            backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
+            backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
+            backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f);
+            backgroundSprite.visible = true;
+            backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            Objects.GameObject bkg = new Objects.GameObject();
+            bkg.sprites = new Dictionary<string, Objects.Sprite>();
+            bkg.sprites.Add("Bkg", backgroundSprite);
+            bkg.position = new Vector2(40.0f, 16.0f);
+            bkg.layer = 50;
+            this.map.objects.Add(bkg);
+
+            backgroundSprite = new Objects.Sprite();
+            backgroundSprite.image = new Objects.Image();
+            backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
+            backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
+            backgroundSprite.image.size = new Vector2(4096.0f, 64.0f);
+            backgroundSprite.visible = true;
+            backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            bkg = new Objects.GameObject();
+            bkg.sprites = new Dictionary<string, Objects.Sprite>();
+            bkg.sprites.Add("Bkg", backgroundSprite);
+            bkg.position = new Vector2(40.0f, -1.0f);
+            bkg.layer = 5;
+            this.map.objects.Add(bkg);
+
+            helix2 = new Objects.Helix();
+            helix2.position = new Vector2(1.0f, 1.0f);
+            helix2.sprites = new Dictionary<string, Objects.Sprite>();
+            helix2.sprites.Add("Snail", helSprite);
+            helix2.layer = 2;
+            this.map.objects.Add(helix2);
+
+            bullets = new List<Objects.Bullet>();
+
+            gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("MenuFont");
 			gameRenderer = new GameRenderer();
 			gameRenderer.createTextures(allObjects());
         }
@@ -114,7 +149,19 @@ namespace SnailsPace
             // TODO: iterate through map.objects, map.characters, and this.bullets to gather all visible sprites
             // and then send the list of sprites to the rendering system.
 			// TODO: add bullets
-			gameRenderer.render(allObjects(), null, gameTime);
+            List<Objects.Text> strings = new List<Objects.Text>();
+
+#if DEBUG
+            Objects.Text debugString = new Objects.Text();
+            debugString.color = Color.Yellow;
+            debugString.content = "(" + helix.position.X + ", " + helix.position.Y + ")";
+            debugString.font = gameFont;
+            debugString.position = new Vector2(1, 1);
+            debugString.rotation = 0;
+            debugString.scale = Vector2.One;
+            strings.Add(debugString);
+#endif
+			gameRenderer.render(allObjects(), strings, gameTime);
         }
 
 		private List<Objects.GameObject> allObjects()

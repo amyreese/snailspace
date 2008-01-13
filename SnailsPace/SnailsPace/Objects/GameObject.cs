@@ -16,7 +16,6 @@ namespace SnailsPace.Objects
         public int layer;       // 0: background ... 5: foreground
         
         // Sprites that make up the game object.
-        public Dictionary<String, Sprite> sprites;
-        
+        public Dictionary<String, Sprite> sprites;        
     }
 }
