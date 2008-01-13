@@ -24,6 +24,8 @@ namespace SnailsPace
 #if DEBUG
 		public const bool debugFramerate = true;
 		public const bool debugKeyAssignments = true;
+        public const bool debugCameraPosition = true;
+        public const bool debugHelixPosition = true;
 #endif
 		#endregion
 

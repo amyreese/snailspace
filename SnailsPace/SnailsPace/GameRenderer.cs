@@ -15,8 +15,8 @@ namespace SnailsPace
         public Matrix cameraView;
         public Matrix cameraProjection;
         public const float normalCameraDistance = 25.0f;
-        public const float minimumCameraMovement = 0.0f;
-        public const float cameraSpeed = 2.5f;
+        public const float minimumCameraMovement = 0.5f;
+        public const float cameraSpeed = 1.5f;
         public const float textureScale = 64.0f;
 
         // Set distance from the camera of the near and far clipping planes.
@@ -29,7 +29,7 @@ namespace SnailsPace
 
         public GameRenderer()
         {
-            cameraPosition = new Vector3(-10, 0, normalCameraDistance);
+            cameraPosition = new Vector3(-10, 20, normalCameraDistance);
             cameraTargetPosition = new Vector3(0, 0, normalCameraDistance);
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
             setUpVertices();
@@ -56,50 +56,34 @@ namespace SnailsPace
             }
         }
 
+        private float calculateCameraMovement(float distance, float elapsedTime)
+        {
+            float absDistance = Math.Abs(distance);
+            float minMovement = elapsedTime * minimumCameraMovement;
+            if (absDistance < minMovement)
+            {
+                return distance;
+            }
+            else
+            {
+                return (Math.Sign(distance) * Math.Max((absDistance * cameraSpeed) * elapsedTime, minMovement));
+            }
+        }
+
         public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
             SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
             SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
-            SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,Color.CornflowerBlue,1.0f,0);
+            SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
             if (!cameraPosition.Equals(cameraTargetPosition))
             {
                 float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
-                float minMovement = elapsedTime * minimumCameraMovement;
                 Vector3 cameraDifference = cameraTargetPosition - cameraPosition;
-                Vector3 cameraPositionMovement = cameraDifference * cameraDifference.Length() * elapsedTime * cameraSpeed;
-                if (minMovement > 0)
-                {
-                    if (Math.Abs(cameraDifference.X) < minMovement)
-                    {
-                        cameraPositionMovement.X = cameraDifference.X;
-                    }
-                    else if (Math.Abs(cameraPositionMovement.X) < minMovement)
-                    {
-                        cameraPositionMovement.X = minMovement;
-                    }
-                    if (Math.Abs(cameraDifference.Y) < minMovement)
-                    {
-                        cameraPositionMovement.Y = cameraDifference.Y;
-                    }
-                    else if (Math.Abs(cameraPositionMovement.Y) < minMovement)
-                    {
-                        cameraPositionMovement.Y = minMovement;
-                    }
-
-                    if (Math.Abs(cameraDifference.Z) < minMovement)
-                    {
-                        cameraPositionMovement.Z = cameraDifference.Z;
-                    }
-                    else if (Math.Abs(cameraPositionMovement.Z) < minMovement)
-                    {
-                        cameraPositionMovement.Z = minMovement;
-                    }
-                }
+                Vector3 cameraPositionMovement = Vector3.Zero;
+                cameraPositionMovement.X = calculateCameraMovement(cameraDifference.X, elapsedTime);
+                cameraPositionMovement.Y = calculateCameraMovement(cameraDifference.Y, elapsedTime);
+                cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime); ;
                 cameraPosition = cameraPosition + cameraPositionMovement;
-                if (minMovement > 0)
-                {
-
-                }
             }
             Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;

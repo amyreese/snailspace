@@ -11,6 +11,9 @@ namespace SnailsPace
     {
         // Game font
         public SpriteFont gameFont;
+#if DEBUG
+        public SpriteFont debugFont;
+#endif
 
         // Game map
         public Objects.Map map;
@@ -45,7 +48,7 @@ namespace SnailsPace
             helSprite.visible = true;
             helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             helix.sprites.Add("Snail", helSprite);
-            helix.velocity = new Vector2(1.5f, 1.0f);
+            helix.velocity = new Vector2(3.0f, 2.0f);
 
 
             Objects.Helix helix2 = new Objects.Helix();
@@ -93,6 +96,9 @@ namespace SnailsPace
             bullets = new List<Objects.Bullet>();
 
             gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("MenuFont");
+#if DEBUG
+            debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("debug");
+#endif
 			gameRenderer = new GameRenderer();
 			gameRenderer.createTextures(allObjects());
         }
@@ -119,13 +125,13 @@ namespace SnailsPace
                 helix.position.X += movement;
                 gameRenderer.cameraTargetPosition.X += movement;
             }
-            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Right))
+            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y += movement;
                 gameRenderer.cameraTargetPosition.Y += movement;
             }
-            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Right))
+            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y -= movement;
@@ -151,14 +157,48 @@ namespace SnailsPace
             List<Objects.Text> strings = new List<Objects.Text>();
 
 #if DEBUG
-            Objects.Text debugString = new Objects.Text();
-            debugString.color = Color.Yellow;
-            debugString.content = "(" + helix.position.X + ", " + helix.position.Y + ")";
-            debugString.font = gameFont;
-            debugString.position = new Vector2(1, 1);
-            debugString.rotation = 0;
-            debugString.scale = Vector2.One;
-            strings.Add(debugString);
+            int numDebugStrings = 0;
+            if (SnailsPace.debugHelixPosition)
+            {
+                Objects.Text debugString = new Objects.Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Helix: (" + helix.position.X + ", " + helix.position.Y + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+            }
+            if (SnailsPace.debugCameraPosition)
+            {
+                Objects.Text debugString = new Objects.Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Camera: (" + gameRenderer.cameraPosition.X + ", " + gameRenderer.cameraPosition.Y + ", " + gameRenderer.cameraPosition.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+
+                debugString = new Objects.Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Target: (" + gameRenderer.cameraTargetPosition.X + ", " + gameRenderer.cameraTargetPosition.Y + ", " + gameRenderer.cameraTargetPosition.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+
+                debugString = new Objects.Text();
+                debugString.color = Color.Yellow;
+                Vector3 distance = gameRenderer.cameraTargetPosition - gameRenderer.cameraPosition;
+                debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+            }
 #endif
 			gameRenderer.render(allObjects(), strings, gameTime);
         }
