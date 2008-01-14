@@ -11,7 +11,10 @@ namespace SnailsPace
     {
         // Camera information
         public Vector3 cameraPosition;
-        public Vector3 cameraTargetPosition;
+
+		public Objects.GameObject cameraTarget;
+		public Vector3 cameraTargetOffset;
+
         public Matrix cameraView;
         public Matrix cameraProjection;
         public const float normalCameraDistance = 25.0f;
@@ -30,7 +33,7 @@ namespace SnailsPace
         public GameRenderer()
         {
             cameraPosition = new Vector3(-10, 20, normalCameraDistance);
-            cameraTargetPosition = new Vector3(0, 0, normalCameraDistance);
+            cameraTargetOffset = new Vector3(0, 0, normalCameraDistance);
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
             setUpVertices();
 
@@ -70,11 +73,18 @@ namespace SnailsPace
             }
         }
 
+		public Vector3 getCameraTargetPosition()
+		{
+			Vector3 targetPosition = cameraTarget == null ? Vector3.Zero : new Vector3(cameraTarget.position, 0);
+			return new Vector3(cameraTarget.position, 0) + cameraTargetOffset;
+		}
+
         public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
             SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
             SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
             SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+			Vector3 cameraTargetPosition = getCameraTargetPosition();
             if (!cameraPosition.Equals(cameraTargetPosition))
             {
                 float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);

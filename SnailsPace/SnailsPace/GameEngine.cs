@@ -32,8 +32,10 @@ namespace SnailsPace
         public GameEngine(String map)
         {
             GameLua lua = new GameLua();
-            
-            // TODO: Load the map object from Lua
+
+			bullets = new List<Objects.Bullet>();
+			
+			// TODO: Load the map object from Lua
 			this.map = new Objects.Map();
 			this.map.objects = new List<Objects.GameObject>();
 			this.map.characters = new List<Objects.Character>();
@@ -63,7 +65,7 @@ namespace SnailsPace
             backgroundSprite.image = new Objects.Image();
             backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-            backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f);
+			backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f);
             backgroundSprite.visible = true;
             backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             Objects.GameObject bkg = new Objects.GameObject();
@@ -94,15 +96,27 @@ namespace SnailsPace
             helix2.layer = 2;
             this.map.objects.Add(helix2);
 
-            bullets = new List<Objects.Bullet>();
+			loadFonts();
+			setupGameRenderer();
+        }
 
-            gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("MenuFont");
+		private void loadFonts()
+		{
+			gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("MenuFont");
 #if DEBUG
-            debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("debug");
+			debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("debug");
 #endif
+		}
+
+		private void setupGameRenderer()
+		{
 			gameRenderer = new GameRenderer();
 			gameRenderer.createTextures(allObjects());
-        }
+
+			gameRenderer.cameraTarget = helix;
+			gameRenderer.cameraTargetOffset.X = -2;
+			gameRenderer.cameraTargetOffset.Y = 6;
+		}
 
         public void think(GameTime gameTime)
         {
@@ -120,32 +134,28 @@ namespace SnailsPace
 			{
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
 				helix.position.X -= movement;
-				gameRenderer.cameraTargetPosition.X -= movement;
 			}
             if (input.inputPressed("Right"))
             {
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.X += movement;
-                gameRenderer.cameraTargetPosition.X += movement;
             }
             if (input.inputPressed("Up"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y += movement;
-                gameRenderer.cameraTargetPosition.Y += movement;
             }
             if (input.inputPressed("Down"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y -= movement;
-                gameRenderer.cameraTargetPosition.Y -= movement;
             }
             if (input.inputPressed("MenuToggle"))
             {
                 SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
             }
 
-            // TODO: handle player inputs to change Helix's attributes.
+			// TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
         }
 
@@ -189,7 +199,8 @@ namespace SnailsPace
 
                 debugString = new Objects.Text();
                 debugString.color = Color.Yellow;
-                debugString.content = "Target: (" + gameRenderer.cameraTargetPosition.X + ", " + gameRenderer.cameraTargetPosition.Y + ", " + gameRenderer.cameraTargetPosition.Z + ")";
+				Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
+				debugString.content = "Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")";
                 debugString.font = debugFont;
                 debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
                 debugString.rotation = 0;
@@ -198,7 +209,7 @@ namespace SnailsPace
 
                 debugString = new Objects.Text();
                 debugString.color = Color.Yellow;
-                Vector3 distance = gameRenderer.cameraTargetPosition - gameRenderer.cameraPosition;
+				Vector3 distance = cameraTargetPosition - gameRenderer.cameraPosition;
                 debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
                 debugString.font = debugFont;
                 debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
