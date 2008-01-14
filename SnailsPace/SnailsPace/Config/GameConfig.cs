@@ -6,7 +6,7 @@ namespace SnailsPace
 {
     class GameConfig : LuaConfig
     {
-        private String gameConfigFile = "config/game.lua";
+        private String gameConfigFile = "Config/Game.lua";
 
         public GameConfig()
             : base()

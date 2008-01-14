@@ -8,7 +8,7 @@ namespace SnailsPace.Input
     class InputManager
     {
         private LuaConfig inputConfig;
-        private String inputConfigFile = "config/inputs.lua";
+        private String inputConfigFile = "Config/Input.lua";
 
         private Dictionary<String, String> inputKeys;
         private Dictionary<String, KeyState> keyStates;

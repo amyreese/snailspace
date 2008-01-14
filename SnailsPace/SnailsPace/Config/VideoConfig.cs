@@ -6,7 +6,7 @@ namespace SnailsPace.Config
 {
     class VideoConfig : LuaConfig
     {
-        private String videoConfigFile = "config/video.lua";
+        private String videoConfigFile = "Config/Video.lua";
 
         public VideoConfig()
             : base()
