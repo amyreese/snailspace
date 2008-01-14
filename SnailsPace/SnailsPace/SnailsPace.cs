@@ -32,9 +32,9 @@ namespace SnailsPace
 		public Matrix viewMatrix;
         public Matrix projectionMatrix;
 
-        static InputManager inputManager;
-        static GameConfig gameConfig;
-        static VideoConfig videoConfig;
+        internal static InputManager inputManager;
+        internal static GameConfig gameConfig;
+        internal static VideoConfig videoConfig;
 
         #region Constructor & Instancing
         public SnailsPace()

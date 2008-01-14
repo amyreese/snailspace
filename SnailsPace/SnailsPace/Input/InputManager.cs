@@ -27,6 +27,7 @@ namespace SnailsPace.Input
             inputKeys.Add("MenuLeft", "Left");
             inputKeys.Add("MenuRight", "Right");
             inputKeys.Add("MenuSelect", "Enter");
+            inputKeys.Add("MenuToggle", "Escape");
             inputKeys.Add("Up", "W");
             inputKeys.Add("Down", "S");
             inputKeys.Add("Left", "A");
@@ -54,6 +55,21 @@ namespace SnailsPace.Input
                 return KeyState.Up;
             }
         }
+
+        /**
+         * Check if the action's input is pressed.
+         */
+        public Boolean inputPressed(String action)
+        {
+            if (inputKeys.ContainsKey(action))
+            {
+                return keyStates[inputKeys[action]] == KeyState.Down;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
         /**
          * Update the input states.
@@ -68,7 +84,7 @@ namespace SnailsPace.Input
             }
             
             // Check keyboard inputs
-            KeyboardState keyboardState = new KeyboardState();
+            KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
 
             foreach (Keys pressedKey in pressedKeys)

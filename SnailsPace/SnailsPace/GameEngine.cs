@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using SnailsPace.Input;
 
 namespace SnailsPace
 {
@@ -112,30 +113,36 @@ namespace SnailsPace
 				charEnum.Current.think(gameTime);
 			}
 
-			KeyboardState keyboardState = Keyboard.GetState();
-			if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
+            InputManager input = SnailsPace.inputManager;
+            input.update();
+
+			if (input.inputPressed("Left"))
 			{
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
 				helix.position.X -= movement;
 				gameRenderer.cameraTargetPosition.X -= movement;
 			}
-            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
+            if (input.inputPressed("Right"))
             {
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.X += movement;
                 gameRenderer.cameraTargetPosition.X += movement;
             }
-            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
+            if (input.inputPressed("Up"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y += movement;
                 gameRenderer.cameraTargetPosition.Y += movement;
             }
-            if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
+            if (input.inputPressed("Down"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y -= movement;
                 gameRenderer.cameraTargetPosition.Y -= movement;
+            }
+            if (input.inputPressed("MenuToggle"))
+            {
+                SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
             }
 
             // TODO: handle player inputs to change Helix's attributes.
