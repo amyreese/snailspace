@@ -63,9 +63,9 @@ namespace SnailsPace
 
             Objects.Sprite backgroundSprite = new Objects.Sprite();
             backgroundSprite.image = new Objects.Image();
-            backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
+            backgroundSprite.image.filename = "Resources/Textures/Garden";
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f);
+            backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f); //TODO: Fix to not skew horizontally
             backgroundSprite.visible = true;
             backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             Objects.GameObject bkg = new Objects.GameObject();
@@ -155,7 +155,7 @@ namespace SnailsPace
                 SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
             }
 
-			// TODO: handle player inputs to change Helix's attributes.
+            // TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
         }
 
