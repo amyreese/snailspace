@@ -31,7 +31,7 @@ namespace SnailsPace.Objects
 			timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 			if (timer >= animationDelay)
 			{
-				timer = 0f;
+				timer = timer - animationDelay;
 				if (frame == animationEnd)
 				{
 					frame = animationStart;
