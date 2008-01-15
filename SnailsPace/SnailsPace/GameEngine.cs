@@ -10,6 +10,9 @@ namespace SnailsPace
 {
     class GameEngine
     {
+        // Engine state
+        Boolean enginePaused = false;
+
         // Game font
         public SpriteFont gameFont;
 #if DEBUG
@@ -125,6 +128,24 @@ namespace SnailsPace
 
         public void think(GameTime gameTime)
         {
+            InputManager input = SnailsPace.inputManager;
+            input.update();
+
+            if (input.inputPressed("Pause"))
+            {
+                enginePaused = !enginePaused;
+            }
+            if (input.inputPressed("MenuToggle"))
+            {
+                enginePaused = true;
+                SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
+            }
+
+            if (enginePaused)
+            {
+                return;
+            }
+
             // TODO: iterate through map.characters calling think() on each one.
 			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
 			while (charEnum.MoveNext())
@@ -132,34 +153,28 @@ namespace SnailsPace
 				charEnum.Current.think(gameTime);
 			}
 
-            InputManager input = SnailsPace.inputManager;
-            input.update();
-
-			if (input.inputPressed("Left"))
+            
+			if (input.inputDown("Left"))
 			{
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
 				helix.position.X -= movement;
 				helix.sprites["Snail"].animate(gameTime);
 			}
-            if (input.inputPressed("Right"))
+            if (input.inputDown("Right"))
             {
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.X += movement;
 				helix.sprites["Snail"].animate(gameTime);
             }
-            if (input.inputPressed("Up"))
+            if (input.inputDown("Up"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y += movement;
             }
-            if (input.inputPressed("Down"))
+            if (input.inputDown("Down"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y -= movement;
-            }
-            if (input.inputPressed("MenuToggle"))
-            {
-                SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
             }
 
             // TODO: handle player inputs to change Helix's attributes.
@@ -168,6 +183,11 @@ namespace SnailsPace
 
 		public void physics(GameTime gameTime)
         {
+            if (enginePaused)
+            {
+                return;
+            }
+
             // TODO: iterate through map.characters and this.bullets using collision detection to move everything.
 
             // TODO: iterate through map.triggers and map.characters to find which triggers to execute
