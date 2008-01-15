@@ -12,7 +12,7 @@ using SnailsPace.Input;
 
 namespace SnailsPace.Screens.Menus
 {
-    abstract class MenuScreen : InputReadyScreen
+    abstract class MenuScreen : Screen
     {
         protected MenuItem[] menuItems;
         protected int menuItemIndex = 0;
@@ -90,71 +90,53 @@ namespace SnailsPace.Screens.Menus
         }
         #endregion
 
-        TimeSpan timeOfLastMenuMove = new TimeSpan();
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
-        #region Input Commands
-        protected override void initializeKeyMappings()
-        {
-            // Menu Commands
-            assignKeyToAction(new KeyCombination(Keys.Space),
-                            new ActionMapping(new ActionMapping.KeyAction(this.ActivateSelectedMenuItem),
-                            ActionMapping.Perform.OnKeyDown));
-            assignKeyToAction(new KeyCombination(Keys.Down),
-                            new ActionMapping(new ActionMapping.KeyAction(this.NextMenuItem),
-                            ActionMapping.Perform.WhileKeyDown));
-            assignKeyToAction(new KeyCombination(Keys.Up),
-							new ActionMapping(new ActionMapping.KeyAction(this.PreviousMenuItem),
-                            ActionMapping.Perform.WhileKeyDown));
-
-            // Full screen toggle
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.RightAlt, Keys.Enter }),
-                            new ActionMapping(new ActionMapping.KeyAction(snailsPace.toggleFullscreen),
-                            ActionMapping.Perform.OnKeyDown));
-            assignKeyToAction(new KeyCombination(new Keys[] { Keys.LeftAlt, Keys.Enter }),
-                            new ActionMapping(new ActionMapping.KeyAction(snailsPace.toggleFullscreen),
-                            ActionMapping.Perform.OnKeyDown));
-        }
-
-        protected void ActivateSelectedMenuItem(GameTime gameTime)
-        {
-            menuItems[menuItemIndex].Activate(gameTime);
-        }
-
         // Make the time a large number so they can move right away on startup
         int minimumMillisecondsBetweenMenuMoves = 150;
-		protected void PreviousMenuItem(GameTime gameTime)
+        TimeSpan timeOfLastMenuMove = new TimeSpan();
+        
+        public override void Update(GameTime gameTime)
         {
-            if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves )
-            {
-                timeOfLastMenuMove = gameTime.TotalRealTime;
-                menuItems[menuItemIndex].Selected = false;
-                menuItemIndex--;
-                if (menuItemIndex < 0)
-                {
-                    menuItemIndex = menuItems.Length - 1;
-                }
-                menuItems[menuItemIndex].Selected = true;
-            }
-        }
-		protected void NextMenuItem(GameTime gameTime)
-        {
-			if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
-			{
-				timeOfLastMenuMove = gameTime.TotalRealTime;
-				menuItems[menuItemIndex].Selected = false;
-                menuItemIndex++;
-                if (menuItemIndex >= menuItems.Length)
-                {
-                    menuItemIndex = 0;
-                }
-                menuItems[menuItemIndex].Selected = true;
-            }
-        }
-        #endregion
+            #region Input Commands
+            InputManager input = SnailsPace.inputManager;
+            input.update();
 
+            if (input.inputPressed("MenuSelect"))
+            {
+                menuItems[menuItemIndex].Activate(gameTime);
+            }
+
+            if (input.inputPressed("MenuUp"))
+            {
+                if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
+                {
+                    timeOfLastMenuMove = gameTime.TotalRealTime;
+                    menuItems[menuItemIndex].Selected = false;
+                    menuItemIndex--;
+                    if (menuItemIndex < 0)
+                    {
+                        menuItemIndex = menuItems.Length - 1;
+                    }
+                    menuItems[menuItemIndex].Selected = true;
+                }
+            }
+
+            if (input.inputPressed("MenuDown"))
+            {
+                if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
+                {
+                    timeOfLastMenuMove = gameTime.TotalRealTime;
+                    menuItems[menuItemIndex].Selected = false;
+                    menuItemIndex++;
+                    if (menuItemIndex >= menuItems.Length)
+                    {
+                        menuItemIndex = 0;
+                    }
+                    menuItems[menuItemIndex].Selected = true;
+                }
+            }
+            #endregion
+
+            base.Update(gameTime);
+        }
     }
 }
