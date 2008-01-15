@@ -125,7 +125,9 @@ namespace SnailsPace.Input
             // Find new key presses
             foreach (String key in inputKeys.Values)
             {
-                keyPresses[key] = (keyStates[key] == KeyState.Down) && (keyStatesOld[key] == KeyState.Up);
+                keyPresses[key] = 
+                    (keyPresses[key] || (keyStates[key] == KeyState.Down) && (keyStatesOld[key] == KeyState.Up))
+                    && (keyStates[key] == KeyState.Down);
             }
         }
 

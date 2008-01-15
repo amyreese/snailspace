@@ -33,6 +33,14 @@ namespace SnailsPace.Screens.Menus
 
         public override void Update(GameTime gameTime)
         {
+            InputManager input = SnailsPace.inputManager;
+            input.update();
+
+            if (input.inputPressed("MenuToggle"))
+            {
+                snailsPace.changeState(SnailsPace.GameStates.Game);
+            }
+
             base.Update(gameTime);
         }
 
