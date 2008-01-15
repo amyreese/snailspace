@@ -51,6 +51,11 @@ namespace SnailsPace
             helSprite.visible = true;
             helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             helix.sprites.Add("Snail", helSprite);
+			helix.sprites["Snail"].animationStart = 0;
+			helix.sprites["Snail"].animationEnd = 15;
+			helix.sprites["Snail"].frame = 0;
+			helix.sprites["Snail"].animationDelay = 1.0f / 15.0f;
+			helix.sprites["Snail"].timer = 0f;
             helix.velocity = new Vector2(3.0f, 2.0f);
 
 
@@ -134,11 +139,13 @@ namespace SnailsPace
 			{
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
 				helix.position.X -= movement;
+				helix.sprites["Snail"].animate(gameTime);
 			}
             if (input.inputPressed("Right"))
             {
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.X += movement;
+				helix.sprites["Snail"].animate(gameTime);
             }
             if (input.inputPressed("Up"))
             {

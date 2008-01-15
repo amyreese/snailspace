@@ -19,21 +19,28 @@ namespace SnailsPace.Objects
         public int animationStart;
         public int animationEnd;
         public int frame;
+		public float animationDelay;
+		public float timer;
 
         // The sprite's position relative to the parent object.
         public Vector2 position;
         
         // Animate the sprite.
-        public void animate()
+        public void animate(GameTime gameTime)
         {
-            if (frame == animationEnd)
-            {
-                frame = animationStart;
-            }
-            else
-            {
-                frame++;
-            }
+			timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			if (timer >= animationDelay)
+			{
+				timer = 0f;
+				if (frame == animationEnd)
+				{
+					frame = animationStart;
+				}
+				else
+				{
+					frame++;
+				}
+			}
         }
 
         // Reset the sprite.
