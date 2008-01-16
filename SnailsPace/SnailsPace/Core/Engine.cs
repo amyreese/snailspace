@@ -151,25 +151,32 @@ namespace SnailsPace.Core
 				charEnum.Current.think(gameTime);
 			}
 
-            
-			if (input.inputDown("Left"))
+
+			if (input.inputDown("Left") && input.inputDown("Right"))
+			{
+				// do nothing
+			} else if (input.inputDown("Left"))
 			{
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
 				helix.position.X -= movement;
 				helix.sprites["Snail"].animate(gameTime);
-			}
-            if (input.inputDown("Right"))
+
+			} else if (input.inputDown("Right"))
             {
                 float movement = helix.velocity.X * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.X += movement;
 				helix.sprites["Snail"].animate(gameTime);
             }
-            if (input.inputDown("Up"))
+
+			if (input.inputDown("Up") && input.inputDown("Down"))
+			{
+				//do nothing
+			} else if (input.inputDown("Up"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y += movement;
-            }
-            if (input.inputDown("Down"))
+
+            } else if (input.inputDown("Down"))
             {
                 float movement = helix.velocity.Y * Math.Min((float)gameTime.ElapsedRealTime.TotalSeconds, 1);
                 helix.position.Y -= movement;
