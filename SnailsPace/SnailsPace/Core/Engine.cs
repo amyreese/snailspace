@@ -41,10 +41,8 @@ namespace SnailsPace.Core
 			bullets = new List<Objects.Bullet>();
 			
 			// TODO: Load the map object from Lua
-			this.map = new Objects.Map();
-			this.map.objects = new List<Objects.GameObject>();
-			this.map.characters = new List<Objects.Character>();
-
+			this.map = new Objects.Map(map);
+			
 			// TODO: Initialize Helix;
             helix = new Objects.Helix();
             helix.sprites = new Dictionary<string, Objects.Sprite>();
@@ -54,7 +52,7 @@ namespace SnailsPace.Core
             helSprite.image.blocks = new Vector2(4.0f, 4.0f);
             helSprite.image.size = new Vector2(128.0f, 128.0f);
             helSprite.visible = true;
-            helSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            helSprite.effect = "Resources/Effects/effects";
             helix.sprites.Add("Snail", helSprite);
 			helix.sprites["Snail"].animationStart = 0;
 			helix.sprites["Snail"].animationEnd = 15;
@@ -69,7 +67,7 @@ namespace SnailsPace.Core
             helix2.sprites = new Dictionary<string, Objects.Sprite>();
             helix2.sprites.Add("Snail", helSprite);
             helix2.layer = 1;
-            this.map.objects.Add(helix2);
+            //this.map.objects.Add(helix2);
 
             Objects.Sprite backgroundSprite = new Objects.Sprite();
             backgroundSprite.image = new Objects.Image();
@@ -77,7 +75,7 @@ namespace SnailsPace.Core
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
 			backgroundSprite.image.size = new Vector2(8192.0f, 6144.0f); //TODO: Fix to not skew horizontally
             backgroundSprite.visible = true;
-            backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            backgroundSprite.effect = "Resources/Effects/effects";
             Objects.GameObject bkg = new Objects.GameObject();
             bkg.sprites = new Dictionary<string, Objects.Sprite>();
             bkg.sprites.Add("Bkg", backgroundSprite);
@@ -91,7 +89,7 @@ namespace SnailsPace.Core
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
             backgroundSprite.image.size = new Vector2(4096.0f, 64.0f);
             backgroundSprite.visible = true;
-            backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+            backgroundSprite.effect = "Resources/Effects/effects";
             bkg = new Objects.GameObject();
             bkg.sprites = new Dictionary<string, Objects.Sprite>();
             bkg.sprites.Add("Bkg", backgroundSprite);
@@ -104,7 +102,7 @@ namespace SnailsPace.Core
             helix2.sprites = new Dictionary<string, Objects.Sprite>();
             helix2.sprites.Add("Snail", helSprite);
             helix2.layer = 2;
-            this.map.objects.Add(helix2);
+            //this.map.objects.Add(helix2);
 
 			Objects.Sprite pauseSprite = new Objects.Sprite();
 			pauseSprite.image = new Objects.Image();

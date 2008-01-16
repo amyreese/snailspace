@@ -144,6 +144,9 @@
     <None Include="Documents\Class Diagram.dia">
       <Name>Class Diagram</Name>
     </None>
+    <None Include="Maps\Garden\Garden.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">

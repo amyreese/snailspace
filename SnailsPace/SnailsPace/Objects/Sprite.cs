@@ -13,7 +13,7 @@ namespace SnailsPace.Objects
 
         // The sprite's image and effect.
         public Image image;
-        public Effect effect;
+        public String effect;
 
         // Sprite animation information.
         public int animationStart;

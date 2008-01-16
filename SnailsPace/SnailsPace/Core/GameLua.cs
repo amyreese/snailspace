@@ -16,7 +16,15 @@ namespace SnailsPace.Core
 using = luanet.load_assembly;
 import = luanet.import_type;
 
+using('Microsoft.Xna.Framework');
+
+Vector2 = import('Microsoft.Xna.Framework.Vector2');
+Vector3 = import('Microsoft.Xna.Framework.Vector3');
+
 using('SnailsPace');
+
+SnailsPace = import('SnailsPace.SnailsPace')
+SnailsPace = SnailsPace.getInstance()
 
 Trigger = import('SnailsPace.Objects.Trigger');
 

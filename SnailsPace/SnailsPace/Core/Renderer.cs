@@ -148,22 +148,23 @@ namespace SnailsPace.Core
 								}
 
 								// TODO this probably isn't how we want to do this if we end up using more than one effect
-								spriteEnumerator.Current.effect.CurrentTechnique = spriteEnumerator.Current.effect.Techniques["Textured"];
+                                Effect effect = SnailsPace.getInstance().Content.Load<Effect>(spriteEnumerator.Current.effect);
+                                effect.CurrentTechnique = effect.Techniques["Textured"];
 
-								spriteEnumerator.Current.effect.Parameters["xView"].SetValue(cameraView);
-								spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
-								spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-								spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
+								effect.Parameters["xView"].SetValue(cameraView);
+								effect.Parameters["xProjection"].SetValue(cameraProjection);
+								effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+								effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
 
-								spriteEnumerator.Current.effect.Begin();
-								foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
+								effect.Begin();
+								foreach (EffectPass pass in effect.CurrentTechnique.Passes)
 								{
 									pass.Begin();
 									SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
 									SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
 									pass.End();
 								}
-								spriteEnumerator.Current.effect.End();
+								effect.End();
 							}
 							else
 							{
