@@ -64,7 +64,6 @@
     <Compile Include="Config\VideoConfig.cs" />
     <Compile Include="Core\GameLua.cs" />
     <Compile Include="Core\Renderer.cs" />
-    <Compile Include="Graphics\Helix.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Input.cs" />
     <Compile Include="Objects\Bullet.cs" />
@@ -81,21 +80,6 @@
     </Compile>
     <Compile Include="Config\LuaConfig.cs">
       <Name>LuaConfig</Name>
-    </Compile>
-    <Compile Include="Graphics\GenericBackgroundSprite.cs">
-      <Name>GenericBackgroundSprite</Name>
-    </Compile>
-    <Compile Include="Graphics\GenericSprite.cs">
-      <Name>GenericSprite</Name>
-    </Compile>
-    <Compile Include="Graphics\GenericBulletSprite.cs">
-      <Name>GenericBulletSprite</Name>
-    </Compile>
-    <Compile Include="Graphics\TestGraphics\TextureTestSprite.cs">
-      <Name>TextureTestSprite</Name>
-    </Compile>
-    <Compile Include="Graphics\TestGraphics\TransparencyTestSprite.cs">
-      <Name>TransparencyTestSprite</Name>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <Name>AssemblyInfo</Name>
