@@ -58,7 +58,7 @@ namespace SnailsPace.Screens.Menus
             }
             if (spriteFont == null)
             {
-                spriteFont = Game.Content.Load<SpriteFont>("menufont");
+                spriteFont = Game.Content.Load<SpriteFont>("Resources/Fonts/Menu");
             }
             SetupMenuItems();
             for (int index = 0; index < menuItems.Length; index++)

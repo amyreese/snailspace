@@ -84,8 +84,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menufont.spritefont">
-      <Name>menufont</Name>
+    <Compile Include="Resources\Fonts\Menu.spritefont">
+      <Name>Menu</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -98,8 +98,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="debug.spritefont">
-      <Name>debug</Name>
+    <Compile Include="Resources\Fonts\Debug.spritefont">
+      <Name>Debug</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>

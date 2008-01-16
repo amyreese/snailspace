@@ -109,9 +109,9 @@ namespace SnailsPace.Core
 
 		private void loadFonts()
 		{
-			gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("MenuFont");
+			gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Menu");
 #if DEBUG
-			debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("debug");
+			debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Debug");
 #endif
 		}
 
