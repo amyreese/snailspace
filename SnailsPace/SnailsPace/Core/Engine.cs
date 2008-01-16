@@ -65,17 +65,9 @@ namespace SnailsPace.Core
 
 
             Objects.Helix helix2 = new Objects.Helix();
-			Objects.Sprite helSprite2 = new Objects.Sprite();
-			helSprite2.image = new Objects.Image();
-			helSprite2.image.filename = "Resources/Textures/HelixTable";
-			helSprite2.image.blocks = new Vector2(4.0f, 4.0f);
-			helSprite2.image.size = new Vector2(128.0f, 128.0f);
-			helSprite2.visible = true;
-			helSprite2.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
-			
-			helix2.position = new Vector2(0.5f, -1.0f);
+            helix2.position = new Vector2(0.5f, -1.0f);
             helix2.sprites = new Dictionary<string, Objects.Sprite>();
-			helix2.sprites.Add("Snail", helSprite2);
+            helix2.sprites.Add("Snail", helSprite);
             helix2.layer = 1;
             this.map.objects.Add(helix2);
 
@@ -83,7 +75,7 @@ namespace SnailsPace.Core
             backgroundSprite.image = new Objects.Image();
             backgroundSprite.image.filename = "Resources/Textures/Garden";
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-            backgroundSprite.image.size = new Vector2(4096.0f, 2048.0f); //TODO: Fix to not skew horizontally
+			backgroundSprite.image.size = new Vector2(4096.0f, 3072.0f); //TODO: Fix to not skew horizontally
             backgroundSprite.visible = true;
             backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             Objects.GameObject bkg = new Objects.GameObject();
@@ -127,6 +119,7 @@ namespace SnailsPace.Core
 			pause.position = new Vector2(0.0f, 0.0f);
 			pause.layer = -3;
 
+			
 
 			loadFonts();
 			setupGameRenderer();
