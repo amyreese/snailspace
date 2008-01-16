@@ -27,6 +27,9 @@ namespace SnailsPace.Core
         // Bullets
         public List<Objects.Bullet> bullets;
 
+		// Pause Screen
+		public Objects.GameObject pause;
+
 		// Renderer
 		public Renderer gameRenderer;
 
@@ -103,6 +106,20 @@ namespace SnailsPace.Core
             helix2.layer = 2;
             this.map.objects.Add(helix2);
 
+			Objects.Sprite pauseSprite = new Objects.Sprite();
+			pauseSprite.image = new Objects.Image();
+			pauseSprite.image.filename = "Resources/Textures/PauseScreen";
+			pauseSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			pauseSprite.image.size = new Vector2(800.0f, 600.0f);
+			pauseSprite.visible = false;
+			pauseSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
+			pause = new Objects.GameObject();
+			pause.sprites = new Dictionary<string, Objects.Sprite>();
+			pause.sprites.Add("Pause", pauseSprite);
+			pause.position = new Vector2(0.0f, 0.0f);
+			pause.layer = -3;
+
+
 			loadFonts();
 			setupGameRenderer();
         }
@@ -139,10 +156,15 @@ namespace SnailsPace.Core
                 SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
             }
 
-            if (enginePaused)
-            {
-                return;
-            }
+			pause.sprites["Pause"].visible = enginePaused;
+
+			if (enginePaused)
+			{
+				pause.position.X = gameRenderer.cameraPosition.X;
+				pause.position.Y = gameRenderer.cameraPosition.Y;
+				return;
+			}
+
 
             // TODO: iterate through map.characters calling think() on each one.
 			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
@@ -257,6 +279,7 @@ namespace SnailsPace.Core
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.Add(helix);
+			objects.Add(pause);
 			return objects;
 		}
     }
