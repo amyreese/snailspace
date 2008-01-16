@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using SnailsPace.Graphics;
-using SnailsPace.Input;
+using SnailsPace.Core;
 
 namespace SnailsPace.Screens.Menus
 {
@@ -31,8 +31,7 @@ namespace SnailsPace.Screens.Menus
 
         public override void Update(GameTime gameTime)
         {
-            InputManager input = SnailsPace.inputManager;
-            input.update();
+            Input input = SnailsPace.inputManager;
 
             if (input.inputPressed("MenuToggle"))
             {

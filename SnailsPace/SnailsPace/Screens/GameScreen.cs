@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using SnailsPace.Graphics;
-using SnailsPace.Input;
+using SnailsPace.Core;
 
 namespace SnailsPace.Screens
 {
     class GameScreen : Screen
     {
-		private GameEngine engine;
+		private Engine engine;
 
         public GameScreen(SnailsPace game)
             : base(game)
@@ -25,7 +25,7 @@ namespace SnailsPace.Screens
         protected override void LoadContent()
         {
 			// TODO pass in a map
-			engine = new GameEngine("");
+			engine = new Engine("");
 			base.LoadContent();
 			this.ready = true;
         }

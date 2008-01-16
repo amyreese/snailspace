@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SnailsPace
+namespace SnailsPace.Core
 {
-    class GameRenderer
+    class Renderer
     {
         // Camera information
         public Vector3 cameraPosition;
@@ -30,7 +30,7 @@ namespace SnailsPace
 
         private Dictionary<String, Texture2D> texture;
 
-        public GameRenderer()
+        public Renderer()
         {
             cameraPosition = new Vector3(-10, 20, normalCameraDistance);
             cameraTargetOffset = new Vector3(0, 0, normalCameraDistance);

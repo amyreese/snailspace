@@ -4,11 +4,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using SnailsPace.Input;
 
-namespace SnailsPace
+namespace SnailsPace.Core
 {
-    class GameEngine
+    class Engine
     {
         // Engine state
         Boolean enginePaused = false;
@@ -29,10 +28,10 @@ namespace SnailsPace
         public List<Objects.Bullet> bullets;
 
 		// Renderer
-		public GameRenderer gameRenderer;
+		public Renderer gameRenderer;
 
         // Constructors
-        public GameEngine(String map)
+        public Engine(String map)
         {
             GameLua lua = new GameLua();
 
@@ -118,7 +117,7 @@ namespace SnailsPace
 
 		private void setupGameRenderer()
 		{
-			gameRenderer = new GameRenderer();
+			gameRenderer = new Renderer();
 			gameRenderer.createTextures(allObjects());
 
 			gameRenderer.cameraTarget = helix;
@@ -128,7 +127,7 @@ namespace SnailsPace
 
         public void think(GameTime gameTime)
         {
-            InputManager input = SnailsPace.inputManager;
+            Input input = SnailsPace.inputManager;
 
             if (input.inputPressed("Pause"))
             {

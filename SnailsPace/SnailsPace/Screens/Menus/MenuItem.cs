@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SnailsPace.Input;
+using SnailsPace.Core;
 
 namespace SnailsPace.Screens.Menus
 {

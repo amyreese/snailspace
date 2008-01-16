@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using SnailsPace.Graphics;
-using SnailsPace.Input;
+using SnailsPace.Core;
 using SnailsPace.Config;
+using SnailsPace.Screens;
 #endregion
 
 namespace SnailsPace
@@ -32,7 +33,7 @@ namespace SnailsPace
 		public Matrix viewMatrix;
         public Matrix projectionMatrix;
 
-        internal static InputManager inputManager;
+        internal static Input inputManager;
         internal static GameConfig gameConfig;
         internal static VideoConfig videoConfig;
 
@@ -48,7 +49,7 @@ namespace SnailsPace
             graphics = new GraphicsDeviceManager(this);
             //Content.RootDirectory = "Content";
 
-            inputManager = new InputManager();
+            inputManager = new Input();
             gameConfig = new GameConfig();
             videoConfig = new VideoConfig();
 

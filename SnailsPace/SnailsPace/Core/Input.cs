@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace SnailsPace.Input
+namespace SnailsPace.Core
 {
-    class InputManager
+    class Input
     {
         private LuaConfig inputConfig;
         private String inputConfigFile = "Config/Input.lua";
@@ -18,7 +18,7 @@ namespace SnailsPace.Input
         /**
          * Initialize the InputManager object and configuration.
          */
-        public InputManager()
+        public Input()
         {
             inputKeys = new Dictionary<String, String>();
             keyStates = new Dictionary<String,KeyState>();

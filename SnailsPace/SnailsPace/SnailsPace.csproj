@@ -62,11 +62,11 @@
   <ItemGroup>
     <Compile Include="Config\GameConfig.cs" />
     <Compile Include="Config\VideoConfig.cs" />
-    <Compile Include="GameLua.cs" />
-    <Compile Include="GameRenderer.cs" />
+    <Compile Include="Core\GameLua.cs" />
+    <Compile Include="Core\Renderer.cs" />
     <Compile Include="Graphics\Helix.cs" />
-    <Compile Include="GameEngine.cs" />
-    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\Input.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\GameObject.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Text.cs" />
     <Compile Include="Objects\Trigger.cs" />
-    <Compile Include="Screen.cs">
+    <Compile Include="Screens\Screen.cs">
       <Name>Screen</Name>
     </Compile>
     <Compile Include="Config\LuaConfig.cs">

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using LuaInterface;
 
-namespace SnailsPace
+namespace SnailsPace.Core
 {
     class GameLua : Lua
     {

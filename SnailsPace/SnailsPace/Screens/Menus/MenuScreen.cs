@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using SnailsPace.Graphics;
-using SnailsPace.Input;
+using SnailsPace.Core;
 
 namespace SnailsPace.Screens.Menus
 {
@@ -90,43 +90,31 @@ namespace SnailsPace.Screens.Menus
         }
         #endregion
 
-        // Make the time a large number so they can move right away on startup
-        int minimumMillisecondsBetweenMenuMoves = 150;
-        TimeSpan timeOfLastMenuMove = new TimeSpan();
-        
         public override void Update(GameTime gameTime)
         {
             #region Input Commands
-            InputManager input = SnailsPace.inputManager;
+            Input input = SnailsPace.inputManager;
             
             if (input.inputPressed("MenuUp"))
             {
-                if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
+                menuItems[menuItemIndex].Selected = false;
+                menuItemIndex--;
+                if (menuItemIndex < 0)
                 {
-                    timeOfLastMenuMove = gameTime.TotalRealTime;
-                    menuItems[menuItemIndex].Selected = false;
-                    menuItemIndex--;
-                    if (menuItemIndex < 0)
-                    {
-                        menuItemIndex = menuItems.Length - 1;
-                    }
-                    menuItems[menuItemIndex].Selected = true;
+                    menuItemIndex = menuItems.Length - 1;
                 }
+                menuItems[menuItemIndex].Selected = true;
             }
 
             if (input.inputPressed("MenuDown"))
             {
-                if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)
+                menuItems[menuItemIndex].Selected = false;
+                menuItemIndex++;
+                if (menuItemIndex >= menuItems.Length)
                 {
-                    timeOfLastMenuMove = gameTime.TotalRealTime;
-                    menuItems[menuItemIndex].Selected = false;
-                    menuItemIndex++;
-                    if (menuItemIndex >= menuItems.Length)
-                    {
-                        menuItemIndex = 0;
-                    }
-                    menuItems[menuItemIndex].Selected = true;
+                    menuItemIndex = 0;
                 }
+                menuItems[menuItemIndex].Selected = true;
             }
             #endregion
 
