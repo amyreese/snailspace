@@ -75,13 +75,13 @@ namespace SnailsPace.Core
             backgroundSprite.image = new Objects.Image();
             backgroundSprite.image.filename = "Resources/Textures/Garden";
             backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			backgroundSprite.image.size = new Vector2(4096.0f, 3072.0f); //TODO: Fix to not skew horizontally
+			backgroundSprite.image.size = new Vector2(8192.0f, 6144.0f); //TODO: Fix to not skew horizontally
             backgroundSprite.visible = true;
             backgroundSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
             Objects.GameObject bkg = new Objects.GameObject();
             bkg.sprites = new Dictionary<string, Objects.Sprite>();
             bkg.sprites.Add("Bkg", backgroundSprite);
-            bkg.position = new Vector2(40.0f, 16.0f);
+            bkg.position = new Vector2(75.0f, 70.0f);
             bkg.layer = 50;
             this.map.objects.Add(bkg);
 
@@ -137,6 +137,10 @@ namespace SnailsPace.Core
 		{
 			gameRenderer = new Renderer();
 			gameRenderer.createTextures(allObjects());
+
+			Vector2 offsetPosition = new Vector2(50, 25);
+			
+			gameRenderer.cameraPosition = new Vector3( helix.position + offsetPosition, gameRenderer.cameraTargetOffset.Z * 1.5f);
 
 			gameRenderer.cameraTarget = helix;
 			gameRenderer.cameraTargetOffset.X = -2;
