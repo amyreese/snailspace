@@ -21,10 +21,10 @@ namespace SnailsPace.Core
         public const float minimumCameraMovement = 0.5f;
         public const float cameraSpeed = 1.5f;
         public const float textureScale = 64.0f;
-
+		
         // Set distance from the camera of the near and far clipping planes.
         static float nearClip = 0.1f;
-        static float farClip = 2000.0f;
+        static float farClip = 100.0f;
 
         VertexPositionTexture[] vertices;
 
@@ -100,6 +100,8 @@ namespace SnailsPace.Core
             cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
 
+			BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
+
             if (objects != null)
             {
                 List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
@@ -113,40 +115,65 @@ namespace SnailsPace.Core
                             Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, 0);
                             Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
                             objectScale = new Vector3(spriteEnumerator.Current.image.size / textureScale, 1);
-                            int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
-                            int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
-                            vertices[0].TextureCoordinate.X = (xBlock + 1) / spriteEnumerator.Current.image.blocks.X;
-                            vertices[0].TextureCoordinate.Y = (yBlock + 1) / spriteEnumerator.Current.image.blocks.Y;
-                            vertices[1].TextureCoordinate.X = xBlock / spriteEnumerator.Current.image.blocks.X;
-                            vertices[1].TextureCoordinate.Y = (yBlock + 1) / spriteEnumerator.Current.image.blocks.Y;
-                            vertices[2].TextureCoordinate.X = (xBlock + 1) / spriteEnumerator.Current.image.blocks.X;
-                            vertices[2].TextureCoordinate.Y = yBlock / spriteEnumerator.Current.image.blocks.Y;
-                            vertices[3].TextureCoordinate.X = xBlock / spriteEnumerator.Current.image.blocks.X;
-                            vertices[3].TextureCoordinate.Y = yBlock / spriteEnumerator.Current.image.blocks.Y;
-                            vertices[0].Position.Z = -objectEnumerator.Current.layer;
-                            vertices[1].Position.Z = -objectEnumerator.Current.layer;
-                            vertices[2].Position.Z = -objectEnumerator.Current.layer;
-                            vertices[3].Position.Z = -objectEnumerator.Current.layer;
 
-                            Matrix worldMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation) *
-                                Matrix.CreateTranslation(objectPosition);
-                            spriteEnumerator.Current.effect.CurrentTechnique = spriteEnumerator.Current.effect.Techniques["Textured"];
-                            spriteEnumerator.Current.effect.Parameters["xView"].SetValue(cameraView);
-                            spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
-                            spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(worldMatrix);
+							BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.X * objectScale.Y);
+							if (viewFrustum.Intersects(sphere))
+							{
 
-                            // TODO: pull the appropraite part of the texture
-                            spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
+								int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
+								int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
 
-                            spriteEnumerator.Current.effect.Begin();
-                            foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
-                            {
-                                pass.Begin();
-                                SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
-                                SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, vertices, 0, 2);
-                                pass.End();
-                            }
-                            spriteEnumerator.Current.effect.End();
+								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation) *
+									Matrix.CreateTranslation(objectPosition);
+								VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
+								for (int index = 0; index < vertices.Length; index++)
+								{
+									objVertices[index].Position.X = translationMatrix.M11 * vertices[index].Position.X
+																	+ translationMatrix.M21 * vertices[index].Position.Y
+																	+ translationMatrix.M41;
+									objVertices[index].Position.Y = translationMatrix.M12 * vertices[index].Position.X
+																	+ translationMatrix.M22 * vertices[index].Position.Y
+																	+ translationMatrix.M42;
+									objVertices[index].Position.Z = -objectEnumerator.Current.layer;
+
+									int xMod = 1 - index % 2;
+									int yMod = 0;
+									if (index == 0 || index == 1)
+									{
+										yMod = 1;
+									}
+									objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X;
+									objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y;
+
+								}
+
+								// TODO this probably isn't how we want to do this if we end up using more than one effect
+								spriteEnumerator.Current.effect.CurrentTechnique = spriteEnumerator.Current.effect.Techniques["Textured"];
+
+								spriteEnumerator.Current.effect.Parameters["xView"].SetValue(cameraView);
+								spriteEnumerator.Current.effect.Parameters["xProjection"].SetValue(cameraProjection);
+								spriteEnumerator.Current.effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+								spriteEnumerator.Current.effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
+
+								spriteEnumerator.Current.effect.Begin();
+								foreach (EffectPass pass in spriteEnumerator.Current.effect.CurrentTechnique.Passes)
+								{
+									pass.Begin();
+									SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
+									SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
+									pass.End();
+								}
+								spriteEnumerator.Current.effect.End();
+							}
+							else
+							{
+#if DEBUG
+								if (SnailsPace.debugCulling)
+								{
+									SnailsPace.debug("Object culled.");
+								}
+#endif
+							}
                         }
                     }
                 }
