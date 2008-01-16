@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using SnailsPace.Graphics;
 using SnailsPace.Core;
 
 namespace SnailsPace.Screens
@@ -25,7 +24,7 @@ namespace SnailsPace.Screens
         protected override void LoadContent()
         {
 			// TODO pass in a map
-			engine = new Engine("");
+			engine = new Engine("Garden");
 			base.LoadContent();
 			this.ready = true;
         }
