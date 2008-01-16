@@ -24,9 +24,32 @@ namespace SnailsPace.Screens.Menus
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
             menuItems = new MenuItem[1];
-            menuItems[0] = new MenuItem("Back", this, new Vector2(itemX, itemY), new ActionMapping.KeyAction(snailsPace.goToMainMenu));
+            menuItems[0] = new MenuItem("Back", this, new Vector2(itemX, itemY));
             menuItemIndex = 0;
             ready = true;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            InputManager input = SnailsPace.inputManager;
+            input.update();
+
+            if (input.inputPressed("MenuToggle"))
+            {
+                snailsPace.changeState(SnailsPace.GameStates.MainMenu);
+            }
+
+            if (input.inputPressed("MenuSelect"))
+            {
+                switch (menuItemIndex)
+                {
+                    case 0:
+                        snailsPace.changeState(SnailsPace.GameStates.MainMenu);
+                        break;
+                }
+            }
+
+            base.Update(gameTime);
         }
     }
 }

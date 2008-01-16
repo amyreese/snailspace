@@ -193,6 +193,7 @@ namespace SnailsPace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            inputManager.update();
             base.Update(gameTime);
         }
 

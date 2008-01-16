@@ -12,14 +12,12 @@ namespace SnailsPace.Screens.Menus
         private String text;
         private MenuScreen screen;
         private Vector2 position;
-        private ActionMapping.KeyAction action;
 
-        public MenuItem(String text, MenuScreen screen, Vector2 position, ActionMapping.KeyAction action)
+        public MenuItem(String text, MenuScreen screen, Vector2 position)
         {
             this.text = text;
             this.screen = screen;
             this.position = position;
-            this.action = action;
         }
 
         public void Draw(GameTime time)
@@ -35,10 +33,6 @@ namespace SnailsPace.Screens.Menus
             spriteBatch.End();
         }
 
-        public void Activate(GameTime gameTime)
-        {
-            action(gameTime);
-        }
         private bool _selected = false;
         public bool Selected
         {

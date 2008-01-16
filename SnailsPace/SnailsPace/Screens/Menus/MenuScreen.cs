@@ -98,13 +98,7 @@ namespace SnailsPace.Screens.Menus
         {
             #region Input Commands
             InputManager input = SnailsPace.inputManager;
-            input.update();
-
-            if (input.inputPressed("MenuSelect"))
-            {
-                menuItems[menuItemIndex].Activate(gameTime);
-            }
-
+            
             if (input.inputPressed("MenuUp"))
             {
                 if (timeOfLastMenuMove == null || gameTime.TotalRealTime.Subtract(timeOfLastMenuMove).Milliseconds > minimumMillisecondsBetweenMenuMoves)

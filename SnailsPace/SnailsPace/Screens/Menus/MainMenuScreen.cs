@@ -14,6 +14,8 @@ namespace SnailsPace.Screens.Menus
 {
     class MainMenuScreen : MenuScreen
     {
+        private Boolean gameStarted = false;
+
         public MainMenuScreen(SnailsPace game)
             : base(game)
         {
@@ -24,9 +26,9 @@ namespace SnailsPace.Screens.Menus
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
             menuItems = new MenuItem[3];
-			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY), new ActionMapping.KeyAction(snailsPace.startGame));
-            menuItems[1] = new MenuItem("Settings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2), new ActionMapping.KeyAction(this.GoToSettingsMenu));
-            menuItems[2] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4), new ActionMapping.KeyAction(snailsPace.exitGame));
+			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
+            menuItems[1] = new MenuItem("Settings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
+            menuItems[2] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
             menuItemIndex = 0;
             ready = true;
         }
@@ -34,19 +36,30 @@ namespace SnailsPace.Screens.Menus
         public override void Update(GameTime gameTime)
         {
             InputManager input = SnailsPace.inputManager;
-            input.update();
 
-            if (input.inputPressed("MenuToggle"))
+            if (input.inputPressed("MenuToggle") && gameStarted)
             {
                 snailsPace.changeState(SnailsPace.GameStates.Game);
             }
 
-            base.Update(gameTime);
-        }
+            if (input.inputPressed("MenuSelect"))
+            {
+                switch (menuItemIndex)
+                {
+                    case 0:
+                        gameStarted = true;
+                        snailsPace.changeState(SnailsPace.GameStates.Game);
+                        break;
+                    case 1:
+                        snailsPace.changeState(SnailsPace.GameStates.SettingsMenu);
+                        break;
+                    case 2:
+                        snailsPace.exitGame(gameTime);
+                        break;
+                }
+            }
 
-        protected void GoToSettingsMenu(GameTime gameTime)
-        {
-            snailsPace.changeState(SnailsPace.GameStates.SettingsMenu);
+            base.Update(gameTime);
         }
     }
 }

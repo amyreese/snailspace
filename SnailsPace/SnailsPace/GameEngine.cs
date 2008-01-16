@@ -129,7 +129,6 @@ namespace SnailsPace
         public void think(GameTime gameTime)
         {
             InputManager input = SnailsPace.inputManager;
-            input.update();
 
             if (input.inputPressed("Pause"))
             {

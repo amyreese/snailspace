@@ -97,12 +97,6 @@
     <Compile Include="Graphics\TestGraphics\TransparencyTestSprite.cs">
       <Name>TransparencyTestSprite</Name>
     </Compile>
-    <Compile Include="Input\ActionMapping.cs">
-      <Name>ActionMapping</Name>
-    </Compile>
-    <Compile Include="Input\KeyCombination.cs">
-      <Name>KeyCombination</Name>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <Name>AssemblyInfo</Name>
     </Compile>
