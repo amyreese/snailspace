@@ -28,7 +28,8 @@ namespace SnailsPace.Core
 
         VertexPositionTexture[] vertices;
 
-        private Dictionary<String, Texture2D> texture;
+        private Dictionary<String, Texture2D> textures;
+        private Dictionary<String, Effect> effects;
 
         public Renderer()
         {
@@ -37,25 +38,55 @@ namespace SnailsPace.Core
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
             setUpVertices();
 
-            //TODO: Iterate through game objects, take filename from sprite image, create texture 2D for it, put into dictionary, maps image filename to texture2D
-
+            textures = new Dictionary<string, Texture2D>();
+            effects = new Dictionary<string, Effect>();
         }
 
-        public void createTextures(List<Objects.GameObject> objects)
+        public void createTexturesAndEffects(List<Objects.GameObject> objects)
         {
-            texture = new Dictionary<string, Texture2D>();
             List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
             while (objectEnumerator.MoveNext())
             {
                 Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
                 while (spriteEnumerator.MoveNext())
                 {
-                    if (!texture.ContainsKey(spriteEnumerator.Current.image.filename))
-                    {
-                        Texture2D temp = SnailsPace.getInstance().Content.Load<Texture2D>(spriteEnumerator.Current.image.filename) as Texture2D;
-                        texture.Add(spriteEnumerator.Current.image.filename, temp);
-                    }
+                    getOrCreateTexture(spriteEnumerator.Current);
+                    getOrCreateEffect(spriteEnumerator.Current);
                 }
+            }
+        }
+        private Texture2D getOrCreateTexture(Objects.Sprite sprite)
+        {
+            return getOrCreateTexture(sprite.image.filename);
+        }
+        private Texture2D getOrCreateTexture(String texture)
+        {
+            if (!textures.ContainsKey(texture))
+            {
+                Texture2D temp = SnailsPace.getInstance().Content.Load<Texture2D>(texture);
+                textures.Add(texture, temp);
+                return temp;
+            }
+            else
+            {
+                return textures[texture];
+            }
+        }
+        private Effect getOrCreateEffect(Objects.Sprite sprite)
+        {
+            return getOrCreateEffect( sprite.effect );
+        }
+        private Effect getOrCreateEffect(String effect)
+        {
+            if (!effects.ContainsKey(effect))
+            {
+                Effect temp = SnailsPace.getInstance().Content.Load<Effect>(effect);
+                effects.Add(effect, temp);
+                return temp;
+            }
+            else
+            {
+                return effects[effect];
             }
         }
 
@@ -99,8 +130,7 @@ namespace SnailsPace.Core
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
             cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
-
-			BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
+            BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
             if (objects != null)
             {
@@ -148,13 +178,13 @@ namespace SnailsPace.Core
 								}
 
 								// TODO this probably isn't how we want to do this if we end up using more than one effect
-                                Effect effect = SnailsPace.getInstance().Content.Load<Effect>(spriteEnumerator.Current.effect);
+                                Effect effect = getOrCreateEffect(spriteEnumerator.Current);
                                 effect.CurrentTechnique = effect.Techniques["Textured"];
 
 								effect.Parameters["xView"].SetValue(cameraView);
 								effect.Parameters["xProjection"].SetValue(cameraProjection);
 								effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-								effect.Parameters["xTexture"].SetValue(texture[spriteEnumerator.Current.image.filename]);
+								effect.Parameters["xTexture"].SetValue(getOrCreateTexture(spriteEnumerator.Current));
 
 								effect.Begin();
 								foreach (EffectPass pass in effect.CurrentTechnique.Passes)

@@ -61,14 +61,6 @@ namespace SnailsPace.Core
 			helix.sprites["Snail"].timer = 0f;
             helix.velocity = new Vector2(3.0f, 2.0f);
 
-
-            Objects.Helix helix2 = new Objects.Helix();
-            helix2.position = new Vector2(0.5f, -1.0f);
-            helix2.sprites = new Dictionary<string, Objects.Sprite>();
-            helix2.sprites.Add("Snail", helSprite);
-            helix2.layer = 1;
-            //this.map.objects.Add(helix2);
-
             Objects.Sprite backgroundSprite = new Objects.Sprite();
             backgroundSprite.image = new Objects.Image();
             backgroundSprite.image.filename = "Resources/Textures/Garden";
@@ -97,30 +89,25 @@ namespace SnailsPace.Core
             bkg.layer = 5;
             this.map.objects.Add(bkg);
 
-            helix2 = new Objects.Helix();
-            helix2.position = new Vector2(1.0f, 1.0f);
-            helix2.sprites = new Dictionary<string, Objects.Sprite>();
-            helix2.sprites.Add("Snail", helSprite);
-            helix2.layer = 2;
-            //this.map.objects.Add(helix2);
-
-			Objects.Sprite pauseSprite = new Objects.Sprite();
-			pauseSprite.image = new Objects.Image();
-			pauseSprite.image.filename = "Resources/Textures/PauseScreen";
-			pauseSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			pauseSprite.image.size = new Vector2(800.0f, 600.0f);
-			pauseSprite.visible = false;
-			pauseSprite.effect = SnailsPace.getInstance().Content.Load<Effect>("Resources/Effects/effects");
-			pause = new Objects.GameObject();
-			pause.sprites = new Dictionary<string, Objects.Sprite>();
-			pause.sprites.Add("Pause", pauseSprite);
-			pause.position = new Vector2(0.0f, 0.0f);
-			pause.layer = -3;
-
-			
-
-			loadFonts();
+            loadFonts();
+            setupPauseOverlay();
 			setupGameRenderer();
+        }
+
+        private void setupPauseOverlay()
+        {
+            Objects.Sprite pauseSprite = new Objects.Sprite();
+            pauseSprite.image = new Objects.Image();
+            pauseSprite.image.filename = "Resources/Textures/PauseScreen";
+            pauseSprite.image.blocks = new Vector2(1.0f, 1.0f);
+            pauseSprite.image.size = new Vector2(800.0f, 600.0f);
+            pauseSprite.visible = false;
+            pauseSprite.effect = "Resources/Effects/effects";
+            pause = new Objects.GameObject();
+            pause.sprites = new Dictionary<string, Objects.Sprite>();
+            pause.sprites.Add("Pause", pauseSprite);
+            pause.position = new Vector2(0.0f, 0.0f);
+            pause.layer = -3;
         }
 
 		private void loadFonts()
@@ -134,10 +121,9 @@ namespace SnailsPace.Core
 		private void setupGameRenderer()
 		{
 			gameRenderer = new Renderer();
-			gameRenderer.createTextures(allObjects());
+//            gameRenderer.createTexturesAndEffects(allObjects());
 
 			Vector2 offsetPosition = new Vector2(50, 25);
-			
 			gameRenderer.cameraPosition = new Vector3( helix.position + offsetPosition, gameRenderer.cameraTargetOffset.Z * 1.5f);
 
 			gameRenderer.cameraTarget = helix;
