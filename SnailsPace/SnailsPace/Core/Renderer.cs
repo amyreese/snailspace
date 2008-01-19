@@ -65,8 +65,14 @@ namespace SnailsPace.Core
             {
                 Texture2D temp = SnailsPace.getInstance().Content.Load<Texture2D>(texture);
                 textures.Add(texture, temp);
+#if DEBUG
+				if (SnailsPace.debugEffectAndTextureLoading)
+				{
+					SnailsPace.debug("Texture loaded: " + texture);
+				}
+#endif
                 return temp;
-            }
+			}
             else
             {
                 return textures[texture];
@@ -82,6 +88,11 @@ namespace SnailsPace.Core
             {
                 Effect temp = SnailsPace.getInstance().Content.Load<Effect>(effect);
                 effects.Add(effect, temp);
+#if DEBUG
+				if( SnailsPace.debugEffectAndTextureLoading ) {
+					SnailsPace.debug("Effect loaded: " + effect);
+				}
+#endif
                 return temp;
             }
             else

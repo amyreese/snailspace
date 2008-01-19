@@ -22,11 +22,11 @@ namespace SnailsPace
 	{
 		#region Debug flags
 #if DEBUG
-		public const bool debugFramerate = true;
-		public const bool debugKeyAssignments = true;
+		public const bool debugFramerate = false;
         public const bool debugCameraPosition = true;
         public const bool debugHelixPosition = true;
 		public const bool debugCulling = false;
+		public const bool debugEffectAndTextureLoading = true;
 #endif
 		#endregion
 
@@ -217,7 +217,10 @@ namespace SnailsPace
 				debug("Average FPS: " + fps);
 				fps = Math.Round(1000 / gameTime.ElapsedRealTime.TotalMilliseconds);
 				debug("FPS: " + fps);
-				debug("Slow? " + gameTime.IsRunningSlowly);
+				if (gameTime.IsRunningSlowly)
+				{
+					debug("Slow!!!");
+				}
 			}
 #endif
             base.Draw(gameTime);
