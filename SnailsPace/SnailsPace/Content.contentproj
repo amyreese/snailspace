@@ -33,6 +33,7 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Name>effects</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Resources\Textures\blendingtexture.jpg">
       <Importer>TextureImporter</Importer>

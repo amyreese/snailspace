@@ -55,14 +55,26 @@ namespace SnailsPace.Core
             helSprite.visible = true;
             helSprite.effect = "Resources/Effects/effects";
 
-			
+			Objects.Sprite gun = new Objects.Sprite();
+			gun.image = helSprite.image;
+			gun.visible = true;
+			gun.effect = helSprite.effect;
 
-            helix.sprites.Add("Snail", helSprite);
+			helix.sprites.Add("Snail", helSprite);
 			helix.sprites["Snail"].animationStart = 0;
-			helix.sprites["Snail"].animationEnd = 15;
+			helix.sprites["Snail"].animationEnd = 11;
 			helix.sprites["Snail"].frame = 0;
 			helix.sprites["Snail"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Snail"].timer = 0f;
+
+			helix.sprites.Add("Gun", gun);
+			helix.sprites["Gun"].animationStart = 12;
+			helix.sprites["Gun"].animationEnd = 15;
+			helix.sprites["Gun"].frame = 12;
+			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
+			helix.sprites["Gun"].timer = 0f;
+
+            
             helix.velocity = new Vector2(3.0f, 2.0f);
 			helix.layer = 0;
 
