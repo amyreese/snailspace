@@ -50,25 +50,37 @@ namespace SnailsPace.Core
 			helix = new Objects.Helix();
 			helix.sprites = new Dictionary<string, Objects.Sprite>();
 
-			Objects.Sprite helSprite = new Objects.Sprite();
-			helSprite.image = new Objects.Image();
-			helSprite.image.filename = "Resources/Textures/HelixTable";
-			helSprite.image.blocks = new Vector2(4.0f, 4.0f);
-			helSprite.image.size = new Vector2(128.0f, 128.0f);
-			helSprite.visible = true;
-			helSprite.effect = "Resources/Effects/effects";
+			Objects.Sprite walk = new Objects.Sprite();
+            walk.image = new Objects.Image();
+            walk.image.filename = "Resources/Textures/HelixTable";
+            walk.image.blocks = new Vector2(4.0f, 4.0f);
+            walk.image.size = new Vector2(128.0f, 128.0f);
+            walk.visible = true;
+            walk.effect = "Resources/Effects/effects";
+
+			Objects.Sprite fly = new Objects.Sprite();
+			fly.image = walk.image;
+			fly.visible = false;
+			fly.effect = walk.effect;
 
 			Objects.Sprite gun = new Objects.Sprite();
-			gun.image = helSprite.image;
+			gun.image = walk.image;
 			gun.visible = true;
-			gun.effect = helSprite.effect;
+			gun.effect = walk.effect;
 
-			helix.sprites.Add("Snail", helSprite);
-			helix.sprites["Snail"].animationStart = 0;
-			helix.sprites["Snail"].animationEnd = 11;
-			helix.sprites["Snail"].frame = 0;
-			helix.sprites["Snail"].animationDelay = 1.0f / 15.0f;
-			helix.sprites["Snail"].timer = 0f;
+			helix.sprites.Add("Walk", walk);
+			helix.sprites["Walk"].animationStart = 0;
+			helix.sprites["Walk"].animationEnd = 7;
+			helix.sprites["Walk"].frame = 0;
+			helix.sprites["Walk"].animationDelay = 1.0f / 15.0f;
+			helix.sprites["Walk"].timer = 0f;
+
+			helix.sprites.Add("Fly", fly);
+			helix.sprites["Fly"].animationStart = 8;
+			helix.sprites["Fly"].animationEnd = 11;
+			helix.sprites["Fly"].frame = 8;
+			helix.sprites["Fly"].animationDelay = 1.0f / 15.0f;
+			helix.sprites["Fly"].timer = 0f;
 
 			helix.sprites.Add("Gun", gun);
 			helix.sprites["Gun"].animationStart = 12;
@@ -181,12 +193,12 @@ namespace SnailsPace.Core
 				else if (input.inputDown("Left"))
 				{
 					helix.velocity.X = -1;
-					helix.sprites["Snail"].animate(gameTime);
+					helix.sprites["Walk"].animate(gameTime);
 				}
 				else if (input.inputDown("Right"))
 				{
 					helix.velocity.X = 1;
-					helix.sprites["Snail"].animate(gameTime);
+					helix.sprites["Walk"].animate(gameTime);
 				}
 
 				if (input.inputDown("Up") && input.inputDown("Down"))
@@ -203,11 +215,13 @@ namespace SnailsPace.Core
 				}
 			}
 
+
 			// Update things that depend on mouse position
 			{
 				crosshair.position.X = mouseToScreenX(input.MouseX);
 				crosshair.position.Y = mouseToScreenY(input.MouseY);
 			}
+
 
 			// TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
