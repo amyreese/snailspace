@@ -164,6 +164,7 @@ namespace SnailsPace
             graphics.PreferMultiSampling = false;
             graphics.IsFullScreen = (fullscreen == "yes" ? true : false);
             IsMouseVisible = true;
+			IsFixedTimeStep = false;
             base.Initialize();
         }
 
