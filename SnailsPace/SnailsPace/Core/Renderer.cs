@@ -156,6 +156,8 @@ namespace SnailsPace.Core
 								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation) *
 									Matrix.CreateTranslation(objectPosition);
 								VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
+								int xFlip = spriteEnumerator.Current.horizontalFlip ? -1 : 0;
+								int yFlip = 0;
 								for (int index = 0; index < vertices.Length; index++)
 								{
 									objVertices[index].Position.X = translationMatrix.M11 * vertices[index].Position.X
@@ -172,8 +174,8 @@ namespace SnailsPace.Core
 									{
 										yMod = 1;
 									}
-									objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X;
-									objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y;
+									objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X + xFlip;
+									objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y + yFlip;
 
 								}
 

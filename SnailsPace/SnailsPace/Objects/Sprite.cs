@@ -11,6 +11,8 @@ namespace SnailsPace.Objects
         // Whether to display the sprite.
         public bool visible;
 
+		public bool horizontalFlip;
+
         // The sprite's image and effect.
         public Image image;
         public String effect;

@@ -93,9 +93,12 @@ sprt.effect = "Resources/Effects/effects"
 sprt.animationStart = 0
 sprt.animationEnd = 0
 sprt.frame = 0
+sprt.horizontalFlip = true
 
 gmob = GameObject()
 gmob.sprites:Add("Ant", sprt)
 gmob.velocity = Vector2(3.0, 2.0)
+gmob.position = Vector2(10.0, 0.0)
+gmob.layer = 0.1
 
 map.objects:Add(gmob)
