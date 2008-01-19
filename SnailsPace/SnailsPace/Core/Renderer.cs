@@ -142,7 +142,7 @@ namespace SnailsPace.Core
                     {
                         if (spriteEnumerator.Current.visible)
                         {
-                            Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, 0);
+                            Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, -objectEnumerator.Current.layer);
                             Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
                             objectScale = new Vector3(spriteEnumerator.Current.image.size / textureScale, 1);
 

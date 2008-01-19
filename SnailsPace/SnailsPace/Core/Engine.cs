@@ -60,34 +60,7 @@ namespace SnailsPace.Core
 			helix.sprites["Snail"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Snail"].timer = 0f;
             helix.velocity = new Vector2(3.0f, 2.0f);
-
-            Objects.Sprite backgroundSprite = new Objects.Sprite();
-            backgroundSprite.image = new Objects.Image();
-            backgroundSprite.image.filename = "Resources/Textures/Garden";
-            backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			backgroundSprite.image.size = new Vector2(8192.0f, 6144.0f); //TODO: Fix to not skew horizontally
-            backgroundSprite.visible = true;
-            backgroundSprite.effect = "Resources/Effects/effects";
-            Objects.GameObject bkg = new Objects.GameObject();
-            bkg.sprites = new Dictionary<string, Objects.Sprite>();
-            bkg.sprites.Add("Bkg", backgroundSprite);
-            bkg.position = new Vector2(75.0f, 70.0f);
-            bkg.layer = 50;
-            this.map.objects.Add(bkg);
-
-            backgroundSprite = new Objects.Sprite();
-            backgroundSprite.image = new Objects.Image();
-            backgroundSprite.image.filename = "Resources/Textures/GardenPanorama";
-            backgroundSprite.image.blocks = new Vector2(1.0f, 1.0f);
-            backgroundSprite.image.size = new Vector2(4096.0f, 64.0f);
-            backgroundSprite.visible = true;
-            backgroundSprite.effect = "Resources/Effects/effects";
-            bkg = new Objects.GameObject();
-            bkg.sprites = new Dictionary<string, Objects.Sprite>();
-            bkg.sprites.Add("Bkg", backgroundSprite);
-            bkg.position = new Vector2(40.0f, -1.0f);
-            bkg.layer = 5;
-            this.map.objects.Add(bkg);
+			helix.layer = 0;
 
             loadFonts();
             setupPauseOverlay();
