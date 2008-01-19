@@ -202,10 +202,10 @@ namespace SnailsPace.Core
                 helix.position.Y -= movement;
             }
 
-			//crosshair.position.X = input.MouseX;
-			//crosshair.position.Y = input.MouseY;
+			// Update things that depend on mouse position
 			crosshair.position.X = mouseToScreenX(input.MouseX);
 			crosshair.position.Y = mouseToScreenY(input.MouseY);
+			helix.sprites["Gun"].rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0 ) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
 
             // TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
