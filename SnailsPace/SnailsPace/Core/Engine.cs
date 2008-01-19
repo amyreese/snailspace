@@ -189,29 +189,42 @@ namespace SnailsPace.Core
 				if (input.inputDown("Left") && input.inputDown("Right"))
 				{
 					// do nothing
+					
 				}
 				else if (input.inputDown("Left"))
 				{
 					helix.velocity.X = -1;
+					helix.sprites["Fly"].visible = false;
+					helix.sprites["Walk"].visible = true;
 					helix.sprites["Walk"].animate(gameTime);
 				}
 				else if (input.inputDown("Right"))
 				{
 					helix.velocity.X = 1;
+					helix.sprites["Fly"].visible = false;
+					helix.sprites["Walk"].visible = true;
 					helix.sprites["Walk"].animate(gameTime);
 				}
 
 				if (input.inputDown("Up") && input.inputDown("Down"))
 				{
 					//do nothing
+					helix.sprites["Fly"].visible = true;
+					helix.sprites["Walk"].visible = false;
 				}
 				else if (input.inputDown("Up"))
 				{
 					helix.velocity.Y = 1;
+					helix.sprites["Fly"].visible = true;
+					helix.sprites["Walk"].visible = false;
+					helix.sprites["Fly"].animate(gameTime);
 				}
 				else if (input.inputDown("Down"))
 				{
 					helix.velocity.Y = -1;
+					helix.sprites["Fly"].visible = true;
+					helix.sprites["Walk"].visible = false;
+					helix.sprites["Fly"].animate(gameTime);
 				}
 			}
 
