@@ -21,8 +21,9 @@ namespace SnailsPace.Objects
 		{
 			Image clonedImage = new Image();
 			clonedImage.filename = filename;
-			clonedImage.size = new Vector2( size );
-			clonedImage.blocks = new Vector2( blocks );
+			clonedImage.size = new Vector2( size.X, size.Y );
+			clonedImage.blocks = new Vector2( blocks.X, blocks.Y );
+			return clonedImage;
 		}
     }
 }
