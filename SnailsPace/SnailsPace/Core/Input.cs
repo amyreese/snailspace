@@ -85,24 +85,25 @@ namespace SnailsPace.Core
         public void update()
         {
             // Shift keyStates to keyStatesOld
-            foreach (String key in inputKeys.Values)
+			Dictionary<String, String>.ValueCollection.Enumerator keyValueEnumerator = inputKeys.Values.GetEnumerator();
+			while( keyValueEnumerator.MoveNext() )
             {
-                keyStatesOld[key] = keyStates[key];
-                keyStates[key] = KeyState.Up;
+                keyStatesOld[keyValueEnumerator.Current] = keyStates[keyValueEnumerator.Current];
+                keyStates[keyValueEnumerator.Current] = KeyState.Up;
             }
+			keyValueEnumerator.Dispose();
 
             // Check keyboard inputs
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
 
-            foreach (Keys pressedKey in pressedKeys)
-            {
-                String keyName = pressedKey.ToString();
-                if (keyStates.ContainsKey(keyName))
-                {
-                    keyStates[keyName] = KeyState.Down;
-                }
-            }
+			for( int pressedKeyIndex = 0; pressedKeyIndex < pressedKeys.Length; pressedKeyIndex++ ) {
+				String keyName = pressedKeys[pressedKeyIndex].ToString();
+				if (keyStates.ContainsKey(keyName))
+				{
+					keyStates[keyName] = KeyState.Down;
+				}
+			}
 
             // Check mouse inputs
             MouseState mouseState = Mouse.GetState();
@@ -123,12 +124,14 @@ namespace SnailsPace.Core
             }
 
             // Find new key presses
-            foreach (String key in inputKeys.Values)
-            {
-                keyPresses[key] = 
-                    (keyPresses[key] || (keyStates[key] == KeyState.Down) && (keyStatesOld[key] == KeyState.Up))
-                    && (keyStates[key] == KeyState.Down);
+			keyValueEnumerator = inputKeys.Values.GetEnumerator();
+			while (keyValueEnumerator.MoveNext())
+			{
+				keyPresses[keyValueEnumerator.Current] =
+					(keyPresses[keyValueEnumerator.Current] || (keyStates[keyValueEnumerator.Current] == KeyState.Down) && (keyStatesOld[keyValueEnumerator.Current] == KeyState.Up))
+					&& (keyStates[keyValueEnumerator.Current] == KeyState.Down);
             }
+			keyValueEnumerator.Dispose();
         }
 
         /**
@@ -142,15 +145,17 @@ namespace SnailsPace.Core
             keyPresses = new Dictionary<String, Boolean>();
 
             // Loop through all defined input actions
-            foreach (String key in inputKeys.Values)
-            {
+			Dictionary<String, String>.ValueCollection.Enumerator keyValueEnumerator = inputKeys.Values.GetEnumerator();
+			while (keyValueEnumerator.MoveNext())
+			{
                 // Set all inputs to up
-                keyStates.Add(key, KeyState.Up);
-                keyStatesOld.Add(key, KeyState.Up);
+				keyStates.Add(keyValueEnumerator.Current, KeyState.Up);
+				keyStatesOld.Add(keyValueEnumerator.Current, KeyState.Up);
 
                 // Set all inputs as not pressed
-                keyPresses.Add(key, false);
+				keyPresses.Add(keyValueEnumerator.Current, false);
             }
+			keyValueEnumerator.Dispose();
         }
 
         /**

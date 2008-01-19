@@ -189,13 +189,16 @@ namespace SnailsPace.Core
 								effect.Parameters["xTexture"].SetValue(getOrCreateTexture(spriteEnumerator.Current));
 
 								effect.Begin();
-								foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+
+								IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
+								while( effectPassEnumerator.MoveNext() )
 								{
-									pass.Begin();
+									effectPassEnumerator.Current.Begin();
 									SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
 									SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
-									pass.End();
+									effectPassEnumerator.Current.End();
 								}
+								effectPassEnumerator.Dispose();
 								effect.End();
 							}
 							else
@@ -209,7 +212,9 @@ namespace SnailsPace.Core
 							}
                         }
                     }
+					spriteEnumerator.Dispose();
                 }
+				objectEnumerator.Dispose();
             }
 
             if (strings != null)
