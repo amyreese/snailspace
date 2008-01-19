@@ -142,7 +142,7 @@ namespace SnailsPace.Core
                     {
                         if (spriteEnumerator.Current.visible)
                         {
-                            Vector3 objectPosition = new Vector3(objectEnumerator.Current.position, -objectEnumerator.Current.layer);
+                            Vector3 objectPosition = new Vector3(objectEnumerator.Current.position + spriteEnumerator.Current.position, -objectEnumerator.Current.layer - spriteEnumerator.Current.layerOffset);
                             Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
                             objectScale = new Vector3(spriteEnumerator.Current.image.size / textureScale, 1);
 
@@ -153,7 +153,7 @@ namespace SnailsPace.Core
 								int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
 								int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
 
-								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation) *
+								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation + spriteEnumerator.Current.rotation) *
 									Matrix.CreateTranslation(objectPosition);
 								VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
 								int xFlip = spriteEnumerator.Current.horizontalFlip ? -1 : 0;
@@ -166,7 +166,7 @@ namespace SnailsPace.Core
 									objVertices[index].Position.Y = translationMatrix.M12 * vertices[index].Position.X
 																	+ translationMatrix.M22 * vertices[index].Position.Y
 																	+ translationMatrix.M42;
-									objVertices[index].Position.Z = -objectEnumerator.Current.layer;
+									objVertices[index].Position.Z = objectPosition.Z;
 
 									int xMod = 1 - index % 2;
 									int yMod = 0;
