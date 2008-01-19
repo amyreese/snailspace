@@ -10,12 +10,12 @@ namespace SnailsPace.Objects
     {
         // Whether to display the sprite.
         public bool visible;
-
 		public bool horizontalFlip;
 
         // The sprite's image and effect.
         public Image image;
         public String effect;
+		public float layerOffset;
 
         // Sprite animation information.
         public int animationStart;
@@ -26,6 +26,7 @@ namespace SnailsPace.Objects
 
         // The sprite's position relative to the parent object.
         public Vector2 position;
+		public float rotation;
         
         // Animate the sprite.
         public void animate(GameTime gameTime)
