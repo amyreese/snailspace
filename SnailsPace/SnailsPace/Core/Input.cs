@@ -15,6 +15,11 @@ namespace SnailsPace.Core
         private Dictionary<String, KeyState> keyStatesOld;
         private Dictionary<String, Boolean> keyPresses;
 
+		private int currentMouseX;
+		private int currentMouseY;
+		public int MouseX { get { return currentMouseX; } }
+		public int MouseY { get { return currentMouseY; } }
+
         /**
          * Initialize the InputManager object and configuration.
          */
@@ -107,6 +112,9 @@ namespace SnailsPace.Core
 
             // Check mouse inputs
             MouseState mouseState = Mouse.GetState();
+
+			currentMouseX = mouseState.X;
+			currentMouseY = mouseState.Y;
 
             if (keyStates.ContainsKey("Mouse1"))
             {

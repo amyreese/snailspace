@@ -30,6 +30,9 @@ namespace SnailsPace.Core
 		// Pause Screen
 		public Objects.GameObject pause;
 
+		// Crosshair
+		public Objects.GameObject crosshair;
+
 		// Renderer
 		public Renderer gameRenderer;
 
@@ -80,6 +83,7 @@ namespace SnailsPace.Core
 
             loadFonts();
             setupPauseOverlay();
+			setupCrosshair();
 			setupGameRenderer();
         }
 
@@ -98,6 +102,22 @@ namespace SnailsPace.Core
             pause.position = new Vector2(0.0f, 0.0f);
             pause.layer = -3;
         }
+
+		private void setupCrosshair()
+		{
+			Objects.Sprite crosshairSprite = new Objects.Sprite();
+			crosshairSprite.image = new Objects.Image();
+			crosshairSprite.image.filename = "Resources/Textures/Crosshair";
+			crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
+			crosshairSprite.visible = true;
+			crosshairSprite.effect = "Resources/Effects/effects";
+			crosshair = new Objects.GameObject();
+			crosshair.sprites = new Dictionary<string, Objects.Sprite>();
+			crosshair.sprites.Add("Crosshair", crosshairSprite);
+			crosshair.position = new Vector2(0.0f, 0.0f);
+			crosshair.layer = 0;
+		}
 
 		private void loadFonts()
 		{
@@ -182,9 +202,24 @@ namespace SnailsPace.Core
                 helix.position.Y -= movement;
             }
 
+			//crosshair.position.X = input.MouseX;
+			//crosshair.position.Y = input.MouseY;
+			crosshair.position.X = mouseToScreenX(input.MouseX);
+			crosshair.position.Y = mouseToScreenY(input.MouseY);
+
             // TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
         }
+
+		private float mouseToScreenX(int mouseX)
+		{
+			return mouseX / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.X - 16;
+		}
+
+		private float mouseToScreenY(int mouseY)
+		{
+			return -mouseY / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
+		}
 
 		public void physics(GameTime gameTime)
         {
@@ -258,6 +293,15 @@ namespace SnailsPace.Core
                 debugString.rotation = 0;
                 debugString.scale = Vector2.One;
                 strings.Add(debugString);
+
+				debugString = new Objects.Text();
+				debugString.color = Color.Yellow;
+				debugString.content = "Crosshair: (" + crosshair.position.X + ", " + crosshair.position.Y + ")";
+				debugString.font = debugFont;
+				debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+				debugString.rotation = 0;
+				debugString.scale = Vector2.One;
+				strings.Add(debugString);
             }
 #endif
 			gameRenderer.render(allObjects(), strings, gameTime);
@@ -268,6 +312,7 @@ namespace SnailsPace.Core
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.Add(helix);
 			objects.Add(pause);
+			objects.Add(crosshair);
 			return objects;
 		}
     }
