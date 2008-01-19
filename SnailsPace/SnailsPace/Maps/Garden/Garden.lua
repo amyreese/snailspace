@@ -82,17 +82,19 @@ end
 map.objects:Add(go)
 
 img = Image()
-img.filename = "Resources/Textures/BlackAnt_1"
-img.blocks = Vector2(1.0, 1.0)
-img.size = Vector2(500.0, 500.0)
+img.filename = "Resources/Textures/BlackAntTable"
+img.blocks = Vector2(4.0, 4.0)
+img.size = Vector2(128.0, 128.0)
 
 sprt = Sprite()
 sprt.image = img
 sprt.visible = true
 sprt.effect = "Resources/Effects/effects"
 sprt.animationStart = 0
-sprt.animationEnd = 0
+sprt.animationEnd = 3
 sprt.frame = 0
+sprt.animationDelay = 1.0 / 15.0
+sprt.timer = 0.0
 sprt.horizontalFlip = true
 
 gmob = GameObject()

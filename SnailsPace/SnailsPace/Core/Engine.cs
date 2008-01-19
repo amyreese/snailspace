@@ -46,13 +46,17 @@ namespace SnailsPace.Core
 			// TODO: Initialize Helix;
             helix = new Objects.Helix();
             helix.sprites = new Dictionary<string, Objects.Sprite>();
-            Objects.Sprite helSprite = new Objects.Sprite();
+            
+			Objects.Sprite helSprite = new Objects.Sprite();
             helSprite.image = new Objects.Image();
             helSprite.image.filename = "Resources/Textures/HelixTable";
             helSprite.image.blocks = new Vector2(4.0f, 4.0f);
             helSprite.image.size = new Vector2(128.0f, 128.0f);
             helSprite.visible = true;
             helSprite.effect = "Resources/Effects/effects";
+
+			
+
             helix.sprites.Add("Snail", helSprite);
 			helix.sprites["Snail"].animationStart = 0;
 			helix.sprites["Snail"].animationEnd = 15;
@@ -176,6 +180,16 @@ namespace SnailsPace.Core
             {
                 return;
             }
+
+			List<Objects.GameObject>.Enumerator objEnumerator = this.map.objects.GetEnumerator();
+			while (objEnumerator.MoveNext())
+			{
+				Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = objEnumerator.Current.sprites.Values.GetEnumerator();
+				while (sprtEnumerator.MoveNext())
+				{
+					sprtEnumerator.Current.animate(gameTime);
+				}
+			}
 
             // TODO: iterate through map.characters and this.bullets using collision detection to move everything.
 
