@@ -14,7 +14,7 @@ namespace SnailsPace.Objects
 		public float maxVelocity;
        
         // The sprite's layer and parallax.
-        public int layer;       // 0: background ... 5: foreground
+        public float layer;       // 0: background ... 5: foreground
         
         // Sprites that make up the game object.
         public Dictionary<String, Sprite> sprites;     

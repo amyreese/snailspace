@@ -25,6 +25,7 @@ namespace SnailsPace.Core
 		public Objects.Helix helix;
 
 		// Bullets
+		public Objects.Sprite bulletSprite;
 		public List<Objects.Bullet> bullets;
 
 		// Pause Screen
@@ -42,6 +43,14 @@ namespace SnailsPace.Core
 			GameLua lua = new GameLua();
 
 			bullets = new List<Objects.Bullet>();
+
+			bulletSprite = new Objects.Sprite();
+			bulletSprite.image = new Objects.Image();
+			bulletSprite.image.filename = "Resources/Textures/Bullet";
+			bulletSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			bulletSprite.image.size = new Vector2(16.0f, 8.0f);
+			bulletSprite.visible = true;
+			bulletSprite.effect = "Resources/Effects/effects";
 
 			// TODO: Load the map object from Lua
 			this.map = new Objects.Map(map);
@@ -67,6 +76,7 @@ namespace SnailsPace.Core
 			gun.image = walk.image;
 			gun.visible = true;
 			gun.effect = walk.effect;
+			gun.layerOffset = -0.01f;
 
 			helix.sprites.Add("Walk", walk);
 			helix.sprites["Walk"].animationStart = 0;
@@ -235,6 +245,18 @@ namespace SnailsPace.Core
 				crosshair.position.Y = mouseToScreenY(input.MouseY);
 			}
 
+			if (input.inputDown("Fire"))
+			{
+				Objects.Bullet bullet = new Objects.Bullet();
+				bullet.sprites = new Dictionary<string, Objects.Sprite>();
+				bullet.sprites.Add("Bullet", bulletSprite);
+				bullet.position = helix.position;
+				bullet.rotation = helix.sprites["Gun"].rotation;
+				bullet.maxVelocity = 10.0f;
+				bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
+				bullet.layer = -0.001f;
+				bullets.Add(bullet);
+			}
 
 			// TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);
@@ -364,6 +386,11 @@ namespace SnailsPace.Core
 		private List<Objects.GameObject> allObjects()
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
+			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
+			while (bulletEnum.MoveNext())
+			{
+				objects.Add(bulletEnum.Current);
+			}
 			objects.Add(helix);
 			objects.Add(pause);
 			objects.Add(crosshair);
