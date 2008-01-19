@@ -9,7 +9,7 @@ namespace SnailsPace.Objects
     class Sprite
     {
         // Whether to display the sprite.
-        public Boolean visible;
+        public bool visible;
 
         // The sprite's image and effect.
         public Image image;
@@ -48,5 +48,23 @@ namespace SnailsPace.Objects
         {
             frame = animationStart;
         }
+
+		/// <summary>
+		/// Performs a deep clone of the sprite
+		/// </summary>
+		public Sprite clone()
+		{
+			Sprite clonedSprite = new Sprite();
+			clonedSprite.visible = visible;
+			clonedSprite.animationDelay = animationDelay;
+			clonedSprite.animationEnd = animationEnd;
+			clonedSprite.animationStart = animationStart;
+			clonedSprite.effect = effect;
+			clonedSprite.frame = frame;
+			clonedSprite.image = image.clone();
+			clonedSprite.position = new Vector2( position );
+			clonedSprite.timer = timer;
+			clonedSprite.visible = visible;
+		}
     }
 }

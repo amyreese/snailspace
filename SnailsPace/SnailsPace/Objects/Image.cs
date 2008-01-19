@@ -13,5 +13,16 @@ namespace SnailsPace.Objects
         // Image pixel size and blocks.
         public Vector2 size;
         public Vector2 blocks;
+
+		/// <summary>
+		/// Performs a deep clone of the image
+		/// </summary>
+		public Image clone()
+		{
+			Image clonedImage = new Image();
+			clonedImage.filename = filename;
+			clonedImage.size = new Vector2( size );
+			clonedImage.blocks = new Vector2( blocks );
+		}
     }
 }
