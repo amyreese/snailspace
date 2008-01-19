@@ -60,12 +60,12 @@ namespace SnailsPace.Core
 			helix.sprites = new Dictionary<string, Objects.Sprite>();
 
 			Objects.Sprite walk = new Objects.Sprite();
-            walk.image = new Objects.Image();
-            walk.image.filename = "Resources/Textures/HelixTable";
-            walk.image.blocks = new Vector2(4.0f, 4.0f);
-            walk.image.size = new Vector2(128.0f, 128.0f);
-            walk.visible = true;
-            walk.effect = "Resources/Effects/effects";
+			walk.image = new Objects.Image();
+			walk.image.filename = "Resources/Textures/HelixTable";
+			walk.image.blocks = new Vector2(4.0f, 4.0f);
+			walk.image.size = new Vector2(128.0f, 128.0f);
+			walk.visible = true;
+			walk.effect = "Resources/Effects/effects";
 
 			Objects.Sprite fly = new Objects.Sprite();
 			fly.image = walk.image;
@@ -199,7 +199,7 @@ namespace SnailsPace.Core
 				if (input.inputDown("Left") && input.inputDown("Right"))
 				{
 					// do nothing
-					
+
 				}
 				else if (input.inputDown("Left"))
 				{
@@ -250,10 +250,11 @@ namespace SnailsPace.Core
 				Objects.Bullet bullet = new Objects.Bullet();
 				bullet.sprites = new Dictionary<string, Objects.Sprite>();
 				bullet.sprites.Add("Bullet", bulletSprite);
-				bullet.position = helix.position;
+				bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
+				bullet.velocity.Normalize();
+				bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 1.15f);
 				bullet.rotation = helix.sprites["Gun"].rotation;
 				bullet.maxVelocity = 10.0f;
-				bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
 				bullet.layer = -0.001f;
 				bullets.Add(bullet);
 			}
@@ -293,6 +294,14 @@ namespace SnailsPace.Core
 						objectVelocity = Vector2.Multiply(objectVelocity, objEnumerator.Current.maxVelocity);
 						objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
 						objEnumerator.Current.position += objectVelocity;
+						if (objEnumerator.Current.GetType() == typeof(Objects.Bullet))
+						{
+							// TODO: Properly kill bullets that shouldn't exist anymore
+							if (Math.Abs(helix.position.X - objEnumerator.Current.position.X) > 10 || Math.Abs(helix.position.Y - objEnumerator.Current.position.Y) > 10)
+							{
+								bullets.Remove((Objects.Bullet)objEnumerator.Current);
+							}
+						}
 					}
 				}
 			}
