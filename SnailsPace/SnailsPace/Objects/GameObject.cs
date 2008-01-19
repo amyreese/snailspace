@@ -11,6 +11,7 @@ namespace SnailsPace.Objects
         public Vector2 position;
         public float rotation;
         public Vector2 velocity;
+		public float maxVelocity;
        
         // The sprite's layer and parallax.
         public int layer;       // 0: background ... 5: foreground
