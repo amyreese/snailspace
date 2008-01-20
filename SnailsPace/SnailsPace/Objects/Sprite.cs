@@ -64,9 +64,12 @@ namespace SnailsPace.Objects
 			clonedSprite.animationStart = animationStart;
 			clonedSprite.effect = effect;
 			clonedSprite.frame = frame;
+            clonedSprite.horizontalFlip = horizontalFlip;
 			clonedSprite.image = image.clone();
-			clonedSprite.position = new Vector2( position.X, position.Y );
-			clonedSprite.timer = timer;
+            clonedSprite.layerOffset = layerOffset;
+            clonedSprite.position = new Vector2(position.X, position.Y);
+            clonedSprite.rotation = rotation;
+            clonedSprite.timer = timer;
 			clonedSprite.visible = visible;
 			return clonedSprite;
 		}

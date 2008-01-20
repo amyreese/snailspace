@@ -53,7 +53,9 @@ namespace SnailsPace.Core
                     getOrCreateTexture(spriteEnumerator.Current);
                     getOrCreateEffect(spriteEnumerator.Current);
                 }
+                spriteEnumerator.Dispose();
             }
+            objectEnumerator.Dispose();
         }
         private Texture2D getOrCreateTexture(Objects.Sprite sprite)
         {
@@ -238,6 +240,7 @@ namespace SnailsPace.Core
                     batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
                 }
                 batch.End();
+                textEnumerator.Dispose();
             }
         }
 

@@ -191,6 +191,7 @@ namespace SnailsPace.Core
 			{
 				charEnum.Current.think(gameTime);
 			}
+            charEnum.Dispose();
 
 
 			// Deal with Helix's movement
@@ -304,6 +305,7 @@ namespace SnailsPace.Core
 						}
 					}
 				}
+                objEnumerator.Dispose();
 			}
 
 			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
@@ -395,11 +397,13 @@ namespace SnailsPace.Core
 		private List<Objects.GameObject> allObjects()
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
+            objects.AddRange(map.objects);
 			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
 			while (bulletEnum.MoveNext())
 			{
 				objects.Add(bulletEnum.Current);
 			}
+            bulletEnum.Dispose();
 			objects.Add(helix);
 			objects.Add(pause);
 			objects.Add(crosshair);

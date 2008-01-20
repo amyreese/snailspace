@@ -9,12 +9,12 @@ namespace SnailsPace
     class LuaConfig
     {
         // Default value dictionaries
-        private Dictionary<string, double> doubleDefaultValues;
-        private Dictionary<string, string> stringDefaultValues;
+        private Dictionary<String, Double> DoubleDefaultValues;
+        private Dictionary<String, String> StringDefaultValues;
 
         // User preference dictionaries
-        private Dictionary<string, double> doubleValues;
-        private Dictionary<string, string> stringValues;
+        private Dictionary<String, Double> DoubleValues;
+        private Dictionary<String, String> StringValues;
         
         // Track changes to the configuration
         private Boolean changed = false;
@@ -25,7 +25,7 @@ namespace SnailsPace
         /**
          * Initialize the dictionaries and the interpreter
          */
-        public LuaConfig() : this( new Dictionary<string, double>(), new Dictionary<string, string>() )
+        public LuaConfig() : this( new Dictionary<String, Double>(), new Dictionary<String, String>() )
         {     
         }
 
@@ -33,114 +33,114 @@ namespace SnailsPace
         {
             lua = new Lua();
 
-            doubleDefaultValues = new Dictionary<string,double>(defaultDoubles);
-            stringDefaultValues = new Dictionary<string,string>(defaultStrings);
+            DoubleDefaultValues = new Dictionary<String,Double>(defaultDoubles);
+            StringDefaultValues = new Dictionary<String,String>(defaultStrings);
 
-            doubleValues = new Dictionary<string, double>();
-            stringValues = new Dictionary<string, string>();
+            DoubleValues = new Dictionary<String, Double>();
+            StringValues = new Dictionary<String, String>();
         }
 
         /**
-         * Return the combined double values
+         * Return the combined Double values
          */
         public Dictionary<String, Double> getDoubles()
         {
-            Dictionary<String, Double> doubles = new Dictionary<String, Double>(doubleDefaultValues);
-
-            foreach (KeyValuePair<String, Double> pair in doubleValues)
+            Dictionary<String, Double> Doubles = new Dictionary<String, Double>(DoubleDefaultValues);
+            Dictionary<String, Double>.Enumerator DoubleEnumerator = Doubles.GetEnumerator();
+            while( DoubleEnumerator.MoveNext() )
             {
-                if (doubles.ContainsKey(pair.Key))
+                if (Doubles.ContainsKey(DoubleEnumerator.Current.Key))
                 {
-                    doubles[pair.Key] = pair.Value;
+                    Doubles[DoubleEnumerator.Current.Key] = DoubleEnumerator.Current.Value;
                 }
                 else
                 {
-                    doubles.Add(pair.Key, pair.Value);
+                    Doubles.Add(DoubleEnumerator.Current.Key, DoubleEnumerator.Current.Value);
                 }
             }
-
-            return doubles;
+            DoubleEnumerator.Dispose();
+            return Doubles;
         }
 
         /**
-         * Return the combined string values
+         * Return the combined String values
          */
         public Dictionary<String, String> getStrings()
         {
-            Dictionary<String, String> strings = new Dictionary<string,string>(stringDefaultValues);
-
-            foreach (KeyValuePair<String, String> pair in stringValues)
+            Dictionary<String, String> Strings = new Dictionary<String,String>(StringDefaultValues);
+            Dictionary<String, String>.Enumerator StringEnumerator = StringValues.GetEnumerator();
+            while( StringEnumerator.MoveNext() )
             {
-                if (strings.ContainsKey(pair.Key))
+                if (Strings.ContainsKey(StringEnumerator.Current.Key))
                 {
-                    strings[pair.Key] = pair.Value;
+                    Strings[StringEnumerator.Current.Key] = StringEnumerator.Current.Value;
                 }
                 else
                 {
-                    strings.Add(pair.Key, pair.Value);
+                    Strings.Add(StringEnumerator.Current.Key, StringEnumerator.Current.Value);
                 }
             }
-
-            return strings;
+            StringEnumerator.Dispose();
+            return Strings;
         }
 
         /**
-         * Set a configuration value of type double
+         * Set a configuration value of type Double
          */
-        public void setDouble(string key, double value)
+        public void setDouble(String key, Double value)
         {
-            if (doubleValues.ContainsKey(key))
+            if (DoubleValues.ContainsKey(key))
             {
-                if (doubleValues[key] != value)
+                if (DoubleValues[key] != value)
                 {
-                    doubleValues[key] = value;
+                    DoubleValues[key] = value;
                     changed = true;
                 }
             }
             else
             {
-                doubleValues.Add(key, value);
+                DoubleValues.Add(key, value);
                 changed = true;
             }
         }
 
-        public void setInt(string key, int value)
+        public void setInt(String key, int value)
         {
             setDouble(key, value);
         }
 
         /**
-         * Set a configuration value of type string
+         * Set a configuration value of type String
          */
-        public void setString(string key, string value)
+        public void setString(String key, String value)
         {
-            if (stringValues.ContainsKey(key))
+            if (StringValues.ContainsKey(key))
             {
-                if (stringValues[key] != value)
+                if (StringValues[key] != value)
                 {
-                    stringValues[key] = value;
+                    StringValues[key] = value;
                     changed = true;
                 }
             }
             else
             {
-                stringValues.Add(key, value);
+                StringValues.Add(key, value);
                 changed = true;
             }
         }
 
         /**
-         * Get a configuration value of type double
+         * Get a configuration value of type Double
          */
-        public double getDouble(string key)
+        public Double getDouble(String key)
         {
-            if (doubleValues.ContainsKey(key))
+            if (DoubleValues.ContainsKey(key))
             {
-                return doubleValues[key];
+                return DoubleValues[key];
             }
-            else if (doubleDefaultValues.ContainsKey(key))
+            else if (DoubleDefaultValues.ContainsKey(key))
             {
-                return doubleDefaultValues[key];
+                return DoubleDefaultValues[key];
             }
             else
             {
@@ -148,23 +148,23 @@ namespace SnailsPace
             }
         }
 
-        public int getInt(string key)
+        public int getInt(String key)
         {
             return (int)getDouble(key);
         }
 
         /**
-         * Get a configuration value of type string
+         * Get a configuration value of type String
          */
-        public string getString(string key)
+        public String getString(String key)
         {
-            if (stringValues.ContainsKey(key))
+            if (StringValues.ContainsKey(key))
             {
-                return stringValues[key];
+                return StringValues[key];
             }
-            else if (stringDefaultValues.ContainsKey(key))
+            else if (StringDefaultValues.ContainsKey(key))
             {
-                return stringDefaultValues[key];
+                return StringDefaultValues[key];
             }
             else
             {
@@ -175,36 +175,40 @@ namespace SnailsPace
         /**
          * Execute a file in the Lua interpreter and grab appropriate values.
          */
-        public void readFile(string filename)
+        public void readFile(String filename)
         {
             try {
                 lua.DoFile(filename);
             } catch( LuaException e ) {
             }
 
-            foreach (KeyValuePair<string, double> pair in doubleDefaultValues)
+            Dictionary<String, Double>.Enumerator DoubleDefaultEnumerator = DoubleDefaultValues.GetEnumerator();
+            while( DoubleDefaultEnumerator.MoveNext() )
             {
-                Object value = lua[pair.Key];
+                Object value = lua[DoubleDefaultEnumerator.Current.Key];
                 if (null != value)
                 {
-                    doubleValues.Add(pair.Key, (double)value);
+                    DoubleValues.Add(DoubleDefaultEnumerator.Current.Key, (Double)value);
                 }
             }
+            DoubleDefaultEnumerator.Dispose();
 
-            foreach (KeyValuePair<string, string> pair in stringDefaultValues)
+            Dictionary<String, String>.Enumerator StringDefaultEnumerator = StringDefaultValues.GetEnumerator();
+            while (StringDefaultEnumerator.MoveNext())
             {
-                Object value = lua[pair.Key];
+                Object value = lua[StringDefaultEnumerator.Current.Key];
                 if (null != value)
                 {
-                    stringValues.Add(pair.Key, (string)value);
+                    StringValues.Add(StringDefaultEnumerator.Current.Key, (String)value);
                 }
             }
+            StringDefaultEnumerator.Dispose();
         }
 
         /**
          * Output the configuration to the given file (if changed)
          */
-        public void writeFile(string filename)
+        public void writeFile(String filename)
         {
             if (!changed)
             {
@@ -213,15 +217,19 @@ namespace SnailsPace
 
             TextWriter file = new StreamWriter(filename);
 
-            foreach (KeyValuePair<string, double> pair in doubleValues)
+            Dictionary<String, Double>.Enumerator DoubleEnumerator = DoubleValues.GetEnumerator();
+            while( DoubleEnumerator.MoveNext() )
             {
-                file.WriteLine(pair.Key + " = " + pair.Value);
+                file.WriteLine(DoubleEnumerator.Current.Key + " = " + DoubleEnumerator.Current.Value);
             }
+            DoubleEnumerator.Dispose();
 
-            foreach (KeyValuePair<string, string> pair in stringValues)
+            Dictionary<String, String>.Enumerator StringEnumerator = StringValues.GetEnumerator();
+            while( StringEnumerator.MoveNext() )
             {
-                file.WriteLine(pair.Key + " = " + pair.Value);
+                file.WriteLine(StringEnumerator.Current.Key + " = " + StringEnumerator.Current.Value);
             }
+            StringEnumerator.Dispose();
 
             file.Close();
         }
@@ -229,20 +237,24 @@ namespace SnailsPace
         /**
          * Set the default values for the configuration dictionaries
          */
-        public void setDefaults(Dictionary<string, double> values)
+        public void setDefaults(Dictionary<String, Double> values)
         {
-            foreach (KeyValuePair<string, double> pair in values)
+            Dictionary<String, Double>.Enumerator DoubleEnumerator = values.GetEnumerator();
+            while (DoubleEnumerator.MoveNext())
             {
-                doubleDefaultValues.Add(pair.Key, pair.Value);
+                DoubleDefaultValues.Add(DoubleEnumerator.Current.Key, DoubleEnumerator.Current.Value);
             }
+            DoubleEnumerator.Dispose();
         }
 
-        public void setDefaults(Dictionary<string, string> values)
+        public void setDefaults(Dictionary<String, String> values)
         {
-            foreach (KeyValuePair<string, string> pair in values)
+            Dictionary<String, String>.Enumerator StringEnumerator = values.GetEnumerator();
+            while (StringEnumerator.MoveNext())
             {
-                stringDefaultValues.Add(pair.Key, pair.Value);
+                StringDefaultValues.Add(StringEnumerator.Current.Key, StringEnumerator.Current.Value);
             }
+            StringEnumerator.Dispose();
         }
 
     }
