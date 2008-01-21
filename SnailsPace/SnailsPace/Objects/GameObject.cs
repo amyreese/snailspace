@@ -12,6 +12,7 @@ namespace SnailsPace.Objects
         public float rotation;
         public Vector2 velocity;
 		public float maxVelocity;
+        public bool affectedByGravity;
        
         // The sprite's layer and parallax.
         public float layer;       // 0: background ... 5: foreground
