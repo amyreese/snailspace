@@ -18,6 +18,7 @@ import = luanet.import_type;
 
 using('Microsoft.Xna.Framework');
 
+Rectangle = import('Microsoft.Xna.Framework.Rectangle');
 Vector2 = import('Microsoft.Xna.Framework.Vector2');
 Vector3 = import('Microsoft.Xna.Framework.Vector3');
 
@@ -33,6 +34,7 @@ Sprite = import('SnailsPace.Objects.Sprite');
 Text = import('SnailsPace.Objects.Text');
 
 GameObject = import('SnailsPace.Objects.GameObject');
+GameObjectBounds = import('SnailsPace.Objects.GameObjectBounds');
 Bullet = import('SnailsPace.Objects.Bullet');
 Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');
@@ -42,6 +44,12 @@ Map = import('SnailsPace.Objects.Map');
             ";
             this.DoString(initCode);
             #endregion
+        }
+
+        public void Call(System.Object obj, String function) 
+        {
+            this["this"] = obj;
+            DoString("this:" + function + "()");
         }
     }
 }
