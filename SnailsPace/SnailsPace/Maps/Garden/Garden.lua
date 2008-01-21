@@ -20,6 +20,7 @@ go = GameObject()
 go.sprites:Add("Snail", sprite)
 go.velocity = Vector2(3.0, 2.0)
 go.layer = 1
+go.bounds = GameObjectBounds(Rectangle(go.position.X, go.position.Y, image.size.X, image.size.Y))
 map.objects:Add(go)
 
 bkgImage = Image()
@@ -49,6 +50,7 @@ for x=0,bkgImage.blocks.X - 1 do
   bkgObj.sprites:Add("Background", bkgObjSprite)
   bkgObj.position = Vector2( x * 16 + xOffset, y * 16 + yOffset )
   bkgObj.layer = 50
+  bkgObj.collidable = false
   map.objects:Add(bkgObj)
  end
 end
@@ -78,6 +80,7 @@ for x=0,20 do
  grassObj.sprites:Add("Grass", grassObjSprite)
  grassObj.position = Vector2( x * 6 + xOffset, yOffset )
  grassObj.layer = 0.5
+ grassObj.bounds = GameObjectBounds(Rectangle(grassObj.position.X, grassObj.position.Y, grassImage.size.X, grassImage.size.Y))
  map.objects:Add(grassObj)
 end
 
@@ -104,5 +107,6 @@ gmob.sprites:Add("Ant", sprt)
 gmob.velocity = Vector2(3.0, 2.0)
 gmob.position = Vector2(10.0, 0.0)
 gmob.layer = 0.1
+gmob.bounds = GameObjectBounds(Rectangle(gmob.position.X, gmob.position.Y, img.size.X, img.size.Y))
 
 map.objects:Add(gmob)
