@@ -19,6 +19,7 @@ namespace SnailsPace.Core
 #endif
 
 		// Game map
+        public static GameLua lua;
 		public Objects.Map map;
 
 		// Player
@@ -40,7 +41,7 @@ namespace SnailsPace.Core
 		// Constructors
 		public Engine(String map)
 		{
-			GameLua lua = new GameLua();
+			lua = new GameLua();
 
 			bullets = new List<Objects.Bullet>();
 
