@@ -214,7 +214,7 @@ namespace SnailsPace.Core
 					helix.setSprite("Walk", "Gun");
 					helix.sprites["Walk"].animate(gameTime);
 					helix.horizontalFlip = true;
-					helix.sprites["Gun"].horizontalFlip = false;
+					helix.sprites["Gun"].horizontalFlip = true;
 				}
 				else if (input.inputDown("Right"))
 				{
