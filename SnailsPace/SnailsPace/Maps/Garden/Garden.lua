@@ -115,3 +115,4 @@ map.objects:Add(rdobj);
 dofile("Maps/Garden/Platforms.lua")
 dofile("Maps/Garden/Plane1.lua")
 dofile("Maps/Garden/Plane2.lua")
+dofile("Maps/Garden/RedAnt.lua")

@@ -130,8 +130,7 @@
     <Content Include="Resources\Textures\BeeTable.png" />
     <Content Include="Resources\Textures\Bee_1.png" />
     <Content Include="Resources\Textures\BlackAnt_1.png" />
-    <Content Include="Resources\Textures\dirt.jpg" />
-    <Content Include="Resources\Textures\FireAntTable.png" />
+    <Content Include="Resources\Textures\dirt.png" />
     <Content Include="Resources\Textures\FireAnt_1.png" />
     <Content Include="Resources\Textures\Helix.png" />
     <Content Include="Resources\Textures\HelixTable.png" />
@@ -159,6 +158,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Platforms.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden\RedAnt.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

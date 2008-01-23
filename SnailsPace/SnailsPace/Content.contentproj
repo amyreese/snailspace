@@ -179,10 +179,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\dirt.jpg">
+    <Compile Include="Resources\Textures\dirt.png">
       <Name>dirt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
