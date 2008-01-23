@@ -17,14 +17,14 @@ namespace SnailsPace.Core
 
         public Matrix cameraView;
         public Matrix cameraProjection;
-        public const float normalCameraDistance = 250.0f;
+        public const float normalCameraDistance = 25.0f;
         public const float minimumCameraMovement = 0.5f;
         public const float cameraSpeed = 1.5f;
         public const float textureScale = 64.0f;
 		
         // Set distance from the camera of the near and far clipping planes.
         static float nearClip = 0.1f;
-        static float farClip = 1000.0f;
+        static float farClip = 100.0f;
 
         VertexPositionTexture[] vertices;
 

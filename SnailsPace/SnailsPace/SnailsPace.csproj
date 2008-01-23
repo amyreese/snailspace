@@ -130,6 +130,7 @@
     <Content Include="Resources\Textures\BeeTable.png" />
     <Content Include="Resources\Textures\Bee_1.png" />
     <Content Include="Resources\Textures\BlackAnt_1.png" />
+    <Content Include="Resources\Textures\dirt.jpg" />
     <Content Include="Resources\Textures\FireAntTable.png" />
     <Content Include="Resources\Textures\FireAnt_1.png" />
     <Content Include="Resources\Textures\Helix.png" />
