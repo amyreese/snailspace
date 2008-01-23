@@ -101,7 +101,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 3.5f;
+			helix.maxVelocity = 9.0f;
 			helix.layer = 0;
 
 			helix.size = walk.image.size;
