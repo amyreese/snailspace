@@ -253,18 +253,26 @@ namespace SnailsPace.Core
 
 			if (input.inputDown("Fire"))
 			{
-				Objects.Bullet bullet = new Objects.Bullet();
-				bullet.sprites = new Dictionary<string, Objects.Sprite>();
-				bullet.sprites.Add("Bullet", bulletSprite);
-				bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
-				bullet.velocity.Normalize();
-				bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 1.15f);
-				bullet.rotation = helix.sprites["Gun"].rotation;
-				bullet.maxVelocity = 10.0f;
-				bullet.layer = -0.001f;
-				bullet.isPCBullet = true;
-				bullet.bounds = new Objects.GameObjectBounds(new Rectangle((int)bullet.position.X, (int)bullet.position.Y, (int)bulletSprite.image.size.X, (int)bulletSprite.image.size.Y));
-				bullets.Add(bullet);
+				if (helix.fireCooldown <= 0)
+				{
+					Objects.Bullet bullet = new Objects.Bullet();
+					bullet.sprites = new Dictionary<string, Objects.Sprite>();
+					bullet.sprites.Add("Bullet", bulletSprite);
+					bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
+					bullet.velocity.Normalize();
+					bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 1.15f);
+					bullet.rotation = helix.sprites["Gun"].rotation;
+					bullet.maxVelocity = 10.0f;
+					bullet.layer = -0.001f;
+					bullet.isPCBullet = true;
+					bullet.bounds = new Objects.GameObjectBounds(new Rectangle((int)bullet.position.X, (int)bullet.position.Y, (int)bulletSprite.image.size.X, (int)bulletSprite.image.size.Y));
+					bullets.Add(bullet);
+					helix.fireCooldown = 2;
+				}
+				else
+				{
+					helix.fireCooldown--;
+				}
 			}
 
 			// TODO: handle player inputs to change Helix's attributes.
@@ -318,11 +326,7 @@ namespace SnailsPace.Core
 				objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
 				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
 				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity);
-				if (collidedObject != null)
-				{
-					collidedObject.collidedWith(movingObject);
-				}
-				else
+				if (collidedObject == null)
 				{
 					movingObject.position += objectVelocity;
 				}
