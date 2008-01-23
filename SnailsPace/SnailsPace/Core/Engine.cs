@@ -211,16 +211,12 @@ namespace SnailsPace.Core
 				{
 					helix.velocity.X = -1;
 					helix.setSprite("Walk", "Gun");
-					//helix.sprites["Fly"].visible = false;
-					//helix.sprites["Walk"].visible = true;
 					helix.sprites["Walk"].animate(gameTime);
 				}
 				else if (input.inputDown("Right"))
 				{
 					helix.velocity.X = 1;
 					helix.setSprite("Walk", "Gun");
-					//helix.sprites["Fly"].visible = false;
-					//helix.sprites["Walk"].visible = true;
 					helix.sprites["Walk"].animate(gameTime);
 				}
 
@@ -233,16 +229,12 @@ namespace SnailsPace.Core
 				{
 					helix.velocity.Y = 1;
 					helix.setSprite("Fly", "Gun");
-					//helix.sprites["Fly"].visible = true;
-					//helix.sprites["Walk"].visible = false;
 					helix.sprites["Fly"].animate(gameTime);
 				}
 				else if (input.inputDown("Down"))
 				{
 					helix.velocity.Y = -1;
 					helix.setSprite("Fly", "Gun");
-					//helix.sprites["Fly"].visible = true;
-					//helix.sprites["Walk"].visible = false;
 					helix.sprites["Fly"].animate(gameTime);
 				}
 			}

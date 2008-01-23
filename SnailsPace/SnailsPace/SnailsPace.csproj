@@ -151,6 +151,9 @@
     <None Include="Maps\Garden\Garden.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Maps\Garden\Platforms.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">
