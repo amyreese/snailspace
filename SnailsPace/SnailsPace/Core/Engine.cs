@@ -265,6 +265,7 @@ namespace SnailsPace.Core
 				bullet.rotation = helix.sprites["Gun"].rotation;
 				bullet.maxVelocity = 10.0f;
 				bullet.layer = -0.001f;
+				bullet.isPCBullet = true;
 				bullet.bounds = new Objects.GameObjectBounds(new Rectangle((int)bullet.position.X, (int)bullet.position.Y, (int)bulletSprite.image.size.X, (int)bulletSprite.image.size.Y));
 				bullets.Add(bullet);
 			}

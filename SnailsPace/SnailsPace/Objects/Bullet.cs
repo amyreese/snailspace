@@ -8,5 +8,7 @@ namespace SnailsPace.Objects
     {
         // Bullet characteristics.
         public int damage;
+
+		public bool isPCBullet = false;
     }
 }
