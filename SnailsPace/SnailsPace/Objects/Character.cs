@@ -9,6 +9,7 @@ namespace SnailsPace.Objects
     {
         // Character properties.
         public int health;
+		public Boolean horizontalFlip;
 
         // Character AI to be overridden by Lua
         public void think(GameTime gameTime)
