@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using SnailsPace.Core;
 
 namespace SnailsPace.Objects
 {
@@ -26,8 +27,9 @@ namespace SnailsPace.Objects
 		}
 
         // Character AI to be overridden by Lua
-        public void think(GameTime gameTime)
+        public virtual void think(GameTime gameTime)
         {
+            Engine.lua.Call(this, "_think", gameTime);
         }
     }
 }

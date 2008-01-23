@@ -53,14 +53,15 @@ namespace SnailsPace.Core
 			bulletSprite.visible = true;
 			bulletSprite.effect = "Resources/Effects/effects";
 
-			// TODO: Load the map object from Lua
-			this.map = new Objects.Map(map);
+            // TODO: Load the map object from Lua
+            this.map = new Objects.Map(map);
 
-			// TODO: Initialize Helix;
+            // TODO: Initialize Helix;
 			helix = new Objects.Helix();
+            lua["helix"] = helix;
 			helix.sprites = new Dictionary<string, Objects.Sprite>();
 
-			Objects.Sprite walk = new Objects.Sprite();
+            Objects.Sprite walk = new Objects.Sprite();
 			walk.image = new Objects.Image();
 			walk.image.filename = "Resources/Textures/HelixTable";
 			walk.image.blocks = new Vector2(4.0f, 4.0f);

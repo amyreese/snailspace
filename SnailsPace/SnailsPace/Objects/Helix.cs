@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace SnailsPace.Objects
 {
@@ -19,5 +20,9 @@ namespace SnailsPace.Objects
 			this.sprites[sprtName].visible = true;
 			this.sprites[aSprtName].visible = true;
 		}
+
+        public override void think(GameTime gameTime)
+        {
+        }
     }
 }
