@@ -9,8 +9,11 @@ namespace SnailsPace.Core
 {
 	class Engine
 	{
+		// Toggle for collision detection
+		bool collisionDetectionOn = false;
+
 		// Engine state
-		Boolean enginePaused = false;
+		bool enginePaused = false;
 
 		// Game font
 		public SpriteFont gameFont;
@@ -292,7 +295,7 @@ namespace SnailsPace.Core
 		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
 		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)
 		{
-			if (movingObject.collidable)
+			if (movingObject.collidable && collisionDetectionOn)
 			{
 				List<Objects.GameObject>.Enumerator collideableObjEnumerator = collidableObjects.GetEnumerator();
 				while (collideableObjEnumerator.MoveNext())
