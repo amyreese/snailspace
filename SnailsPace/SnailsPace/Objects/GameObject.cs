@@ -14,6 +14,7 @@ namespace SnailsPace.Objects
 		public float maxVelocity;
         public bool affectedByGravity;
 		public bool collidable = true;
+		public bool horizontalFlip;
 
 		public GameObjectBounds bounds;
 

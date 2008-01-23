@@ -212,12 +212,14 @@ namespace SnailsPace.Core
 					helix.velocity.X = -1;
 					helix.setSprite("Walk", "Gun");
 					helix.sprites["Walk"].animate(gameTime);
+					helix.horizontalFlip = true;
 				}
 				else if (input.inputDown("Right"))
 				{
 					helix.velocity.X = 1;
 					helix.setSprite("Walk", "Gun");
 					helix.sprites["Walk"].animate(gameTime);
+					helix.horizontalFlip = false;
 				}
 
 				if (input.inputDown("Up") && input.inputDown("Down"))
