@@ -69,7 +69,6 @@
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\GameObject.cs" />
-    <Compile Include="Objects\GameObjectBounds.cs" />
     <Compile Include="Objects\Helix.cs" />
     <Compile Include="Objects\Image.cs" />
     <Compile Include="Objects\Map.cs" />

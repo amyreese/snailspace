@@ -21,7 +21,7 @@ go = Character()
 go.sprites:Add("Snail", sprite)
 go.velocity = Vector2(3.0, 2.0)
 go.layer = 1
-go.bounds = GameObjectBounds(Rectangle(go.position.X, go.position.Y, image.size.X, image.size.Y))
+go.size = image.size;
 function snail_think( self, gameTime )
 	print("thinking")
 end
@@ -85,7 +85,7 @@ for x=0,10 do
  grassObj.sprites:Add("Grass", grassObjSprite)
  grassObj.position = Vector2( x * 6 + xOffset, yOffset )
  grassObj.layer = 0.5
- grassObj.bounds = GameObjectBounds(Rectangle(grassObj.position.X, grassObj.position.Y, grassImage.size.X, grassImage.size.Y))
+ grassObj.size = grassImage.size
  map.objects:Add(grassObj)
 end
 
@@ -112,7 +112,7 @@ gmob.sprites:Add("Ant", sprt)
 gmob.velocity = Vector2(3.0, 2.0)
 gmob.position = Vector2(10.0, 0.0)
 gmob.layer = 0.1
-gmob.bounds = GameObjectBounds(Rectangle(gmob.position.X, gmob.position.Y, img.size.X, img.size.Y))
+gmob.size = img.size
 
 map.objects:Add(gmob)
 
@@ -137,7 +137,7 @@ rdobj.sprites:Add("Ant", sprt)
 rdobj.velocity = Vector2(3.0, 2.0)
 rdobj.position = Vector2(30.0, 0.0)
 rdobj.layer = 0.1
-rdobj.bounds = GameObjectBounds(Rectangle(gmob.position.X, gmob.position.Y, img.size.X, img.size.Y))
+rdobj.size = rdimg.size
 
 map.objects:Add(rdobj);
 

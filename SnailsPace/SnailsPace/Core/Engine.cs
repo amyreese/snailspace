@@ -104,7 +104,7 @@ namespace SnailsPace.Core
 			helix.maxVelocity = 3.5f;
 			helix.layer = 0;
 
-			helix.bounds = new Objects.GameObjectBounds(new Rectangle((int)helix.position.X, (int)helix.position.Y, (int)walk.image.size.X, (int)walk.image.size.Y));
+			helix.size = walk.image.size;
 
 			loadFonts();
 			setupPauseOverlay();
@@ -265,7 +265,7 @@ namespace SnailsPace.Core
 					bullet.maxVelocity = 10.0f;
 					bullet.layer = -0.001f;
 					bullet.isPCBullet = true;
-					bullet.bounds = new Objects.GameObjectBounds(new Rectangle((int)bullet.position.X, (int)bullet.position.Y, (int)bulletSprite.image.size.X, (int)bulletSprite.image.size.Y));
+					bullet.size = bulletSprite.image.size;
 					bullets.Add(bullet);
 					helix.fireCooldown = 2;
 				}
@@ -298,7 +298,7 @@ namespace SnailsPace.Core
 				{
 					if (collideableObjEnumerator.Current.collidable && collideableObjEnumerator.Current != movingObject)
 					{
-						if (movingObject.bounds.willIntersect(motionVector, collideableObjEnumerator.Current.bounds))
+						if (movingObject.willIntersect(motionVector, collideableObjEnumerator.Current))
 						{
 							if (movingObject.collidedWith(collideableObjEnumerator.Current))
 							{
