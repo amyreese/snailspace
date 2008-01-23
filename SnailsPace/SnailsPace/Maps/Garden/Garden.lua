@@ -110,3 +110,28 @@ gmob.layer = 0.1
 gmob.bounds = GameObjectBounds(Rectangle(gmob.position.X, gmob.position.Y, img.size.X, img.size.Y))
 
 map.objects:Add(gmob)
+
+rdimg = Image()
+rdimg.filename = "Resources/Textures/FireAntTable"
+rdimg.blocks = Vector2(4.0, 4.0)
+rdimg.size = Vector2(128.0, 128.0)
+
+rdspt = Sprite()
+rdspt.image = img
+rdspt.visible = true
+rdspt.effect = "Resources/Effects/effects"
+rdspt.animationStart = 0
+rdspt.animationEnd = 3
+rdspt.frame = 0
+rdspt.animationDelay = 1.0 / 15.0
+rdspt.timer = 0.0
+rdspt.horizontalFlip = true
+
+rdobj = GameObject()
+rdobj.sprites:Add("Ant", sprt)
+rdobj.velocity = Vector2(3.0, 2.0)
+rdobj.position = Vector2(30.0, 0.0)
+rdobj.layer = 0.1
+rdobj.bounds = GameObjectBounds(Rectangle(gmob.position.X, gmob.position.Y, img.size.X, img.size.Y))
+
+map.objects:Add(rdobj);

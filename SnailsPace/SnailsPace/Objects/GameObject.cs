@@ -30,5 +30,15 @@ namespace SnailsPace.Objects
         {
             sprites = new Dictionary<string,Sprite>();
         }
+
+		public void setSprite(String sprtName)
+		{
+			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = this.sprites.Values.GetEnumerator();
+			while (sprtEnumerator.MoveNext())
+			{
+				sprtEnumerator.Current.visible = false;
+			}
+			this.sprites[sprtName].visible = true;
+		}
     }
 }
