@@ -19,7 +19,7 @@ namespace SnailsPace.Core
 #endif
 
 		// Game map
-        public static GameLua lua;
+		public static GameLua lua;
 		public Objects.Map map;
 
 		// Player
@@ -196,7 +196,7 @@ namespace SnailsPace.Core
 			{
 				charEnum.Current.think(gameTime);
 			}
-            charEnum.Dispose();
+			charEnum.Dispose();
 
 
 			// Deal with Helix's movement
@@ -278,6 +278,54 @@ namespace SnailsPace.Core
 			return -mouseY / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
 		}
 
+		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)
+		{
+			if (movingObject.collidable)
+			{
+				List<Objects.GameObject>.Enumerator collideableObjEnumerator = collidableObjects.GetEnumerator();
+				while (collideableObjEnumerator.MoveNext())
+				{
+					if (collideableObjEnumerator.Current.collidable && collideableObjEnumerator.Current != movingObject)
+					{
+						if (movingObject.bounds.willIntersect(motionVector, collideableObjEnumerator.Current.bounds))
+						{
+							if (movingObject.collidedWith(collideableObjEnumerator.Current))
+							{
+								SnailsPace.debug("Collision: " + movingObject.position);
+								if (movingObject.GetType() == typeof(Objects.Bullet))
+								{
+									bullets.Remove((Objects.Bullet)movingObject);
+									// TODO: explosion?
+								}
+								return collideableObjEnumerator.Current;
+							}
+						}
+					}
+				}
+			}
+			return null;
+		}
+
+		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
+		{
+			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
+			if (objectVelocity.Length() > 0)
+			{
+				objectVelocity.Normalize();
+				objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
+				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
+				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity);
+				if (collidedObject != null)
+				{
+					collidedObject.collidedWith(movingObject);
+				}
+				else
+				{
+					movingObject.position += objectVelocity;
+				}
+			}
+		}
+
 		public void physics(GameTime gameTime)
 		{
 			if (enginePaused)
@@ -286,46 +334,29 @@ namespace SnailsPace.Core
 			}
 			float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
 
-			List<Objects.GameObject> allObjs = allObjects();
-			// TODO: iterate through map.characters and this.bullets using collision detection to move everything.
-			{
-				List<Objects.GameObject>.Enumerator objEnumerator = allObjs.GetEnumerator();
-				while (objEnumerator.MoveNext())
-				{
-					Vector2 objectVelocity = new Vector2(objEnumerator.Current.velocity.X, objEnumerator.Current.velocity.Y);
-					if (objectVelocity.Length() > 0)
-					{
-						objectVelocity.Normalize();
-						objectVelocity = Vector2.Multiply(objectVelocity, objEnumerator.Current.maxVelocity);
-						objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
-						objEnumerator.Current.position += objectVelocity;
-						objEnumerator.Current.bounds.move(objectVelocity);
-						if (objEnumerator.Current.GetType() == typeof(Objects.Bullet))
-						{
-							// TODO: Properly kill bullets that shouldn't exist anymore
-							if (Math.Abs(helix.position.X - objEnumerator.Current.position.X) > 10 || Math.Abs(helix.position.Y - objEnumerator.Current.position.Y) > 10)
-							{
-								bullets.Remove((Objects.Bullet)objEnumerator.Current);
-							}
-						}
 
-						if (objEnumerator.Current.collidable)
-						{
-							List<Objects.GameObject>.Enumerator collideableObjEnumerator = allObjs.GetEnumerator();
-							while (collideableObjEnumerator.MoveNext())
-							{
-								if (collideableObjEnumerator.Current.collidable && collideableObjEnumerator.Current != objEnumerator.Current)
-								{
-									if (collideableObjEnumerator.Current.bounds.intersects(objEnumerator.Current.bounds))
-									{
-										SnailsPace.debug("Collision: " + objEnumerator.Current.position);
-									}
-								}
-							}
-						}
-					}
+			List<Objects.GameObject> allObjs = allObjects();
+			// Collision Detection
+			{
+				// Helix Collision Detection
+				MoveOrCollide(helix, allObjs, elapsedTime);
+
+				// Enemy Collision Detection
+				List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
+				while (charEnumerator.MoveNext())
+				{
+					MoveOrCollide(charEnumerator.Current, allObjs, elapsedTime);
 				}
-                objEnumerator.Dispose();
+				charEnumerator.Dispose();
+
+				// Bullet Collision Detection
+				List<Objects.Bullet>.Enumerator bulletEnumerator = bullets.GetEnumerator();
+				while (bulletEnumerator.MoveNext())
+				{
+					// TODO: Make bullets that are too far away from Helix collide with nothing
+					MoveOrCollide(bulletEnumerator.Current, allObjs, elapsedTime);
+				}
+				bulletEnumerator.Dispose();
 			}
 
 			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
@@ -416,13 +447,13 @@ namespace SnailsPace.Core
 		private List<Objects.GameObject> allObjects()
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
-            objects.AddRange(map.objects);
+			objects.AddRange(map.objects);
 			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
 			while (bulletEnum.MoveNext())
 			{
 				objects.Add(bulletEnum.Current);
 			}
-            bulletEnum.Dispose();
+			bulletEnum.Dispose();
 			objects.Add(helix);
 			objects.Add(pause);
 			objects.Add(crosshair);

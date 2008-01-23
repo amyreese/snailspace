@@ -22,7 +22,7 @@ namespace SnailsPace
 	{
 		#region Debug flags
 #if DEBUG
-		public const bool debugFramerate = false;
+		public const bool debugFramerate = true;
         public const bool debugCameraPosition = true;
         public const bool debugHelixPosition = true;
 		public const bool debugCulling = false;

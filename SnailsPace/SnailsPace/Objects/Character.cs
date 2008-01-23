@@ -8,7 +8,22 @@ namespace SnailsPace.Objects
     class Character : GameObject
     {
         // Character properties.
-        public int health;
+        private int _health;
+		public int health {
+			get 
+			{
+				return _health;
+			}
+			set
+			{
+				_health = value;
+				if (value <= 0)
+				{
+					SnailsPace.debug("Character died.");
+					// TODO handle death
+				}
+			}
+		}
 
         // Character AI to be overridden by Lua
         public void think(GameTime gameTime)

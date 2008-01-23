@@ -20,6 +20,11 @@ namespace SnailsPace.Objects
 			return boundingRectangle.Intersects(otherObject.boundingRectangle);
 		}
 
+		public bool willIntersect(Vector2 movementVector, GameObjectBounds otherObject)
+		{
+			return false;
+		}
+
 		public void move(Vector2 v)
 		{
 			boundingRectangle.X += (int)Math.Round(v.X);

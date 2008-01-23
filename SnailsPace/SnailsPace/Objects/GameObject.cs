@@ -41,5 +41,11 @@ namespace SnailsPace.Objects
 			}
 			this.sprites[sprtName].visible = true;
 		}
+
+		public virtual bool collidedWith(GameObject otherObject)
+		{
+			// Do nothing?
+			return true;
+		}
     }
 }

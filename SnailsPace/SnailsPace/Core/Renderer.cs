@@ -169,7 +169,11 @@ namespace SnailsPace.Core
 								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation + spriteEnumerator.Current.rotation) *
 									Matrix.CreateTranslation(objectPosition);
 								VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
-								int xFlip = spriteEnumerator.Current.horizontalFlip ? -1 : 0;
+								int xFlip = 0;
+								if (spriteEnumerator.Current.horizontalFlip && !objectEnumerator.Current.horizontalFlip || objectEnumerator.Current.horizontalFlip && !spriteEnumerator.Current.horizontalFlip)
+								{
+									xFlip = -1;
+								}
 								int yFlip = 0;
 								for (int index = 0; index < vertices.Length; index++)
 								{
