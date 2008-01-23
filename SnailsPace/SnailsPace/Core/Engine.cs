@@ -289,6 +289,7 @@ namespace SnailsPace.Core
 			return -mouseY / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
 		}
 
+		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
 		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)
 		{
 			if (movingObject.collidable)
@@ -305,8 +306,7 @@ namespace SnailsPace.Core
 								SnailsPace.debug("Collision: " + movingObject.position);
 								if (movingObject.GetType() == typeof(Objects.Bullet))
 								{
-									bullets.Remove((Objects.Bullet)movingObject);
-									// TODO: explosion?
+									bulletsToClear.Add((Objects.Bullet)movingObject);
 								}
 								return collideableObjEnumerator.Current;
 							}
@@ -364,6 +364,15 @@ namespace SnailsPace.Core
 					MoveOrCollide(bulletEnumerator.Current, allObjs, elapsedTime);
 				}
 				bulletEnumerator.Dispose();
+
+				// Clear out exploded bullets
+				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
+				while (destroyedBulletEnumerator.MoveNext())
+				{
+					bullets.Remove(destroyedBulletEnumerator.Current);
+					// TODO: explosion?
+				}
+				destroyedBulletEnumerator.Dispose();
 			}
 
 			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
@@ -455,7 +464,12 @@ namespace SnailsPace.Core
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.AddRange(map.objects);
-			objects.AddRange(map.characters);
+			List<Objects.Character>.Enumerator characterEnum = map.characters.GetEnumerator();
+			while (characterEnum.MoveNext())
+			{
+				objects.Add(characterEnum.Current);
+			}
+			characterEnum.Dispose();
 			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
 			while (bulletEnum.MoveNext())
 			{
