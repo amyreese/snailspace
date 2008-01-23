@@ -46,10 +46,9 @@ Map = import('SnailsPace.Objects.Map');
             #endregion
         }
 
-        public void Call(System.Object obj, String function, params object[] args) 
+        public void Call(String function, params object[] args) 
         {
-            this["this"] = obj;
-            String call = "this:" + function + "(";
+            String call = "if ( " + function + " ~= nil ) then\n\t" + function + "(";
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -59,7 +58,7 @@ Map = import('SnailsPace.Objects.Map');
                 call += (i == 0 ? "" : ",") + varname;
             }
 
-            call += ")";
+            call += ")\nend";
             DoString(call);
         }
     }

@@ -26,10 +26,11 @@ namespace SnailsPace.Objects
 			}
 		}
 
-        // Character AI to be overridden by Lua
+        String think_func;
+        
         public virtual void think(GameTime gameTime)
         {
-            Engine.lua.Call(this, "_think", gameTime);
+            Engine.lua.Call(think_func, this, gameTime);
         }
     }
 }

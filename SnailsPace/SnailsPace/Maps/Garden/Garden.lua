@@ -17,12 +17,16 @@ sprite.frame = 0
 sprite.animationDelay = 1.0 / 15.0
 sprite.timer = 0.0
 
-go = GameObject()
+go = Character()
 go.sprites:Add("Snail", sprite)
 go.velocity = Vector2(3.0, 2.0)
 go.layer = 1
 go.bounds = GameObjectBounds(Rectangle(go.position.X, go.position.Y, image.size.X, image.size.Y))
-map.objects:Add(go)
+function snail_think( self, gameTime )
+	print("thinking" .. self )
+end
+go.think_func = "snail_think"
+map.characters:Add(go)
 
 bkgImage = Image()
 bkgImage.filename = "Resources/Textures/Garden"
