@@ -136,6 +136,7 @@
     <Content Include="Resources\Textures\Helix.png" />
     <Content Include="Resources\Textures\HelixTable.png" />
     <Content Include="Resources\Textures\SpiderTable.png" />
+    <Content Include="Resources\Textures\wood.jpg" />
     <EmbeddedResource Include="Resources\Libraries\luanet.dll">
       <Name>luanet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
