@@ -20,22 +20,6 @@ namespace SnailsPace.Core
 		public int MouseX { get { return currentMouseX; } }
 		public int MouseY { get { return currentMouseY; } }
 
-		public enum Actions
-		{
-			MenuUp,
-			MenuDown,
-			MenuLeft,
-			MenuRight,
-			MenuSelect,
-			MenuToggle,
-			MoveUp,
-			MoveDown,
-			MoveLeft,
-			MoveRight,
-			Fire,
-			Pause
-		}
-
         /**
          * Initialize the InputManager object and configuration.
          */
