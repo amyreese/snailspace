@@ -9,6 +9,7 @@ namespace SnailsPace.Objects
     {
         // Jetpack fuel
         public int fuel;
+		public int fireCooldown;
 
 		public void setSprite(String sprtName, String aSprtName)
 		{
