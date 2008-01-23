@@ -455,6 +455,7 @@ namespace SnailsPace.Core
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
 			objects.AddRange(map.objects);
+			objects.AddRange(map.characters);
 			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
 			while (bulletEnum.MoveNext())
 			{
