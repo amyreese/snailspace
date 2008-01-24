@@ -104,7 +104,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 30.0f;
+			helix.maxVelocity = 20.0f;
 			helix.layer = 0;
 
 			helix.size = walk.image.size;
@@ -396,6 +396,28 @@ namespace SnailsPace.Core
 					sprtEnumerator.Dispose();
 				}
 				objEnumerator.Dispose();
+
+				List<Objects.Character>.Enumerator charEnumerator = this.map.characters.GetEnumerator();
+				while (charEnumerator.MoveNext())
+				{
+
+					if (charEnumerator.Current.velocity.X > 0)
+					{
+						charEnumerator.Current.horizontalFlip = false;
+					}
+					else
+					{
+						charEnumerator.Current.horizontalFlip = true;
+					}
+
+					Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = charEnumerator.Current.sprites.Values.GetEnumerator();
+					while (sprtEnumerator.MoveNext())
+					{
+						sprtEnumerator.Current.animate(gameTime);
+					}
+					sprtEnumerator.Dispose();
+				}
+				charEnumerator.Dispose();
 			}
 		}
 

@@ -5,23 +5,27 @@ red.filename = "Resources/Textures/FireAntTable"
 red.blocks = Vector2(4.0, 4.0)
 red.size = Vector2(128.0, 128.0)
 
-sprite = Sprite()
-sprite.image = red
-sprite.visible = true
-sprite.effect = "Resources/Effects/effects"
-sprite.animationStart = 0
-sprite.animationEnd = 3
-sprite.frame = 0
-sprite.animationDelay = 1.0 / 15.0
-sprite.timer = 0.0
+spri = Sprite()
+spri.image = red
+spri.visible = true
+spri.effect = "Resources/Effects/effects"
+spri.animationStart = 0
+spri.animationEnd = 3
+spri.frame = 0
+spri.animationDelay = 1.0 / 15.0
+spri.timer = 0.0
 
 fireAnt = Character()
-fireAnt.sprites:Add("FireAnt", sprite)
-fireAnt.velocity = Vector2(3.0, 2.0)
-fireAnt.layer = 1
+fireAnt.sprites:Add("FireAnt", spri)
+fireAnt.velocity = Vector2(1.0, 0.0)
+fireAnt.layer = 0.1
+fireAnt.maxVelocity = 10.0
 fireAnt.size = image.size;
 function fireAnt_think( self, gameTime )
-	print("thinking")
+	aVelocity = Vector2(helix.position.X - self.position.X, helix.position.Y - self.position.Y)
+	self.velocity = aVelocity
+	print("angry!")
 end
-go.think_func = "fireAnt_think"
+fireAnt.think_func = "fireAnt_think"
 map.characters:Add(fireAnt)
+
