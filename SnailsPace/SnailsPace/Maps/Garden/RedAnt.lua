@@ -26,6 +26,6 @@ function fireAnt_think( self, gameTime )
 	self.velocity = aVelocity
 	print("angry!")
 end
-fireAnt.think_func = "fireAnt_think"
+fireAnt.thinker = "fireAnt_think"
 map.characters:Add(fireAnt)
 

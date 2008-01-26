@@ -25,7 +25,7 @@ go.size = image.size;
 function snail_think( self, gameTime )
 	print("thinking")
 end
-go.think_func = "snail_think"
+go.thinker = "snail_think"
 map.characters:Add(go)
 
 bkgImage = Image()

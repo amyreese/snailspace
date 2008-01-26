@@ -26,11 +26,14 @@ namespace SnailsPace.Objects
 			}
 		}
 
-        String think_func;
+        String thinker = "";
         
         public virtual void think(GameTime gameTime)
         {
-            Engine.lua.Call(think_func, this, gameTime);
+            if (thinker.Length > 0)
+            {
+                Engine.lua.Call(thinker, this, gameTime);
+            }
         }
     }
 }
