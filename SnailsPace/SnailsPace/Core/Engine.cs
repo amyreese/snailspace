@@ -44,7 +44,7 @@ namespace SnailsPace.Core
 		// Constructors
 		public Engine(String map)
 		{
-			lua = new GameLua();
+			lua = new GameLua(map);
 
 			bullets = new List<Objects.Bullet>();
 

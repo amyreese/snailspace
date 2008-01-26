@@ -7,14 +7,22 @@ namespace SnailsPace.Core
 {
     class GameLua : Lua
     {
-        public GameLua()
+        public GameLua() : this("")
+        {
+        }
+
+        public GameLua(String mapName)
             : base()
         {
             #region Lua initialization of C# classes
+            String mapPath = (mapName.Length > 0) ? ("Maps/" + mapName + "/") : ("");
             String initCode = @" 
 
 using = luanet.load_assembly;
 import = luanet.import_type;
+function include( filename )
+    dofile('" + mapPath + @"' .. filename)
+end
 
 using('Microsoft.Xna.Framework');
 
