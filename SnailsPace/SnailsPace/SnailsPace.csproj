@@ -124,6 +124,9 @@
       <Name>lua51</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Maps\Garden\Enemies\Bee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Libraries\LuaInterface.dll">
       <Name>LuaInterface</Name>
     </Content>
@@ -148,19 +151,22 @@
     <None Include="Documents\Class Diagram.dia">
       <Name>Class Diagram</Name>
     </None>
+    <None Include="Maps\Garden\Enemies\FireAnt.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Maps\Garden\Garden.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\Plane1.lua">
+    <None Include="Maps\Garden\Scenery\Plane1.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\Plane2.lua">
+    <None Include="Maps\Garden\Scenery\Plane2.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\Platforms.lua">
+    <None Include="Maps\Garden\Scenery\Platforms.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\RedAnt.lua">
+    <None Include="Maps\Garden\Scenery\Background.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
