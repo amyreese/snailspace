@@ -202,6 +202,8 @@ namespace SnailsPace
 
 #if DEBUG
         private int frames = 0;
+		private int currentFramerateIndex = 0;
+		private double[] framerates = new double[50];
 #endif
         /// <summary>
         /// This is called when the game should draw itself.
@@ -214,9 +216,19 @@ namespace SnailsPace
 			{
 				frames = frames + 1;
 				double fps = 0;
-				fps = Math.Round(frames / gameTime.TotalRealTime.TotalSeconds);
-				debug("Average FPS: " + fps);
 				fps = Math.Round(1000 / gameTime.ElapsedRealTime.TotalMilliseconds);
+				framerates[currentFramerateIndex++] = fps;
+				if (currentFramerateIndex >= framerates.Length)
+				{
+					currentFramerateIndex = 0;
+				}
+				double avgFps = 0;
+				for (int index = 0; index < framerates.Length; index++)
+				{
+					avgFps += framerates[index];
+				}
+				avgFps /= framerates.Length;
+				debug("Average FPS: " + avgFps);
 				debug("FPS: " + fps);
 				if (gameTime.IsRunningSlowly)
 				{
