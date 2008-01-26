@@ -414,7 +414,7 @@ namespace SnailsPace.Core
 				while (charEnumerator.MoveNext())
 				{
 
-					if (charEnumerator.Current.velocity.X > 0)
+					if (charEnumerator.Current.velocity.X >= 0)
 					{
 						charEnumerator.Current.horizontalFlip = false;
 					}
