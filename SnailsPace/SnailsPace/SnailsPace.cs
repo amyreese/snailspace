@@ -27,7 +27,7 @@ namespace SnailsPace
         public const bool debugHelixPosition = true;
 		public const bool debugCulling = false;
 		public const bool debugEffectAndTextureLoading = true;
-		public const bool debugBoundingBoxes = false;
+		public const bool debugBoundingBoxes = true;
 #endif
 		#endregion
 

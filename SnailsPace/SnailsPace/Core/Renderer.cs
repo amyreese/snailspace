@@ -105,6 +105,10 @@ namespace SnailsPace.Core
 
         private float calculateCameraMovement(float distance, float elapsedTime)
         {
+			if ( float.IsNaN(distance) )
+			{
+				distance = 0;
+			}
             float absDistance = Math.Abs(distance);
             float minMovement = elapsedTime * minimumCameraMovement;
             if (absDistance < minMovement)

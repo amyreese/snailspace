@@ -12,6 +12,9 @@ namespace SnailsPace.Core
 		// Toggle for collision detection
 		bool collisionDetectionOn = true;
 
+		// Toggle for gravity
+		bool gravityEnabled = true;
+
 		// Engine state
 		bool enginePaused = false;
 
@@ -106,6 +109,7 @@ namespace SnailsPace.Core
 
 			helix.maxVelocity = 1280.0f;
 			helix.layer = 0;
+			helix.affectedByGravity = true;
 
 			helix.size = walk.image.size;
 			helix.position = new Vector2(0, 0);
@@ -333,13 +337,21 @@ namespace SnailsPace.Core
 			return null;
 		}
 
+		private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
 			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
-			if (objectVelocity.Length() > 0)
+			if (( gravityEnabled && movingObject.affectedByGravity )|| objectVelocity.Length() > 0 )
 			{
-				objectVelocity.Normalize();
-				objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
+				if (objectVelocity.Length() > 0)
+				{
+					objectVelocity.Normalize();
+					objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
+				}
+				if ( gravityEnabled && movingObject.affectedByGravity)
+				{
+					objectVelocity += gravity;
+				}
 				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
 				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity);
 				if (collidedObject == null)
