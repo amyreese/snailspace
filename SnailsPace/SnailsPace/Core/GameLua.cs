@@ -44,6 +44,9 @@ Map = import('SnailsPace.Objects.Map');
             ";
             this.DoString(initCode);
             #endregion
+
+            SnailsPace snailsPace = SnailsPace.getInstance();
+            this.RegisterFunction("sdebug", snailsPace, snailsPace.GetType().GetMethod("debug"));
         }
 
         public void Call(String function, params object[] args) 
