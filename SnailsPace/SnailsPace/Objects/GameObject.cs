@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using LuaInterface;
 
 namespace SnailsPace.Objects
 {
@@ -16,6 +17,9 @@ namespace SnailsPace.Objects
         public bool affectedByGravity;
 		public bool collidable = true;
 		public bool horizontalFlip;
+
+        // Object state for Lua
+        public LuaTable state;
 
         // The sprite's layer and parallax.
         public float layer;       // 0: background ... 5: foreground

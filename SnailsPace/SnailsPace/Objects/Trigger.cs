@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using LuaInterface;
 
 namespace SnailsPace.Objects
 {
@@ -10,6 +11,9 @@ namespace SnailsPace.Objects
         // Trigger location and size
         public Vector2 position;
         public Vector2 size;
+
+        // Object state for Lua
+        public LuaTable state;
 
         // Trigger function
         public String function;

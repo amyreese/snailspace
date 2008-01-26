@@ -14,8 +14,6 @@ FireAntImage.size = Vector2(128, 128)
 
 -- Creates a Bee object
 function FireAnt()
-	fireant = {}
-	
 	body = Sprite()
 	body.image = FireAntImage
 	body.effect = "Resources/Effects/effects"
@@ -26,24 +24,43 @@ function FireAnt()
 	body.frame = 0
 	body.timer = 0
 	
-	char = Character()
-	char.sprites:Add("Body", body)
-	char.size = FireAntImage.size
-	char.position = Vector2(0,0)
-	char.velocity = Vector2(0,0)
-	char.maxVelocity = 10
-	char.thinker = "FireAntThinker"
-	map.characters:Add(char)
-	
-	fireant.body = body
-	fireant.character = char
+	fireant = Character()
+	fireant.sprites:Add("Body", body)
+	fireant.size = FireAntImage.size
+	fireant.position = Vector2(0,0)
+	fireant.velocity = Vector2(0,0)
+	fireant.maxVelocity = 10
+	fireant.thinker = "FireAntThinker"
+	fireant.state = {
+		tracking = false,
+		mad = false,
+	}
+	map.characters:Add(fireant)
 	
 	return fireant
 end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	AI.moveToHelix( self, 2.0, 1.0 )
+	vision = 10
+	if ( self.state.mad == true and self.state.tracking ) then
+		vision = 25
+	end
+	
+	if ( AI.canSeeHelix( self, vision ) ) then 
+		AI.moveToHelix( self, 2.0, 1.0 )
+		
+		self.state.tracking = true		
+	else
+		AI.stop( self )
+		
+		if ( self.state.tracking == true ) then
+			print("getting angry")
+			self.state.mad = true
+		end
+		
+		self.state.tracking = false
+	end
 	
 	-- TODO: Extend AI for the Fire Ant
 end

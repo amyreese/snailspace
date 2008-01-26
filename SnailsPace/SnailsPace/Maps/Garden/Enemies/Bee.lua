@@ -14,8 +14,6 @@ BeeImage.size = Vector2(128, 128)
 
 -- Creates a Bee object
 function Bee()
-	bee = {}
-	
 	body = Sprite()
 	body.image = BeeImage
 	body.effect = "Resources/Effects/effects"
@@ -26,24 +24,26 @@ function Bee()
 	body.frame = 0
 	body.timer = 0
 	
-	char = Character()
-	char.sprites:Add("Body", body)
-	char.size = BeeImage.size
-	char.position = Vector2(0,0)
-	char.velocity = Vector2(0,0)
-	char.maxVelocity = 15
-	char.thinker = "BeeThinker"
-	map.characters:Add(char)
+	bee = Character()
+	bee.sprites:Add("Body", body)
+	bee.size = BeeImage.size
+	bee.position = Vector2(0,0)
+	bee.velocity = Vector2(0,0)
+	bee.maxVelocity = 15
+	bee.thinker = "BeeThinker"
+	bee.state = {}
+	map.characters:Add(bee)
 
-	bee.body = body
-	bee.character = char
-	
 	return bee
 end
 
 -- Bee behavior function
 function BeeThinker( self, gameTime )
-	AI.moveToHelix( self, 10.0, 9.0 )
+	if ( AI.canSeeHelix( self, 9 ) ) then 
+		AI.moveToHelix( self, 6.0, 4.0 )
+	else
+		AI.stop( self )
+	end
 	
 	-- TODO: Create AI for the Bee
 end
