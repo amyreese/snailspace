@@ -36,8 +36,8 @@ for x = 0, BackgroundImage.blocks.X - 1 do
 		sprite.frame = sprite.animationStart
 		
 		object.sprites:Add("Background", sprite)
-		object.position = Vector2( ( x * 12 + xOffset ) * 64, ( y * 12 + yOffset ) * 64 )
-		object.layer = 400
+		object.position = Vector2( ( x * 12 + xOffset ) * 32, ( y * 12 + yOffset ) * 32 )
+		object.layer = 100
 		object.collidable = false
 		
 		map.objects:Add(object)

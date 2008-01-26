@@ -15,13 +15,13 @@ include("Scenery/Plane2.lua")
 
 -- Create an enemy
 fireant = FireAnt()
-fireant.position = Vector2(256, 0)
+fireant.position = Vector2(128, 0)
 
 blackant = BlackAnt()
-blackant.position = Vector2(512, 0)
+blackant.position = Vector2(256, 0)
 
 bee = Bee()
-bee.position = Vector2(512, 512)
+bee.position = Vector2(256, 256)
 
 spider = Spider()
-spider.position = Vector2(768, 0)
+spider.position = Vector2(384, 0)

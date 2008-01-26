@@ -18,9 +18,9 @@ namespace SnailsPace.Core
         public Matrix cameraView;
         public Matrix cameraProjection;
 		public const float debugZoom = 1.0f; // Set to 1 for normal gameplay
-        public const float normalCameraDistance = 2000.0f * debugZoom;
+        public const float normalCameraDistance = 1000.0f * debugZoom;
         public const float minimumCameraMovement = 0.5f;
-        public const float cameraSpeed = 1.5f;
+        public const float cameraSpeed = 2.0f;
 		
         // Set distance from the camera of the near and far clipping planes.
         static float nearClip = 0.1f;
@@ -168,9 +168,9 @@ namespace SnailsPace.Core
 					{
 						Objects.GameObject boundingBox = new Objects.GameObject();
 						boundingBox.sprites.Add("BoundingBox", boxSprite.clone());
-						Rectangle bounds = objectEnumerator.Current.getBounds();
-						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width / 2.0f, bounds.Height / 2.0f);
-						boundingBox.position = new Vector2(bounds.X + bounds.Width / 2.0f, bounds.Y + bounds.Height / 2.0f);
+						Objects.GameObjectBounds bounds = objectEnumerator.Current.getBounds();
+						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width, bounds.Height);
+						boundingBox.position = new Vector2(bounds.X, bounds.Y);
 						boundingBoxList.Add(boundingBox);
 					}
 						
@@ -285,19 +285,19 @@ namespace SnailsPace.Core
         private void setUpVertices()
         {
             vertices = new VertexPositionTexture[4];
-            vertices[3].Position = new Vector3(-1.0f, 1.0f, 0.0f);
+            vertices[3].Position = new Vector3(-0.5f, 0.5f, 0.0f);
             vertices[3].TextureCoordinate.X = 0;
             vertices[3].TextureCoordinate.Y = 0;
 
-            vertices[2].Position = new Vector3(1.0f, 1.0f, 0f);
+            vertices[2].Position = new Vector3(0.5f, 0.5f, 0f);
             vertices[2].TextureCoordinate.X = 1;
             vertices[2].TextureCoordinate.Y = 0;
 
-            vertices[1].Position = new Vector3(-1.0f, -1.0f, 0.0f);
+            vertices[1].Position = new Vector3(-0.5f, -0.5f, 0.0f);
             vertices[1].TextureCoordinate.X = 0;
             vertices[1].TextureCoordinate.Y = 1;
 
-            vertices[0].Position = new Vector3(1.0f, -1.0f, 0.0f);
+            vertices[0].Position = new Vector3(0.5f, -0.5f, 0.0f);
             vertices[0].TextureCoordinate.X = 1;
             vertices[0].TextureCoordinate.Y = 1;
         }

@@ -107,7 +107,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 1280.0f;
+			helix.maxVelocity = 640.0f;
 			helix.layer = 0;
 			helix.affectedByGravity = true;
 
@@ -171,8 +171,8 @@ namespace SnailsPace.Core
 			gameRenderer.cameraPosition = new Vector3(helix.position + offsetPosition, gameRenderer.cameraTargetOffset.Z * 1.5f);
 
 			gameRenderer.cameraTarget = helix;
-			gameRenderer.cameraTargetOffset.X = -128;
-			gameRenderer.cameraTargetOffset.Y = 384;
+			gameRenderer.cameraTargetOffset.X = -64;
+			gameRenderer.cameraTargetOffset.Y = 192;
 		}
 
 		public void think(GameTime gameTime)
@@ -337,7 +337,7 @@ namespace SnailsPace.Core
 			return null;
 		}
 
-		private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
+		private readonly Vector2 gravity = new Vector2(0.0f, -256.0f);
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
 			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
