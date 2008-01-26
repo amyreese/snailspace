@@ -68,14 +68,15 @@ namespace SnailsPace.Objects
 		public Rectangle getBounds()
 		{
 			// Get all four corners in local space
-			Vector2 leftTop = new Vector2(position.X, position.Y);
-			Vector2 rightTop = new Vector2(position.X + size.X, position.Y);
-			Vector2 leftBottom = new Vector2(position.X, position.Y + size.Y);
-			Vector2 rightBottom = new Vector2(position.X + size.X, position.X + size.Y);
+			Vector2 leftTop = new Vector2(-size.X / 2.0f, size.Y / 2.0f);
+			Vector2 rightTop = new Vector2(size.X / 2.0f, size.Y / 2.0f);
+			Vector2 leftBottom = new Vector2(-size.X / 2.0f, -size.Y / 2.0f);
+			Vector2 rightBottom = new Vector2(size.X / 2.0f, -size.Y / 2.0f);
 
 			Matrix transform =
-					Matrix.CreateTranslation(new Vector3(-(new Vector2(size.X / 2.0f, size.Y / 2.0f)), 0.0f)) *
+					//Matrix.CreateTranslation(new Vector3(-(new Vector2(size.X / 2.0f, size.Y / 2.0f)), 0.0f)) *
 				// Matrix.CreateScale(block.Scale) *  would go here
+					Matrix.CreateScale(2.0f) *
 					Matrix.CreateRotationZ(rotation) *
 					Matrix.CreateTranslation(new Vector3(position, 0.0f));
 

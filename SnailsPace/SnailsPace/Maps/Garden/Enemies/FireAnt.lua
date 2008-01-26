@@ -58,7 +58,7 @@ function FireAntThinker( self, gameTime )
 	end
 	
 	if ( AI.canSeeHelix( self, vision ) ) then 
-		AI.moveToHelix( self, 128.0, 64.0 )
+		AI.moveToHelix( self, 192.0, 128.0 )
 		self:setSprite("Walk")
 		self.state.tracking = true		
 	else

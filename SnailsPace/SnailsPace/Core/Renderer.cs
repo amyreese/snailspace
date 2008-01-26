@@ -145,93 +145,50 @@ namespace SnailsPace.Core
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
             BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
+			Objects.Sprite boxSprite = new Objects.Sprite();
+			boxSprite.image = new Objects.Image();
+			boxSprite.image.filename = "Resources/Textures/BoundingBox";
+			boxSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			boxSprite.visible = true;
+			boxSprite.effect = "Resources/Effects/effects";
+
+
+
+			/*
+
+					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable && !objectEnumerator.Current.sprites.ContainsKey("BoundingBox"))
+					{
+						boxSprite.image.size = new Vector2(objectEnumerator.Current.getBounds().Width, objectEnumerator.Current.getBounds().Height);
+						boxSprite.layerOffset = -objectEnumerator.Current.layer;
+						objectEnumerator.Current.sprites.Add("BoundingBox", boxSprite.clone());
+					}
+			 */
+
             if (objects != null)
             {
                 List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
+				List<Objects.GameObject> boundingBoxList = new List<Objects.GameObject>();
+
                 while (objectEnumerator.MoveNext())
                 {
-                    Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
-                    while (spriteEnumerator.MoveNext())
-                    {
-                        if (spriteEnumerator.Current.visible)
-                        {
-                            Vector3 objectPosition = new Vector3(objectEnumerator.Current.position + spriteEnumerator.Current.position, -objectEnumerator.Current.layer - spriteEnumerator.Current.layerOffset);
-                            Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
-                            objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
-
-							BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.X * objectScale.Y);
-							if (viewFrustum.Intersects(sphere))
-							{
-
-								int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
-								int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
-
-								Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(objectEnumerator.Current.rotation + spriteEnumerator.Current.rotation) *
-									Matrix.CreateTranslation(objectPosition);
-								VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
-								int xFlip = 0;
-								if (spriteEnumerator.Current.horizontalFlip && !objectEnumerator.Current.horizontalFlip || objectEnumerator.Current.horizontalFlip && !spriteEnumerator.Current.horizontalFlip)
-								{
-									xFlip = -1;
-								}
-								int yFlip = 0;
-								for (int index = 0; index < vertices.Length; index++)
-								{
-									objVertices[index].Position.X = translationMatrix.M11 * vertices[index].Position.X
-																	+ translationMatrix.M21 * vertices[index].Position.Y
-																	+ translationMatrix.M41;
-									objVertices[index].Position.Y = translationMatrix.M12 * vertices[index].Position.X
-																	+ translationMatrix.M22 * vertices[index].Position.Y
-																	+ translationMatrix.M42;
-									objVertices[index].Position.Z = objectPosition.Z;
-
-									int xMod = 1 - index % 2;
-									int yMod = 0;
-									if (index == 0 || index == 1)
-									{
-										yMod = 1;
-									}
-									objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X + xFlip;
-									objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y + yFlip;
-
-								}
-
-								// TODO this probably isn't how we want to do this if we end up using more than one effect
-                                Effect effect = getOrCreateEffect(spriteEnumerator.Current);
-                                effect.CurrentTechnique = effect.Techniques["Textured"];
-
-								effect.Parameters["xView"].SetValue(cameraView);
-								effect.Parameters["xProjection"].SetValue(cameraProjection);
-								effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-								effect.Parameters["xTexture"].SetValue(getOrCreateTexture(spriteEnumerator.Current));
-
-								effect.Begin();
-
-								IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
-								while( effectPassEnumerator.MoveNext() )
-								{
-									effectPassEnumerator.Current.Begin();
-									SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
-									SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
-									effectPassEnumerator.Current.End();
-								}
-								effectPassEnumerator.Dispose();
-								effect.End();
-							}
-							else
-							{
-#if DEBUG
-								if (SnailsPace.debugCulling)
-								{
-									SnailsPace.debug("Object culled.");
-								}
-#endif
-							}
-                        }
-                    }
-					spriteEnumerator.Dispose();
+					drawObject(objectEnumerator.Current, viewFrustum);
+					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
+					{
+						Objects.GameObject boundingBox = new Objects.GameObject();
+						boundingBox.sprites.Add("BoundingBox", boxSprite.clone());
+						Rectangle bounds = objectEnumerator.Current.getBounds();
+						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width, bounds.Height);
+						boundingBox.position = new Vector2(bounds.X + bounds.Width / 2.0f, bounds.Y + bounds.Height / 2.0f);
+						boundingBoxList.Add(boundingBox);
+					}
+						
                 }
 				objectEnumerator.Dispose();
+
+				List<Objects.GameObject>.Enumerator boundingEnumerator = boundingBoxList.GetEnumerator();
+				while (boundingEnumerator.MoveNext())
+					drawObject(boundingEnumerator.Current, viewFrustum);
+				boundingEnumerator.Dispose();
             }
 
             if (strings != null)
@@ -247,6 +204,91 @@ namespace SnailsPace.Core
                 textEnumerator.Dispose();
             }
         }
+
+		private void drawObject(Objects.GameObject obj, BoundingFrustum viewFrustum)
+		{
+			Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = obj.sprites.Values.GetEnumerator();
+
+			while (spriteEnumerator.MoveNext())
+			{
+				if (spriteEnumerator.Current.visible)
+				{
+					Vector3 objectPosition = new Vector3(obj.position + spriteEnumerator.Current.position, -obj.layer - spriteEnumerator.Current.layerOffset);
+					Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
+					objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
+
+					BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.X * objectScale.Y);
+					if (viewFrustum.Intersects(sphere))
+					{
+
+						int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
+						int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
+
+						Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(obj.rotation + spriteEnumerator.Current.rotation) *
+							Matrix.CreateTranslation(objectPosition);
+						VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
+						int xFlip = 0;
+						if (spriteEnumerator.Current.horizontalFlip && !obj.horizontalFlip || obj.horizontalFlip && !spriteEnumerator.Current.horizontalFlip)
+						{
+							xFlip = -1;
+						}
+						int yFlip = 0;
+						for (int index = 0; index < vertices.Length; index++)
+						{
+							objVertices[index].Position.X = translationMatrix.M11 * vertices[index].Position.X
+															+ translationMatrix.M21 * vertices[index].Position.Y
+															+ translationMatrix.M41;
+							objVertices[index].Position.Y = translationMatrix.M12 * vertices[index].Position.X
+															+ translationMatrix.M22 * vertices[index].Position.Y
+															+ translationMatrix.M42;
+							objVertices[index].Position.Z = objectPosition.Z;
+
+							int xMod = 1 - index % 2;
+							int yMod = 0;
+							if (index == 0 || index == 1)
+							{
+								yMod = 1;
+							}
+							objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X + xFlip;
+							objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y + yFlip;
+
+						}
+
+						// TODO this probably isn't how we want to do this if we end up using more than one effect
+						Effect effect = getOrCreateEffect(spriteEnumerator.Current);
+						effect.CurrentTechnique = effect.Techniques["Textured"];
+
+						effect.Parameters["xView"].SetValue(cameraView);
+						effect.Parameters["xProjection"].SetValue(cameraProjection);
+						effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+						effect.Parameters["xTexture"].SetValue(getOrCreateTexture(spriteEnumerator.Current));
+
+						effect.Begin();
+
+						IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
+						while (effectPassEnumerator.MoveNext())
+						{
+							effectPassEnumerator.Current.Begin();
+							SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
+							SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
+							effectPassEnumerator.Current.End();
+						}
+						effectPassEnumerator.Dispose();
+						effect.End();
+					}
+					else
+					{
+#if DEBUG
+						if (SnailsPace.debugCulling)
+						{
+							SnailsPace.debug("Object culled.");
+						}
+#endif
+					}
+				}
+			}
+			spriteEnumerator.Dispose();
+		}
 
         private void setUpVertices()
         {

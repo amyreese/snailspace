@@ -14,7 +14,7 @@ grassSprite.animationDelay = 0.0
 grassSprite.timer = 0.0
 
 xOffset = -40
-yOffset = -4.5
+yOffset = -6
 grassLength = 40
 for x=0,10 do
  grassObj = GameObject()

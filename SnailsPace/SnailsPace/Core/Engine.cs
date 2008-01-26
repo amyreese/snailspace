@@ -10,7 +10,7 @@ namespace SnailsPace.Core
 	class Engine
 	{
 		// Toggle for collision detection
-		bool collisionDetectionOn = false;
+		bool collisionDetectionOn = true;
 
 		// Engine state
 		bool enginePaused = false;
