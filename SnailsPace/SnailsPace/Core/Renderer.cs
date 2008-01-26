@@ -152,18 +152,6 @@ namespace SnailsPace.Core
 			boxSprite.visible = true;
 			boxSprite.effect = "Resources/Effects/effects";
 
-
-
-			/*
-
-					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable && !objectEnumerator.Current.sprites.ContainsKey("BoundingBox"))
-					{
-						boxSprite.image.size = new Vector2(objectEnumerator.Current.getBounds().Width, objectEnumerator.Current.getBounds().Height);
-						boxSprite.layerOffset = -objectEnumerator.Current.layer;
-						objectEnumerator.Current.sprites.Add("BoundingBox", boxSprite.clone());
-					}
-			 */
-
             if (objects != null)
             {
                 List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
@@ -177,7 +165,7 @@ namespace SnailsPace.Core
 						Objects.GameObject boundingBox = new Objects.GameObject();
 						boundingBox.sprites.Add("BoundingBox", boxSprite.clone());
 						Rectangle bounds = objectEnumerator.Current.getBounds();
-						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width, bounds.Height);
+						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width / 2.0f, bounds.Height / 2.0f);
 						boundingBox.position = new Vector2(bounds.X + bounds.Width / 2.0f, bounds.Y + bounds.Height / 2.0f);
 						boundingBoxList.Add(boundingBox);
 					}
