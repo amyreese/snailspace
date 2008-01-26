@@ -29,7 +29,7 @@ function Bee()
 	bee.size = BeeImage.size
 	bee.position = Vector2(0,0)
 	bee.velocity = Vector2(0,0)
-	bee.maxVelocity = 15
+	bee.maxVelocity = 960
 	bee.thinker = "BeeThinker"
 	bee.state = {}
 	map.characters:Add(bee)
@@ -39,8 +39,8 @@ end
 
 -- Bee behavior function
 function BeeThinker( self, gameTime )
-	if ( AI.canSeeHelix( self, 9 ) ) then 
-		AI.moveToHelix( self, 6.0, 4.0 )
+	if ( AI.canSeeHelix( self, 640 ) ) then 
+		AI.moveToHelix( self, 384.0, 256.0 )
 	else
 		AI.stop( self )
 	end

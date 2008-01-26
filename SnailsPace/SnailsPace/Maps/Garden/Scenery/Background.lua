@@ -8,7 +8,7 @@
 BackgroundImage = Image()
 BackgroundImage.filename = "Resources/Textures/Garden"
 BackgroundImage.blocks = Vector2(16.0, 12.0)
-BackgroundImage.size = Vector2(512.0, 512.0)
+BackgroundImage.size = Vector2(384.0, 384.0)
 
 -- Generic background sprite
 BackgroundSprite = Sprite()
@@ -36,8 +36,8 @@ for x = 0, BackgroundImage.blocks.X - 1 do
 		sprite.frame = sprite.animationStart
 		
 		object.sprites:Add("Background", sprite)
-		object.position = Vector2( x * 16 + xOffset, y * 16 + yOffset )
-		object.layer = 50
+		object.position = Vector2( ( x * 12 + xOffset ) * 64, ( y * 12 + yOffset ) * 64 )
+		object.layer = 400
 		object.collidable = false
 		
 		map.objects:Add(object)

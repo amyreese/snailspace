@@ -29,7 +29,7 @@ function FireAnt()
 	fireant.size = FireAntImage.size
 	fireant.position = Vector2(0,0)
 	fireant.velocity = Vector2(0,0)
-	fireant.maxVelocity = 10
+	fireant.maxVelocity = 640
 	fireant.thinker = "FireAntThinker"
 	fireant.state = {
 		tracking = false,
@@ -42,13 +42,13 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	vision = 10
+	vision = 640
 	if ( self.state.mad == true and self.state.tracking ) then
-		vision = 25
+		vision = 1600
 	end
 	
 	if ( AI.canSeeHelix( self, vision ) ) then 
-		AI.moveToHelix( self, 2.0, 1.0 )
+		AI.moveToHelix( self, 128.0, 64.0 )
 		
 		self.state.tracking = true		
 	else
