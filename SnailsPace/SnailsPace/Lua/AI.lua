@@ -9,7 +9,23 @@ library('Math')
 -- AI Table
 AI = {}
 
--- Move the AI towards Helix with certain limits
+--[[ Stop the character's movement ]]--
+function AI.stop( self )
+	vprime = Vector2(0,0)
+	self.velocity = vprime
+end
+
+--[[ Determine if the character can 'see' Helix ]]--
+-- TODO: Implement a 'better' algorithm
+function AI.canSeeHelix( self, dmin )
+	if ( dmin == nil ) then
+		dmin = 15.0
+	end
+	
+	return ( Math.distance( self, helix ) < dmin )
+end
+
+--[[ Move the AI towards Helix with certain limits ]]--
 function AI.moveToHelix( self, dmax, dmin, vmax )
 	if ( vmax == nil ) then
 		vmax = self.maxVelocity
