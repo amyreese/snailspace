@@ -58,7 +58,11 @@ namespace SnailsPace.Objects
 
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
 		{
-			return intersects(otherObject);
+			// TODO: Do this better - we shouldn't be adjusting the object's position all the time for this
+			position += movementVector;
+			bool retval = intersects(otherObject);
+			position -= movementVector;
+			return retval;
 		}
 
 		public Rectangle getBounds()
