@@ -21,7 +21,7 @@ namespace SnailsPace.Config
 
             // Default string values
             Dictionary<String, String> strings = new Dictionary<String, String>();
-            strings.Add("fullscreen", "yes");
+            strings.Add("fullscreen", "no");
             setDefaults(strings);
 
             #endregion

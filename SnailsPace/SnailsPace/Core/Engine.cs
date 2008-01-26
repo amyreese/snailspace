@@ -251,8 +251,7 @@ namespace SnailsPace.Core
 
 			// Update things that depend on mouse position
 			{
-				crosshair.position.X = mouseToScreenX(input.MouseX);
-				crosshair.position.Y = mouseToScreenY(input.MouseY);
+                crosshair.position = mouseToGame(input.mousePosition);
 			}
 
 			if (input.inputDown("Fire"))
@@ -283,15 +282,28 @@ namespace SnailsPace.Core
 			helix.think(gameTime);
 		}
 
-		private float mouseToScreenX(int mouseX)
-		{
-			return ( mouseX * 64 ) / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.X - 16;
-		}
+        private Vector2 mouseToGame(Vector2 mousePosition)
+        {
+            int screenWidth = SnailsPace.videoConfig.getInt("width");
+            int screenHeight = SnailsPace.videoConfig.getInt("height");
+            float scaleX = gameRenderer.cameraPosition.Z / 1.8f;
+            float scaleY = gameRenderer.cameraPosition.Z / -2.4f;
 
-		private float mouseToScreenY(int mouseY)
-		{
-			return -( mouseY * 64 ) / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
-		}
+            Vector2 gamePosition = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
+            gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
+            gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
+
+            return gamePosition;
+        }
+
+        private float screenSignedPercentage(float position, int size)
+        {
+            int halfSize = size / 2;
+            float halfPosition = position - halfSize;
+            float percentage = halfPosition / (float) halfSize;
+
+            return percentage;
+        }
 
 		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
 		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)

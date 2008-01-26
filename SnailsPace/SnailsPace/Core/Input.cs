@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace SnailsPace.Core
@@ -15,10 +16,7 @@ namespace SnailsPace.Core
         private Dictionary<String, KeyState> keyStatesOld;
         private Dictionary<String, Boolean> keyPresses;
 
-		private int currentMouseX;
-		private int currentMouseY;
-		public int MouseX { get { return currentMouseX; } }
-		public int MouseY { get { return currentMouseY; } }
+        public Vector2 mousePosition;
 
         /**
          * Initialize the InputManager object and configuration.
@@ -113,9 +111,8 @@ namespace SnailsPace.Core
             // Check mouse inputs
             MouseState mouseState = Mouse.GetState();
 
-			currentMouseX = mouseState.X;
-			currentMouseY = mouseState.Y;
-
+			mousePosition = new Vector2(mouseState.X,mouseState.Y);
+			
             if (keyStates.ContainsKey("Mouse1"))
             {
                 keyStates["Mouse1"] = (mouseState.LeftButton == ButtonState.Pressed ? KeyState.Down : KeyState.Up);
