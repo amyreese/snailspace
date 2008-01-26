@@ -17,14 +17,13 @@ namespace SnailsPace.Core
 
         public Matrix cameraView;
         public Matrix cameraProjection;
-        public const float normalCameraDistance = 25.0f;
+        public const float normalCameraDistance = 1600f;
         public const float minimumCameraMovement = 0.5f;
         public const float cameraSpeed = 1.5f;
-        public const float textureScale = 64.0f;
 		
         // Set distance from the camera of the near and far clipping planes.
         static float nearClip = 0.1f;
-        static float farClip = 100.0f;
+        static float farClip = 2000.0f;
 
         VertexPositionTexture[] vertices;
 
@@ -157,7 +156,7 @@ namespace SnailsPace.Core
                         {
                             Vector3 objectPosition = new Vector3(objectEnumerator.Current.position + spriteEnumerator.Current.position, -objectEnumerator.Current.layer - spriteEnumerator.Current.layerOffset);
                             Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
-                            objectScale = new Vector3(spriteEnumerator.Current.image.size / textureScale, 1);
+                            objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
 
 							BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.X * objectScale.Y);
 							if (viewFrustum.Intersects(sphere))

@@ -104,10 +104,11 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 20.0f;
+			helix.maxVelocity = 1280.0f;
 			helix.layer = 0;
 
 			helix.size = walk.image.size;
+			helix.position = new Vector2(0, 0);
 
 			loadFonts();
 			setupPauseOverlay();
@@ -162,12 +163,12 @@ namespace SnailsPace.Core
 			gameRenderer = new Renderer();
 			//            gameRenderer.createTexturesAndEffects(allObjects());
 
-			Vector2 offsetPosition = new Vector2(50, 25);
+			Vector2 offsetPosition = new Vector2(0, 0);
 			gameRenderer.cameraPosition = new Vector3(helix.position + offsetPosition, gameRenderer.cameraTargetOffset.Z * 1.5f);
 
 			gameRenderer.cameraTarget = helix;
-			gameRenderer.cameraTargetOffset.X = -2;
-			gameRenderer.cameraTargetOffset.Y = 6;
+			gameRenderer.cameraTargetOffset.X = -128;
+			gameRenderer.cameraTargetOffset.Y = 384;
 		}
 
 		public void think(GameTime gameTime)
@@ -265,7 +266,7 @@ namespace SnailsPace.Core
 					bullet.velocity.Normalize();
 					bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 1.15f);
 					bullet.rotation = helix.sprites["Gun"].rotation;
-					bullet.maxVelocity = 10.0f;
+					bullet.maxVelocity = 640.0f;
 					bullet.layer = -0.001f;
 					bullet.isPCBullet = true;
 					bullet.size = bulletSprite.image.size;
@@ -284,12 +285,12 @@ namespace SnailsPace.Core
 
 		private float mouseToScreenX(int mouseX)
 		{
-			return mouseX / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.X - 16;
+			return ( mouseX * 64 ) / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.X - 16;
 		}
 
 		private float mouseToScreenY(int mouseY)
 		{
-			return -mouseY / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
+			return -( mouseY * 64 ) / gameRenderer.cameraPosition.Z + gameRenderer.cameraPosition.Y + 12;
 		}
 
 		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
