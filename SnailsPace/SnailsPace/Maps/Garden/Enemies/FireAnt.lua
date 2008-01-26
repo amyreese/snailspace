@@ -4,6 +4,8 @@
 	Define the Fire Ant's properties and behaviors.
 ]]--
 
+library('AI')
+
 -- Generic FireAntImage object to be reused by all Fire Ants
 FireAntImage = Image()
 FireAntImage.filename = "Resources/Textures/FireAntTable"
@@ -41,8 +43,7 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	aVelocity = Vector2(helix.position.X - self.position.X, helix.position.Y - self.position.Y)
-	self.velocity = aVelocity
+	AI.moveToHelix( self, 2.0, 1.0 )
 	
 	-- TODO: Extend AI for the Fire Ant
 end

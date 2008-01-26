@@ -151,6 +151,12 @@
     <None Include="Documents\Class Diagram.dia">
       <Name>Class Diagram</Name>
     </None>
+    <None Include="Lua\AI.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Lua\Math.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Maps\Garden\Enemies\FireAnt.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

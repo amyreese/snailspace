@@ -4,6 +4,8 @@
 	Define the Bee's properties and behaviors.
 ]]--
 
+library('AI')
+
 -- Generic BeeImage object to be reused by all Bees
 BeeImage = Image()
 BeeImage.filename = "Resources/Textures/BeeTable"
@@ -41,5 +43,7 @@ end
 
 -- Bee behavior function
 function BeeThinker( self, gameTime )
+	AI.moveToHelix( self, 10.0, 9.0 )
+	
 	-- TODO: Create AI for the Bee
 end

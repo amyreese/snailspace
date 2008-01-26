@@ -13,3 +13,5 @@ include("Scenery/Background.lua")
 
 -- Create an enemy
 fireant = FireAnt()
+bee = Bee()
+

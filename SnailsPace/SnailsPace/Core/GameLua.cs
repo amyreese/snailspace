@@ -20,9 +20,6 @@ namespace SnailsPace.Core
 
 using = luanet.load_assembly;
 import = luanet.import_type;
-function include( filename )
-    dofile('" + mapPath + @"' .. filename)
-end
 
 using('Microsoft.Xna.Framework');
 
@@ -51,6 +48,24 @@ Map = import('SnailsPace.Objects.Map');
             
             ";
             this.DoString(initCode);
+            #endregion
+
+            #region Lua helper functions
+            String funcCode = @"
+
+Libraries = {}
+function library( filename )
+    if ( Libraries.filename == nil ) then
+        dofile('Lua/' .. filename .. '.lua')
+    end
+end
+
+function include( filename )
+    dofile('" + mapPath + @"' .. filename)
+end
+
+            ";
+            this.DoString(funcCode);
             #endregion
 
             SnailsPace snailsPace = SnailsPace.getInstance();
