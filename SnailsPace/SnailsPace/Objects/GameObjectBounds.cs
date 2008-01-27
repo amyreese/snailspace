@@ -7,6 +7,7 @@ namespace SnailsPace.Objects
 {
 	public class GameObjectBounds
 	{
+		private Vector2 center;
 		private Vector2[] points;
 		public Vector2[] GetPoints()
 		{
@@ -17,6 +18,7 @@ namespace SnailsPace.Objects
 
 		internal GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
+			this.center = position;
 			this.rotation = rotation;
 			points = new Vector2[4];
 
@@ -38,9 +40,13 @@ namespace SnailsPace.Objects
 
 		internal void Move(Vector2 offset)
 		{
-			for (int index = 0; index < points.Length; index++)
+			if (offset.Length() > 0)
 			{
-				points[index] += offset;
+				center = center + offset;
+				for (int index = 0; index < points.Length; index++)
+				{
+					points[index] += offset;
+				}
 			}
 		}
 
