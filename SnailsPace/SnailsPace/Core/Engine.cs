@@ -108,7 +108,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 512.0f;
+			helix.maxVelocity = 384.0f;
 			helix.layer = 0;
 			helix.affectedByGravity = true;
 
@@ -296,7 +296,7 @@ namespace SnailsPace.Core
 					bullet.velocity.Normalize();
 					bullet.rotation = helix.sprites["Gun"].rotation;
 					bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
-					bullet.maxVelocity = 384.0f;
+					bullet.maxVelocity = helix.maxVelocity + 64.0f;
 					bullet.layer = -0.001f;
 					bullet.isPCBullet = true;
 					bullet.damage = 1;
@@ -442,7 +442,7 @@ namespace SnailsPace.Core
 			{
 				return;
 			}
-			float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
+			float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 0.5);
 
 
 			List<Objects.GameObject> allObjs = allObjects();
