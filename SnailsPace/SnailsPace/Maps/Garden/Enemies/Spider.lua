@@ -40,6 +40,7 @@ function Spider()
 	spider.velocity = Vector2(0,0)
 	spider.maxVelocity = 640
 	spider.thinker = "SpiderThinker"
+	spider.health = 2
 	spider:setSprite("Stand")
 	spider.state = {
 		tracking = false,

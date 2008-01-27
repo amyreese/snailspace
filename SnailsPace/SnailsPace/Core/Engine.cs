@@ -108,7 +108,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Gun"].timer = 0f;
 
-			helix.maxVelocity = 640.0f;
+			helix.maxVelocity = 512.0f;
 			helix.layer = 0;
 			helix.affectedByGravity = true;
 
@@ -214,11 +214,23 @@ namespace SnailsPace.Core
 
 			// TODO: iterate through map.characters calling think() on each one.
 			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
+			List<Objects.Character> deadChars = new List<Objects.Character>();
 			while (charEnum.MoveNext())
 			{
-				charEnum.Current.think(gameTime);
+				//Is a character dead? Kill it!
+				if (charEnum.Current.health <= 0)
+					deadChars.Add(charEnum.Current);
+
+				//If not, let it think.
+				else
+					charEnum.Current.think(gameTime);
 			}
 			charEnum.Dispose();
+
+			List<Objects.Character>.Enumerator deadCharEnum = deadChars.GetEnumerator();
+			while (deadCharEnum.MoveNext())
+				map.characters.Remove(deadCharEnum.Current);
+			deadCharEnum.Dispose();
 
 
 			// Deal with Helix's movement
@@ -286,6 +298,7 @@ namespace SnailsPace.Core
 					bullet.maxVelocity = 320.0f;
 					bullet.layer = -0.001f;
 					bullet.isPCBullet = true;
+					bullet.damage = 1;
 					bullets.Add(bullet);
 					helix.fireCooldown = 2;
 				}
@@ -355,6 +368,7 @@ namespace SnailsPace.Core
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
 			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
+			Vector2 newVelocity = new Vector2();
 			if (( gravityEnabled && movingObject.affectedByGravity )|| objectVelocity.Length() > 0 )
 			{
 				if (objectVelocity.Length() > 0)
@@ -372,19 +386,23 @@ namespace SnailsPace.Core
 				{
 					movingObject.position += objectVelocity;
 				}
-				else
+				else if (movingObject is Objects.Character)
 				{
 					if (objectVelocity.Y != 0)
 					{
-						collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(0.0f, objectVelocity.Y * 0.1f));
+						newVelocity.X = 0.0f;
+						newVelocity.Y = objectVelocity.Y * 0.1f;
+
+						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
 						if (collidedObject == null)
 						{
 							for (float f = 1.0f; f > 0.1; f -= 0.1f)
 							{
-								collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(0.0f, objectVelocity.Y * f));
+								newVelocity.Y = objectVelocity.Y * f;
+								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
 								if (collidedObject == null)
 								{
-									movingObject.position += new Vector2(0.0f, objectVelocity.Y * f);
+									movingObject.position += newVelocity;
 									break;
 								}
 							}
@@ -393,15 +411,19 @@ namespace SnailsPace.Core
 
 					if (objectVelocity.X != 0)
 					{
-						collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(objectVelocity.X * 0.1f, 0.0f));
+						newVelocity.X = objectVelocity.X * 0.1f;
+						newVelocity.Y = 0.0f;
+
+						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
 						if (collidedObject == null)
 						{
 							for (float f = 1.0f; f > 0.1; f -= 0.1f)
 							{
-								collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(objectVelocity.X * f, 0.0f));
+								newVelocity.X = objectVelocity.X * f;
+								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
 								if (collidedObject == null)
 								{
-									movingObject.position += new Vector2(objectVelocity.X * f, 0.0f);
+									movingObject.position += newVelocity;
 									break;
 								}
 							}

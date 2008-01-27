@@ -40,6 +40,7 @@ function BlackAnt()
 	blackant.velocity = Vector2(0,0)
 	blackant.maxVelocity = 640
 	blackant.thinker = "BlackAntThinker"
+	blackant.health = 1
 	blackant:setSprite("Stand")
 	blackant.state = {
 		tracking = false,

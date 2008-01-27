@@ -40,6 +40,7 @@ function FireAnt()
 	fireant.velocity = Vector2(0,0)
 	fireant.maxVelocity = 640
 	fireant.thinker = "FireAntThinker"
+	fireant.health = 3
 	fireant:setSprite("Stand")
 	fireant.state = {
 		tracking = false,
