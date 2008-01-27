@@ -21,8 +21,8 @@ for x=0,10 do
  grassObjSprite = grassSprite:clone()
  grassObjSprite.frame = 0
  grassObj.sprites:Add("Grass", grassObjSprite)
+ grassObj.size = grassImage.size
  grassObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  grassObj.layer = 0.5
- grassObj.size = grassImage.size
  map.objects:Add(grassObj)
 end

@@ -9,14 +9,55 @@ namespace SnailsPace.Objects
     class GameObject
     {
         // The game object's position and velocity.
-        public Vector2 position;
+		private Vector2 _position;
+		public Vector2 position
+		{
+			get
+			{
+				return _position;
+			}
+			set
+			{
+				bounds.Move(value - _position);
+				_position = value;
+			}
+		}
+
 		public Vector2 size;
-		public float rotation;
+
+		private float _rotation;
+		public float rotation {
+			get {
+				return _rotation;
+			}
+			set {
+				bounds.Rotate(value);
+				_rotation = value;
+			}
+		}
+
         public Vector2 velocity;
 		public float maxVelocity;
         public bool affectedByGravity;
 		public bool collidable = true;
 		public bool horizontalFlip;
+
+		private GameObjectBounds _bounds;
+		public GameObjectBounds bounds
+		{
+			get
+			{
+				if (_bounds == null)
+				{
+					_bounds = new GameObjectBounds(size, position, rotation);
+				}
+				return _bounds;
+			}
+			private set
+			{
+				_bounds = value;
+			}
+		}
 
         // Object state for Lua
         public LuaTable state;
@@ -53,7 +94,7 @@ namespace SnailsPace.Objects
 
 		public bool intersects(GameObject otherObject)
 		{
-			return getBounds().Intersects(otherObject.getBounds());
+			return bounds.Intersects(otherObject.bounds);
 		}
 
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
@@ -63,11 +104,6 @@ namespace SnailsPace.Objects
 			bool retval = intersects(otherObject);
 			position -= movementVector;
 			return retval;
-		}
-
-		public GameObjectBounds getBounds()
-		{
-			return new GameObjectBounds(size, position, rotation);
 		}
 
 		public Rectangle getRectangle()

@@ -194,8 +194,7 @@ namespace SnailsPace.Core
 
 			if (enginePaused)
 			{
-				pause.position.X = gameRenderer.cameraPosition.X;
-				pause.position.Y = gameRenderer.cameraPosition.Y;
+				pause.position = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
 				return;
 			}
 

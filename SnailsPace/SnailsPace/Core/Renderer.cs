@@ -167,7 +167,7 @@ namespace SnailsPace.Core
 #if DEBUG
 					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
 					{
-						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.getBounds();
+						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
 						Vector2[] boxVertices = boundingBox.GetPoints();
 						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length * 3];
 						for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)

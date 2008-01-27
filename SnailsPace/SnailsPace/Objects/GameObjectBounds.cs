@@ -12,8 +12,12 @@ namespace SnailsPace.Objects
 		{
 			return (Vector2[])points.Clone();
 		}
+
+		private float rotation;
+
 		internal GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
+			this.rotation = rotation;
 			points = new Vector2[4];
 
 			// Get all four corners in local space
@@ -32,7 +36,23 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		internal void Move(Vector2 offset)
+		{
+			for (int index = 0; index < points.Length; index++)
+			{
+				points[index] += offset;
+			}
+		}
 
+		internal void Rotate(float newRotation)
+		{
+			Matrix transform = Matrix.CreateRotationZ(-rotation) * Matrix.CreateRotationZ(newRotation);
+			rotation = newRotation;
+			for (int index = 0; index < points.Length; index++)
+			{
+				Vector2.Transform(ref points[index], ref transform, out points[index]);
+			}
+		}
 		internal bool Intersects(GameObjectBounds otherBounds)
 		{
 			for (int myIndex = 0; myIndex < points.Length; myIndex++)

@@ -20,10 +20,10 @@ for x=0,5 do
  dirtObj = GameObject()
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
+ dirtObj.size = dirtImage.size
  dirtObj.sprites:Add("dirt", dirtObjSprite)
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -35,9 +35,9 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -49,9 +49,9 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -63,10 +63,10 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.rotation = 0.8
  dirtObj.position = Vector2( ( x * 2 + xOffset ) * 32, ( x * -2.0 + yOffset ) * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -78,9 +78,9 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -92,10 +92,10 @@ for x=0,8 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.rotation = 0.8
  dirtObj.position = Vector2( ( x * 2 + xOffset ) * 32, ( x * -2.0 + yOffset ) * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -107,9 +107,9 @@ for x=0,20 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -121,9 +121,9 @@ for x=0,6 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -135,9 +135,9 @@ for x=0,7 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -149,9 +149,9 @@ for x=0,8 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, ( yOffset ) *32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -163,9 +163,9 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
 
@@ -177,8 +177,8 @@ for x=0,5 do
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = dirtImage.size
  dirtObj.position = Vector2( ( x * 6 + xOffset ) * 32, yOffset * 32 )
  dirtObj.layer = 0.5
- dirtObj.size = dirtImage.size
  map.objects:Add(dirtObj)
 end
