@@ -286,7 +286,7 @@ namespace SnailsPace.Core
 
 			if (input.inputDown("Fire"))
 			{
-				if (helix.fireCooldown <= 0)
+				if (helix.lastFired + helix.coolDown < gameTime.TotalRealTime.TotalMilliseconds)
 				{
 					Objects.Bullet bullet = new Objects.Bullet();
 					bullet.sprites = new Dictionary<string, Objects.Sprite>();
@@ -302,10 +302,7 @@ namespace SnailsPace.Core
 					bullet.damage = 1;
 					bullets.Add(bullet);
 					helix.fireCooldown = 2;
-				}
-				else
-				{
-					helix.fireCooldown--;
+					helix.lastFired = gameTime.TotalRealTime.TotalMilliseconds;
 				}
 			}
 
