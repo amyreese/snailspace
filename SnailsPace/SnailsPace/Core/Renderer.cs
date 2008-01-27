@@ -29,7 +29,7 @@ namespace SnailsPace.Core
         VertexPositionTexture[] vertices;
 #if DEBUG
 		List<VertexPositionColor[]> boundingBoxVertices;
-		Color boundingBoxColor = Color.Red;
+		Color boundingBoxColor = new Color(255,0,0,64);
 #endif
 
         private Dictionary<String, Texture2D> textures;
@@ -169,11 +169,18 @@ namespace SnailsPace.Core
 					{
 						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.getBounds();
 						Vector2[] boxVertices = boundingBox.GetPoints();
-						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length];
+						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length * 3];
 						for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
 						{
-							visualBoxVertices[boxVertexIndex].Position = new Vector3(boxVertices[boxVertexIndex], 0);
-							visualBoxVertices[boxVertexIndex].Color = boundingBoxColor;
+							int v1 = boxVertexIndex;
+							int v2 = ( boxVertexIndex + 1 ) % boxVertices.Length;
+							int v3 = ( boxVertexIndex + 2 ) % boxVertices.Length;
+							visualBoxVertices[boxVertexIndex * 3].Position = new Vector3(boxVertices[v1], 1);
+							visualBoxVertices[boxVertexIndex * 3].Color = boundingBoxColor;
+							visualBoxVertices[boxVertexIndex * 3 + 1].Position = new Vector3(boxVertices[v2], 1);
+							visualBoxVertices[boxVertexIndex * 3 + 1].Color = boundingBoxColor;
+							visualBoxVertices[boxVertexIndex * 3 + 2].Position = new Vector3(boxVertices[v3], 1);
+							visualBoxVertices[boxVertexIndex * 3 + 2].Color = boundingBoxColor;
 						}
 						boundingBoxVertices.Add(visualBoxVertices);
 					}
