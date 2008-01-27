@@ -29,7 +29,8 @@ namespace SnailsPace.Core
         VertexPositionTexture[] vertices;
 #if DEBUG
 		List<VertexPositionColor[]> boundingBoxVertices;
-		Color boundingBoxColor = new Color(255,0,0,64);
+		Color boundingBoxColor = new Color(255, 0, 0, 128);
+		Color boundingBoxCenterColor = new Color(0, 0, 0, 64);
 #endif
 
         private Dictionary<String, Texture2D> textures;
@@ -169,18 +170,15 @@ namespace SnailsPace.Core
 					{
 						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
 						Vector2[] boxVertices = boundingBox.GetPoints();
-						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length * 3];
+						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length + 2];
+						visualBoxVertices[0].Color = boundingBoxCenterColor;
+						visualBoxVertices[0].Position = new Vector3( objectEnumerator.Current.position, 1);
+						visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 1);
+						visualBoxVertices[visualBoxVertices.Length - 1].Color = boundingBoxColor;
 						for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
 						{
-							int v1 = boxVertexIndex;
-							int v2 = ( boxVertexIndex + 1 ) % boxVertices.Length;
-							int v3 = ( boxVertexIndex + 2 ) % boxVertices.Length;
-							visualBoxVertices[boxVertexIndex * 3].Position = new Vector3(boxVertices[v1], 1);
-							visualBoxVertices[boxVertexIndex * 3].Color = boundingBoxColor;
-							visualBoxVertices[boxVertexIndex * 3 + 1].Position = new Vector3(boxVertices[v2], 1);
-							visualBoxVertices[boxVertexIndex * 3 + 1].Color = boundingBoxColor;
-							visualBoxVertices[boxVertexIndex * 3 + 2].Position = new Vector3(boxVertices[v3], 1);
-							visualBoxVertices[boxVertexIndex * 3 + 2].Color = boundingBoxColor;
+							visualBoxVertices[boxVertexIndex + 1].Position = new Vector3(boxVertices[boxVertexIndex], 1);
+							visualBoxVertices[boxVertexIndex + 1].Color = boundingBoxColor;
 						}
 						boundingBoxVertices.Add(visualBoxVertices);
 					}
@@ -205,7 +203,7 @@ namespace SnailsPace.Core
 					{
 						effectPassEnumerator.Current.Begin();
 						SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionColor.VertexElements);
-						SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, boundingBoxEnumerator.Current, 0, boundingBoxEnumerator.Current.Length - 2);
+						SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleFan, boundingBoxEnumerator.Current, 0, boundingBoxEnumerator.Current.Length - 2);
 						effectPassEnumerator.Current.End();
 					}
 					effectPassEnumerator.Dispose();

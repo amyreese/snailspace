@@ -53,7 +53,7 @@ namespace SnailsPace.Objects
 				}
 				return _bounds;
 			}
-			private set
+			set
 			{
 				_bounds = value;
 			}

@@ -113,6 +113,19 @@ namespace SnailsPace.Core
 			helix.affectedByGravity = true;
 
 			helix.size = walk.image.size;
+			Vector2[] points = new Vector2[11];
+			points[0] = new Vector2(0.0f, 36.0f);
+			points[1] = new Vector2(-27.0f, 25.0f);
+			points[2] = new Vector2(-38.0f, 14.0f);
+			points[3] = new Vector2(-47.0f, -32.0f);
+			points[4] = new Vector2(29.0f, -34.0f);
+			points[5] = new Vector2(53.0f, -13.0f);
+			points[6] = new Vector2(51.0f, 8.0f);
+			points[7] = new Vector2(39.0f, 8.0f);
+			points[8] = new Vector2(28.0f, -9.0f);
+			points[9] = new Vector2(27.0f, 6.0f);
+			points[10] = new Vector2(21.0f, 23.0f);
+			helix.bounds = new Objects.GameObjectBounds(points);
 			helix.position = new Vector2(0, 0);
 
 			loadFonts();
