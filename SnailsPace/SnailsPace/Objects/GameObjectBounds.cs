@@ -8,6 +8,10 @@ namespace SnailsPace.Objects
 	public class GameObjectBounds
 	{
 		private Vector2[] points;
+		public Vector2[] GetPoints()
+		{
+			return (Vector2[])points.Clone();
+		}
 		internal GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
 			points = new Vector2[4];

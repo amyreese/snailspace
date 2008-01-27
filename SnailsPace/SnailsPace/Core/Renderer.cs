@@ -27,6 +27,10 @@ namespace SnailsPace.Core
         static float farClip = 500.0f + 2 * normalCameraDistance;
 
         VertexPositionTexture[] vertices;
+#if DEBUG
+		List<VertexPositionColor[]> boundingBoxVertices;
+		Color boundingBoxColor = Color.Red;
+#endif
 
         private Dictionary<String, Texture2D> textures;
         private Dictionary<String, Effect> effects;
@@ -129,7 +133,8 @@ namespace SnailsPace.Core
 
         public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
-            SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
+			SnailsPace.getInstance().GraphicsDevice.RenderState.CullMode = CullMode.None;
+			SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
             SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
             SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
 			Vector3 cameraTargetPosition = getCameraTargetPosition();
@@ -149,38 +154,58 @@ namespace SnailsPace.Core
             cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
             BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
-			Objects.Sprite boxSprite = new Objects.Sprite();
-			boxSprite.image = new Objects.Image();
-			boxSprite.image.filename = "Resources/Textures/BoundingBox";
-			boxSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			boxSprite.visible = true;
-			boxSprite.effect = "Resources/Effects/effects";
-
+#if DEBUG
+			boundingBoxVertices = new List<VertexPositionColor[]>();
+#endif
             if (objects != null)
             {
                 List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
-				List<Objects.GameObject> boundingBoxList = new List<Objects.GameObject>();
 
                 while (objectEnumerator.MoveNext())
                 {
 					drawObject(objectEnumerator.Current, viewFrustum);
+#if DEBUG
 					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
 					{
-						Objects.GameObject boundingBox = new Objects.GameObject();
-						boundingBox.sprites.Add("BoundingBox", boxSprite.clone());
-						Objects.GameObjectBounds bounds = objectEnumerator.Current.getBounds();
-						boundingBox.sprites["BoundingBox"].image.size = new Vector2(bounds.Width, bounds.Height);
-						boundingBox.position = new Vector2(bounds.X, bounds.Y);
-						boundingBoxList.Add(boundingBox);
+						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.getBounds();
+						Vector2[] boxVertices = boundingBox.GetPoints();
+						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length];
+						for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
+						{
+							visualBoxVertices[boxVertexIndex].Position = new Vector3(boxVertices[boxVertexIndex], 0);
+							visualBoxVertices[boxVertexIndex].Color = boundingBoxColor;
+						}
+						boundingBoxVertices.Add(visualBoxVertices);
 					}
-						
+#endif
                 }
 				objectEnumerator.Dispose();
 
-				List<Objects.GameObject>.Enumerator boundingEnumerator = boundingBoxList.GetEnumerator();
-				while (boundingEnumerator.MoveNext())
-					drawObject(boundingEnumerator.Current, viewFrustum);
-				boundingEnumerator.Dispose();
+#if DEBUG
+				// TODO this probably isn't how we want to do this if we end up using more than one effect
+				Effect effect = getOrCreateEffect("Resources/Effects/effects");
+				effect.CurrentTechnique = effect.Techniques["Colored"];
+				effect.Parameters["xView"].SetValue(cameraView);
+				effect.Parameters["xProjection"].SetValue(cameraProjection);
+				effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+				effect.Begin();
+
+				List<VertexPositionColor[]>.Enumerator boundingBoxEnumerator = boundingBoxVertices.GetEnumerator();
+				while( boundingBoxEnumerator.MoveNext() ) 
+				{
+					IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
+					while (effectPassEnumerator.MoveNext())
+					{
+						effectPassEnumerator.Current.Begin();
+						SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionColor.VertexElements);
+						SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, boundingBoxEnumerator.Current, 0, boundingBoxEnumerator.Current.Length - 2);
+						effectPassEnumerator.Current.End();
+					}
+					effectPassEnumerator.Dispose();
+				}
+				boundingBoxEnumerator.Dispose();
+				effect.End();
+#endif
             }
 
             if (strings != null)
