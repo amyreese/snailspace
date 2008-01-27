@@ -282,6 +282,7 @@ namespace SnailsPace.Core
 			{
                 crosshair.position = mouseToGame(input.mousePosition);
 			}
+			helix.sprites["Gun"].rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
 
 			if (input.inputDown("Fire"))
 			{
@@ -295,7 +296,7 @@ namespace SnailsPace.Core
 					bullet.velocity.Normalize();
 					bullet.rotation = helix.sprites["Gun"].rotation;
 					bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
-					bullet.maxVelocity = 320.0f;
+					bullet.maxVelocity = 384.0f;
 					bullet.layer = -0.001f;
 					bullet.isPCBullet = true;
 					bullet.damage = 1;
@@ -349,7 +350,12 @@ namespace SnailsPace.Core
 						{
 							if (movingObject.collidedWith(collideableObjEnumerator.Current))
 							{
-								SnailsPace.debug("Collision: " + movingObject.position);
+#if DEBUG
+								if (SnailsPace.debugCollisions)
+								{
+									SnailsPace.debug("Collision: " + movingObject.position);
+								}
+#endif
 								if (movingObject is Objects.Bullet)
 								{
 									bulletsToClear.Add((Objects.Bullet)movingObject);
@@ -364,7 +370,7 @@ namespace SnailsPace.Core
 			return null;
 		}
 
-		private readonly Vector2 gravity = new Vector2(0.0f, -256.0f);
+		private readonly Vector2 gravity = new Vector2(0.0f, -128.0f);
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
 			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
@@ -491,7 +497,6 @@ namespace SnailsPace.Core
 			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
 
 			// Helix's gun
-			helix.sprites["Gun"].rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
 
 			// Animate everything
 			{

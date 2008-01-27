@@ -63,35 +63,54 @@ namespace SnailsPace.Objects
 				Vector2.Transform(ref points[index], ref transform, out points[index]);
 			}
 		}
-		internal bool Intersects(GameObjectBounds otherBounds)
-		{
-			for (int myIndex = 0; myIndex < points.Length; myIndex++)
-			{
-				int myIndex2 = myIndex + 1;
-				if (myIndex2 == points.Length)
-				{
-					myIndex2 = 0;
-				}
-				for (int otherIndex = 0; otherIndex < otherBounds.points.Length; otherIndex++)
-				{
-					int otherIndex2 = otherIndex + 1;
-					if (otherIndex2 == otherBounds.points.Length)
-					{
-						otherIndex2 = 0;
-					}
 
-					Vector2 a = points[myIndex];
-					Vector2 b = points[myIndex2];
-					Vector2 c = otherBounds.points[otherIndex];
-					Vector2 d = otherBounds.points[otherIndex2];
-					float denom = ((b.X - a.X) * (d.Y - c.Y) - (b.Y - a.Y) * (d.X - c.X));
-					float r = ((a.Y - c.Y) * (d.X - c.X) - (a.X - c.X) * (d.Y - c.Y)) / denom;
-					float s = ((a.Y - c.Y) * (b.X - a.X) - (a.X - c.X) * (b.Y - a.Y)) / denom;
-					if (0 <= r && r <= 1 && 0 <= s && s <= 1)
+		internal bool WillIntersect(GameObjectBounds otherBounds, Vector2 movementVector)
+		{
+			Vector2[] intersectionPoints = new Vector2[points.Length];
+			for (int index = 0; index < points.Length; index++)
+			{
+				intersectionPoints[index] = points[index] + movementVector;
+			}
+			for (int otherIndex = 0; otherIndex < otherBounds.points.Length; otherIndex++)
+			{
+				int otherIndex2 = otherIndex + 1;
+				if (otherIndex2 == otherBounds.points.Length)
+				{
+					otherIndex2 = 0;
+				}
+				Vector2 c = otherBounds.points[otherIndex];
+				Vector2 d = otherBounds.points[otherIndex2];
+				for (int myIndex = 0; myIndex < intersectionPoints.Length; myIndex++)
+				{
+					int myIndex2 = myIndex + 1;
+					if (myIndex2 == intersectionPoints.Length)
+					{
+						myIndex2 = 0;
+					}
+					Vector2 a = intersectionPoints[myIndex];
+					Vector2 b = intersectionPoints[myIndex2];
+					if (checkForIntersection(a, b, c, d))
+					{
+						return true;
+					}
+					b = points[myIndex];
+					if (checkForIntersection(a, b, c, d))
 					{
 						return true;
 					}
 				}
+			}
+			return false;
+		}
+
+		private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+		{
+			float denom = ((b.X - a.X) * (d.Y - c.Y) - (b.Y - a.Y) * (d.X - c.X));
+			float r = ((a.Y - c.Y) * (d.X - c.X) - (a.X - c.X) * (d.Y - c.Y)) / denom;
+			float s = ((a.Y - c.Y) * (b.X - a.X) - (a.X - c.X) * (b.Y - a.Y)) / denom;
+			if (0 <= r && r <= 1 && 0 <= s && s <= 1)
+			{
+				return true;
 			}
 			return false;
 		}

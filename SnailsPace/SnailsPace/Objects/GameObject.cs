@@ -92,18 +92,9 @@ namespace SnailsPace.Objects
 			return true;
 		}
 
-		public bool intersects(GameObject otherObject)
-		{
-			return bounds.Intersects(otherObject.bounds);
-		}
-
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
 		{
-			// TODO: Do this better - we shouldn't be adjusting the object's position all the time for this
-			position += movementVector;
-			bool retval = intersects(otherObject);
-			position -= movementVector;
-			return retval;
+			return bounds.WillIntersect(otherObject.bounds, movementVector);
 		}
 
 		public Rectangle getRectangle()
