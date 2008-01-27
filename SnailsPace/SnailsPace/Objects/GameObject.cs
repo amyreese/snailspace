@@ -69,5 +69,10 @@ namespace SnailsPace.Objects
 		{
 			return new GameObjectBounds(size, position, rotation);
 		}
+
+		public Rectangle getRectangle()
+		{
+			return new Rectangle((int)(position.X - (size.X / 2)), (int)(position.Y - (size.Y / 2)), (int)(size.X), (int)(size.Y));
+		}
     }
 }

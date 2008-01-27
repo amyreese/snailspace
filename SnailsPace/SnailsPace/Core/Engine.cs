@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace SnailsPace.Core
 {
 	class Engine
@@ -374,27 +375,40 @@ namespace SnailsPace.Core
 			List<Objects.GameObject> allObjs = allObjects();
 			// Collision Detection
 			{
-				// Helix Collision Detection
-				MoveOrCollide(helix, allObjs, elapsedTime);
 
-				// Enemy Collision Detection
-				List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
-				while (charEnumerator.MoveNext())
+				bool noQuadTree = true;
+				if (!noQuadTree)
 				{
-					MoveOrCollide(charEnumerator.Current, allObjs, elapsedTime);
+					Rectangle visibleScreen = new Rectangle(helix.getRectangle().X - 400, helix.getRectangle().Y - 300, 800, 600);
+					QuadTree quad = new QuadTree(allObjs, visibleScreen, 6 );
+					detectCollisionsInNode(quad.getRoot(), elapsedTime);
 				}
-				charEnumerator.Dispose();
 
-				// Bullet Collision Detection
-				List<Objects.Bullet>.Enumerator bulletEnumerator = bullets.GetEnumerator();
-				while (bulletEnumerator.MoveNext())
+				if (noQuadTree)
 				{
-					// TODO: Make bullets that are too far away from Helix collide with nothing
-					MoveOrCollide(bulletEnumerator.Current, allObjs, elapsedTime);
-				}
-				bulletEnumerator.Dispose();
+					// Helix Collision Detection
+					MoveOrCollide(helix, allObjs, elapsedTime);
 
+					// Enemy Collision Detection
+					List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
+					while (charEnumerator.MoveNext())
+					{
+						MoveOrCollide(charEnumerator.Current, allObjs, elapsedTime);
+					}
+					charEnumerator.Dispose();
+
+					// Bullet Collision Detection
+					List<Objects.Bullet>.Enumerator bulletEnumerator = bullets.GetEnumerator();
+					while (bulletEnumerator.MoveNext())
+					{
+						// TODO: Make bullets that are too far away from Helix collide with nothing
+						MoveOrCollide(bulletEnumerator.Current, allObjs, elapsedTime);
+					}
+					bulletEnumerator.Dispose();
+				}
 				// Clear out exploded bullets
+				
+				
 				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
 				while (destroyedBulletEnumerator.MoveNext())
 				{
@@ -445,6 +459,28 @@ namespace SnailsPace.Core
 				}
 				charEnumerator.Dispose();
 			}
+		}
+
+		private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime)
+		{
+			List<QuadTreeNode> children = node.getNodes();
+			if (children.Count == 0)
+			{
+				List<Objects.GameObject> containedObjects = node.getContainedObjects();
+				List<Objects.GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
+				while (objectEnumerator.MoveNext())
+				{
+					MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime);
+				}
+			}
+			else
+			{
+				List<QuadTreeNode>.Enumerator childrenEnumerator = children.GetEnumerator();
+				while (childrenEnumerator.MoveNext())
+				{
+					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime);
+				}
+			}	
 		}
 
 		public void render(GameTime gameTime)
