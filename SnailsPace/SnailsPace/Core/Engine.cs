@@ -324,10 +324,11 @@ namespace SnailsPace.Core
 							if (movingObject.collidedWith(collideableObjEnumerator.Current))
 							{
 								SnailsPace.debug("Collision: " + movingObject.position);
-								if ((movingObject is Objects.Bullet) && !(collideableObjEnumerator.Current is Objects.Bullet))
+								if (movingObject is Objects.Bullet)
 								{
 									bulletsToClear.Add((Objects.Bullet)movingObject);
 								}
+
 								return collideableObjEnumerator.Current;
 							}
 						}
@@ -354,9 +355,7 @@ namespace SnailsPace.Core
 				}
 				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
 				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity);
-				if ((collidedObject == null) ||
-					((movingObject is Objects.Helix) && (collidedObject is Objects.Bullet)) ||		// Helix can't collide with his own bullets
-					((movingObject is Objects.Bullet) && (collidedObject is Objects.Bullet)))		// Bullets can't collide with bullets
+				if (collidedObject == null)
 				{
 					movingObject.position += objectVelocity;
 				}

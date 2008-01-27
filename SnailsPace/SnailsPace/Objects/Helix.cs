@@ -25,5 +25,13 @@ namespace SnailsPace.Objects
         public override void think(GameTime gameTime)
         {
         }
+
+		public override bool collidedWith(GameObject otherObject)
+		{
+			if ((otherObject is Objects.Bullet) && (((Bullet)otherObject).isPCBullet))
+				return false;
+			else
+				return base.collidedWith(otherObject);
+		}
     }
 }

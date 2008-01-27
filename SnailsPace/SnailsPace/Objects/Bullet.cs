@@ -39,6 +39,11 @@ namespace SnailsPace.Objects
 					((Character)otherObject).health -= damage;
 				}
 			}
+			else if (otherObject is Objects.Bullet)
+			{
+				return false;
+			}
+
 			return true;
 		}
 	}
