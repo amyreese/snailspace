@@ -62,8 +62,8 @@ for x=0,5 do
  dirtObj = GameObject()
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
- dirtObjSprite.rotation = 0.8
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.rotation = 0.8
  dirtObj.position = Vector2( ( x * 2 + xOffset ) * 32, ( x * -2.0 + yOffset ) * 32 )
  dirtObj.layer = 0.5
  dirtObj.size = dirtImage.size
@@ -91,8 +91,8 @@ for x=0,8 do
  dirtObj = GameObject()
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
- dirtObjSprite.rotation = 0.8
  dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.rotation = 0.8
  dirtObj.position = Vector2( ( x * 2 + xOffset ) * 32, ( x * -2.0 + yOffset ) * 32 )
  dirtObj.layer = 0.5
  dirtObj.size = dirtImage.size
