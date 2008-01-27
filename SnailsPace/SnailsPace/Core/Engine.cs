@@ -372,6 +372,42 @@ namespace SnailsPace.Core
 				{
 					movingObject.position += objectVelocity;
 				}
+				else
+				{
+					if (objectVelocity.Y != 0)
+					{
+						collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(0.0f, objectVelocity.Y * 0.1f));
+						if (collidedObject == null)
+						{
+							for (float f = 1.0f; f > 0.1; f -= 0.1f)
+							{
+								collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(0.0f, objectVelocity.Y * f));
+								if (collidedObject == null)
+								{
+									movingObject.position += new Vector2(0.0f, objectVelocity.Y * f);
+									break;
+								}
+							}
+						}
+					}
+
+					if (objectVelocity.X != 0)
+					{
+						collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(objectVelocity.X * 0.1f, 0.0f));
+						if (collidedObject == null)
+						{
+							for (float f = 1.0f; f > 0.1; f -= 0.1f)
+							{
+								collidedObject = CheckForCollision(movingObject, collidableObjects, new Vector2(objectVelocity.X * f, 0.0f));
+								if (collidedObject == null)
+								{
+									movingObject.position += new Vector2(objectVelocity.X * f, 0.0f);
+									break;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
