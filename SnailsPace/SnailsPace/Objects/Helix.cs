@@ -8,7 +8,8 @@ namespace SnailsPace.Objects
     class Helix : Character
     {
         // Jetpack fuel
-        public int fuel;
+        public float fuel;
+		public float maxFuel;
 		public int fireCooldown;
 		public bool flying;
 
@@ -25,10 +26,32 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
+			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
-				SnailsPace.debug("Flying!");
+				fuel -= fuelMod * (1 + velocity.Length());
+				if (fuel < 0)
+				{
+					fuel = 0;
+				}
 			}
+			else
+			{
+				fuel += fuelMod * 10;
+				if (fuel > maxFuel)
+				{
+					fuel = maxFuel;
+				}
+			}
+#if DEBUG
+			if( SnailsPace.debugFlying ) {
+				if (flying)
+				{
+					SnailsPace.debug("Flying!");
+				}
+				SnailsPace.debug("Fuel: " + fuel);
+			}
+#endif
         }
 
 		public override bool canCollideWith(GameObject otherObject)

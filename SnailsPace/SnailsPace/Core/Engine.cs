@@ -111,6 +111,7 @@ namespace SnailsPace.Core
 			helix.sprites["Gun"].timer = 0f;
 
 			helix.maxVelocity = 384.0f;
+			helix.maxFuel = 40;
 			helix.layer = 0;
 			helix.affectedByGravity = true;
 
@@ -245,19 +246,25 @@ namespace SnailsPace.Core
 				}
 				else if (input.inputDown("Left"))
 				{
-					helix.velocity.X = -1;
-					helix.setSprite("Walk", "Gun");
-					helix.sprites["Walk"].animate(gameTime);
-					helix.horizontalFlip = true;
-					helix.sprites["Gun"].horizontalFlip = true;
+					if (!helix.flying || helix.fuel > 0)
+					{
+						helix.velocity.X = -1;
+						helix.setSprite("Walk", "Gun");
+						helix.sprites["Walk"].animate(gameTime);
+						helix.horizontalFlip = true;
+						helix.sprites["Gun"].horizontalFlip = true;
+					}
 				}
 				else if (input.inputDown("Right"))
 				{
-					helix.velocity.X = 1;
-					helix.setSprite("Walk", "Gun");
-					helix.sprites["Walk"].animate(gameTime);
-					helix.horizontalFlip = false;
-					helix.sprites["Gun"].horizontalFlip = false;
+					if (!helix.flying || helix.fuel > 0)
+					{
+						helix.velocity.X = 1;
+						helix.setSprite("Walk", "Gun");
+						helix.sprites["Walk"].animate(gameTime);
+						helix.horizontalFlip = false;
+						helix.sprites["Gun"].horizontalFlip = false;
+					}
 				}
 
 				if (input.inputDown("Up") && input.inputDown("Down"))
@@ -267,16 +274,23 @@ namespace SnailsPace.Core
 				}
 				else if (input.inputDown("Up"))
 				{
-					helix.velocity.Y = 1;
-					helix.setSprite("Fly", "Gun");
-					helix.sprites["Fly"].animate(gameTime);
+					if (helix.fuel > 0)
+					{
+						helix.velocity.Y = 1;
+						helix.setSprite("Fly", "Gun");
+						helix.sprites["Fly"].animate(gameTime);
+					}
 				}
 				else if (input.inputDown("Down"))
 				{
-					helix.velocity.Y = -1;
-					helix.setSprite("Fly", "Gun");
-					helix.sprites["Fly"].animate(gameTime);
+					if (helix.fuel > 0)
+					{
+						helix.velocity.Y = -1;
+						helix.setSprite("Fly", "Gun");
+						helix.sprites["Fly"].animate(gameTime);
+					}
 				}
+
 			}
 
 
@@ -400,7 +414,8 @@ namespace SnailsPace.Core
 					objectVelocity += gravity;
 				}
 				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
-				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity, out collidableObjects);
+				List<Objects.GameObject> remainingCollidableObjects;
+				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity, out remainingCollidableObjects);
 				if (collidedObject == null)
 				{
 					resultingVelocity = objectVelocity;
@@ -422,7 +437,7 @@ namespace SnailsPace.Core
 						if (noSecondYCollision)
 						{
 							resultingVelocity.Y += yTick;
-							collidedObject = CheckForCollision(movingObject, collidableObjects, resultingVelocity);
+							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
 							if (collidedObject != null)
 							{
 								noSecondYCollision = false;
@@ -436,7 +451,7 @@ namespace SnailsPace.Core
 							{
 								noSecondXCollision = false;
 							}
-							collidedObject = CheckForCollision(movingObject, collidableObjects, resultingVelocity);
+							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
 							if (collidedObject != null)
 							{
 								noSecondXCollision = false;
