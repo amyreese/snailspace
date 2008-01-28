@@ -504,7 +504,14 @@ namespace SnailsPace.Core
 						helix.flying = true;
 					}
 				}
-				movingObject.position += resultingVelocity;
+				if (resultingVelocity.Length() == 0)
+				{
+					movingObject.collidedWith(collidedObject);
+				}
+				else
+				{
+					movingObject.position += resultingVelocity;
+				}
 			}
 		}
 
