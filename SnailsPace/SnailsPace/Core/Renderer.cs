@@ -17,7 +17,7 @@ namespace SnailsPace.Core
 
 		public Matrix cameraView;
 		public Matrix cameraProjection;
-		public const float debugZoom = 1.0f; // Set to 1 for normal gameplay
+		public const float debugZoom = 5.0f; // Set to 1 for normal gameplay
 		public const float normalCameraDistance = 1000.0f * debugZoom;
 		public const float minimumCameraMovement = 0.5f;
 		public const float cameraSpeed = 2.0f;
