@@ -104,7 +104,7 @@ namespace SnailsPace.Objects
 
 		public Rectangle getRectangle()
 		{
-			return new Rectangle((int)(position.X - (size.X / 2)), (int)(position.Y - (size.Y / 2)), (int)(size.X), (int)(size.Y));
+			return new Rectangle((int)(position.X - (size.X / 2)), (int)(position.Y + (size.Y / 2)), (int)(size.X), (int)(size.Y));
 		}
     }
 }
