@@ -25,7 +25,7 @@ namespace SnailsPace.Core
 		// Set distance from the camera of the near and far clipping planes.
 		static float nearClip = 0.1f;
 		static float farClip = 500.0f + 2 * normalCameraDistance;
-
+		
 		VertexPositionTexture[] vertices;
 #if DEBUG
 		List<VertexPositionColor[]> boundingBoxVertices;
