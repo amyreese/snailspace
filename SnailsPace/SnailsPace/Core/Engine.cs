@@ -65,12 +65,12 @@ namespace SnailsPace.Core
 			bulletSprite.visible = true;
 			bulletSprite.effect = "Resources/Effects/effects";
 
-            // TODO: Initialize Helix;
+			// TODO: Initialize Helix;
 			helix = new Objects.Helix();
-            lua["helix"] = helix;
+			lua["helix"] = helix;
 			helix.sprites = new Dictionary<string, Objects.Sprite>();
 
-            Objects.Sprite walk = new Objects.Sprite();
+			Objects.Sprite walk = new Objects.Sprite();
 			walk.image = new Objects.Image();
 			walk.image.filename = "Resources/Textures/HelixTable";
 			walk.image.blocks = new Vector2(4.0f, 4.0f);
@@ -282,7 +282,7 @@ namespace SnailsPace.Core
 
 			// Update things that depend on mouse position
 			{
-                crosshair.position = mouseToGame(input.mousePosition);
+				crosshair.position = mouseToGame(input.mousePosition);
 			}
 			helix.sprites["Gun"].rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
 
@@ -312,32 +312,44 @@ namespace SnailsPace.Core
 			helix.think(gameTime);
 		}
 
-        private Vector2 mouseToGame(Vector2 mousePosition)
-        {
-            int screenWidth = SnailsPace.videoConfig.getInt("width");
-            int screenHeight = SnailsPace.videoConfig.getInt("height");
-            float scaleX = gameRenderer.cameraPosition.Z / 1.8f;
-            float scaleY = gameRenderer.cameraPosition.Z / -2.4f;
+		private Vector2 mouseToGame(Vector2 mousePosition)
+		{
+			int screenWidth = SnailsPace.videoConfig.getInt("width");
+			int screenHeight = SnailsPace.videoConfig.getInt("height");
+			float scaleX = gameRenderer.cameraPosition.Z / 1.8f;
+			float scaleY = gameRenderer.cameraPosition.Z / -2.4f;
 
-            Vector2 gamePosition = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
-            gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
-            gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
+			Vector2 gamePosition = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
+			gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
+			gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
 
-            return gamePosition;
-        }
+			return gamePosition;
+		}
 
-        private float screenSignedPercentage(float position, int size)
-        {
-            int halfSize = size / 2;
-            float halfPosition = position - halfSize;
-            float percentage = halfPosition / (float) halfSize;
+		private float screenSignedPercentage(float position, int size)
+		{
+			int halfSize = size / 2;
+			float halfPosition = position - halfSize;
+			float percentage = halfPosition / (float)halfSize;
 
-            return percentage;
-        }
+			return percentage;
+		}
 
 		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
+		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector,
+			out List<Objects.GameObject> remainingCollidableObjects)
+		{
+			return CheckForCollision(movingObject, collidableObjects, motionVector, out remainingCollidableObjects, true);
+		}
 		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)
 		{
+			List<Objects.GameObject> x;
+			return CheckForCollision(movingObject, collidableObjects, motionVector, out x, false);
+		}
+		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector,
+			out List<Objects.GameObject> remainingCollidableObjects, bool populateRemaining)
+		{
+			remainingCollidableObjects = new List<Objects.GameObject>(collidableObjects);
 			if (movingObject.collidable && collisionDetectionOn)
 			{
 				List<Objects.GameObject>.Enumerator collideableObjEnumerator = collidableObjects.GetEnumerator();
@@ -347,7 +359,7 @@ namespace SnailsPace.Core
 					{
 						if (movingObject.willIntersect(motionVector, collideableObjEnumerator.Current))
 						{
-							if (movingObject.collidedWith(collideableObjEnumerator.Current))
+							if (movingObject.canCollideWith(collideableObjEnumerator.Current))
 							{
 #if DEBUG
 								if (SnailsPace.debugCollisions)
@@ -355,12 +367,14 @@ namespace SnailsPace.Core
 									SnailsPace.debug("Collision: " + movingObject.position);
 								}
 #endif
-								if (movingObject is Objects.Bullet)
-								{
-									bulletsToClear.Add((Objects.Bullet)movingObject);
-								}
-
 								return collideableObjEnumerator.Current;
+							}
+							else
+							{
+								if (populateRemaining)
+								{
+									remainingCollidableObjects.Remove(collideableObjEnumerator.Current);
+								}
 							}
 						}
 					}
@@ -373,38 +387,75 @@ namespace SnailsPace.Core
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
 			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
-			Vector2 newVelocity = new Vector2();
-			if (( gravityEnabled && movingObject.affectedByGravity )|| objectVelocity.Length() > 0 )
+			Vector2 resultingVelocity = new Vector2();
+			if ((gravityEnabled && movingObject.affectedByGravity) || objectVelocity.Length() > 0)
 			{
 				if (objectVelocity.Length() > 0)
 				{
 					objectVelocity.Normalize();
 					objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
 				}
-				if ( gravityEnabled && movingObject.affectedByGravity)
+				if (gravityEnabled && movingObject.affectedByGravity)
 				{
 					objectVelocity += gravity;
 				}
 				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
-				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity);
+				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity, out collidableObjects);
 				if (collidedObject == null)
 				{
-					movingObject.position += objectVelocity;
+					resultingVelocity = objectVelocity;
+				}
+				else if (movingObject is Objects.Bullet)
+				{
+					bulletsToClear.Add((Objects.Bullet)movingObject);
 				}
 				else if (movingObject is Objects.Character)
 				{
+					List<Objects.GameObject> x;
+					bool noSecondXCollision = true;
+					bool noSecondYCollision = true;
+					float xTick = objectVelocity.X * 0.1f;
+					float yTick = objectVelocity.Y * 0.1f;
+
+					while ((noSecondXCollision && (Math.Abs(resultingVelocity.X) < Math.Abs(objectVelocity.X))) || (noSecondYCollision && (Math.Abs(resultingVelocity.Y) < Math.Abs(objectVelocity.Y))))
+					{
+						if (noSecondYCollision)
+						{
+							resultingVelocity.Y += yTick;
+							collidedObject = CheckForCollision(movingObject, collidableObjects, resultingVelocity);
+							if (collidedObject != null)
+							{
+								noSecondYCollision = false;
+								resultingVelocity.Y -= yTick;
+							}
+						}
+						if (noSecondXCollision)
+						{
+							resultingVelocity.X += xTick;
+							if (resultingVelocity.X == objectVelocity.X)
+							{
+								noSecondXCollision = false;
+							}
+							collidedObject = CheckForCollision(movingObject, collidableObjects, resultingVelocity);
+							if (collidedObject != null)
+							{
+								noSecondXCollision = false;
+								resultingVelocity.X -= xTick;
+							}
+						}
+					}
+					/*
 					if (objectVelocity.Y != 0)
 					{
 						newVelocity.X = 0.0f;
 						newVelocity.Y = objectVelocity.Y * 0.1f;
-
-						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
+						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
 						if (collidedObject == null)
 						{
 							for (float f = 1.0f; f > 0.1; f -= 0.1f)
 							{
 								newVelocity.Y = objectVelocity.Y * f;
-								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
+								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
 								if (collidedObject == null)
 								{
 									movingObject.position += newVelocity;
@@ -419,13 +470,13 @@ namespace SnailsPace.Core
 						newVelocity.X = objectVelocity.X * 0.1f;
 						newVelocity.Y = 0.0f;
 
-						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
+						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
 						if (collidedObject == null)
 						{
 							for (float f = 1.0f; f > 0.1; f -= 0.1f)
 							{
 								newVelocity.X = objectVelocity.X * f;
-								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity);
+								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
 								if (collidedObject == null)
 								{
 									movingObject.position += newVelocity;
@@ -434,7 +485,26 @@ namespace SnailsPace.Core
 							}
 						}
 					}
+					 * */
 				}
+				if (resultingVelocity.Y == 0)
+				{
+					if (movingObject is Objects.Helix)
+					{
+						if (objectVelocity.Y < 0)
+						{
+							helix.flying = false;
+						}
+					}
+				}
+				if (resultingVelocity.Y > 0)
+				{
+					if (movingObject is Objects.Helix)
+					{
+						helix.flying = true;
+					}
+				}
+				movingObject.position += resultingVelocity;
 			}
 		}
 
@@ -455,7 +525,7 @@ namespace SnailsPace.Core
 				if (!noQuadTree)
 				{
 					Rectangle visibleScreen = new Rectangle(helix.getRectangle().X - 400, helix.getRectangle().Y - 300, 800, 600);
-					QuadTree quad = new QuadTree(allObjs, visibleScreen, 6 );
+					QuadTree quad = new QuadTree(allObjs, visibleScreen, 6);
 					detectCollisionsInNode(quad.getRoot(), elapsedTime);
 				}
 
@@ -482,8 +552,8 @@ namespace SnailsPace.Core
 					bulletEnumerator.Dispose();
 				}
 				// Clear out exploded bullets
-				
-				
+
+
 				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
 				while (destroyedBulletEnumerator.MoveNext())
 				{
@@ -554,7 +624,7 @@ namespace SnailsPace.Core
 				{
 					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime);
 				}
-			}	
+			}
 		}
 
 		public void render(GameTime gameTime)

@@ -11,40 +11,41 @@ namespace SnailsPace.Objects
 
 		public bool isPCBullet = false;
 
-		public override bool collidedWith(GameObject otherObject)
+		public override bool canCollideWith(GameObject otherObject)
 		{
+			// Note: This should be in the order of most specific to least specific (ie: Helix before character), otherwise more specific cases will be missed
 			if (otherObject == null)
 			{
 				return true;
 			}
-			else if (otherObject.GetType() == typeof(Helix))
+			else if (otherObject is Helix)
 			{
 				if (isPCBullet)
 				{
 					return false;
 				}
-				else
-				{
-					((Character)otherObject).health -= damage;
-				}
 			}
-			else if (otherObject.GetType() == typeof(Character))
+			else if (otherObject is Character)
 			{
 				if (!isPCBullet)
 				{
 					return false;
-				}
-				else
-				{
-					((Character)otherObject).health -= damage;
 				}
 			}
 			else if (otherObject is Objects.Bullet)
 			{
 				return false;
 			}
+			return base.canCollideWith(otherObject);
+		}
 
-			return true;
+		public override void collidedWith(GameObject otherObject)
+		{
+			// Assumes canCollideWith
+			if (otherObject is Character)
+			{
+				((Character)otherObject).health -= damage;
+			}
 		}
 	}
 }

@@ -9,6 +9,7 @@ namespace SnailsPace.Objects
     class GameObject
     {
         // The game object's position and velocity.
+		public float verticalTweakMotion = 64.0f;
 		private Vector2 _position;
 		public Vector2 position
 		{
@@ -86,10 +87,14 @@ namespace SnailsPace.Objects
 			this.sprites[sprtName].visible = true;
 		}
 
-		public virtual bool collidedWith(GameObject otherObject)
+		public virtual bool canCollideWith(GameObject otherObject)
+		{
+			return true;
+		}
+
+		public virtual void collidedWith(GameObject otherObject)
 		{
 			// Do nothing?
-			return true;
 		}
 
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)

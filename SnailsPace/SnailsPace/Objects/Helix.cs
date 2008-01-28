@@ -10,6 +10,7 @@ namespace SnailsPace.Objects
         // Jetpack fuel
         public int fuel;
 		public int fireCooldown;
+		public bool flying;
 
 		public void setSprite(String sprtName, String aSprtName)
 		{
@@ -24,14 +25,23 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
+			if (flying)
+			{
+				SnailsPace.debug("Flying!");
+			}
         }
 
-		public override bool collidedWith(GameObject otherObject)
+		public override bool canCollideWith(GameObject otherObject)
 		{
 			if ((otherObject is Objects.Bullet) && (((Bullet)otherObject).isPCBullet))
+			{
 				return false;
+			}
 			else
-				return base.collidedWith(otherObject);
+			{
+				return base.canCollideWith(otherObject);
+			}
 		}
+
     }
 }
