@@ -25,3 +25,6 @@ bee.position = Vector2(256, 256)
 
 spider = Spider()
 spider.position = Vector2(384, 0)
+
+-- Set the bounds for this map
+map.bounds = Rectangle(-850, 100, 10000, 1900)

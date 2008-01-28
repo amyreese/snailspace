@@ -15,9 +15,11 @@ namespace SnailsPace.Core
 		public Objects.GameObject cameraTarget;
 		public Vector3 cameraTargetOffset;
 
+		public Rectangle cameraBounds;
+
 		public Matrix cameraView;
 		public Matrix cameraProjection;
-		public const float debugZoom = 5.0f; // Set to 1 for normal gameplay
+		public const float debugZoom = 1.0f; // Set to 1 for normal gameplay
 		public const float normalCameraDistance = 1000.0f * debugZoom;
 		public const float minimumCameraMovement = 0.5f;
 		public const float cameraSpeed = 2.0f;
@@ -148,8 +150,19 @@ namespace SnailsPace.Core
 				Vector3 cameraPositionMovement = Vector3.Zero;
 				cameraPositionMovement.X = calculateCameraMovement(cameraDifference.X, elapsedTime);
 				cameraPositionMovement.Y = calculateCameraMovement(cameraDifference.Y, elapsedTime);
-				cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime); ;
+				cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
 				cameraPosition = cameraPosition + cameraPositionMovement;
+
+				// Keep camera in specified bounds
+				if (cameraPosition.X < cameraBounds.Left)
+					cameraPosition.X = cameraBounds.Left;
+				else if (cameraPosition.X > cameraBounds.Right)
+					cameraPosition.X = cameraBounds.Right;
+
+				if (cameraPosition.Y < cameraBounds.Top)
+					cameraPosition.Y = cameraBounds.Top;
+				else if (cameraPosition.Y > cameraBounds.Bottom)
+					cameraPosition.Y = cameraBounds.Bottom;
 			}
 
 			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;

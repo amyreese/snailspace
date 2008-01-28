@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using SnailsPace.Core;
+using Microsoft.Xna.Framework;
 
 namespace SnailsPace.Objects
 {
@@ -16,6 +17,9 @@ namespace SnailsPace.Objects
         // Characters and triggers.
         public List<Character> characters;
         public List<Trigger> triggers;
+
+		// Map bounds
+		public Rectangle bounds;
 
         /**
          * Initialize the map, its interpreter, etc

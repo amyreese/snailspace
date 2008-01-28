@@ -46,6 +46,9 @@ namespace SnailsPace.Core
 		// Renderer
 		public Renderer gameRenderer;
 
+		// Invisible map bounding objects
+		public List<Objects.GameObject> mapBounds;
+
 		// Constructors
 		public Engine(String map)
 		{
@@ -135,6 +138,7 @@ namespace SnailsPace.Core
 			setupPauseOverlay();
 			setupCrosshair();
 			setupGameRenderer();
+			setupMapBounds();
 		}
 
 		private void setupPauseOverlay()
@@ -171,6 +175,38 @@ namespace SnailsPace.Core
 			crosshair.collidable = false;
 		}
 
+		private void setupMapBounds()
+		{
+			mapBounds = new List<Objects.GameObject>();
+
+			// Build the left wall
+			Objects.Sprite mapBoundsSprite = new Objects.Sprite();
+			mapBoundsSprite.image = new Objects.Image();
+			mapBoundsSprite.image.filename = "Resources/Textures/BoundingBox";
+			mapBoundsSprite.image.blocks = new Vector2(1.0f);
+			mapBoundsSprite.image.size = new Vector2(10.0f, map.bounds.Height + 1000);
+			mapBoundsSprite.visible = true;
+			mapBoundsSprite.effect = "Resources/Effects/effects";
+			Objects.GameObject leftMapBound = new Objects.GameObject();
+			leftMapBound.sprites.Add("BoundingBox", mapBoundsSprite);
+			leftMapBound.size = mapBoundsSprite.image.size;
+			leftMapBound.position = new Vector2(map.bounds.Left - 550, map.bounds.Height / 2.0f);
+			leftMapBound.collidable = true;
+
+			mapBounds.Add(leftMapBound);
+
+			// Build the top wall
+			mapBoundsSprite = mapBoundsSprite.clone();
+			mapBoundsSprite.image.size = new Vector2(map.bounds.Width + 3000, 10.0f);
+			Objects.GameObject topMapBound = new Objects.GameObject();
+			topMapBound.sprites.Add("BoundingBox", mapBoundsSprite);
+			topMapBound.size = mapBoundsSprite.image.size;
+			topMapBound.position = new Vector2(map.bounds.Width / 2.0f, map.bounds.Bottom + 400);
+			topMapBound.collidable = true;
+
+			mapBounds.Add(topMapBound);
+		}
+
 		private void loadFonts()
 		{
 			gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Menu");
@@ -190,6 +226,8 @@ namespace SnailsPace.Core
 			gameRenderer.cameraTarget = helix;
 			gameRenderer.cameraTargetOffset.X = -64;
 			gameRenderer.cameraTargetOffset.Y = 192;
+
+			gameRenderer.cameraBounds = map.bounds;
 		}
 
 		public void think(GameTime gameTime)
@@ -724,12 +762,21 @@ namespace SnailsPace.Core
 				objects.Add(characterEnum.Current);
 			}
 			characterEnum.Dispose();
+
 			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
 			while (bulletEnum.MoveNext())
 			{
 				objects.Add(bulletEnum.Current);
 			}
 			bulletEnum.Dispose();
+
+			List<Objects.GameObject>.Enumerator boundsEnum = mapBounds.GetEnumerator();
+			while (boundsEnum.MoveNext())
+			{
+				objects.Add(boundsEnum.Current);
+			}
+			boundsEnum.Dispose();
+
 			objects.Add(helix);
 			objects.Add(pause);
 			objects.Add(crosshair);
