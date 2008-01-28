@@ -45,6 +45,7 @@ Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');
 
 Map = import('SnailsPace.Objects.Map');
+Player = import('SnailsPace.Object.Player');
             
             ";
             this.DoString(initCode);
@@ -67,9 +68,6 @@ end
             ";
             this.DoString(funcCode);
             #endregion
-
-            SnailsPace snailsPace = SnailsPace.getInstance();
-            this.RegisterFunction("sdebug", snailsPace, snailsPace.GetType().GetMethod("debug"));
         }
 
         public void Call(String function, params object[] args) 

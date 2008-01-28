@@ -30,6 +30,7 @@ namespace SnailsPace.Core
 		public Objects.Map map;
 
 		// Player
+        public Core.Player player;
 		public Objects.Helix helix;
 
 		// Bullets
@@ -48,7 +49,11 @@ namespace SnailsPace.Core
 		// Constructors
 		public Engine(String map)
 		{
-			lua = new GameLua(map);
+            // Initialize Lua, the Player, and the Map
+            lua = new GameLua(map);
+            this.player = new Player();
+            lua["player"] = player;
+            this.map = new Objects.Map(map);
 
 			bullets = new List<Objects.Bullet>();
 
@@ -59,9 +64,6 @@ namespace SnailsPace.Core
 			bulletSprite.image.size = new Vector2(16.0f, 8.0f);
 			bulletSprite.visible = true;
 			bulletSprite.effect = "Resources/Effects/effects";
-
-            // TODO: Load the map object from Lua
-            this.map = new Objects.Map(map);
 
             // TODO: Initialize Helix;
 			helix = new Objects.Helix();
@@ -616,13 +618,14 @@ namespace SnailsPace.Core
 				strings.Add(debugString);
 			}
 #endif
+            strings.AddRange(allStrings());
 			gameRenderer.render(allObjects(), strings, gameTime);
 		}
 
 		private List<Objects.GameObject> allObjects()
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
-			objects.AddRange(map.objects);
+			//objects.AddRange(map.objects);
 			List<Objects.Character>.Enumerator characterEnum = map.characters.GetEnumerator();
 			while (characterEnum.MoveNext())
 			{
@@ -638,7 +641,15 @@ namespace SnailsPace.Core
 			objects.Add(helix);
 			objects.Add(pause);
 			objects.Add(crosshair);
+            objects.AddRange(player.gameObjects());
 			return objects;
 		}
+
+        private List<Objects.Text> allStrings()
+        {
+            List<Objects.Text> strings = new List<Objects.Text>();
+            strings.AddRange(player.textStrings());
+            return strings;
+        }
 	}
 }
