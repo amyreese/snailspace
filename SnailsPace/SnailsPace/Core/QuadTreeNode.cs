@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -20,14 +21,17 @@ namespace SnailsPace.Core
 		protected List<Objects.GameObject> containedObjects;
 		private Rectangle coordinates;
 		private int maxDepth;
+		public String name;
 
 		private List<QuadTreeNode> nodeList = null;
 
-		public QuadTreeNode(List<Objects.GameObject> containedObjects, Rectangle coordinates, int maxDepth)
+		public QuadTreeNode(List<Objects.GameObject> containedObjects, Rectangle coordinates, int maxDepth, String name)
 		{
 			this.coordinates = coordinates;
 			this.containedObjects = containedObjects;
 			this.maxDepth = maxDepth;
+			this.name = name;
+
 			nodeList = new List<QuadTreeNode>();
 			if ( maxDepth > 1 )
 			{
@@ -61,22 +65,22 @@ namespace SnailsPace.Core
 
 		public void createChildNodes()
 		{
-			NW = new QuadTreeNode( new List<Objects.GameObject>(), NWRect, maxDepth - 1 );
+			NW = new QuadTreeNode( new List<Objects.GameObject>(), NWRect, maxDepth - 1, "NW Child of " + name + "."  );
 			nodeList.Add(NW);
-			NE = new QuadTreeNode( new List<Objects.GameObject>(), NWRect, maxDepth - 1 );
+			NE = new QuadTreeNode(new List<Objects.GameObject>(), NWRect, maxDepth - 1, "NE Child of " + name + "." );
 			nodeList.Add(NE);
-			SW = new QuadTreeNode( new List<Objects.GameObject>(), NWRect, maxDepth - 1 );
+			SW = new QuadTreeNode(new List<Objects.GameObject>(), NWRect, maxDepth - 1, "SW Child of " + name + "." );
 			nodeList.Add(SW);
-			SE = new QuadTreeNode( new List<Objects.GameObject>(), NWRect, maxDepth - 1 );
+			SE = new QuadTreeNode(new List<Objects.GameObject>(), NWRect, maxDepth - 1, "SE Child of " + name + "." );
 			nodeList.Add(SE);
 		}
 
 		private void createCornerRectangles()
 		{
-			NWRect = new Rectangle(coordinates.X, coordinates.Y, coordinates.Width / 2, coordinates.Height / 2);
-			NERect = new Rectangle(coordinates.X + coordinates.Width / 2, coordinates.Y, coordinates.Width / 2, coordinates.Height / 2);
-			SWRect = new Rectangle(coordinates.X, coordinates.Y + coordinates.Height / 2, coordinates.Width / 2, coordinates.Height / 2);
-			SERect = new Rectangle(coordinates.X + coordinates.Width / 2, coordinates.Y + coordinates.Height / 2, coordinates.Width / 2, coordinates.Height / 2);
+			SWRect = new Rectangle(coordinates.X, coordinates.Y, coordinates.Width / 2, coordinates.Height / 2);
+			SERect = new Rectangle(coordinates.X + coordinates.Width / 2, coordinates.Y, coordinates.Width / 2, coordinates.Height / 2);
+			NWRect = new Rectangle(coordinates.X, coordinates.Y + coordinates.Height / 2, coordinates.Width / 2, coordinates.Height / 2);
+			NERect = new Rectangle(coordinates.X + coordinates.Width / 2, coordinates.Y + coordinates.Height / 2, coordinates.Width / 2, coordinates.Height / 2);
 		}
 
 		public List<QuadTreeNode> getNodes()
@@ -88,5 +92,28 @@ namespace SnailsPace.Core
 		{
 			return containedObjects;
 		}
+#if DEBUG
+		public void print()
+		{
+			Debug.WriteLine(name + ". Contains " + containedObjects.Count + " objects.");
+			Debug.WriteLine("Dimensions: TL( " + coordinates.Left + ", " + coordinates.Top + " ), BR( " + coordinates.Right + ", " + coordinates.Bottom + " )" );
+			if (NW != null)
+			{
+				NW.print();
+			}
+			if (NE != null)
+			{
+				NE.print();
+			}
+			if (SW != null)
+			{
+				SW.print();
+			}
+			if (SE != null)
+			{
+				SE.print();
+			}
+		}
+#endif
 	}
 }

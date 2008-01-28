@@ -584,8 +584,11 @@ namespace SnailsPace.Core
 				bool noQuadTree = true;
 				if (!noQuadTree)
 				{
-					Rectangle visibleScreen = new Rectangle(helix.getRectangle().X - 400, helix.getRectangle().Y - 300, 800, 600);
-					QuadTree quad = new QuadTree(allObjs, visibleScreen, 6);
+					Rectangle visibleScreen = new Rectangle(helix.getRectangle().X - 200, helix.getRectangle().Y - 150, 400, 300);
+					QuadTree quad = new QuadTree(allObjs, visibleScreen, 3 );
+#if DEBUG
+					quad.print();
+#endif
 					detectCollisionsInNode(quad.getRoot(), elapsedTime);
 				}
 
@@ -674,6 +677,7 @@ namespace SnailsPace.Core
 				List<Objects.GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
 				while (objectEnumerator.MoveNext())
 				{
+					String objectName = node.name;
 					MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime);
 				}
 			}
