@@ -12,6 +12,7 @@ include("Scenery/Background.lua")
 include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
+include("Scenery/Pit.lua")
 
 -- Create an enemy
 fireant = FireAnt()

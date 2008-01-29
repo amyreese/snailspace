@@ -140,6 +140,7 @@
     <Content Include="Resources\Textures\BlackAnt_1.png" />
     <Content Include="Resources\Textures\dirt.png" />
     <Content Include="Resources\Textures\FireAnt_1.png" />
+    <Content Include="Resources\Textures\gravel.png" />
     <Content Include="Resources\Textures\Helix.png" />
     <Content Include="Resources\Textures\HelixTable.png" />
     <Content Include="Resources\Textures\SpiderTable.png" />
@@ -172,6 +173,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Garden.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden\Scenery\Pit.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Scenery\Plane1.lua">

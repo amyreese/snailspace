@@ -153,16 +153,16 @@ namespace SnailsPace.Core
 				cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
 				cameraPosition = cameraPosition + cameraPositionMovement;
 
-				// Keep camera in specified bounds
-				if (cameraPosition.X < cameraBounds.Left)
-					cameraPosition.X = cameraBounds.Left;
-				else if (cameraPosition.X > cameraBounds.Right)
-					cameraPosition.X = cameraBounds.Right;
+				//// Keep camera in specified bounds
+				//if (cameraPosition.X < cameraBounds.Left)
+				//    cameraPosition.X = cameraBounds.Left;
+				//else if (cameraPosition.X > cameraBounds.Right)
+				//    cameraPosition.X = cameraBounds.Right;
 
-				if (cameraPosition.Y < cameraBounds.Top)
-					cameraPosition.Y = cameraBounds.Top;
-				else if (cameraPosition.Y > cameraBounds.Bottom)
-					cameraPosition.Y = cameraBounds.Bottom;
+				//if (cameraPosition.Y < cameraBounds.Top)
+				//    cameraPosition.Y = cameraBounds.Top;
+				//else if (cameraPosition.Y > cameraBounds.Bottom)
+				//    cameraPosition.Y = cameraBounds.Bottom;
 			}
 
 			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
