@@ -42,6 +42,7 @@ function FireAnt(startPos)
 	fireant.maxVelocity = 400
 	fireant.thinker = "FireAntThinker"
 	fireant.health = 3
+	fireant.name = "FireAnt"
 	fireant:setSprite("Stand")
 	fireant.state = {
 		tracking = false,

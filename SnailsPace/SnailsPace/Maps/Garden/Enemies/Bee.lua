@@ -42,6 +42,7 @@ function Bee()
 	bee.maxVelocity = 960
 	bee.thinker = "BeeThinker"
 	bee.state = {}
+	bee.name = "Bee"
 	bee.health = 3
 	bee:setSprite("Hover")
 	map.characters:Add(bee)
