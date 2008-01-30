@@ -16,17 +16,16 @@ include("Scenery/Plane2.lua")
 
 
 -- Create an enemy
-fireant = FireAnt()
-fireant.position = Vector2(128, 0)
+fireant = FireAnt(Vector2(40*32, 5*32 + 100))
 
-blackant = BlackAnt()
-blackant.position = Vector2(256, 0)
+--blackant = BlackAnt()
+--blackant.position = Vector2(256, 0)
 
-bee = Bee()
-bee.position = Vector2(256, 256)
+--bee = Bee()
+--bee.position = Vector2(256, 256)
 
-spider = Spider()
-spider.position = Vector2(384, 0)
+--spider = Spider()
+--spider.position = Vector2(384, 0)
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1400, -80))

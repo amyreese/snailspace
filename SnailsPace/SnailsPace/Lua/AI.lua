@@ -46,3 +46,13 @@ function AI.moveToHelix( self, dmax, dmin, vmax )
 	vprime = Vector2( vmax * cx, vmax * cy )
 	self.velocity = vprime
 end
+
+--[[ Patrol between two points ]]--
+function AI.patrol(self, pt1, pt2)
+	self:setSprite("Walk")
+	if (self.position.X > pt1) then
+		self.velocity = Vector2(-1, 0)
+	elseif (self.position.X < pt2) then
+		self.velocity = Vector2(1, 0)
+	end
+end

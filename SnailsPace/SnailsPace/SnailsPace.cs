@@ -28,7 +28,7 @@ namespace SnailsPace
         public static bool debugCulling = false;
         public static bool debugEffectAndTextureLoading = false;
         public static bool debugCollisions = false;
-        public static bool debugBoundingBoxes = false;
+        public static bool debugBoundingBoxes = true;
         public static bool debugFlying = false;
 #endif
 		#endregion

@@ -28,17 +28,18 @@ function FASprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a FireAnt object
-function FireAnt()
+function FireAnt(startPos)
 	walk = FASprite(0, 3, 0.07)
 	stand = FASprite(0, 0, 0.07)
 	
 	fireant = Character()
 	fireant.sprites:Add("Walk", walk)
 	fireant.sprites:Add("Stand", stand)
-	fireant.size = FireAntImage.size
-	fireant.position = Vector2(0,0)
-	fireant.velocity = Vector2(0,0)
-	fireant.maxVelocity = 640
+	fireant.size = Vector2(FireAntImage.size.X, FireAntImage.size.Y - 64)
+	fireant.position = startPos
+	fireant.affectedByGravity = true
+	fireant.velocity = Vector2(1,0)
+	fireant.maxVelocity = 400
 	fireant.thinker = "FireAntThinker"
 	fireant.health = 3
 	fireant:setSprite("Stand")
@@ -53,26 +54,9 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	vision = 640
-	if ( self.state.mad == true and self.state.tracking ) then
-		vision = 1600
-	end
 	
-	if ( AI.canSeeHelix( self, vision ) ) then 
-		AI.moveToHelix( self, 192.0, 128.0 )
-		self:setSprite("Walk")
-		self.state.tracking = true		
-	else
-		AI.stop( self )
-		
-		if ( self.state.tracking == true ) then
-			print("getting angry")
-			self.state.mad = true
-		end
-		
-		self.state.tracking = false
-		self:setSprite("Stand")
-	end
+	AI.patrol(self, 40*32 + 200, 40*32 - 500)
+	
 	
 	-- TODO: Extend AI for the Fire Ant
 end
