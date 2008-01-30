@@ -18,7 +18,7 @@ namespace SnailsPace.Objects
         {
             Engine.lua["helix"] = this;
             this.sprites = new Dictionary<string, Objects.Sprite>();
-
+			this.name = "Helix";
             Objects.Sprite walk = new Objects.Sprite();
             walk.image = new Objects.Image();
             walk.image.filename = "Resources/Textures/HelixTable";
@@ -100,6 +100,7 @@ namespace SnailsPace.Objects
 			}
 			this.sprites[sprtName].visible = true;
 			this.sprites[aSprtName].visible = true;
+			
 		}
 
         public override void think(GameTime gameTime)

@@ -23,6 +23,19 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		private String _name;
+		public String name
+		{
+			get
+			{
+				return _name;
+			}
+			set
+			{
+				_name = value;
+			}
+		}
+
 		public Vector2 size;
 
 		private float _rotation;
