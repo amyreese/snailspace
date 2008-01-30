@@ -9,7 +9,6 @@ namespace SnailsPace.Objects
     class GameObject
     {
         // The game object's position and velocity.
-		public float verticalTweakMotion = 64.0f;
 		private Vector2 _position;
 		public Vector2 position
 		{
