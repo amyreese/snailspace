@@ -12,6 +12,7 @@ namespace SnailsPace.Core
 		public QuadTree(List<Objects.GameObject> containedObjects, Rectangle coordinates, int maxDepth)
 		{
 			rootNode = new QuadTreeNode( containedObjects, coordinates, maxDepth, "Root");
+			rootNode.fillChildren();
 		}
 
 		public QuadTreeNode getRoot()

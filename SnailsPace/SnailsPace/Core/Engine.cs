@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -493,13 +494,14 @@ namespace SnailsPace.Core
 			// Collision Detection
 			{
 
-				bool noQuadTree = true;
+				bool noQuadTree = false;
 				if (!noQuadTree)
 				{
-					Rectangle visibleScreen = new Rectangle(helix.getRectangle().X - 200, helix.getRectangle().Y - 150, 400, 300);
-					QuadTree quad = new QuadTree(allObjs, visibleScreen, 3 );
+					Rectangle visibleScreen = new Rectangle((int)(helix.position.X - 800), (int)(helix.position.Y) - 800, 1600, 1600);
+					QuadTree quad = new QuadTree(allObjs, visibleScreen, 5 );
 #if DEBUG
-					quad.print();
+					//Debug.WriteLine( helix.name + ": (" + helix.position.X + "," + helix.position.Y + ")" );
+					//quad.print();
 #endif
 					detectCollisionsInNode(quad.getRoot(), elapsedTime);
 				}
