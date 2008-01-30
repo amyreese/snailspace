@@ -494,7 +494,7 @@ namespace SnailsPace.Core
 			// Collision Detection
 			{
 
-				bool noQuadTree = false;
+				bool noQuadTree = true;
 				if (!noQuadTree)
 				{
 					Rectangle visibleScreen = new Rectangle((int)(helix.position.X - 800), (int)(helix.position.Y) - 800, 1600, 1600);
