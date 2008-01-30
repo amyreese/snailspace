@@ -339,6 +339,16 @@ namespace SnailsPace.Core
             {
                 SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
             }
+            if (input.inputPressed("DebugZoomIn"))
+            {
+                Renderer.normalCameraDistance -= 200f;
+                Renderer.farClip = Math.Max( 500f, 500f + 2 * Renderer.normalCameraDistance );
+            }
+            if (input.inputPressed("DebugZoomOut"))
+            {
+                Renderer.normalCameraDistance -= 200f;
+                Renderer.farClip = Math.Max(500f, 500f + 2 * Renderer.normalCameraDistance);
+            }
 #endif
 
 			// TODO: handle player inputs to change Helix's attributes.

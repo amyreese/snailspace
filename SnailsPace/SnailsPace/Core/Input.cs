@@ -48,6 +48,8 @@ namespace SnailsPace.Core
             inputKeys.Add("DebugFlying", "control+y");
             inputKeys.Add("DebugCameraPosition", "control+alt+c");
             inputKeys.Add("DebugHelixPosition", "control+alt+h");
+            inputKeys.Add("DebugZoomIn", "control+pageup");
+            inputKeys.Add("DebugZoomOut", "control+pagedown");
 #endif
             
             // Read from the user's config file
