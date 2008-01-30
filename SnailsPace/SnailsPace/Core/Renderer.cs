@@ -19,6 +19,7 @@ namespace SnailsPace.Core
 
 		public Matrix cameraView;
 		public Matrix cameraProjection;
+		public static float debugZoom = 1.0f;
 		public static float normalCameraDistance = 1000.0f;
 		public const float minimumCameraMovement = 0.5f;
 		public const float cameraSpeed = 2.0f;
@@ -141,7 +142,7 @@ namespace SnailsPace.Core
 			SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
 			SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
 			Vector3 cameraTargetPosition = getCameraTargetPosition();
-
+			cameraTargetPosition.Z = cameraTargetPosition.Z * debugZoom;
 			if (!cameraPosition.Equals(cameraTargetPosition))
 			{
 				float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);

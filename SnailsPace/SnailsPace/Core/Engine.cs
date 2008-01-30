@@ -339,15 +339,19 @@ namespace SnailsPace.Core
             {
                 SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
             }
-            if (input.inputPressed("DebugZoomIn"))
+            if (input.inputDown("DebugZoomIn"))
             {
-                Renderer.normalCameraDistance -= 200f;
-                Renderer.farClip = Math.Max( 500f, 500f + 2 * Renderer.normalCameraDistance );
-            }
-            if (input.inputPressed("DebugZoomOut"))
+                Renderer.debugZoom -= 0.25f;
+				if (Renderer.debugZoom < 1.0f)
+				{
+					Renderer.debugZoom = 1.0f;
+				}
+				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
+			}
+            if (input.inputDown("DebugZoomOut"))
             {
-                Renderer.normalCameraDistance -= 200f;
-                Renderer.farClip = Math.Max(500f, 500f + 2 * Renderer.normalCameraDistance);
+				Renderer.debugZoom += 0.25f;
+				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
             }
 #endif
 
