@@ -153,6 +153,22 @@ namespace SnailsPace.Core
 				cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
 				cameraPosition = cameraPosition + cameraPositionMovement;
 
+				float cameraStopDistance = (float)(1000 * Math.Tan(45 / 2.0));
+				for (int i = 1; i < cameraBounds.Length; i++)
+				{
+					if (cameraBounds[i].X == cameraBounds[i - 1].X)
+					{
+						if ((cameraBounds[i].X < 0) && (cameraPosition.X - cameraStopDistance < cameraBounds[i].X))
+							cameraPosition.X = cameraBounds[i].X + cameraStopDistance;
+						else if ((cameraBounds[i].X > 0) && (cameraPosition.X + cameraStopDistance > cameraBounds[i].X))
+							cameraPosition.X = cameraBounds[i].X - cameraStopDistance;
+					}
+					else if (cameraBounds[i].Y == cameraBounds[i - 1].Y)
+					{
+						if((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopDistance > cameraBounds[i].Y))
+							cameraPosition.Y = cameraBounds[i].Y - cameraStopDistance;
+					}
+				}
 				//// Keep camera in specified bounds
 				//if (cameraPosition.X < cameraBounds.Left)
 				//    cameraPosition.X = cameraBounds.Left;
