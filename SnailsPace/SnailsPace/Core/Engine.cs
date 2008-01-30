@@ -274,64 +274,6 @@ namespace SnailsPace.Core
 			deadCharEnum.Dispose();
 
 
-			// Deal with Helix's movement
-			{
-				helix.velocity = Vector2.Zero;
-				if (input.inputDown("Left") && input.inputDown("Right"))
-				{
-					// do nothing
-
-				}
-				else if (input.inputDown("Left"))
-				{
-					if (!helix.flying || helix.fuel > 0)
-					{
-						helix.velocity.X = -1;
-						helix.setSprite("Walk", "Gun");
-						helix.sprites["Walk"].animate(gameTime);
-						helix.horizontalFlip = true;
-						helix.sprites["Gun"].horizontalFlip = true;
-					}
-				}
-				else if (input.inputDown("Right"))
-				{
-					if (!helix.flying || helix.fuel > 0)
-					{
-						helix.velocity.X = 1;
-						helix.setSprite("Walk", "Gun");
-						helix.sprites["Walk"].animate(gameTime);
-						helix.horizontalFlip = false;
-						helix.sprites["Gun"].horizontalFlip = false;
-					}
-				}
-
-				if (input.inputDown("Up") && input.inputDown("Down"))
-				{
-					//do nothing
-					helix.setSprite("Fly", "Gun");
-				}
-				else if (input.inputDown("Up"))
-				{
-					if (helix.fuel > 0)
-					{
-						helix.velocity.Y = 1;
-						helix.setSprite("Fly", "Gun");
-						helix.sprites["Fly"].animate(gameTime);
-					}
-				}
-				else if (input.inputDown("Down"))
-				{
-					if (helix.fuel > 0)
-					{
-						helix.velocity.Y = -1;
-						helix.setSprite("Fly", "Gun");
-						helix.sprites["Fly"].animate(gameTime);
-					}
-				}
-
-			}
-
-
 			// Update things that depend on mouse position
 			{
 				crosshair.position = mouseToGame(input.mousePosition);
@@ -359,6 +301,37 @@ namespace SnailsPace.Core
 					helix.lastFired = gameTime.TotalRealTime.TotalMilliseconds;
 				}
 			}
+
+#if DEBUG
+            if (input.inputPressed("DebugFramerate"))
+            {
+                SnailsPace.debugFramerate = ! SnailsPace.debugFramerate;
+            }
+            if (input.inputPressed("DebugCollisions"))
+            {
+                SnailsPace.debugCollisions = !SnailsPace.debugCollisions;
+            }
+            if (input.inputPressed("DebugCulling"))
+            {
+                SnailsPace.debugCulling = !SnailsPace.debugCulling;
+            }
+            if (input.inputPressed("DebugBoundingBoxes"))
+            {
+                SnailsPace.debugBoundingBoxes = !SnailsPace.debugBoundingBoxes;
+            }
+            if (input.inputPressed("DebugFlying"))
+            {
+                SnailsPace.debugFlying = !SnailsPace.debugFlying;
+            }
+            if (input.inputPressed("DebugCameraPosition"))
+            {
+                SnailsPace.debugCameraPosition = !SnailsPace.debugCameraPosition;
+            }
+            if (input.inputPressed("DebugHelixPosition"))
+            {
+                SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
+            }
+#endif
 
 			// TODO: handle player inputs to change Helix's attributes.
 			helix.think(gameTime);

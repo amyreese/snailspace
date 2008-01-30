@@ -22,14 +22,14 @@ namespace SnailsPace
 	{
 		#region Debug flags
 #if DEBUG
-		public const bool debugFramerate = true;
-        public const bool debugCameraPosition = false;
-        public const bool debugHelixPosition = false;
-		public const bool debugCulling = false;
-		public const bool debugEffectAndTextureLoading = false;
-		public const bool debugCollisions = false;
-		public const bool debugBoundingBoxes = false;
-		public const bool debugFlying = true;
+		public static bool debugFramerate = false;
+        public static bool debugCameraPosition = false;
+        public static bool debugHelixPosition = false;
+        public static bool debugCulling = false;
+        public static bool debugEffectAndTextureLoading = false;
+        public static bool debugCollisions = false;
+        public static bool debugBoundingBoxes = false;
+        public static bool debugFlying = false;
 #endif
 		#endregion
 

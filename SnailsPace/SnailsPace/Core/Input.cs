@@ -28,18 +28,27 @@ namespace SnailsPace.Core
             keyPresses = new Dictionary<String, Boolean>();
 
             // Default action assignments
-            inputKeys.Add("MenuUp", "Up");
-            inputKeys.Add("MenuDown", "Down");
-            inputKeys.Add("MenuLeft", "Left");
-            inputKeys.Add("MenuRight", "Right");
-            inputKeys.Add("MenuSelect", "Enter");
-            inputKeys.Add("MenuToggle", "Escape");
-            inputKeys.Add("Up", "W");
-            inputKeys.Add("Down", "S");
-            inputKeys.Add("Left", "A");
-            inputKeys.Add("Right", "D");
+            inputKeys.Add("MenuUp", "up");
+            inputKeys.Add("MenuDown", "down");
+            inputKeys.Add("MenuLeft", "left");
+            inputKeys.Add("MenuRight", "right");
+            inputKeys.Add("MenuSelect", "enter");
+            inputKeys.Add("MenuToggle", "escape");
+            inputKeys.Add("Up", "w");
+            inputKeys.Add("Down", "s");
+            inputKeys.Add("Left", "a");
+            inputKeys.Add("Right", "d");
             inputKeys.Add("Fire", "Mouse1");
-            inputKeys.Add("Pause", "P");
+            inputKeys.Add("Pause", "p");
+#if DEBUG
+            inputKeys.Add("DebugFramerate", "control+f");
+            inputKeys.Add("DebugCollisions", "control+c");
+            inputKeys.Add("DebugCulling", "control+u");
+            inputKeys.Add("DebugBoundingBoxes", "control+b");
+            inputKeys.Add("DebugFlying", "control+y");
+            inputKeys.Add("DebugCameraPosition", "control+alt+c");
+            inputKeys.Add("DebugHelixPosition", "control+alt+h");
+#endif
             
             // Read from the user's config file
             inputConfig = new LuaConfig(new Dictionary<string,double>(), inputKeys);
@@ -100,12 +109,50 @@ namespace SnailsPace.Core
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
 
+            bool control = false;
+            bool shift = false;
+            bool alt = false;
+
+            for (int pressedKeyIndex = 0; pressedKeyIndex < pressedKeys.Length; pressedKeyIndex++)
+            {
+                String keyName = pressedKeys[pressedKeyIndex].ToString();
+                
+                if (keyName == "LeftAlt" || keyName == "RightAlt")
+                {
+                    alt = true;
+                }
+
+                if (keyName == "LeftShift" || keyName == "RightShift")
+                {
+                    shift = true;
+                }
+
+                if (keyName == "LeftControl" || keyName == "RightControl")
+                {
+                    control = true;
+                }
+            }
+
 			for( int pressedKeyIndex = 0; pressedKeyIndex < pressedKeys.Length; pressedKeyIndex++ ) {
-				String keyName = pressedKeys[pressedKeyIndex].ToString();
-				if (keyStates.ContainsKey(keyName))
+				String keyName = pressedKeys[pressedKeyIndex].ToString().ToLower();
+                if (keyName == "back")
+                {
+                    keyName = "backspace";
+                }
+                if (keyName == "oemcomma")
+                {
+                    keyName = "comma";
+                }
+
+                String modName = (control ? "control+" : "") + (alt ? "alt+" : "") + (shift ? "shift+" : "") + keyName;
+                if (keyStates.ContainsKey(keyName))
 				{
 					keyStates[keyName] = KeyState.Down;
 				}
+                if (keyStates.ContainsKey(modName))
+                {
+                    keyStates[modName] = KeyState.Down;
+                }
 			}
 
             // Check mouse inputs
