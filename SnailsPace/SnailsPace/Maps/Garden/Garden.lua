@@ -29,4 +29,7 @@ spider = Spider()
 spider.position = Vector2(384, 0)
 
 -- Set the bounds for this map
-map.bounds = Rectangle(-850, 100, 10000, 1900)
+map.bounds:Add(Vector2(-1400, -80))
+map.bounds:Add(Vector2(-1400, 3000))
+map.bounds:Add(Vector2(9960, 3000))
+map.bounds:Add(Vector2(9960, 300))

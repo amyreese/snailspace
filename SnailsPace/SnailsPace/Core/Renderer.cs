@@ -15,7 +15,7 @@ namespace SnailsPace.Core
 		public Objects.GameObject cameraTarget;
 		public Vector3 cameraTargetOffset;
 
-		public Rectangle cameraBounds;
+		public Vector2[] cameraBounds;
 
 		public Matrix cameraView;
 		public Matrix cameraProjection;

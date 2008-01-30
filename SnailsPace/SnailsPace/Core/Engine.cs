@@ -187,32 +187,46 @@ namespace SnailsPace.Core
 		{
 			mapBounds = new List<Objects.GameObject>();
 
-			// Build the left wall
+			//Build each bounding wall
 			Objects.Sprite mapBoundsSprite = new Objects.Sprite();
 			mapBoundsSprite.image = new Objects.Image();
 			mapBoundsSprite.image.filename = "Resources/Textures/BoundingBox";
 			mapBoundsSprite.image.blocks = new Vector2(1.0f);
-			mapBoundsSprite.image.size = new Vector2(10.0f, map.bounds.Height + 1000);
-			mapBoundsSprite.visible = true;
+			mapBoundsSprite.visible = false;
 			mapBoundsSprite.effect = "Resources/Effects/effects";
-			Objects.GameObject leftMapBound = new Objects.GameObject();
-			leftMapBound.sprites.Add("BoundingBox", mapBoundsSprite);
-			leftMapBound.size = mapBoundsSprite.image.size;
-			leftMapBound.position = new Vector2(map.bounds.Left - 550, map.bounds.Height / 2.0f);
-			leftMapBound.collidable = true;
 
-			mapBounds.Add(leftMapBound);
+			Vector2 lastPoint = map.bounds[0];
+			Vector2 currentPoint;
+			Objects.GameObject mapBound;
 
-			// Build the top wall
-			mapBoundsSprite = mapBoundsSprite.clone();
-			mapBoundsSprite.image.size = new Vector2(map.bounds.Width + 3000, 10.0f);
-			Objects.GameObject topMapBound = new Objects.GameObject();
-			topMapBound.sprites.Add("BoundingBox", mapBoundsSprite);
-			topMapBound.size = mapBoundsSprite.image.size;
-			topMapBound.position = new Vector2(map.bounds.Width / 2.0f, map.bounds.Bottom + 400);
-			topMapBound.collidable = true;
+			for (int i = 1; i < map.bounds.Count; i++)
+			{
+				currentPoint = map.bounds[i];
 
-			mapBounds.Add(topMapBound);
+				mapBoundsSprite = mapBoundsSprite.clone();
+				mapBound = new Objects.GameObject();
+
+				if (lastPoint.X == currentPoint.X)
+				{
+					mapBoundsSprite.image.size = new Vector2(10.0f, MathHelper.Distance(currentPoint.Y, lastPoint.Y));
+					mapBound.sprites.Add("BoundingBox", mapBoundsSprite);
+					mapBound.size = mapBoundsSprite.image.size;
+					mapBound.position = new Vector2(currentPoint.X, (currentPoint.Y + lastPoint.Y) / 2.0f);
+				}
+				else if (lastPoint.Y == currentPoint.Y)
+				{
+					mapBoundsSprite.image.size = new Vector2(MathHelper.Distance(currentPoint.X, lastPoint.X), 10.0f);
+					mapBound.sprites.Add("BoundingBox", mapBoundsSprite);
+					mapBound.size = mapBoundsSprite.image.size;
+					mapBound.position = new Vector2((currentPoint.X + lastPoint.X) / 2.0f, currentPoint.Y);
+				}
+
+				mapBound.collidable = true;
+
+				mapBounds.Add(mapBound);
+
+				lastPoint = currentPoint;
+			}
 		}
 
 		private void loadFonts()
@@ -235,7 +249,7 @@ namespace SnailsPace.Core
 			gameRenderer.cameraTargetOffset.X = -64;
 			gameRenderer.cameraTargetOffset.Y = 192;
 
-			gameRenderer.cameraBounds = map.bounds;
+			gameRenderer.cameraBounds = map.bounds.ToArray();
 		}
 
 		public void think(GameTime gameTime)

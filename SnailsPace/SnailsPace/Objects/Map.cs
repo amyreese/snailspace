@@ -19,7 +19,7 @@ namespace SnailsPace.Objects
         public List<Trigger> triggers;
 
 		// Map bounds
-		public Rectangle bounds;
+		public List<Vector2> bounds;
 
         /**
          * Initialize the map, its interpreter, etc
@@ -31,6 +31,7 @@ namespace SnailsPace.Objects
             objects = new List<GameObject>();
             characters = new List<Character>();
             triggers = new List<Trigger>();
+			bounds = new List<Vector2>();
 
             String filename = "Maps/" + name + "/" + name + ".lua";
             Engine.lua["map"] = this;
