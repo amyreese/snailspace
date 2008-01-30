@@ -13,7 +13,7 @@ SpiderImage.blocks = Vector2(4, 4)
 SpiderImage.size = Vector2(128, 128)
 
 -- Creates a Sprite for a Spider
-function FASprite(animSt, animEnd, animDelay)
+function SpiderSprite(animSt, animEnd, animDelay)
 	sprt = Sprite()
 	sprt.image = SpiderImage
 	sprt.effect = "Resources/Effects/effects"
@@ -29,8 +29,8 @@ end
 
 -- Creates a Spider object
 function Spider()
-	walk = FASprite(0, 3, 0.07)
-	stand = FASprite(0, 0, 0.07)
+	walk = SpiderSprite(0, 3, 0.07)
+	stand = SpiderSprite(0, 0, 0.07)
 	
 	spider = Character()
 	spider.sprites:Add("Walk", walk)
