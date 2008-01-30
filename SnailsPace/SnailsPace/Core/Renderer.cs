@@ -255,7 +255,7 @@ namespace SnailsPace.Core
 					Vector3 objectPosition = new Vector3(obj.position + spriteEnumerator.Current.position, -obj.layer - spriteEnumerator.Current.layerOffset);
 					Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
 
-					BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.X * objectScale.Y);
+					BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.Length() );
 					if (viewFrustum.Intersects(sphere))
 					{
 
