@@ -11,14 +11,22 @@ namespace SnailsPace.Core
         private int points = 0;
         private Vector2 savedPosition = new Vector2(0, 0);
 
+        public Objects.Helix helix;
+
         public Player()
             : this(new Vector2(0, 0))
-        {
+        {    
         }
 
         public Player( Vector2 startPosition )
         {
             savedPosition = startPosition;
+            helix = new Helix( startPosition );
+        }
+
+        public void think(GameTime gameTime)
+        {
+            helix.think(gameTime);
         }
 
         public List<GameObject> gameObjects()

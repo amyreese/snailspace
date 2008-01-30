@@ -31,17 +31,17 @@ namespace SnailsPace.Core
 
 		// Player
         public Core.Player player;
-		public Objects.Helix helix;
-
+        public static Objects.Helix helix;
+		
 		// Bullets
-		public Objects.Sprite bulletSprite;
-		public List<Objects.Bullet> bullets;
+		public static Objects.Sprite bulletSprite;
+		public static List<Objects.Bullet> bullets;
 
 		// Pause Screen
 		public Objects.GameObject pause;
 
 		// Crosshair
-		public Objects.GameObject crosshair;
+		public static Objects.GameObject crosshair;
 
 		// Renderer
 		public Renderer gameRenderer;
@@ -54,8 +54,10 @@ namespace SnailsPace.Core
 		{
             // Initialize Lua, the Player, and the Map
             lua = new GameLua(map);
+            
             this.player = new Player();
             lua["player"] = player;
+            
             this.map = new Objects.Map(map);
 
 			bullets = new List<Objects.Bullet>();
@@ -67,80 +69,6 @@ namespace SnailsPace.Core
 			bulletSprite.image.size = new Vector2(16.0f, 8.0f);
 			bulletSprite.visible = true;
 			bulletSprite.effect = "Resources/Effects/effects";
-
-			// TODO: Initialize Helix;
-			helix = new Objects.Helix();
-			lua["helix"] = helix;
-			helix.sprites = new Dictionary<string, Objects.Sprite>();
-
-			Objects.Sprite walk = new Objects.Sprite();
-			walk.image = new Objects.Image();
-			walk.image.filename = "Resources/Textures/HelixTable";
-			walk.image.blocks = new Vector2(4.0f, 4.0f);
-			walk.image.size = new Vector2(128.0f, 128.0f);
-			walk.visible = true;
-			walk.effect = "Resources/Effects/effects";
-
-			Objects.Sprite fly = new Objects.Sprite();
-			fly.image = walk.image;
-			fly.visible = false;
-			fly.effect = walk.effect;
-
-			Objects.Sprite gun = new Objects.Sprite();
-			gun.image = walk.image;
-			gun.visible = true;
-			gun.effect = walk.effect;
-			gun.layerOffset = -1.0f;
-
-			helix.sprites.Add("Walk", walk);
-			helix.sprites["Walk"].animationStart = 0;
-			helix.sprites["Walk"].animationEnd = 7;
-			helix.sprites["Walk"].frame = 0;
-			helix.sprites["Walk"].animationDelay = 1.0f / 15.0f;
-			helix.sprites["Walk"].timer = 0f;
-
-			helix.sprites.Add("Fly", fly);
-			helix.sprites["Fly"].animationStart = 8;
-			helix.sprites["Fly"].animationEnd = 11;
-			helix.sprites["Fly"].frame = 8;
-			helix.sprites["Fly"].animationDelay = 1.0f / 15.0f;
-			helix.sprites["Fly"].timer = 0f;
-
-			// TODO: Make hover it's own animation
-			helix.sprites.Add("Hover", fly.clone());
-			helix.sprites["Hover"].animationStart = 8;
-			helix.sprites["Hover"].animationEnd = 9;
-			helix.sprites["Hover"].frame = 8;
-			helix.sprites["Hover"].animationDelay = 1.0f / 15.0f;
-			helix.sprites["Hover"].timer = 0f;
-
-			helix.sprites.Add("Gun", gun);
-			helix.sprites["Gun"].animationStart = 12;
-			helix.sprites["Gun"].animationEnd = 15;
-			helix.sprites["Gun"].frame = 12;
-			helix.sprites["Gun"].animationDelay = 1.0f / 15.0f;
-			helix.sprites["Gun"].timer = 0f;
-
-			helix.maxVelocity = 384.0f;
-			helix.maxFuel = 40;
-			helix.layer = 0;
-			helix.affectedByGravity = true;
-
-			helix.size = walk.image.size;
-			Vector2[] points = new Vector2[11];
-			points[0] = new Vector2(0.0f, 36.0f);
-			points[1] = new Vector2(-27.0f, 25.0f);
-			points[2] = new Vector2(-38.0f, 14.0f);
-			points[3] = new Vector2(-47.0f, -32.0f);
-			points[4] = new Vector2(29.0f, -34.0f);
-			points[5] = new Vector2(53.0f, -13.0f);
-			points[6] = new Vector2(51.0f, 8.0f);
-			points[7] = new Vector2(39.0f, 8.0f);
-			points[8] = new Vector2(28.0f, -9.0f);
-			points[9] = new Vector2(27.0f, 6.0f);
-			points[10] = new Vector2(21.0f, 23.0f);
-			helix.bounds = new Objects.GameObjectBounds(points);
-			helix.position = new Vector2(0, 0);
 
 			loadFonts();
 			setupPauseOverlay();
@@ -300,29 +228,6 @@ namespace SnailsPace.Core
 			{
 				crosshair.position = mouseToGame(input.mousePosition);
 			}
-			helix.sprites["Gun"].rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
-
-			if (input.inputDown("Fire"))
-			{
-				if (helix.lastFired + helix.coolDown < gameTime.TotalRealTime.TotalMilliseconds)
-				{
-					Objects.Bullet bullet = new Objects.Bullet();
-					bullet.sprites = new Dictionary<string, Objects.Sprite>();
-					bullet.sprites.Add("Bullet", bulletSprite);
-					bullet.size = bulletSprite.image.size;
-					bullet.velocity = new Vector2(crosshair.position.X - helix.position.X, crosshair.position.Y - helix.position.Y);
-					bullet.velocity.Normalize();
-					bullet.rotation = helix.sprites["Gun"].rotation;
-					bullet.position = helix.position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
-					bullet.maxVelocity = helix.maxVelocity + 64.0f;
-					bullet.layer = -0.001f;
-					bullet.isPCBullet = true;
-					bullet.damage = 1;
-					bullets.Add(bullet);
-					helix.fireCooldown = 2;
-					helix.lastFired = gameTime.TotalRealTime.TotalMilliseconds;
-				}
-			}
 
 #if DEBUG
             if (input.inputPressed("DebugFramerate"))
@@ -369,8 +274,7 @@ namespace SnailsPace.Core
             }
 #endif
 
-			// TODO: handle player inputs to change Helix's attributes.
-			helix.think(gameTime);
+			player.think(gameTime);
 		}
 
 		private Vector2 mouseToGame(Vector2 mousePosition)
