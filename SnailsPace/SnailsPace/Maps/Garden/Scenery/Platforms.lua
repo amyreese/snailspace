@@ -8,6 +8,21 @@ sprit.image = imge
 sprit.visible = true
 sprit.effect = "Resources/Effects/effects"
 
+saltcanImage = Image()
+saltcanImage.filename = "Resources/Textures/saltcan"
+saltcanImage.blocks = Vector2(1.0, 1.0)
+saltcanImage.size = Vector2(100.0, 230.0)
+
+saltcanSprite = Sprite()
+saltcanSprite.image = saltcanImage
+saltcanSprite.visible = true
+saltcanSprite.effect = "Resources/Effects/effects"
+saltcanSprite.animationStart = 0
+saltcanSprite.animationEnd = 0
+saltcanSprite.frame = 0
+saltcanSprite.animationDelay = 0.0
+saltcanSprite.timer = 0.0
+
 platOffX = 40
 platOffY = 0
 
@@ -37,6 +52,16 @@ plat3.size = imge.size
 plat3.position = Vector2( (40+platOffX)*32, -15 * 32 )
 plat3.layer = 0.5
 map.objects:Add(plat3)
+
+--Salt can on Platform 3
+saltcan = GameObject()
+saltcanSprite.frame = 0
+saltcan.sprites:Add("Can", saltcanSprite)
+saltcan.size = Vector2(saltcanImage.size.X - 32, saltcanImage.size.Y - 32)
+saltcan.position = Vector2( (33+platOffX)*32, -12 * 32 )
+saltcan.layer = 0.5
+saltcan.rotation = 1.57
+map.objects:Add(saltcan)
 
 plat4 = GameObject()
 plat4Sprite = sprit:clone()

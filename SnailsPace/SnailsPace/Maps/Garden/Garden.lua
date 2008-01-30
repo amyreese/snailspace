@@ -9,10 +9,11 @@ include("Enemies/Spider.lua")
 include("Scenery/Background.lua")
 
 -- Set up map platforms
+include("Scenery/Pit.lua")
 include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
-include("Scenery/Pit.lua")
+
 
 -- Create an enemy
 fireant = FireAnt()
