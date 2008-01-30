@@ -377,11 +377,10 @@ namespace SnailsPace.Core
 				}
 				else if (movingObject is Objects.Character)
 				{
-					List<Objects.GameObject> x;
 					bool noSecondXCollision = true;
 					bool noSecondYCollision = true;
-					float xTick = objectVelocity.X * 0.1f;
-					float yTick = objectVelocity.Y * 0.1f;
+					float xTick = objectVelocity.X * 0.35f;
+					float yTick = objectVelocity.Y * 0.35f;
 
 					while ((noSecondXCollision && (Math.Abs(resultingVelocity.X) < Math.Abs(objectVelocity.X))) || (noSecondYCollision && (Math.Abs(resultingVelocity.Y) < Math.Abs(objectVelocity.Y))))
 					{
