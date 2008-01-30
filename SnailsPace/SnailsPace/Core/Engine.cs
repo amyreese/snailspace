@@ -107,9 +107,9 @@ namespace SnailsPace.Core
 			helix.sprites["Fly"].timer = 0f;
 
 			// TODO: Make hover it's own animation
-			helix.sprites.Add("Hover", fly);
+			helix.sprites.Add("Hover", fly.clone());
 			helix.sprites["Hover"].animationStart = 8;
-			helix.sprites["Hover"].animationEnd = 11;
+			helix.sprites["Hover"].animationEnd = 9;
 			helix.sprites["Hover"].frame = 8;
 			helix.sprites["Hover"].animationDelay = 1.0f / 15.0f;
 			helix.sprites["Hover"].timer = 0f;
