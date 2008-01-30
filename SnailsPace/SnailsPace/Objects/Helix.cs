@@ -27,6 +27,7 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
+			affectedByGravity = true;
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
@@ -35,9 +36,14 @@ namespace SnailsPace.Objects
 				{
 					fuel = 0;
 				}
+				if (fuel > 0)
+				{
+					affectedByGravity = false;
+				}
 			}
 			else
 			{
+				setSprite("Walk", "Gun");
 				fuel += fuelMod * 10;
 				if (fuel > maxFuel)
 				{
@@ -56,62 +62,74 @@ namespace SnailsPace.Objects
 
             // Deal with Helix's movement
             {
-                Input input = SnailsPace.inputManager;
+				Input input = SnailsPace.inputManager;
 
-                this.velocity = Vector2.Zero;
+                velocity = Vector2.Zero;
                 if (input.inputDown("Left") && input.inputDown("Right"))
                 {
                     // do nothing
-
                 }
                 else if (input.inputDown("Left"))
                 {
-                    if (!this.flying || this.fuel > 0)
+                    if (!flying || fuel > 0)
                     {
-                        this.velocity.X = -1;
-                        this.setSprite("Walk", "Gun");
-                        this.sprites["Walk"].animate(gameTime);
-                        this.horizontalFlip = true;
-                        this.sprites["Gun"].horizontalFlip = true;
+                        velocity.X = -1;
+                        horizontalFlip = true;
+                        sprites["Gun"].horizontalFlip = true;
                     }
                 }
                 else if (input.inputDown("Right"))
                 {
-                    if (!this.flying || this.fuel > 0)
+                    if (!flying || fuel > 0)
                     {
-                        this.velocity.X = 1;
-                        this.setSprite("Walk", "Gun");
-                        this.sprites["Walk"].animate(gameTime);
-                        this.horizontalFlip = false;
-                        this.sprites["Gun"].horizontalFlip = false;
+                        velocity.X = 1;
+                        horizontalFlip = false;
+                        sprites["Gun"].horizontalFlip = false;
                     }
                 }
 
                 if (input.inputDown("Up") && input.inputDown("Down"))
                 {
                     //do nothing
-                    this.setSprite("Fly", "Gun");
                 }
                 else if (input.inputDown("Up"))
                 {
-                    if (this.fuel > 0)
+                    if (fuel > 0)
                     {
-                        this.velocity.Y = 1;
-                        this.setSprite("Fly", "Gun");
-                        this.sprites["Fly"].animate(gameTime);
+                        velocity.Y = 1;
                     }
                 }
                 else if (input.inputDown("Down"))
                 {
-                    if (this.fuel > 0)
+                    if (fuel > 0)
                     {
-                        this.velocity.Y = -1;
-                        this.setSprite("Fly", "Gun");
-                        this.sprites["Fly"].animate(gameTime);
+                        velocity.Y = -1;
                     }
                 }
-
             }
+
+			// Sprites & Animations
+			if (flying)
+			{
+				if (velocity.Y == 0 && velocity.X == 0)
+				{
+					// TODO: Hover
+					setSprite("Hover", "Gun");
+					sprites["Hover"].animate(gameTime);
+				}
+				else
+				{
+					setSprite("Fly", "Gun");
+					sprites["Fly"].animate(gameTime);
+				}
+			}
+			else
+			{
+				if (velocity.X != 0)
+				{
+					sprites["Walk"].animate(gameTime);
+				}
+			}
         }
 
 		public override bool canCollideWith(GameObject otherObject)
