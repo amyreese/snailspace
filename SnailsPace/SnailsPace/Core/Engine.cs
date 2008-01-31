@@ -385,7 +385,7 @@ namespace SnailsPace.Core
 
 					while ((noSecondXCollision && (Math.Abs(resultingVelocity.X) < Math.Abs(objectVelocity.X))) || (noSecondYCollision && (Math.Abs(resultingVelocity.Y) < Math.Abs(objectVelocity.Y))))
 					{
-						if (noSecondYCollision)
+						if (noSecondYCollision && yTick != 0)
 						{
 							resultingVelocity.Y += yTick;
 							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
@@ -395,13 +395,9 @@ namespace SnailsPace.Core
 								resultingVelocity.Y -= yTick;
 							}
 						}
-						if (noSecondXCollision)
+						if (noSecondXCollision && xTick != 0)
 						{
 							resultingVelocity.X += xTick;
-							if (resultingVelocity.X == objectVelocity.X)
-							{
-								noSecondXCollision = false;
-							}
 							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
 							if (collidedObject != null)
 							{
@@ -410,48 +406,6 @@ namespace SnailsPace.Core
 							}
 						}
 					}
-					/*
-					if (objectVelocity.Y != 0)
-					{
-						newVelocity.X = 0.0f;
-						newVelocity.Y = objectVelocity.Y * 0.1f;
-						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
-						if (collidedObject == null)
-						{
-							for (float f = 1.0f; f > 0.1; f -= 0.1f)
-							{
-								newVelocity.Y = objectVelocity.Y * f;
-								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
-								if (collidedObject == null)
-								{
-									movingObject.position += newVelocity;
-									break;
-								}
-							}
-						}
-					}
-
-					if (objectVelocity.X != 0)
-					{
-						newVelocity.X = objectVelocity.X * 0.1f;
-						newVelocity.Y = 0.0f;
-
-						collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
-						if (collidedObject == null)
-						{
-							for (float f = 1.0f; f > 0.1; f -= 0.1f)
-							{
-								newVelocity.X = objectVelocity.X * f;
-								collidedObject = CheckForCollision(movingObject, collidableObjects, newVelocity, out x);
-								if (collidedObject == null)
-								{
-									movingObject.position += newVelocity;
-									break;
-								}
-							}
-						}
-					}
-					 * */
 				}
 				if (resultingVelocity.Y == 0)
 				{
@@ -490,15 +444,47 @@ namespace SnailsPace.Core
 			float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 0.5);
 
 
-			List<Objects.GameObject> allObjs = allObjects();
-			// Collision Detection
+            
+            
+            // Collision Detection
 			{
+                List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
+                List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
+                float maxXDiff = 700;
+                float maxYDiff = 700;
+                while (objEnum.MoveNext())
+                {
+                    if (objEnum.Current.collidable)
+                    {
+                        float left = objEnum.Current.position.X - objEnum.Current.size.X / 2;
+                        float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
+                        float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
+                        float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
+                        float leftDiff = Math.Abs(left - helix.position.X);
+                        float rightDiff = Math.Abs(right - helix.position.X);
+                        float topDiff = Math.Abs(top - helix.position.Y);
+                        float bottomDiff = Math.Abs(bottom - helix.position.Y);
+                        if (((leftDiff < maxXDiff && leftDiff > -maxXDiff) || (rightDiff < maxXDiff && rightDiff > -maxXDiff))
+                            && ((topDiff < maxXDiff && topDiff > -maxXDiff) || (bottomDiff < maxYDiff && bottomDiff > -maxYDiff)))
+                        {
+                            collidableObjects.Add(objEnum.Current);
+                        }
+                        else
+                        {
+                            if (objEnum.Current is Objects.Bullet)
+                            {
+                                bulletsToClear.Add((Objects.Bullet)objEnum.Current);
+                            }
+                        }
+                    }
+                }
+                objEnum.Dispose();
 
 				bool noQuadTree = true;
 				if (!noQuadTree)
 				{
-					Rectangle visibleScreen = new Rectangle((int)(helix.position.X - 800), (int)(helix.position.Y) - 800, 1600, 1600);
-					QuadTree quad = new QuadTree(allObjs, visibleScreen, 5 );
+					Rectangle visibleScreen = new Rectangle((int)(helix.position.X - 600), (int)(helix.position.Y) - 600, 1200, 1200);
+                    QuadTree quad = new QuadTree(collidableObjects, visibleScreen, 2);
 #if DEBUG
 					//Debug.WriteLine( helix.name + ": (" + helix.position.X + "," + helix.position.Y + ")" );
 					//quad.print();
@@ -508,34 +494,20 @@ namespace SnailsPace.Core
 
 				if (noQuadTree)
 				{
-					// Helix Collision Detection
-					MoveOrCollide(helix, allObjs, elapsedTime);
+                    List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
+                    while (collideableObjectEnum.MoveNext())
+                    {
+                        MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime);
+                    }
+                    
+                }
 
-					// Enemy Collision Detection
-					List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
-					while (charEnumerator.MoveNext())
-					{
-						MoveOrCollide(charEnumerator.Current, allObjs, elapsedTime);
-					}
-					charEnumerator.Dispose();
-
-					// Bullet Collision Detection
-					List<Objects.Bullet>.Enumerator bulletEnumerator = bullets.GetEnumerator();
-					while (bulletEnumerator.MoveNext())
-					{
-						// TODO: Make bullets that are too far away from Helix collide with nothing
-						MoveOrCollide(bulletEnumerator.Current, allObjs, elapsedTime);
-					}
-					bulletEnumerator.Dispose();
-				}
-				// Clear out exploded bullets
-
-
+                // Clear out exploded bullets
 				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
 				while (destroyedBulletEnumerator.MoveNext())
 				{
 					bullets.Remove(destroyedBulletEnumerator.Current);
-					// TODO: explosion?
+					// TODO: explosion!!!
 				}
 				destroyedBulletEnumerator.Dispose();
 			}

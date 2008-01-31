@@ -105,12 +105,22 @@ namespace SnailsPace.Objects
 
 		private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
 		{
-			float denom = ((b.X - a.X) * (d.Y - c.Y) - (b.Y - a.Y) * (d.X - c.X));
-			float r = ((a.Y - c.Y) * (d.X - c.X) - (a.X - c.X) * (d.Y - c.Y)) / denom;
-			float s = ((a.Y - c.Y) * (b.X - a.X) - (a.X - c.X) * (b.Y - a.Y)) / denom;
-			if (0 <= r && r <= 1 && 0 <= s && s <= 1)
-			{
-				return true;
+            float bxax = b.X - a.X;
+            float dycy = d.Y - c.Y;
+            float byay = b.Y - a.Y;
+            float dxcx = d.X - c.X;
+            float denom = bxax * dycy - byay * dxcx;
+
+            float aycy = a.Y - c.Y;
+            float axcx = a.X - c.X;
+			float r = (aycy * dxcx - axcx * dycy) / denom;
+            if (0 <= r && r <= 1)
+            {
+                float s = (aycy * bxax - axcx * byay) / denom;
+                if (0 <= s && s <= 1)
+                {
+                    return true;
+                }
 			}
 			return false;
 		}
