@@ -338,7 +338,7 @@ namespace SnailsPace.Core
 		}
 
 		private readonly Vector2 gravity = new Vector2(0.0f, -256.0f);
-		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
+		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
 		{
 			if ((gravityEnabled && movingObject.affectedByGravity) || movingObject.velocity.Length() > 0 || movingObject.direction.Length() > 0)
 			{
@@ -399,6 +399,59 @@ namespace SnailsPace.Core
 				}
 				Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
 				Vector2 resultingMovement = Vector2.Zero;
+
+				if (movingObject.position.X < boundsCenter.X)
+				{
+					if (objectMovement.X < 0)
+					{
+						float left = movingObject.position.X - movingObject.size.X / 2;
+						float leftDiff = left - boundsCenter.X;
+						float leftDiffAbs = Math.Abs(leftDiff);
+						if (leftDiffAbs > boundsSize.X / 2)
+						{
+							return;
+						}
+					}
+				}
+				else
+				{
+					if (objectMovement.X > 0)
+					{
+						float right = movingObject.position.X + movingObject.size.X / 2;
+						float rightDiff = right - boundsCenter.X;
+						float rightDiffAbs = Math.Abs(rightDiff);
+						if (rightDiffAbs > boundsSize.X / 2)
+						{
+							return;
+						}
+					}
+				}
+				if (movingObject.position.Y < boundsCenter.Y)
+				{
+					if (objectMovement.Y < 0)
+					{
+						float bottom = movingObject.position.Y - movingObject.size.Y / 2;
+						float bottomDiff = bottom - boundsCenter.Y;
+						float bottomDiffAbs = Math.Abs(bottomDiff);
+						if (bottomDiffAbs > boundsSize.Y / 2)
+						{
+							return;
+						}
+					}
+				}
+				else
+				{
+					if (objectMovement.Y > 0)
+					{
+						float top = movingObject.position.Y + movingObject.size.Y / 2;
+						float topDiff = top - boundsCenter.Y;
+						float topDiffAbs = Math.Abs(topDiff);
+						if (topDiffAbs > boundsSize.Y / 2)
+						{
+							return;
+						}
+					}
+				}
 
 				List<Objects.GameObject> remainingCollidableObjects;
 				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectMovement, out remainingCollidableObjects);
@@ -494,8 +547,8 @@ namespace SnailsPace.Core
 			{
 				List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
 				List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
-				float maxXDiff = 700;
-				float maxYDiff = 700;
+				Vector2 boundsSize = new Vector2(1400, 1400);
+				Vector2 boundsCenter = Player.helix.position;
 				while (objEnum.MoveNext())
 				{
 					if (objEnum.Current.collidable)
@@ -504,16 +557,16 @@ namespace SnailsPace.Core
 						float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
 						float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
 						float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
-						float leftDiff = left - Player.helix.position.X;
+						float leftDiff = left - boundsCenter.X;
 						float leftDiffAbs = Math.Abs(leftDiff);
-						float rightDiff = right - Player.helix.position.X;
+						float rightDiff = right - boundsCenter.X;
 						float rightDiffAbs = Math.Abs(rightDiff);
-						float topDiff = top - Player.helix.position.Y;
+						float topDiff = top - boundsCenter.Y;
 						float topDiffAbs = Math.Abs(topDiff);
-						float bottomDiff = bottom - Player.helix.position.Y;
+						float bottomDiff = bottom - boundsCenter.Y;
 						float bottomDiffAbs = Math.Abs(bottomDiff);
-						if (((leftDiffAbs < maxXDiff) || (rightDiffAbs < maxXDiff) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
-							&& ((topDiffAbs < maxXDiff) || (bottomDiffAbs < maxYDiff) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
+						if (((leftDiffAbs < boundsSize.X / 2) || (rightDiffAbs < boundsSize.X / 2) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
+							&& ((topDiffAbs < boundsSize.Y / 2) || (bottomDiffAbs < boundsSize.Y / 2) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
 						{
 							collidableObjects.Add(objEnum.Current);
 						}
@@ -537,7 +590,7 @@ namespace SnailsPace.Core
 					//Debug.WriteLine( helix.name + ": (" + helix.position.X + "," + helix.position.Y + ")" );
 					//quad.print();
 #endif
-					detectCollisionsInNode(quad.getRoot(), elapsedTime);
+					detectCollisionsInNode(quad.getRoot(), elapsedTime, boundsSize, boundsCenter);
 				}
 
 				if (noQuadTree)
@@ -545,7 +598,7 @@ namespace SnailsPace.Core
 					List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
 					while (collideableObjectEnum.MoveNext())
 					{
-						MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime);
+						MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, boundsSize, boundsCenter);
 					}
 
 				}
@@ -611,7 +664,7 @@ namespace SnailsPace.Core
 			}
 		}
 
-		private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime)
+		private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
 		{
 			List<QuadTreeNode> children = node.getNodes();
 			if (children.Count == 0)
@@ -621,7 +674,7 @@ namespace SnailsPace.Core
 				while (objectEnumerator.MoveNext())
 				{
 					String objectName = node.name;
-					MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime);
+					MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime, boundsSize, boundsCenter);
 				}
 			}
 			else
@@ -629,7 +682,7 @@ namespace SnailsPace.Core
 				List<QuadTreeNode>.Enumerator childrenEnumerator = children.GetEnumerator();
 				while (childrenEnumerator.MoveNext())
 				{
-					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime);
+					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime, boundsSize, boundsCenter);
 				}
 			}
 		}
