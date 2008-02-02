@@ -8,7 +8,9 @@ namespace SnailsPace.Objects
 {
     class Character : GameObject
     {
-        // Character properties.
+		public static Objects.Sprite bulletSprite;
+
+		// Character properties.
 		public int maxHealth;
         private int _health;
 		public int health {
@@ -35,6 +37,18 @@ namespace SnailsPace.Objects
 			if (lastFired + coolDown < gameTime.TotalRealTime.TotalMilliseconds)
 			{
 				Objects.Bullet bullet = new Objects.Bullet();
+				if (bulletSprite == null)
+				{
+					bulletSprite = new Objects.Sprite();
+					bulletSprite.image = new Objects.Image();
+					bulletSprite.image.filename = "Resources/Textures/Bullet";
+					bulletSprite.image.blocks = new Vector2(1.0f, 1.0f);
+					bulletSprite.image.size = new Vector2(16.0f, 8.0f);
+					bulletSprite.visible = true;
+					bulletSprite.effect = "Resources/Effects/effects";
+				}
+				bullet.sprites.Add("Bullet", bulletSprite);
+				bullet.size = bulletSprite.image.size;
 				bullet.velocity = targetPosition - position;
 				bullet.velocity.Normalize();
 				bullet.rotation = ((targetPosition.X - position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((targetPosition.Y - position.Y) / (targetPosition.X - position.X));

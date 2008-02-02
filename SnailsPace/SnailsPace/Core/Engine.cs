@@ -35,7 +35,6 @@ namespace SnailsPace.Core
 		public static Core.Player player;
 
 		// Bullets
-		public static Objects.Sprite bulletSprite;
 		public static List<Objects.Bullet> bullets;
 
 		// Pause Screen
@@ -61,14 +60,6 @@ namespace SnailsPace.Core
 			map = new Objects.Map(mapName);
 
 			bullets = new List<Objects.Bullet>();
-
-			bulletSprite = new Objects.Sprite();
-			bulletSprite.image = new Objects.Image();
-			bulletSprite.image.filename = "Resources/Textures/Bullet";
-			bulletSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			bulletSprite.image.size = new Vector2(16.0f, 8.0f);
-			bulletSprite.visible = true;
-			bulletSprite.effect = "Resources/Effects/effects";
 
 			loadFonts();
 			loadHUD();

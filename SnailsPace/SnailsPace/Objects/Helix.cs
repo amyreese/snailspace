@@ -98,9 +98,10 @@ namespace SnailsPace.Objects
             bounds = new Objects.GameObjectBounds(points);
             position = new Vector2(0, 0);
 			startPosition = position;
+
 			maxHealth = 20;
 			health = 20;
-        }
+		}
 
 		public void setSprite(String sprtName, String aSprtName)
 		{

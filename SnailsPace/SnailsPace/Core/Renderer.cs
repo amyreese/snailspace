@@ -307,7 +307,7 @@ namespace SnailsPace.Core
 						int xFlip = 0;
 						if (spriteEnumerator.Current.horizontalFlip && !obj.horizontalFlip || obj.horizontalFlip && !spriteEnumerator.Current.horizontalFlip)
 						{
-							xFlip = -1;
+							xFlip = 1;
 						}
 						int yFlip = 0;
 						for (int index = 0; index < vertices.Length; index++)
@@ -320,14 +320,14 @@ namespace SnailsPace.Core
 															+ translationMatrix.M42;
 							objVertices[index].Position.Z = objectPosition.Z;
 
-							int xMod = 1 - index % 2;
+							int xMod = 1 - ( index + xFlip ) % 2;
 							int yMod = 0;
 							if (index == 0 || index == 1)
 							{
-								yMod = 1;
+								yMod = 1 + yFlip;
 							}
-							objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X + xFlip;
-							objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y + yFlip;
+							objVertices[index].TextureCoordinate.X = (xBlock + xMod) / spriteEnumerator.Current.image.blocks.X;
+							objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y;
 						}
 
 						// TODO this probably isn't how we want to do this if we end up using more than one effect
