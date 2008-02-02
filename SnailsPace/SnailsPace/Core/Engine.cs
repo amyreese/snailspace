@@ -416,12 +416,16 @@ namespace SnailsPace.Core
                         float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
                         float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
                         float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
-                        float leftDiff = Math.Abs(left - Player.helix.position.X);
-                        float rightDiff = Math.Abs(right - Player.helix.position.X);
-                        float topDiff = Math.Abs(top - Player.helix.position.Y);
-                        float bottomDiff = Math.Abs(bottom - Player.helix.position.Y);
-                        if (((leftDiff < maxXDiff && leftDiff > -maxXDiff) || (rightDiff < maxXDiff && rightDiff > -maxXDiff))
-                            && ((topDiff < maxXDiff && topDiff > -maxXDiff) || (bottomDiff < maxYDiff && bottomDiff > -maxYDiff)))
+						float leftDiff = left - Player.helix.position.X;
+						float leftDiffAbs = Math.Abs(leftDiff);
+						float rightDiff = right - Player.helix.position.X;
+						float rightDiffAbs = Math.Abs(rightDiff);
+						float topDiff = top - Player.helix.position.Y;
+						float topDiffAbs = Math.Abs(topDiff);
+						float bottomDiff = bottom - Player.helix.position.Y;
+						float bottomDiffAbs = Math.Abs(bottomDiff);
+						if (((leftDiffAbs < maxXDiff) || (rightDiffAbs < maxXDiff) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
+							&& ((topDiffAbs < maxXDiff) || (bottomDiffAbs < maxYDiff) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
                         {
                             collidableObjects.Add(objEnum.Current);
                         }
