@@ -1,7 +1,8 @@
 
 -- Set up the trigger
 trig = Trigger()
-trig.location = Rectangle(-500,200,2000,2000)
+trig.position = Vector2(500,500)
+trig.bounds = GameObjectBounds( Vector2( 1000,1000 ), Vector2( 500,500 ), 0 )
 trig.state = {}
 map.triggers:Add(trig)
 

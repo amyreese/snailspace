@@ -210,6 +210,30 @@ namespace SnailsPace.Core
 				}
 				objectEnumerator.Dispose();
 #if DEBUG
+                if (SnailsPace.debugTriggers)
+                {
+                    Color white = new Color(255, 255, 255, 200);
+                    Color offwhite = new Color(255, 255, 255, 50);
+
+                    List<Objects.Trigger>.Enumerator triggers = Engine.map.triggers.GetEnumerator();
+                    while (triggers.MoveNext())
+                    {
+                        Objects.GameObjectBounds boundingBox = triggers.Current.bounds;
+                        Vector2[] boxVertices = boundingBox.GetPoints();
+                        VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length + 2];
+                        visualBoxVertices[0].Color = offwhite;
+                        visualBoxVertices[0].Position = new Vector3(triggers.Current.position, 1);
+                        visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 1);
+                        visualBoxVertices[visualBoxVertices.Length - 1].Color = white;
+                        for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
+                        {
+                            visualBoxVertices[boxVertexIndex + 1].Position = new Vector3(boxVertices[boxVertexIndex], 1);
+                            visualBoxVertices[boxVertexIndex + 1].Color = white;
+                        }
+                        boundingBoxVertices.Add(visualBoxVertices);
+                    }
+                }
+
 				// TODO this probably isn't how we want to do this if we end up using more than one effect
 				Effect effect = getOrCreateEffect("Resources/Effects/effects");
 				effect.CurrentTechnique = effect.Techniques["Colored"];

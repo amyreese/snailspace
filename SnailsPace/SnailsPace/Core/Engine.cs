@@ -478,7 +478,7 @@ namespace SnailsPace.Core
             {
                 Objects.Trigger trigger = triggers.Current;
 
-                if (trigger.location.Contains(new Point((int)Player.helix.position.X, (int)Player.helix.position.Y)))
+                if (trigger.bounds.WillIntersect(Player.helix.bounds, new Vector2()))
                 {
                     trigger.trigger(Player.helix);
                 }
@@ -607,30 +607,6 @@ namespace SnailsPace.Core
 				debugString.scale = Vector2.One;
 				strings.Add(debugString);
 			}
-
-            if (SnailsPace.debugTriggers)
-            {
-                Objects.Image triggerImage = new Objects.Image();
-                triggerImage.filename = "Resources/Textures/dirt";
-                triggerImage.size = new Vector2(16, 16);
-                triggerImage.blocks = new Vector2(16, 16);
-                
-                Objects.Sprite triggerSprite = new Objects.Sprite();
-                triggerSprite.image = triggerImage;
-                triggerSprite.effect = "Resources/Effects/effects";
-                triggerSprite.visible = true;
-
-                List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
-                while (triggers.MoveNext())
-                {
-                    Objects.GameObject triggerObject = new Objects.GameObject();
-                    triggerObject.sprites.Add("trigger", triggerSprite);
-                    triggerObject.position = new Vector2(triggers.Current.location.X, triggers.Current.location.Y);
-                    triggerObject.size = new Vector2(triggers.Current.location.Width, triggers.Current.location.Height);
-                    triggerObject.affectedByGravity = false;
-                    objects.Add(triggerObject);
-                }
-            }
 #endif
             strings.AddRange(allStrings());
             objects.AddRange(allObjects());

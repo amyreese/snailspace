@@ -11,7 +11,8 @@ namespace SnailsPace.Objects
     class Trigger
     {
         // Trigger location and size
-        public Rectangle location;
+        public Vector2 position;
+        public GameObjectBounds bounds;
 
         // Object state for Lua
         public LuaTable state;

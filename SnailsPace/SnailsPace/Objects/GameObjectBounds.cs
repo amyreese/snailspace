@@ -20,7 +20,7 @@ namespace SnailsPace.Objects
 		{
 			this.points = points;
 		}
-		internal GameObjectBounds(Vector2 size, Vector2 position, float rotation)
+		public GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
 			this.center = position;
 			this.rotation = rotation;
