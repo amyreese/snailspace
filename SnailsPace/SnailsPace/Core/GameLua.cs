@@ -45,7 +45,7 @@ Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');
 
 Map = import('SnailsPace.Objects.Map');
-Player = import('SnailsPace.Object.Player');
+Player = import('SnailsPace.Core.Player');
             
             ";
             this.DoString(initCode);

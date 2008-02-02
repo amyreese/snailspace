@@ -17,8 +17,10 @@ namespace SnailsPace.Objects
         public Helix( Vector2 position ) : base()
         {
             Engine.lua["helix"] = this;
-            this.sprites = new Dictionary<string, Objects.Sprite>();
-			this.name = "Helix";
+            
+            name = "Helix";
+            affectedByGravity = true;
+            
             Objects.Sprite walk = new Objects.Sprite();
             walk.image = new Objects.Image();
             walk.image.filename = "Resources/Textures/HelixTable";
@@ -38,41 +40,40 @@ namespace SnailsPace.Objects
             gun.effect = walk.effect;
             gun.layerOffset = -1.0f;
 
-            this.sprites.Add("Walk", walk);
-            this.sprites["Walk"].animationStart = 0;
-            this.sprites["Walk"].animationEnd = 7;
-            this.sprites["Walk"].frame = 0;
-            this.sprites["Walk"].animationDelay = 1.0f / 15.0f;
-            this.sprites["Walk"].timer = 0f;
+            sprites.Add("Walk", walk);
+            sprites["Walk"].animationStart = 0;
+            sprites["Walk"].animationEnd = 7;
+            sprites["Walk"].frame = 0;
+            sprites["Walk"].animationDelay = 1.0f / 15.0f;
+            sprites["Walk"].timer = 0f;
 
-            this.sprites.Add("Fly", fly);
-            this.sprites["Fly"].animationStart = 8;
-            this.sprites["Fly"].animationEnd = 11;
-            this.sprites["Fly"].frame = 8;
-            this.sprites["Fly"].animationDelay = 1.0f / 15.0f;
-            this.sprites["Fly"].timer = 0f;
+            sprites.Add("Fly", fly);
+            sprites["Fly"].animationStart = 8;
+            sprites["Fly"].animationEnd = 11;
+            sprites["Fly"].frame = 8;
+            sprites["Fly"].animationDelay = 1.0f / 15.0f;
+            sprites["Fly"].timer = 0f;
 
             // TODO: Make hover it's own animation
-            this.sprites.Add("Hover", fly);
-            this.sprites["Hover"].animationStart = 8;
-            this.sprites["Hover"].animationEnd = 11;
-            this.sprites["Hover"].frame = 8;
-            this.sprites["Hover"].animationDelay = 1.0f / 15.0f;
-            this.sprites["Hover"].timer = 0f;
+            sprites.Add("Hover", fly);
+            sprites["Hover"].animationStart = 8;
+            sprites["Hover"].animationEnd = 11;
+            sprites["Hover"].frame = 8;
+            sprites["Hover"].animationDelay = 1.0f / 15.0f;
+            sprites["Hover"].timer = 0f;
 
-            this.sprites.Add("Gun", gun);
-            this.sprites["Gun"].animationStart = 12;
-            this.sprites["Gun"].animationEnd = 15;
-            this.sprites["Gun"].frame = 12;
-            this.sprites["Gun"].animationDelay = 1.0f / 15.0f;
-            this.sprites["Gun"].timer = 0f;
+            sprites.Add("Gun", gun);
+            sprites["Gun"].animationStart = 12;
+            sprites["Gun"].animationEnd = 15;
+            sprites["Gun"].frame = 12;
+            sprites["Gun"].animationDelay = 1.0f / 15.0f;
+            sprites["Gun"].timer = 0f;
 
-            this.maxVelocity = 384.0f;
-            this.maxFuel = 40;
-            this.layer = 0;
-            this.affectedByGravity = true;
-
-            this.size = walk.image.size;
+            maxVelocity = 384.0f;
+            maxFuel = 40;
+            layer = 0;
+            
+            size = walk.image.size;
             Vector2[] points = new Vector2[11];
             points[0] = new Vector2(0.0f, 36.0f);
             points[1] = new Vector2(-27.0f, 25.0f);
@@ -85,27 +86,25 @@ namespace SnailsPace.Objects
             points[8] = new Vector2(28.0f, -9.0f);
             points[9] = new Vector2(27.0f, 6.0f);
             points[10] = new Vector2(21.0f, 23.0f);
-            this.bounds = new Objects.GameObjectBounds(points);
-            this.position = new Vector2(0, 0);
-
-            Engine.helix = this;
+            bounds = new Objects.GameObjectBounds(points);
+            position = new Vector2(0, 0);
         }
 
 		public void setSprite(String sprtName, String aSprtName)
 		{
-			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = this.sprites.Values.GetEnumerator();
+			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
 			while (sprtEnumerator.MoveNext())
 			{
 				sprtEnumerator.Current.visible = false;
 			}
-			this.sprites[sprtName].visible = true;
-			this.sprites[aSprtName].visible = true;
+			sprites[sprtName].visible = true;
+			sprites[aSprtName].visible = true;
 			
 		}
 
         public override void think(GameTime gameTime)
         {
-			affectedByGravity = true;
+			
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
@@ -207,27 +206,28 @@ namespace SnailsPace.Objects
 				}
 			}
 
-            this.sprites["Gun"].rotation = ((Engine.crosshair.position.X - this.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((Engine.crosshair.position.Y - this.position.Y) / (Engine.crosshair.position.X - this.position.X));
+            GameObject crosshair = Player.crosshair;
+            sprites["Gun"].rotation = ((crosshair.position.X - position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - position.Y) / (crosshair.position.X - position.X));
 
             if (input.inputDown("Fire"))
             {
-                if (this.lastFired + this.coolDown < gameTime.TotalRealTime.TotalMilliseconds)
+                if (lastFired + coolDown < gameTime.TotalRealTime.TotalMilliseconds)
                 {
                     Objects.Bullet bullet = new Objects.Bullet();
                     bullet.sprites = new Dictionary<string, Objects.Sprite>();
                     bullet.sprites.Add("Bullet", Engine.bulletSprite);
                     bullet.size = Engine.bulletSprite.image.size;
-                    bullet.velocity = new Vector2(Engine.crosshair.position.X - this.position.X, Engine.crosshair.position.Y - this.position.Y);
+                    bullet.velocity = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
                     bullet.velocity.Normalize();
-                    bullet.rotation = this.sprites["Gun"].rotation;
-                    bullet.position = this.position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
-                    bullet.maxVelocity = this.maxVelocity + 64.0f;
+                    bullet.rotation = sprites["Gun"].rotation;
+                    bullet.position = position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
+                    bullet.maxVelocity = maxVelocity + 64.0f;
                     bullet.layer = -0.001f;
                     bullet.isPCBullet = true;
                     bullet.damage = 1;
                     Engine.bullets.Add(bullet);
-                    this.fireCooldown = 2;
-                    this.lastFired = gameTime.TotalRealTime.TotalMilliseconds;
+                    fireCooldown = 2;
+                    lastFired = gameTime.TotalRealTime.TotalMilliseconds;
                 }
             }
         }

@@ -10,10 +10,10 @@ namespace SnailsPace.Core
 	class Renderer
 	{
 		// Camera information
-		public Vector3 cameraPosition;
+		public static Vector3 cameraPosition;
 
-		public Objects.GameObject cameraTarget;
-		public Vector3 cameraTargetOffset;
+		public static Objects.GameObject cameraTarget;
+		public static Vector3 cameraTargetOffset;
 
 		public Vector2[] cameraBounds;
 

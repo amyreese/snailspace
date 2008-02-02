@@ -28,21 +28,17 @@ namespace SnailsPace.Core
 
 		// Game map
 		public static GameLua lua;
-		public Objects.Map map;
+		public static Objects.Map map;
 
 		// Player
-        public Core.Player player;
-        public static Objects.Helix helix;
-		
+        public static Core.Player player;
+
 		// Bullets
 		public static Objects.Sprite bulletSprite;
 		public static List<Objects.Bullet> bullets;
 
 		// Pause Screen
 		public Objects.GameObject pause;
-
-		// Crosshair
-		public static Objects.GameObject crosshair;
 
 		// Renderer
 		public Renderer gameRenderer;
@@ -51,15 +47,11 @@ namespace SnailsPace.Core
 		public List<Objects.GameObject> mapBounds;
 
 		// Constructors
-		public Engine(String map)
+		public Engine(String mapName)
 		{
             // Initialize Lua, the Player, and the Map
-            lua = new GameLua(map);
-            
-            this.player = new Player();
-            lua["player"] = player;
-            
-            this.map = new Objects.Map(map);
+            lua = new GameLua(mapName);
+            map = new Objects.Map(mapName);
 
 			bullets = new List<Objects.Bullet>();
 
@@ -73,7 +65,6 @@ namespace SnailsPace.Core
 
 			loadFonts();
 			setupPauseOverlay();
-			setupCrosshair();
 			setupGameRenderer();
 			setupMapBounds();
 		}
@@ -93,23 +84,6 @@ namespace SnailsPace.Core
 			pause.position = new Vector2(0.0f, 0.0f);
 			pause.layer = -3;
 			pause.collidable = false;
-		}
-
-		private void setupCrosshair()
-		{
-			Objects.Sprite crosshairSprite = new Objects.Sprite();
-			crosshairSprite.image = new Objects.Image();
-			crosshairSprite.image.filename = "Resources/Textures/Crosshair";
-			crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
-			crosshairSprite.visible = true;
-			crosshairSprite.effect = "Resources/Effects/effects";
-			crosshair = new Objects.GameObject();
-			crosshair.sprites = new Dictionary<string, Objects.Sprite>();
-			crosshair.sprites.Add("Crosshair", crosshairSprite);
-			crosshair.position = new Vector2(0.0f, 0.0f);
-			crosshair.layer = 0;
-			crosshair.collidable = false;
 		}
 
 		private void setupMapBounds()
@@ -172,11 +146,11 @@ namespace SnailsPace.Core
 			//            gameRenderer.createTexturesAndEffects(allObjects());
 
 			Vector2 offsetPosition = new Vector2(0, 0);
-			gameRenderer.cameraPosition = new Vector3(helix.position + offsetPosition, gameRenderer.cameraTargetOffset.Z * 1.5f);
+			Renderer.cameraPosition = new Vector3(); //Player.helix.position + offsetPosition, Renderer.cameraTargetOffset.Z * 1.5f);
 
-			gameRenderer.cameraTarget = helix;
-			gameRenderer.cameraTargetOffset.X = -64;
-			gameRenderer.cameraTargetOffset.Y = 192;
+			Renderer.cameraTarget = Player.helix;
+			Renderer.cameraTargetOffset.X = -64;
+			Renderer.cameraTargetOffset.Y = 192;
 
 			gameRenderer.cameraBounds = map.bounds.ToArray();
 		}
@@ -199,7 +173,7 @@ namespace SnailsPace.Core
 
 			if (enginePaused)
 			{
-				pause.position = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
+				pause.position = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
 				return;
 			}
 
@@ -223,12 +197,6 @@ namespace SnailsPace.Core
 			while (deadCharEnum.MoveNext())
 				map.characters.Remove(deadCharEnum.Current);
 			deadCharEnum.Dispose();
-
-
-			// Update things that depend on mouse position
-			{
-				crosshair.position = mouseToGame(input.mousePosition);
-			}
 
 #if DEBUG
             if (input.inputPressed("DebugFramerate"))
@@ -278,21 +246,21 @@ namespace SnailsPace.Core
 			player.think(gameTime);
 		}
 
-		private Vector2 mouseToGame(Vector2 mousePosition)
+		public static Vector2 mouseToGame(Vector2 mousePosition)
 		{
 			int screenWidth = SnailsPace.videoConfig.getInt("width");
 			int screenHeight = SnailsPace.videoConfig.getInt("height");
-			float scaleX = gameRenderer.cameraPosition.Z / 1.8f;
-			float scaleY = gameRenderer.cameraPosition.Z / -2.4f;
+			float scaleX = Renderer.cameraPosition.Z / 1.8f;
+			float scaleY = Renderer.cameraPosition.Z / -2.4f;
 
-			Vector2 gamePosition = new Vector2(gameRenderer.cameraPosition.X, gameRenderer.cameraPosition.Y);
+			Vector2 gamePosition = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
 			gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
 			gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
 
 			return gamePosition;
 		}
 
-		private float screenSignedPercentage(float position, int size)
+		public static float screenSignedPercentage(float position, int size)
 		{
 			int halfSize = size / 2;
 			float halfPosition = position - halfSize;
@@ -407,23 +375,6 @@ namespace SnailsPace.Core
 						}
 					}
 				}
-				if (resultingVelocity.Y == 0)
-				{
-					if (movingObject is Objects.Helix)
-					{
-						if (objectVelocity.Y < 0)
-						{
-							helix.flying = false;
-						}
-					}
-				}
-				if (resultingVelocity.Y > 0)
-				{
-					if (movingObject is Objects.Helix)
-					{
-						helix.flying = true;
-					}
-				}
 				if (resultingVelocity.Length() == 0)
 				{
 					movingObject.collidedWith(collidedObject);
@@ -460,10 +411,10 @@ namespace SnailsPace.Core
                         float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
                         float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
                         float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
-                        float leftDiff = Math.Abs(left - helix.position.X);
-                        float rightDiff = Math.Abs(right - helix.position.X);
-                        float topDiff = Math.Abs(top - helix.position.Y);
-                        float bottomDiff = Math.Abs(bottom - helix.position.Y);
+                        float leftDiff = Math.Abs(left - Player.helix.position.X);
+                        float rightDiff = Math.Abs(right - Player.helix.position.X);
+                        float topDiff = Math.Abs(top - Player.helix.position.Y);
+                        float bottomDiff = Math.Abs(bottom - Player.helix.position.Y);
                         if (((leftDiff < maxXDiff && leftDiff > -maxXDiff) || (rightDiff < maxXDiff && rightDiff > -maxXDiff))
                             && ((topDiff < maxXDiff && topDiff > -maxXDiff) || (bottomDiff < maxYDiff && bottomDiff > -maxYDiff)))
                         {
@@ -483,7 +434,7 @@ namespace SnailsPace.Core
 				bool noQuadTree = true;
 				if (!noQuadTree)
 				{
-					Rectangle visibleScreen = new Rectangle((int)(helix.position.X - 600), (int)(helix.position.Y) - 600, 1200, 1200);
+					Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1200, 1200);
                     QuadTree quad = new QuadTree(collidableObjects, visibleScreen, 2);
 #if DEBUG
 					//Debug.WriteLine( helix.name + ": (" + helix.position.X + "," + helix.position.Y + ")" );
@@ -514,11 +465,9 @@ namespace SnailsPace.Core
 
 			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
 
-			// Helix's gun
-
 			// Animate everything
 			{
-				List<Objects.GameObject>.Enumerator objEnumerator = this.map.objects.GetEnumerator();
+				List<Objects.GameObject>.Enumerator objEnumerator = map.objects.GetEnumerator();
 				while (objEnumerator.MoveNext())
 				{
 					Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = objEnumerator.Current.sprites.Values.GetEnumerator();
@@ -530,7 +479,7 @@ namespace SnailsPace.Core
 				}
 				objEnumerator.Dispose();
 
-				List<Objects.Character>.Enumerator charEnumerator = this.map.characters.GetEnumerator();
+				List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
 				while (charEnumerator.MoveNext())
 				{
 
@@ -590,7 +539,7 @@ namespace SnailsPace.Core
 			{
 				Objects.Text debugString = new Objects.Text();
 				debugString.color = Color.Yellow;
-				debugString.content = "Helix: (" + helix.position.X + ", " + helix.position.Y + ")";
+				debugString.content = "Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")";
 				debugString.font = debugFont;
 				debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
 				debugString.rotation = 0;
@@ -601,7 +550,7 @@ namespace SnailsPace.Core
 			{
 				Objects.Text debugString = new Objects.Text();
 				debugString.color = Color.Yellow;
-				debugString.content = "Camera: (" + gameRenderer.cameraPosition.X + ", " + gameRenderer.cameraPosition.Y + ", " + gameRenderer.cameraPosition.Z + ")";
+				debugString.content = "Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")";
 				debugString.font = debugFont;
 				debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
 				debugString.rotation = 0;
@@ -620,7 +569,7 @@ namespace SnailsPace.Core
 
 				debugString = new Objects.Text();
 				debugString.color = Color.Yellow;
-				Vector3 distance = cameraTargetPosition - gameRenderer.cameraPosition;
+				Vector3 distance = cameraTargetPosition - Renderer.cameraPosition;
 				debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
 				debugString.font = debugFont;
 				debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
@@ -630,7 +579,7 @@ namespace SnailsPace.Core
 
 				debugString = new Objects.Text();
 				debugString.color = Color.Yellow;
-				debugString.content = "Crosshair: (" + crosshair.position.X + ", " + crosshair.position.Y + ")";
+				debugString.content = "Crosshair: (" + Player.crosshair.position.X + ", " + Player.crosshair.position.Y + ")";
 				debugString.font = debugFont;
 				debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
 				debugString.rotation = 0;
@@ -667,10 +616,8 @@ namespace SnailsPace.Core
 			}
 			boundsEnum.Dispose();
 
-			objects.Add(helix);
 			objects.Add(pause);
-			objects.Add(crosshair);
-            objects.AddRange(player.gameObjects());
+			objects.AddRange(player.gameObjects());
 			return objects;
 		}
 
