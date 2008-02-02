@@ -57,5 +57,17 @@ namespace SnailsPace.Objects
                 Engine.lua.Call(thinker, this, gameTime);
             }
         }
+
+		public override bool canCollideWith(GameObject otherObject)
+		{
+			if ((otherObject is Objects.Bullet) && !(((Bullet)otherObject).isPCBullet))
+			{
+				return false;
+			}
+			else
+			{
+				return base.canCollideWith(otherObject);
+			}
+		}
     }
 }
