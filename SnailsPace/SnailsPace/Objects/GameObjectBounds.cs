@@ -103,7 +103,84 @@ namespace SnailsPace.Objects
 			return false;
 		}
 
-		private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+        public bool containsPoint(float x, float y)
+        {
+            int hits = 0;
+            int length = points.Length;
+            
+            float lx = points[length - 1].X;
+            float ly = points[length - 1].Y;
+
+            float cx, cy;
+
+            for (int i = 0; i < length; lx = cx, ly = cy, i++)
+            {
+                cx = points[i].X;
+                cy = points[i].Y;
+
+                if (cy == ly)
+                {
+                    continue;
+                }
+
+                float left;
+                if (cx < lx)
+                {
+                    if (x >= lx)
+                    {
+                        continue;
+                    }
+                    left = cx;
+                }
+                else
+                {
+                    if (x >= cx)
+                    {
+                        continue;
+                    }
+                    left = x;
+                }
+
+                float tx, ty;
+                if (cy < ly)
+                {
+                    if (y < cy || y >= ly)
+                    {
+                        continue;
+                    }
+                    if (x < lx)
+                    {
+                        hits++;
+                        continue;
+                    }
+                    tx = x - cx;
+                    ty = y - cy;
+                }
+                else
+                {
+                    if (y < ly || y >= cy)
+                    {
+                        continue;
+                    }
+                    if (x < lx)
+                    {
+                        hits++;
+                        continue;
+                    }
+                    tx = x - lx;
+                    ty = y - ly;
+                }
+
+                if (tx < (ty / (ly - cy) * (lx - cx)))
+                {
+                    hits++;
+                }
+            }
+
+            return ((hits & 1) != 0);
+        }
+
+        private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
 		{
             float bxax = b.X - a.X;
             float dycy = d.Y - c.Y;

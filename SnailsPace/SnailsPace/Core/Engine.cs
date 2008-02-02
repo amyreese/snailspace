@@ -561,18 +561,18 @@ namespace SnailsPace.Core
 				destroyedBulletEnumerator.Dispose();
 			}
 
-			List<Objects.Character>.Enumerator characters;
-			List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
+			// Check all triggers against Helix
+            List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
 			while (triggers.MoveNext())
 			{
 				Objects.Trigger trigger = triggers.Current;
 
-				if (trigger.bounds.WillIntersect(Player.helix.bounds, new Vector2()))
-				{
-					trigger.trigger(Player.helix);
-				}
-			}
-			triggers.Dispose();
+                if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
+                {
+                    trigger.trigger(Player.helix);
+                }
+            }
+            triggers.Dispose();
 
 			// Animate everything
 			{
