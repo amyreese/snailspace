@@ -72,10 +72,10 @@ namespace SnailsPace.Objects
 			sprites["NoFuel"].animationDelay = 1.0f / 2.0f;
 			sprites["NoFuel"].timer = 0f;
 			
-			sprites.Add("Gun", gun);
-            sprites["Gun"].animationStart = 12;
+			sprites.Add("Gun", fly.clone());
+            sprites["Gun"].animationStart = 15;
             sprites["Gun"].animationEnd = 15;
-            sprites["Gun"].frame = 12;
+            sprites["Gun"].frame = 15;
             sprites["Gun"].animationDelay = 1.0f / 15.0f;
             sprites["Gun"].timer = 0f;
 
