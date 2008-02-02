@@ -53,7 +53,7 @@ function Spider(startPos)
 	return spider
 end
 
--- Fire Ant behavior function
+-- Spider behavior function
 function SpiderThinker( self, gameTime )
 	vision = 640
 	if ( self.state.mad == true and self.state.tracking ) then

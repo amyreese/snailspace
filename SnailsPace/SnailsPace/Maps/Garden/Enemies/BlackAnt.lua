@@ -28,7 +28,7 @@ function BASprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a BlackAnt object
-function BlackAnt(startPos)
+function BlackAnt(startPos, behav)
 	walk = BASprite(0, 3, 0.07)
 	stand = BASprite(0, 0, 0.07)
 	
@@ -49,6 +49,7 @@ function BlackAnt(startPos)
 		tracking = false,
 		mad = false,
 	}
+	blackant.behavior = behav
 	map.characters:Add(blackant)
 	
 	return blackant
@@ -56,7 +57,10 @@ end
 
 -- Black Ant behavior function
 function BlackAntThinker( self, gameTime )
-	AI.platformPatrol(self)
-	
+	if (self.behavior == "platPatrol") then
+		AI.platformPatrol(self)
+	elseif (self.behavior == "patrol") then
+		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
+	end
 	-- TODO: Extend AI for the Black Ant
 end

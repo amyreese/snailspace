@@ -22,13 +22,13 @@ include("Scenery/Plane2.lua")
 -- Create an enemy
 --fireant = FireAnt(Vector2(300, 0))
 
-blackant1 = BlackAnt(Vector2(1280, 300))
-blackant2 = BlackAnt(Vector2(1760, 70))
-blackant3 = BlackAnt(Vector2(2560, -310))
-blackant4 = BlackAnt(Vector2(3360, -80))
-blackant5 = BlackAnt(Vector2(1920, 660))
-blackant6 = BlackAnt(Vector2(2720, 500))
-blackant7 = BlackAnt(Vector2(3360, 975))
+blackant1 = BlackAnt(Vector2(1280, 300), "patrol")
+blackant2 = BlackAnt(Vector2(1760, 70), "platPatrol")
+blackant3 = BlackAnt(Vector2(2560, -310), "platPatrol")
+blackant4 = BlackAnt(Vector2(3360, -80), "platPatrol")
+blackant5 = BlackAnt(Vector2(1920, 660), "platPatrol")
+blackant6 = BlackAnt(Vector2(2720, 500), "platPatrol")
+blackant7 = BlackAnt(Vector2(3360, 975), "platPatrol")
 
 --bee = Bee()
 
