@@ -243,7 +243,7 @@ namespace SnailsPace.Objects
                     bullet.velocity = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
                     bullet.velocity.Normalize();
                     bullet.rotation = sprites["Gun"].rotation;
-                    bullet.position = position + Vector2.Multiply(bullet.direction, 32 * 1.15f);
+                    bullet.position = position + Vector2.Multiply(bullet.velocity, 32 * 1.25f);
                     bullet.maxVelocity = maxVelocity + 64.0f;
 					bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
 					bullet.layer = -0.001f;
