@@ -273,6 +273,14 @@ namespace SnailsPace.Core
 				batch.End();
 				textEnumerator.Dispose();
 			}
+
+			SpriteBatch hudBatch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
+			hudBatch.Begin();
+			hudBatch.Draw(Engine.healthIcon, new Rectangle(0, 0, 32, 32), Color.White);
+			hudBatch.Draw(Engine.healthBar, new Rectangle(32, 8, 300, 16), Color.White);
+			hudBatch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
+			hudBatch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
+			hudBatch.End();
 		}
 
 		private void drawObject(Objects.GameObject obj, BoundingFrustum viewFrustum)

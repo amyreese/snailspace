@@ -47,6 +47,12 @@ namespace SnailsPace.Core
 		// Invisible map bounding objects
 		public List<Objects.GameObject> mapBounds;
 
+		// HUD sprites
+		public static Texture2D healthBar;
+		public static Texture2D healthIcon;
+		public static Texture2D fuelBar;
+		public static Texture2D fuelIcon;
+
 		// Constructors
 		public Engine(String mapName)
 		{
@@ -65,6 +71,7 @@ namespace SnailsPace.Core
 			bulletSprite.effect = "Resources/Effects/effects";
 
 			loadFonts();
+			loadHUD();
 			setupPauseOverlay();
 			setupGameRenderer();
 			setupMapBounds();
@@ -139,6 +146,14 @@ namespace SnailsPace.Core
 #if DEBUG
 			debugFont = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Debug");
 #endif
+		}
+
+		private void loadHUD()
+		{
+			healthBar = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/HealthBar");
+			healthIcon = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/HealthIcon");
+			fuelBar = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/FuelBar");
+			fuelIcon = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/FuelIcon");
 		}
 
 		private void setupGameRenderer()
