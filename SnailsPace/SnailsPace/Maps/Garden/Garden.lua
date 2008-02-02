@@ -20,7 +20,7 @@ include("Scenery/Plane2.lua")
 
 
 -- Create an enemy
-fireant = FireAnt(Vector2(300, 0))
+--fireant = FireAnt(Vector2(300, 0))
 
 blackant1 = BlackAnt(Vector2(1280, 300))
 blackant2 = BlackAnt(Vector2(1760, 70))

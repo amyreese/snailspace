@@ -39,7 +39,7 @@ function FireAnt(startPos)
 	fireant.startPosition = startPos
 	fireant.position = startPos
 	fireant.affectedByGravity = true
-	fireant.velocity = Vector2(1,0)
+	fireant.direction = Vector2(1,0)
 	fireant.maxVelocity = 400
 	fireant.thinker = "FireAntThinker"
 	fireant.health = 3

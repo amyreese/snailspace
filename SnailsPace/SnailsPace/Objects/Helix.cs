@@ -61,7 +61,7 @@ namespace SnailsPace.Objects
             sprites["Hover"].animationStart = 8;
             sprites["Hover"].animationEnd = 9;
             sprites["Hover"].frame = 8;
-            sprites["Hover"].animationDelay = 1.0f / 15.0f;
+            sprites["Hover"].animationDelay = 1.0f / 7.0f;
             sprites["Hover"].timer = 0f;
 
 			sprites.Add("NoFuel", fly.clone());

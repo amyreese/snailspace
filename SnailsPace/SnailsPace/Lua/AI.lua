@@ -51,10 +51,12 @@ function AI.patrol(self, pt1, pt2)
 	self:setSprite("Walk")
 	if (self.position.X > pt1) then
 		self.direction = Vector2( -1, 0 )
+		self.acceleration = 1280
 	elseif (self.position.X < pt2) then
 		self.direction = Vector2( 1, 0 )
+		self.acceleration = 1280
 	end
-    self.desiredMaxVelocity = vmax
+	
 end
 
 --[[ Attack Helix ]]--
@@ -64,5 +66,5 @@ end
 
 --[[Patrol on a platform]]--
 function AI.platformPatrol(self)
-	AI.patrol(self, self.startPosition.X + 200, self.startPosition.X - 200)
+	AI.patrol(self, self.startPosition.X + 10, self.startPosition.X - 10)
 end
