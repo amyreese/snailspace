@@ -19,6 +19,7 @@ namespace SnailsPace.Core
 
 		// Engine state
 		bool enginePaused = false;
+        public static GameTime gameTime;
 
 		// Game font
 		public SpriteFont gameFont;
@@ -157,6 +158,7 @@ namespace SnailsPace.Core
 
 		public void think(GameTime gameTime)
 		{
+            Engine.gameTime = gameTime;
 			Input input = SnailsPace.inputManager;
 
 			if (input.inputPressed("Pause"))
@@ -177,8 +179,7 @@ namespace SnailsPace.Core
 				return;
 			}
 
-
-			// TODO: iterate through map.characters calling think() on each one.
+            // TODO: iterate through map.characters calling think() on each one.
 			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
 			List<Objects.Character> deadChars = new List<Objects.Character>();
 			while (charEnum.MoveNext())
@@ -240,6 +241,10 @@ namespace SnailsPace.Core
             {
 				Renderer.debugZoom += 0.25f;
 				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
+            }
+            if (input.inputPressed("DebugTriggers"))
+            {
+                SnailsPace.debugTriggers = !SnailsPace.debugTriggers;
             }
 #endif
 
@@ -463,7 +468,18 @@ namespace SnailsPace.Core
 				destroyedBulletEnumerator.Dispose();
 			}
 
-			// TODO: iterate through map.triggers and map.characters to find which triggers to execute
+            List<Objects.Character>.Enumerator characters;
+            List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
+            while (triggers.MoveNext())
+            {
+                Objects.Trigger trigger = triggers.Current;
+
+                if (trigger.location.Contains(new Point((int)Player.helix.position.X, (int)Player.helix.position.Y)))
+                {
+                    trigger.trigger(Player.helix);
+                }
+            }
+            triggers.Dispose();
 
 			// Animate everything
 			{
@@ -532,6 +548,7 @@ namespace SnailsPace.Core
 			// and then send the list of sprites to the rendering system.
 			// TODO: add bullets
 			List<Objects.Text> strings = new List<Objects.Text>();
+            List<Objects.GameObject> objects = new List<Objects.GameObject>();
 
 #if DEBUG
 			int numDebugStrings = 0;
@@ -586,9 +603,34 @@ namespace SnailsPace.Core
 				debugString.scale = Vector2.One;
 				strings.Add(debugString);
 			}
+
+            if (SnailsPace.debugTriggers)
+            {
+                Objects.Image triggerImage = new Objects.Image();
+                triggerImage.filename = "Resources/Textures/dirt";
+                triggerImage.size = new Vector2(16, 16);
+                triggerImage.blocks = new Vector2(16, 16);
+                
+                Objects.Sprite triggerSprite = new Objects.Sprite();
+                triggerSprite.image = triggerImage;
+                triggerSprite.effect = "Resources/Effects/effects";
+                triggerSprite.visible = true;
+
+                List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
+                while (triggers.MoveNext())
+                {
+                    Objects.GameObject triggerObject = new Objects.GameObject();
+                    triggerObject.sprites.Add("trigger", triggerSprite);
+                    triggerObject.position = new Vector2(triggers.Current.location.X, triggers.Current.location.Y);
+                    triggerObject.size = new Vector2(triggers.Current.location.Width, triggers.Current.location.Height);
+                    triggerObject.affectedByGravity = false;
+                    objects.Add(triggerObject);
+                }
+            }
 #endif
             strings.AddRange(allStrings());
-			gameRenderer.render(allObjects(), strings, gameTime);
+            objects.AddRange(allObjects());
+			gameRenderer.render(objects, strings, gameTime);
 		}
 
 		private List<Objects.GameObject> allObjects()

@@ -85,5 +85,23 @@ end
             call += ")\nend";
             DoString(call);
         }
+
+        public void CallOn(LuaTable self, String function, params object[] args)
+        {
+            this["this"] = self;
+            String call = "if ( this." + function + " ~= nil ) then\n\tthis:" + function + "(";
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                String varname = "arg" + i;
+                this[varname] = args[i];
+
+                call += (i == 0 ? "" : ",") + varname;
+            }
+
+            call += ")\nend";
+            Console.WriteLine("Lua object call: \n" + call + "\n");
+            DoString(call);
+        }
     }
 }

@@ -1,6 +1,7 @@
 
 -- Player creation and starting position
 player = Player( Vector2(0,0) )
+include("Triggers/Message.lua")
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")

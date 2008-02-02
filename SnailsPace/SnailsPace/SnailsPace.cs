@@ -30,6 +30,7 @@ namespace SnailsPace
         public static bool debugCollisions = false;
         public static bool debugBoundingBoxes = true;
         public static bool debugFlying = false;
+        public static bool debugTriggers = false;
 #endif
 		#endregion
 
