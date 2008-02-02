@@ -322,28 +322,79 @@ namespace SnailsPace.Core
 			return null;
 		}
 
-		private readonly Vector2 gravity = new Vector2(0.0f, -128.0f);
+		private readonly Vector2 gravity = new Vector2(0.0f, -256.0f);
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime)
 		{
-			Vector2 objectVelocity = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
-			Vector2 resultingVelocity = new Vector2();
-			if ((gravityEnabled && movingObject.affectedByGravity) || objectVelocity.Length() > 0)
+			if ((gravityEnabled && movingObject.affectedByGravity) || movingObject.velocity.Length() > 0 || movingObject.direction.Length() > 0)
 			{
-				if (objectVelocity.Length() > 0)
+				Vector2 objectVelocity = Vector2.Zero;
+				Vector2 objectAccel = Vector2.Zero;
+				// Calculate their velocity after acceleration
+				if (movingObject.direction.Length() > 0)
 				{
-					objectVelocity.Normalize();
-					objectVelocity = Vector2.Multiply(objectVelocity, movingObject.maxVelocity);
+					movingObject.direction.Normalize();
+					if (movingObject.desiredMaxVelocity == 0)
+					{
+						movingObject.desiredMaxVelocity = movingObject.maxVelocity;
+					}
+					objectAccel = movingObject.direction * movingObject.acceleration * elapsedTime;
+					objectVelocity = objectAccel + movingObject.velocity;
+					if (objectVelocity.Length() > movingObject.velocity.Length() && objectVelocity.Length() > movingObject.desiredMaxVelocity)
+					{
+						objectVelocity.Normalize();
+						objectVelocity = objectVelocity * movingObject.desiredMaxVelocity;
+					}
 				}
+				else
+				{
+					objectVelocity = movingObject.velocity;
+					if (objectVelocity.X == 0)
+					{
+						// stay at 0
+					}
+					else if (objectVelocity.X > 0)
+					{
+						objectVelocity.X -= movingObject.horizontalFriction * elapsedTime;
+						if (objectVelocity.X < 0)
+						{
+							objectVelocity.X = 0;
+						}
+					}
+					else
+					{
+						objectVelocity.X += movingObject.horizontalFriction * elapsedTime;
+						if (objectVelocity.X > 0)
+						{
+							objectVelocity.X = 0;
+						}
+					}
+				}
+				
+				// Calculate their velocity after gravity;
 				if (gravityEnabled && movingObject.affectedByGravity)
 				{
-					objectVelocity += gravity;
+					if (-objectVelocity.Y < movingObject.terminalVelocity)
+					{
+						objectVelocity += gravity * elapsedTime;
+						if (-objectVelocity.Y > movingObject.terminalVelocity)
+						{
+							objectVelocity.Y = -movingObject.terminalVelocity;
+						}
+						else
+						{
+							Console.WriteLine(objectVelocity.Y);
+						}
+					}
 				}
-				objectVelocity = Vector2.Multiply(objectVelocity, elapsedTime);
+				//Console.WriteLine( objectVelocity.Length() );
+				Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
+				Vector2 resultingMovement = Vector2.Zero;
+
 				List<Objects.GameObject> remainingCollidableObjects;
-				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectVelocity, out remainingCollidableObjects);
+				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectMovement, out remainingCollidableObjects);
 				if (collidedObject == null)
 				{
-					resultingVelocity = objectVelocity;
+					resultingMovement = objectMovement;
 				}
 				else if (movingObject is Objects.Bullet)
 				{
@@ -353,40 +404,50 @@ namespace SnailsPace.Core
 				{
 					bool noSecondXCollision = true;
 					bool noSecondYCollision = true;
-					float xTick = objectVelocity.X * 0.35f;
-					float yTick = objectVelocity.Y * 0.35f;
+					float xTick = objectMovement.X * 0.25f;
+					float yTick = objectMovement.Y * 0.25f;
 
-					while ((noSecondXCollision && (Math.Abs(resultingVelocity.X) < Math.Abs(objectVelocity.X))) || (noSecondYCollision && (Math.Abs(resultingVelocity.Y) < Math.Abs(objectVelocity.Y))))
+					while ((noSecondXCollision && (Math.Abs(resultingMovement.X) < Math.Abs(objectMovement.X))) || (noSecondYCollision && (Math.Abs(resultingMovement.Y) < Math.Abs(objectMovement.Y))))
 					{
 						if (noSecondYCollision && yTick != 0)
 						{
-							resultingVelocity.Y += yTick;
-							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
+							resultingMovement.Y += yTick;
+							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
 							if (collidedObject != null)
 							{
 								noSecondYCollision = false;
-								resultingVelocity.Y -= yTick;
+								resultingMovement.Y -= yTick;
 							}
 						}
 						if (noSecondXCollision && xTick != 0)
 						{
-							resultingVelocity.X += xTick;
-							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingVelocity);
+							resultingMovement.X += xTick;
+							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
 							if (collidedObject != null)
 							{
 								noSecondXCollision = false;
-								resultingVelocity.X -= xTick;
+								resultingMovement.X -= xTick;
 							}
 						}
 					}
 				}
-				if (resultingVelocity.Length() == 0)
+				if (resultingMovement.Length() == 0)
 				{
 					movingObject.collidedWith(collidedObject);
+					movingObject.velocity = Vector2.Zero;
 				}
 				else
 				{
-					movingObject.position += resultingVelocity;
+					movingObject.position += resultingMovement;
+					movingObject.velocity = objectVelocity;
+					if (resultingMovement.Y == 0)
+					{
+						movingObject.velocity.Y = 0;
+					}
+					if (resultingMovement.X == 0)
+					{
+						movingObject.velocity.X = 0;
+					}
 				}
 			}
 		}

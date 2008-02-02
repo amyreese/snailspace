@@ -14,6 +14,9 @@ namespace SnailsPace.Objects
 		public int fireCooldown;
 		public bool flying;
 
+		public const float flyingAcceleration = 1280.0f;
+		public const float walkingAcceleration = 640.0f;
+
         public Helix( Vector2 position ) : base()
         {
             Engine.lua["helix"] = this;
@@ -141,7 +144,7 @@ namespace SnailsPace.Objects
             // Deal with Helix's movement
             Input input = SnailsPace.inputManager;
 
-            velocity = Vector2.Zero;
+			direction = Vector2.Zero;
             if (input.inputDown("Left") && input.inputDown("Right"))
             {
                 // do nothing
@@ -150,7 +153,7 @@ namespace SnailsPace.Objects
             {
                 if (!flying || fuel > 0)
                 {
-                    velocity.X = -1;
+					direction.X = -1;
                     horizontalFlip = true;
                     sprites["Gun"].horizontalFlip = true;
                 }
@@ -159,7 +162,7 @@ namespace SnailsPace.Objects
             {
                 if (!flying || fuel > 0)
                 {
-                    velocity.X = 1;
+					direction.X = 1;
                     horizontalFlip = false;
                     sprites["Gun"].horizontalFlip = false;
                 }
@@ -173,21 +176,21 @@ namespace SnailsPace.Objects
             {
                 if (fuel > 0)
                 {
-                    velocity.Y = 1;
+					direction.Y = 1;
                 }
             }
             else if (input.inputDown("Down"))
             {
                 if (fuel > 0)
                 {
-                    velocity.Y = -1;
+                    direction.Y = -1;
                 }
             }
 
 			// Sprites & Animations
 			if (flying)
 			{
-				if (velocity.Y == 0 && velocity.X == 0)
+				if (direction.Y == 0 && direction.X == 0)
 				{
 					// TODO: Hover
 					setSprite("Hover", "Gun");
@@ -201,10 +204,20 @@ namespace SnailsPace.Objects
 			}
 			else
 			{
-				if (velocity.X != 0)
+				if (direction.X != 0)
 				{
 					sprites["Walk"].animate(gameTime);
 				}
+			}
+
+			// Acceleration
+			if (flying)
+			{
+				acceleration = flyingAcceleration;
+			}
+			else
+			{
+				acceleration = walkingAcceleration;
 			}
 
             GameObject crosshair = Player.crosshair;
@@ -218,10 +231,10 @@ namespace SnailsPace.Objects
                     bullet.sprites = new Dictionary<string, Objects.Sprite>();
                     bullet.sprites.Add("Bullet", Engine.bulletSprite);
                     bullet.size = Engine.bulletSprite.image.size;
-                    bullet.velocity = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
-                    bullet.velocity.Normalize();
+                    bullet.direction = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
+                    bullet.direction.Normalize();
                     bullet.rotation = sprites["Gun"].rotation;
-                    bullet.position = position + Vector2.Multiply(bullet.velocity, 32 * 1.15f);
+                    bullet.position = position + Vector2.Multiply(bullet.direction, 32 * 1.15f);
                     bullet.maxVelocity = maxVelocity + 64.0f;
                     bullet.layer = -0.001f;
                     bullet.isPCBullet = true;
@@ -231,6 +244,8 @@ namespace SnailsPace.Objects
                     lastFired = gameTime.TotalRealTime.TotalMilliseconds;
                 }
             }
+
+
         }
 
 		public override bool canCollideWith(GameObject otherObject)

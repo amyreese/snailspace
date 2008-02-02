@@ -11,6 +11,8 @@ namespace SnailsPace.Objects
 
 		public bool isPCBullet = false;
 
+
+
 		public override bool canCollideWith(GameObject otherObject)
 		{
 			// Note: This should be in the order of most specific to least specific (ie: Helix before character), otherwise more specific cases will be missed

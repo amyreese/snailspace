@@ -11,8 +11,7 @@ AI = {}
 
 --[[ Stop the character's movement ]]--
 function AI.stop( self )
-	vprime = Vector2(0,0)
-	self.velocity = vprime
+	self.direction = Vector2(0,0)
 end
 
 --[[ Determine if the character can 'see' Helix ]]--
@@ -43,16 +42,17 @@ function AI.moveToHelix( self, dmax, dmin, vmax )
 		cx, cy = 0, 0
 	end
 	
-	vprime = Vector2( vmax * cx, vmax * cy )
-	self.velocity = vprime
+    self.desiredMaxVelocity = vmax;
+	self.direction = Vector2( cx, cy )
 end
 
 --[[ Patrol between two points ]]--
 function AI.patrol(self, pt1, pt2)
 	self:setSprite("Walk")
 	if (self.position.X > pt1) then
-		self.velocity = Vector2(-1, 0)
+		self.direction = Vector2( -1, 0 )
 	elseif (self.position.X < pt2) then
-		self.velocity = Vector2(1, 0)
+		self.direction = Vector2( 1, 0 )
 	end
+    self.desiredMaxVelocity = vmax;
 end
