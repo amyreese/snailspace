@@ -446,7 +446,7 @@ namespace SnailsPace.Core
 				{
 					if (movingObject is Objects.Helix)
 					{
-						if (objectVelocity.Y != 0)
+						if (objectVelocity.Y < 0)
 						{
 							Player.helix.flying = false;
 						}
