@@ -23,6 +23,7 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		public Vector2 startPosition;
 		private String _name;
 		public String name
 		{

@@ -29,6 +29,7 @@ namespace SnailsPace.Objects
 		public double lastFired;
 		public double coolDown = 100;
 
+
         String thinker = "";
         
         public virtual void think(GameTime gameTime)

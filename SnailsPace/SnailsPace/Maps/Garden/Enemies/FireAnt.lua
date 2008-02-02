@@ -36,6 +36,7 @@ function FireAnt(startPos)
 	fireant.sprites:Add("Walk", walk)
 	fireant.sprites:Add("Stand", stand)
 	fireant.size = Vector2(FireAntImage.size.X, FireAntImage.size.Y - 64)
+	fireant.startPosition = startPos
 	fireant.position = startPos
 	fireant.affectedByGravity = true
 	fireant.velocity = Vector2(1,0)
@@ -55,8 +56,8 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	
-	AI.patrol(self, 40*32 + 200, 40*32 - 500)
+	--1480x1080
+	AI.patrol(self, self.startPosition.X + 360, self.startPosition.X - 40) 
 	
 	
 	-- TODO: Extend AI for the Fire Ant

@@ -88,6 +88,7 @@ namespace SnailsPace.Objects
             points[10] = new Vector2(21.0f, 23.0f);
             bounds = new Objects.GameObjectBounds(points);
             position = new Vector2(0, 0);
+			startPosition = position;
         }
 
 		public void setSprite(String sprtName, String aSprtName)
