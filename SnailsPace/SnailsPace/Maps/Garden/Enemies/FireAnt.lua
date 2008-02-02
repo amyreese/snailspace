@@ -56,9 +56,7 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	--1480x1080
-	AI.patrol(self, self.startPosition.X + 360, self.startPosition.X - 40) 
-	
+	AI.platformPatrol(self)
 	
 	-- TODO: Extend AI for the Fire Ant
 end

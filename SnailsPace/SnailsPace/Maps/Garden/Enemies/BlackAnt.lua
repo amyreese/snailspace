@@ -28,16 +28,18 @@ function BASprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a BlackAnt object
-function BlackAnt()
+function BlackAnt(startPos)
 	walk = BASprite(0, 3, 0.07)
 	stand = BASprite(0, 0, 0.07)
 	
 	blackant = Character()
 	blackant.sprites:Add("Walk", walk)
 	blackant.sprites:Add("Stand", stand)
-	blackant.size = BlackAntImage.size
-	blackant.position = Vector2(0,0)
-	blackant.velocity = Vector2(0,0)
+	blackant.size = Vector2(BlackAntImage.size.X, BlackAntImage.size.Y - 64)
+	blackant.startPosition = startPos
+	blackant.position = startPos
+	blackant.affectedByGravity = true
+	blackant.velocity = Vector2(1,0)
 	blackant.maxVelocity = 640
 	blackant.thinker = "BlackAntThinker"
 	blackant.health = 1
@@ -54,26 +56,7 @@ end
 
 -- Black Ant behavior function
 function BlackAntThinker( self, gameTime )
-	vision = 640
-	if ( self.state.mad == true and self.state.tracking ) then
-		vision = 1600
-	end
-	
-	if ( AI.canSeeHelix( self, vision ) ) then 
-		AI.moveToHelix( self, 128.0, 64.0 )
-		self:setSprite("Walk")
-		self.state.tracking = true		
-	else
-		AI.stop( self )
-		
-		if ( self.state.tracking == true ) then
-			print("getting angry")
-			self.state.mad = true
-		end
-		
-		self.state.tracking = false
-		self:setSprite("Stand")
-	end
+	AI.platformPatrol(self)
 	
 	-- TODO: Extend AI for the Black Ant
 end

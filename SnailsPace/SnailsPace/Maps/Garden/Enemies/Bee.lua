@@ -29,7 +29,7 @@ end
 	
 
 -- Creates a Bee object
-function Bee()
+function Bee(startPos)
 	fly = BeeSprite(0, 3, .07)
 	hover = BeeSprite(0, 3, .035)
 	
@@ -37,13 +37,15 @@ function Bee()
 	bee.sprites:Add("Fly", fly)
 	bee.sprites:Add("Hover", hover) 
 	bee.size = BeeImage.size
-	bee.position = Vector2(0,0)
+	bee.startPosition = startPos
+	bee.position = startPos
 	bee.velocity = Vector2(0,0)
 	bee.maxVelocity = 960
 	bee.thinker = "BeeThinker"
 	bee.state = {}
 	bee.name = "Bee"
 	bee.health = 3
+	bee.affectedByGravity = false
 	bee:setSprite("Hover")
 	map.characters:Add(bee)
 

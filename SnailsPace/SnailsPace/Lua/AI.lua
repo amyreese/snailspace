@@ -54,5 +54,10 @@ function AI.patrol(self, pt1, pt2)
 	elseif (self.position.X < pt2) then
 		self.direction = Vector2( 1, 0 )
 	end
-    self.desiredMaxVelocity = vmax;
+	self.desiredMaxVelocity = 640
+end
+
+--[[Patrol on a platform]]--
+function AI.platformPatrol(self)
+	AI.patrol(self, self.startPosition.X + 200, self.startPosition.X - 200)
 end

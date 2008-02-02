@@ -28,7 +28,7 @@ function SpiderSprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a Spider object
-function Spider()
+function Spider(startPos)
 	walk = SpiderSprite(0, 3, 0.07)
 	stand = SpiderSprite(0, 0, 0.07)
 	
@@ -36,7 +36,8 @@ function Spider()
 	spider.sprites:Add("Walk", walk)
 	spider.sprites:Add("Stand", stand)
 	spider.size = SpiderImage.size
-	spider.position = Vector2(0,0)
+	spider.startPosition = startPos
+	spider.position = startPos
 	spider.velocity = Vector2(0,0)
 	spider.maxVelocity = 640
 	spider.thinker = "SpiderThinker"
