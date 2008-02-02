@@ -58,14 +58,21 @@ namespace SnailsPace.Objects
             sprites["Fly"].timer = 0f;
 
             // TODO: Make hover it's own animation
-            sprites.Add("Hover", fly);
+            sprites.Add("Hover", fly.clone());
             sprites["Hover"].animationStart = 8;
-            sprites["Hover"].animationEnd = 11;
+            sprites["Hover"].animationEnd = 9;
             sprites["Hover"].frame = 8;
             sprites["Hover"].animationDelay = 1.0f / 15.0f;
             sprites["Hover"].timer = 0f;
 
-            sprites.Add("Gun", gun);
+			sprites.Add("NoFuel", fly.clone());
+			sprites["NoFuel"].animationStart = 12;
+			sprites["NoFuel"].animationEnd = 13;
+			sprites["NoFuel"].frame = 12;
+			sprites["NoFuel"].animationDelay = 1.0f / 2.0f;
+			sprites["NoFuel"].timer = 0f;
+			
+			sprites.Add("Gun", gun);
             sprites["Gun"].animationStart = 12;
             sprites["Gun"].animationEnd = 15;
             sprites["Gun"].frame = 12;
@@ -112,14 +119,14 @@ namespace SnailsPace.Objects
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
-				fuel -= fuelMod * (1 + velocity.Length());
+				fuel -= fuelMod * (1 + 2 * direction.Length());
 				if (fuel < 0)
 				{
 					fuel = 0;
 				}
 				if (fuel > 0)
 				{
-					affectedByGravity = false;
+					//affectedByGravity = false;
 				}
 			}
 			else
@@ -190,7 +197,12 @@ namespace SnailsPace.Objects
 			// Sprites & Animations
 			if (flying)
 			{
-				if (direction.Y == 0 && direction.X == 0)
+				if (fuel <= 0)
+				{
+					setSprite("NoFuel", "Gun");
+					sprites["NoFuel"].animate(gameTime);
+				}
+				else if (direction.Y == 0 && direction.X == 0)
 				{
 					// TODO: Hover
 					setSprite("Hover", "Gun");

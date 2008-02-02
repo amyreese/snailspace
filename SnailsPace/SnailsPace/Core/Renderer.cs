@@ -22,7 +22,7 @@ namespace SnailsPace.Core
 		public static float debugZoom = 1.0f;
 		public static float normalCameraDistance = 1000.0f;
 		public const float minimumCameraMovement = 0.5f;
-		public const float cameraSpeed = 2.0f;
+		public const float cameraSpeed = 4.0f;
 
 		// Set distance from the camera of the near and far clipping planes.
 		public static float nearClip = 0.1f;

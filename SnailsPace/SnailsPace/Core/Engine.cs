@@ -19,7 +19,7 @@ namespace SnailsPace.Core
 
 		// Engine state
 		bool enginePaused = false;
-        public static GameTime gameTime;
+		public static GameTime gameTime;
 
 		// Game font
 		public SpriteFont gameFont;
@@ -32,7 +32,7 @@ namespace SnailsPace.Core
 		public static Objects.Map map;
 
 		// Player
-        public static Core.Player player;
+		public static Core.Player player;
 
 		// Bullets
 		public static Objects.Sprite bulletSprite;
@@ -50,9 +50,9 @@ namespace SnailsPace.Core
 		// Constructors
 		public Engine(String mapName)
 		{
-            // Initialize Lua, the Player, and the Map
-            lua = new GameLua(mapName);
-            map = new Objects.Map(mapName);
+			// Initialize Lua, the Player, and the Map
+			lua = new GameLua(mapName);
+			map = new Objects.Map(mapName);
 
 			bullets = new List<Objects.Bullet>();
 
@@ -158,7 +158,7 @@ namespace SnailsPace.Core
 
 		public void think(GameTime gameTime)
 		{
-            Engine.gameTime = gameTime;
+			Engine.gameTime = gameTime;
 			Input input = SnailsPace.inputManager;
 
 			if (input.inputPressed("Pause"))
@@ -179,7 +179,7 @@ namespace SnailsPace.Core
 				return;
 			}
 
-            // TODO: iterate through map.characters calling think() on each one.
+			// TODO: iterate through map.characters calling think() on each one.
 			List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
 			List<Objects.Character> deadChars = new List<Objects.Character>();
 			while (charEnum.MoveNext())
@@ -200,52 +200,52 @@ namespace SnailsPace.Core
 			deadCharEnum.Dispose();
 
 #if DEBUG
-            if (input.inputPressed("DebugFramerate"))
-            {
-                SnailsPace.debugFramerate = ! SnailsPace.debugFramerate;
-            }
-            if (input.inputPressed("DebugCollisions"))
-            {
-                SnailsPace.debugCollisions = !SnailsPace.debugCollisions;
-            }
-            if (input.inputPressed("DebugCulling"))
-            {
-                SnailsPace.debugCulling = !SnailsPace.debugCulling;
-            }
-            if (input.inputPressed("DebugBoundingBoxes"))
-            {
-                SnailsPace.debugBoundingBoxes = !SnailsPace.debugBoundingBoxes;
-            }
-            if (input.inputPressed("DebugFlying"))
-            {
-                SnailsPace.debugFlying = !SnailsPace.debugFlying;
-            }
-            if (input.inputPressed("DebugCameraPosition"))
-            {
-                SnailsPace.debugCameraPosition = !SnailsPace.debugCameraPosition;
-            }
-            if (input.inputPressed("DebugHelixPosition"))
-            {
-                SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
-            }
-            if (input.inputDown("DebugZoomIn"))
-            {
-                Renderer.debugZoom -= 0.25f;
+			if (input.inputPressed("DebugFramerate"))
+			{
+				SnailsPace.debugFramerate = !SnailsPace.debugFramerate;
+			}
+			if (input.inputPressed("DebugCollisions"))
+			{
+				SnailsPace.debugCollisions = !SnailsPace.debugCollisions;
+			}
+			if (input.inputPressed("DebugCulling"))
+			{
+				SnailsPace.debugCulling = !SnailsPace.debugCulling;
+			}
+			if (input.inputPressed("DebugBoundingBoxes"))
+			{
+				SnailsPace.debugBoundingBoxes = !SnailsPace.debugBoundingBoxes;
+			}
+			if (input.inputPressed("DebugFlying"))
+			{
+				SnailsPace.debugFlying = !SnailsPace.debugFlying;
+			}
+			if (input.inputPressed("DebugCameraPosition"))
+			{
+				SnailsPace.debugCameraPosition = !SnailsPace.debugCameraPosition;
+			}
+			if (input.inputPressed("DebugHelixPosition"))
+			{
+				SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
+			}
+			if (input.inputDown("DebugZoomIn"))
+			{
+				Renderer.debugZoom -= 0.25f;
 				if (Renderer.debugZoom < 1.0f)
 				{
 					Renderer.debugZoom = 1.0f;
 				}
 				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
 			}
-            if (input.inputDown("DebugZoomOut"))
-            {
+			if (input.inputDown("DebugZoomOut"))
+			{
 				Renderer.debugZoom += 0.25f;
 				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
-            }
-            if (input.inputPressed("DebugTriggers"))
-            {
-                SnailsPace.debugTriggers = !SnailsPace.debugTriggers;
-            }
+			}
+			if (input.inputPressed("DebugTriggers"))
+			{
+				SnailsPace.debugTriggers = !SnailsPace.debugTriggers;
+			}
 #endif
 
 			player.think(gameTime);
@@ -369,7 +369,7 @@ namespace SnailsPace.Core
 						}
 					}
 				}
-				
+
 				// Calculate their velocity after gravity;
 				if (gravityEnabled && movingObject.affectedByGravity)
 				{
@@ -380,13 +380,9 @@ namespace SnailsPace.Core
 						{
 							objectVelocity.Y = -movingObject.terminalVelocity;
 						}
-						else
-						{
-							Console.WriteLine(objectVelocity.Y);
-						}
 					}
 				}
-				//Console.WriteLine( objectVelocity.Length() );
+				Console.WriteLine( objectVelocity.Length() );
 				Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
 				Vector2 resultingMovement = Vector2.Zero;
 
@@ -431,6 +427,23 @@ namespace SnailsPace.Core
 						}
 					}
 				}
+				if (resultingMovement.Y == 0)
+				{
+					if (movingObject is Objects.Helix)
+					{
+						if (objectVelocity.Y != 0)
+						{
+							Player.helix.flying = false;
+						}
+					}
+				}
+				if (resultingMovement.Y > 0)
+				{
+					if (movingObject is Objects.Helix)
+					{
+						Player.helix.flying = true;
+					}
+				}
 				if (resultingMovement.Length() == 0)
 				{
 					movingObject.collidedWith(collidedObject);
@@ -461,22 +474,22 @@ namespace SnailsPace.Core
 			float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 0.5);
 
 
-            
-            
-            // Collision Detection
+
+
+			// Collision Detection
 			{
-                List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
-                List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
-                float maxXDiff = 700;
-                float maxYDiff = 700;
-                while (objEnum.MoveNext())
-                {
-                    if (objEnum.Current.collidable)
-                    {
-                        float left = objEnum.Current.position.X - objEnum.Current.size.X / 2;
-                        float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
-                        float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
-                        float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
+				List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
+				List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
+				float maxXDiff = 700;
+				float maxYDiff = 700;
+				while (objEnum.MoveNext())
+				{
+					if (objEnum.Current.collidable)
+					{
+						float left = objEnum.Current.position.X - objEnum.Current.size.X / 2;
+						float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
+						float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
+						float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
 						float leftDiff = left - Player.helix.position.X;
 						float leftDiffAbs = Math.Abs(leftDiff);
 						float rightDiff = right - Player.helix.position.X;
@@ -487,25 +500,25 @@ namespace SnailsPace.Core
 						float bottomDiffAbs = Math.Abs(bottomDiff);
 						if (((leftDiffAbs < maxXDiff) || (rightDiffAbs < maxXDiff) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
 							&& ((topDiffAbs < maxXDiff) || (bottomDiffAbs < maxYDiff) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
-                        {
-                            collidableObjects.Add(objEnum.Current);
-                        }
-                        else
-                        {
-                            if (objEnum.Current is Objects.Bullet)
-                            {
-                                bulletsToClear.Add((Objects.Bullet)objEnum.Current);
-                            }
-                        }
-                    }
-                }
-                objEnum.Dispose();
+						{
+							collidableObjects.Add(objEnum.Current);
+						}
+						else
+						{
+							if (objEnum.Current is Objects.Bullet)
+							{
+								bulletsToClear.Add((Objects.Bullet)objEnum.Current);
+							}
+						}
+					}
+				}
+				objEnum.Dispose();
 
 				bool noQuadTree = true;
 				if (!noQuadTree)
 				{
 					Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1200, 1200);
-                    QuadTree quad = new QuadTree(collidableObjects, visibleScreen, 2);
+					QuadTree quad = new QuadTree(collidableObjects, visibleScreen, 2);
 #if DEBUG
 					//Debug.WriteLine( helix.name + ": (" + helix.position.X + "," + helix.position.Y + ")" );
 					//quad.print();
@@ -515,15 +528,15 @@ namespace SnailsPace.Core
 
 				if (noQuadTree)
 				{
-                    List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
-                    while (collideableObjectEnum.MoveNext())
-                    {
-                        MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime);
-                    }
-                    
-                }
+					List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
+					while (collideableObjectEnum.MoveNext())
+					{
+						MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime);
+					}
 
-                // Clear out exploded bullets
+				}
+
+				// Clear out exploded bullets
 				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
 				while (destroyedBulletEnumerator.MoveNext())
 				{
@@ -533,18 +546,18 @@ namespace SnailsPace.Core
 				destroyedBulletEnumerator.Dispose();
 			}
 
-            List<Objects.Character>.Enumerator characters;
-            List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
-            while (triggers.MoveNext())
-            {
-                Objects.Trigger trigger = triggers.Current;
+			List<Objects.Character>.Enumerator characters;
+			List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
+			while (triggers.MoveNext())
+			{
+				Objects.Trigger trigger = triggers.Current;
 
-                if (trigger.bounds.WillIntersect(Player.helix.bounds, new Vector2()))
-                {
-                    trigger.trigger(Player.helix);
-                }
-            }
-            triggers.Dispose();
+				if (trigger.bounds.WillIntersect(Player.helix.bounds, new Vector2()))
+				{
+					trigger.trigger(Player.helix);
+				}
+			}
+			triggers.Dispose();
 
 			// Animate everything
 			{
@@ -613,7 +626,7 @@ namespace SnailsPace.Core
 			// and then send the list of sprites to the rendering system.
 			// TODO: add bullets
 			List<Objects.Text> strings = new List<Objects.Text>();
-            List<Objects.GameObject> objects = new List<Objects.GameObject>();
+			List<Objects.GameObject> objects = new List<Objects.GameObject>();
 
 #if DEBUG
 			int numDebugStrings = 0;
@@ -669,8 +682,8 @@ namespace SnailsPace.Core
 				strings.Add(debugString);
 			}
 #endif
-            strings.AddRange(allStrings());
-            objects.AddRange(allObjects());
+			strings.AddRange(allStrings());
+			objects.AddRange(allObjects());
 			gameRenderer.render(objects, strings, gameTime);
 		}
 
@@ -704,11 +717,11 @@ namespace SnailsPace.Core
 			return objects;
 		}
 
-        private List<Objects.Text> allStrings()
-        {
-            List<Objects.Text> strings = new List<Objects.Text>();
-            strings.AddRange(player.textStrings());
-            return strings;
-        }
+		private List<Objects.Text> allStrings()
+		{
+			List<Objects.Text> strings = new List<Objects.Text>();
+			strings.AddRange(player.textStrings());
+			return strings;
+		}
 	}
 }
