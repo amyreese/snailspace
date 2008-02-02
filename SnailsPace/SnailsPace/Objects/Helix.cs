@@ -228,15 +228,13 @@ namespace SnailsPace.Objects
                 if (lastFired + coolDown < gameTime.TotalRealTime.TotalMilliseconds)
                 {
                     Objects.Bullet bullet = new Objects.Bullet();
-                    bullet.sprites = new Dictionary<string, Objects.Sprite>();
-                    bullet.sprites.Add("Bullet", Engine.bulletSprite);
-                    bullet.size = Engine.bulletSprite.image.size;
-                    bullet.direction = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
-                    bullet.direction.Normalize();
+                    bullet.velocity = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
+                    bullet.velocity.Normalize();
                     bullet.rotation = sprites["Gun"].rotation;
                     bullet.position = position + Vector2.Multiply(bullet.direction, 32 * 1.15f);
                     bullet.maxVelocity = maxVelocity + 64.0f;
-                    bullet.layer = -0.001f;
+					bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
+					bullet.layer = -0.001f;
                     bullet.isPCBullet = true;
                     bullet.damage = 1;
                     Engine.bullets.Add(bullet);

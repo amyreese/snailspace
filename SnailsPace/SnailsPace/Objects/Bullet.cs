@@ -11,7 +11,12 @@ namespace SnailsPace.Objects
 
 		public bool isPCBullet = false;
 
-
+		public Bullet()
+		{
+			horizontalFriction = 0;
+			bullet.sprites.Add("Bullet", Engine.bulletSprite);
+			bullet.size = Engine.bulletSprite.image.size;
+		}
 
 		public override bool canCollideWith(GameObject otherObject)
 		{
