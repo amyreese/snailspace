@@ -400,6 +400,10 @@ namespace SnailsPace.Core
 						float leftDiffAbs = Math.Abs(leftDiff);
 						if (leftDiffAbs > boundsSize.X / 2)
 						{
+							if (movingObject is Objects.Bullet)
+							{
+								bulletsToClear.Add((Objects.Bullet)movingObject);
+							}
 							return;
 						}
 					}
@@ -413,6 +417,10 @@ namespace SnailsPace.Core
 						float rightDiffAbs = Math.Abs(rightDiff);
 						if (rightDiffAbs > boundsSize.X / 2)
 						{
+							if (movingObject is Objects.Bullet)
+							{
+								bulletsToClear.Add((Objects.Bullet)movingObject);
+							}
 							return;
 						}
 					}
@@ -426,6 +434,10 @@ namespace SnailsPace.Core
 						float bottomDiffAbs = Math.Abs(bottomDiff);
 						if (bottomDiffAbs > boundsSize.Y / 2)
 						{
+							if (movingObject is Objects.Bullet)
+							{
+								bulletsToClear.Add((Objects.Bullet)movingObject);
+							}
 							return;
 						}
 					}
@@ -439,6 +451,10 @@ namespace SnailsPace.Core
 						float topDiffAbs = Math.Abs(topDiff);
 						if (topDiffAbs > boundsSize.Y / 2)
 						{
+							if (movingObject is Objects.Bullet)
+							{
+								bulletsToClear.Add((Objects.Bullet)movingObject);
+							}
 							return;
 						}
 					}
