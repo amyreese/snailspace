@@ -11,7 +11,6 @@ namespace SnailsPace.Objects
         // Jetpack fuel
         public float fuel;
 		public float maxFuel;
-		public int fireCooldown;
 		public bool flying;
 
 		public const float flyingAcceleration = 1280.0f;
@@ -237,25 +236,8 @@ namespace SnailsPace.Objects
 
             if (input.inputDown("Fire"))
             {
-                if (lastFired + coolDown < gameTime.TotalRealTime.TotalMilliseconds)
-                {
-                    Objects.Bullet bullet = new Objects.Bullet();
-                    bullet.velocity = new Vector2(crosshair.position.X - position.X, crosshair.position.Y - position.Y);
-                    bullet.velocity.Normalize();
-                    bullet.rotation = sprites["Gun"].rotation;
-                    bullet.position = position + Vector2.Multiply(bullet.velocity, 32 * 1.25f);
-                    bullet.maxVelocity = maxVelocity + 64.0f;
-					bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
-					bullet.layer = -0.001f;
-                    bullet.isPCBullet = true;
-                    bullet.damage = 1;
-                    Engine.bullets.Add(bullet);
-                    fireCooldown = 2;
-                    lastFired = gameTime.TotalRealTime.TotalMilliseconds;
-                }
+				ShootAt(crosshair.position, gameTime);
             }
-
-
         }
 
 		public override bool canCollideWith(GameObject otherObject)

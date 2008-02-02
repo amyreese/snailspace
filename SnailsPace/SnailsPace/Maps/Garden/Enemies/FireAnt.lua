@@ -58,5 +58,6 @@ end
 function FireAntThinker( self, gameTime )
 	AI.platformPatrol(self)
 	
+	AI.shootDirectlyAtHelix(self, gameTime)
 	-- TODO: Extend AI for the Fire Ant
 end

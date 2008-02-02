@@ -397,7 +397,6 @@ namespace SnailsPace.Core
 						}
 					}
 				}
-				Console.WriteLine( objectVelocity.Length() );
 				Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
 				Vector2 resultingMovement = Vector2.Zero;
 

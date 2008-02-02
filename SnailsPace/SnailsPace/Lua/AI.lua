@@ -54,7 +54,12 @@ function AI.patrol(self, pt1, pt2)
 	elseif (self.position.X < pt2) then
 		self.direction = Vector2( 1, 0 )
 	end
-	self.desiredMaxVelocity = 640
+    self.desiredMaxVelocity = vmax
+end
+
+--[[ Attack Helix ]]--
+function AI.shootDirectlyAtHelix(self, gameTime)
+    self:ShootAt(helix.position, gameTime)
 end
 
 --[[Patrol on a platform]]--
