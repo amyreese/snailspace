@@ -9,6 +9,7 @@ namespace SnailsPace.Objects
     class Character : GameObject
     {
         // Character properties.
+		public int maxHealth;
         private int _health;
 		public int health {
 			get 

@@ -98,6 +98,8 @@ namespace SnailsPace.Objects
             bounds = new Objects.GameObjectBounds(points);
             position = new Vector2(0, 0);
 			startPosition = position;
+			maxHealth = 20;
+			health = 20;
         }
 
 		public void setSprite(String sprtName, String aSprtName)
@@ -109,12 +111,14 @@ namespace SnailsPace.Objects
 			}
 			sprites[sprtName].visible = true;
 			sprites[aSprtName].visible = true;
-			
 		}
 
         public override void think(GameTime gameTime)
         {
-			
+			if (health <= 0)
+			{
+				die();
+			}
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
@@ -250,6 +254,12 @@ namespace SnailsPace.Objects
 			{
 				return base.canCollideWith(otherObject);
 			}
+		}
+
+		public void die()
+		{
+			position = startPosition;
+			health = maxHealth;
 		}
 
     }
