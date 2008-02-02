@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SnailsPace.Core;
 
 namespace SnailsPace.Objects
 {
@@ -14,8 +15,8 @@ namespace SnailsPace.Objects
 		public Bullet()
 		{
 			horizontalFriction = 0;
-			bullet.sprites.Add("Bullet", Engine.bulletSprite);
-			bullet.size = Engine.bulletSprite.image.size;
+			sprites.Add("Bullet", Engine.bulletSprite);
+			size = Engine.bulletSprite.image.size;
 		}
 
 		public override bool canCollideWith(GameObject otherObject)
