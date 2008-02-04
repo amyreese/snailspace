@@ -33,6 +33,8 @@ namespace SnailsPace.Core
 		List<VertexPositionColorTexture[]> boundingBoxVertices;
 		Color boundingBoxColor = new Color(255, 0, 0, 128);
 		Color boundingBoxCenterColor = new Color(0, 0, 0, 64);
+		Color triggerBoxColor = new Color(255, 255, 255, 200);
+		Color triggerBoxCenterColor = new Color(255, 255, 255, 50);
 #endif
 
 		private Dictionary<String, Texture2D> textures;
@@ -132,7 +134,7 @@ namespace SnailsPace.Core
 		public Vector3 getCameraTargetPosition()
 		{
 			Vector3 targetPosition = cameraTarget == null ? Vector3.Zero : new Vector3(cameraTarget.position, 0);
-			return new Vector3(cameraTarget.position, 0) + cameraTargetOffset;
+			return targetPosition + cameraTargetOffset;
 		}
 
 		public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
@@ -175,11 +177,18 @@ namespace SnailsPace.Core
             Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
             cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
-            cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
+            cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + Vector3.Forward, Vector3.Up);
             BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
 #if DEBUG
-            boundingBoxVertices = new List<VertexPositionColorTexture[]>();
+			if (boundingBoxVertices == null)
+			{
+				boundingBoxVertices = new List<VertexPositionColorTexture[]>();
+			}
+			else
+			{
+				boundingBoxVertices.Clear();
+			}
 #endif
             if (objects != null)
             {
@@ -212,8 +221,7 @@ namespace SnailsPace.Core
 #if DEBUG
                 if (SnailsPace.debugTriggers)
                 {
-                    Color white = new Color(255, 255, 255, 200);
-                    Color offwhite = new Color(255, 255, 255, 50);
+
 
                     List<Objects.Trigger>.Enumerator triggers = Engine.map.triggers.GetEnumerator();
                     while (triggers.MoveNext())
@@ -221,14 +229,14 @@ namespace SnailsPace.Core
                         Objects.GameObjectBounds boundingBox = triggers.Current.bounds;
                         Vector2[] boxVertices = boundingBox.GetPoints();
                         VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
-                        visualBoxVertices[0].Color = offwhite;
+                        visualBoxVertices[0].Color = triggerBoxCenterColor;
                         visualBoxVertices[0].Position = new Vector3(triggers.Current.position, 1);
                         visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 10);
-                        visualBoxVertices[visualBoxVertices.Length - 1].Color = white;
+                        visualBoxVertices[visualBoxVertices.Length - 1].Color = triggerBoxColor;
                         for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
                         {
                             visualBoxVertices[boxVertexIndex + 1].Position = new Vector3(boxVertices[boxVertexIndex], 1);
-                            visualBoxVertices[boxVertexIndex + 1].Color = white;
+                            visualBoxVertices[boxVertexIndex + 1].Color = triggerBoxColor;
                         }
                         boundingBoxVertices.Add(visualBoxVertices);
                     }
@@ -282,6 +290,7 @@ namespace SnailsPace.Core
                 batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
             }
             batch.End();
+			batch.Dispose();
         }
 
 		private void drawObject(Objects.GameObject obj, BoundingFrustum viewFrustum)
@@ -296,7 +305,7 @@ namespace SnailsPace.Core
 					Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
 
                     BoundingSphere sphere =  new BoundingSphere(objectPosition, objectScale.Length() );
-                    if (viewFrustum.Intersects(sphere))
+					if (viewFrustum.Intersects(sphere))
 					{
 
 						int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
