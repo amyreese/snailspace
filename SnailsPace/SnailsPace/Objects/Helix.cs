@@ -14,9 +14,9 @@ namespace SnailsPace.Objects
 		public bool flying;
 
 		public const float flyingHorizontalFriction = 640.0f;
-		public const float walkingHorizontalFriction = 1280.0f;
+		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 1280.0f;
-		public const float walkingAcceleration = 640.0f;
+		public const float walkingAcceleration = 3840.0f;
 		public const float flyingMaxVelocity = 384.0f;
 		public const float walkingMaxVelocity = 384.0f;
 
