@@ -261,7 +261,12 @@ namespace SnailsPace.Objects
 			}
 			else
 			{
-				return base.canCollideWith(otherObject);
+				bool result = base.canCollideWith(otherObject);
+				
+				if ((result) && (otherObject is Objects.Character))
+					health--;
+					
+				return result;
 			}
 		}
 

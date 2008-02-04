@@ -81,7 +81,10 @@ namespace SnailsPace.Objects
 			}
 			else
 			{
-				return base.canCollideWith(otherObject);
+				bool result = base.canCollideWith(otherObject);
+				if ((result) && (otherObject is Helix))
+					((Character)otherObject).health--;
+				return result;
 			}
 		}
     }
