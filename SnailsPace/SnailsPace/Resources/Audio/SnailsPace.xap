@@ -11,8 +11,8 @@ Options
 
 Global Settings
 {
-    Xbox File = Xbox\SnailsPace.xgs;
-    Windows File = Win\SnailsPace.xgs;
+    Xbox File = SnailsPace.xgs;
+    Windows File = SnailsPace.xgs;
     Header File = SnailsPace.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
@@ -225,15 +225,43 @@ Wave Bank
     Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 1103936968;
-    Bank Last Revised High = 29910892;
+    Bank Last Revised Low = 424438422;
+    Bank Last Revised High = 29910893;
+
+    Wave
+    {
+        Name = tada;
+        File = ..\..\..\..\..\..\WINDOWS\Media\tada.wav;
+        Build Settings Last Modified Low = 63188422;
+        Build Settings Last Modified High = 29910893;
+        Comment = GET RID OF THIS!;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 22050;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 171008;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 773257216;
+            Last Modified High = 29654729;
+        }
+    }
 }
 
 Sound Bank
 {
     Name = SnailsPace;
-    Xbox File = Xbox\SnailsPace.xsb;
-    Windows File = Win\SnailsPace.xsb;
+    Xbox File = SnailsPace.xsb;
+    Windows File = SnailsPace.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 0;
+    Bank Last Modified High = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 }
