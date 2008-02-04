@@ -195,12 +195,17 @@
     <None Include="Maps\Garden\Triggers\Message.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Resources\Audio\SnailsPace.xap" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">
       <Project>{6e9d3ed5-2070-4a99-b89d-7d9d6a735f81}</Project>
       <Visible>False</Visible>
     </NestedContentProject>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Audio\Music\" />
+    <Folder Include="Resources\Audio\Sound\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

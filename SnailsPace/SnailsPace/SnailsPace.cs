@@ -38,6 +38,7 @@ namespace SnailsPace
         public Matrix projectionMatrix;
 
         internal static Input inputManager;
+        internal static Sound soundManager;
         internal static GameConfig gameConfig;
         internal static VideoConfig videoConfig;
 
@@ -54,6 +55,7 @@ namespace SnailsPace
             //Content.RootDirectory = "Content";
 
             inputManager = new Input();
+            soundManager = new Sound();
             gameConfig = new GameConfig();
             videoConfig = new VideoConfig();
 
@@ -201,6 +203,7 @@ namespace SnailsPace
         protected override void Update(GameTime gameTime)
         {
             inputManager.update();
+            soundManager.update();
             base.Update(gameTime);
         }
 
