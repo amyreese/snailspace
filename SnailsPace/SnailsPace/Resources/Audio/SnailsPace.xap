@@ -231,7 +231,7 @@ Wave Bank
     Wave
     {
         Name = tada;
-        File = ..\..\..\..\..\..\WINDOWS\Media\tada.wav;
+        File = C:\WINDOWS\Media\tada.wav;
         Build Settings Last Modified Low = 63188422;
         Build Settings Last Modified High = 29910893;
         Comment = GET RID OF THIS!;
