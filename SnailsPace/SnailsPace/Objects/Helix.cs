@@ -15,9 +15,9 @@ namespace SnailsPace.Objects
 
 		public const float flyingHorizontalFriction = 640.0f;
 		public const float walkingHorizontalFriction = 2560.0f;
-		public const float flyingAcceleration = 1280.0f;
+		public const float flyingAcceleration = 2560.0f;
 		public const float walkingAcceleration = 3840.0f;
-		public const float flyingMaxVelocity = 512.0f;
+		public const float flyingMaxVelocity = 640.0f;
 		public const float walkingMaxVelocity = 384.0f;
 
         public Helix( Vector2 position ) : base()
@@ -243,7 +243,6 @@ namespace SnailsPace.Objects
 				horizontalFriction = walkingHorizontalFriction;
 				maxVelocity = walkingMaxVelocity;
 			}
-			Console.WriteLine(maxVelocity);
 
             GameObject crosshair = Player.crosshair;
             sprites["Gun"].rotation = ((crosshair.position.X - position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - position.Y) / (crosshair.position.X - position.X));

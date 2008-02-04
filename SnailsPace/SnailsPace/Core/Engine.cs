@@ -354,11 +354,22 @@ namespace SnailsPace.Core
 					objectAccel = movingObject.direction * movingObject.acceleration * elapsedTime;
 					objectVelocity = objectAccel + movingObject.velocity;
 					Vector2 objectVelocityLessGravity = objectVelocity - movingObject.velocityFromGravity;
-					if (objectVelocityLessGravity.Length() > (movingObject.velocity - movingObject.velocityFromGravity).Length() && objectVelocityLessGravity.Length() > movingObject.desiredMaxVelocity)
+					if (objectVelocityLessGravity.Y > 0)
 					{
-						objectVelocityLessGravity.Normalize();
-						objectVelocityLessGravity = objectVelocityLessGravity * movingObject.desiredMaxVelocity;
-						objectVelocity = objectVelocityLessGravity + movingObject.velocityFromGravity;
+						if (objectVelocity.Length() > movingObject.desiredMaxVelocity)
+						{
+							objectVelocity.Normalize();
+							objectVelocity = objectVelocity * movingObject.desiredMaxVelocity;
+						}
+					}
+					else
+					{
+						if (objectVelocityLessGravity.Length() > movingObject.desiredMaxVelocity)
+						{
+							objectVelocityLessGravity.Normalize();
+							objectVelocityLessGravity = objectVelocityLessGravity * movingObject.desiredMaxVelocity;
+							objectVelocity = objectVelocityLessGravity + movingObject.velocityFromGravity;
+						}
 					}
 				}
 				else
