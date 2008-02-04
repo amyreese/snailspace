@@ -13,8 +13,12 @@ namespace SnailsPace.Objects
 		public float maxFuel;
 		public bool flying;
 
+		public const float flyingHorizontalFriction = 640.0f;
+		public const float walkingHorizontalFriction = 1280.0f;
 		public const float flyingAcceleration = 1280.0f;
 		public const float walkingAcceleration = 640.0f;
+		public const float flyingMaxVelocity = 384.0f;
+		public const float walkingMaxVelocity = 384.0f;
 
         public Helix( Vector2 position ) : base()
         {
@@ -78,7 +82,7 @@ namespace SnailsPace.Objects
             sprites["Gun"].animationDelay = 1.0f / 15.0f;
             sprites["Gun"].timer = 0f;
 
-            maxVelocity = 384.0f;
+            maxVelocity = walkingMaxVelocity;
             maxFuel = 40;
             layer = 0;
             
@@ -230,10 +234,14 @@ namespace SnailsPace.Objects
 			if (flying)
 			{
 				acceleration = flyingAcceleration;
+				horizontalFriction = flyingHorizontalFriction;
+				maxVelocity = flyingMaxVelocity;
 			}
 			else
 			{
 				acceleration = walkingAcceleration;
+				horizontalFriction = walkingHorizontalFriction;
+				maxVelocity = walkingMaxVelocity;
 			}
 
             GameObject crosshair = Player.crosshair;
