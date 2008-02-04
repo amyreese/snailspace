@@ -209,31 +209,38 @@ namespace SnailsPace.Core
 			if (input.inputPressed("DebugFramerate"))
 			{
 				SnailsPace.debugFramerate = !SnailsPace.debugFramerate;
-			}
+                Console.WriteLine("Debug Framerate: " + SnailsPace.debugFramerate);
+            }
 			if (input.inputPressed("DebugCollisions"))
 			{
 				SnailsPace.debugCollisions = !SnailsPace.debugCollisions;
-			}
+                Console.WriteLine("Debug Collisions: " + SnailsPace.debugCollisions);
+            }
 			if (input.inputPressed("DebugCulling"))
 			{
 				SnailsPace.debugCulling = !SnailsPace.debugCulling;
-			}
+                Console.WriteLine("Debug Culling: " + SnailsPace.debugCulling);
+            }
 			if (input.inputPressed("DebugBoundingBoxes"))
 			{
 				SnailsPace.debugBoundingBoxes = !SnailsPace.debugBoundingBoxes;
-			}
+                Console.WriteLine("Debug Bounding Boxes: " + SnailsPace.debugBoundingBoxes);
+            }
 			if (input.inputPressed("DebugFlying"))
 			{
 				SnailsPace.debugFlying = !SnailsPace.debugFlying;
-			}
+                Console.WriteLine("Debug Flying: " + SnailsPace.debugFlying);
+            }
 			if (input.inputPressed("DebugCameraPosition"))
 			{
 				SnailsPace.debugCameraPosition = !SnailsPace.debugCameraPosition;
-			}
+                Console.WriteLine("Debug Camera Position: " + SnailsPace.debugCameraPosition);
+            }
 			if (input.inputPressed("DebugHelixPosition"))
 			{
 				SnailsPace.debugHelixPosition = !SnailsPace.debugHelixPosition;
-			}
+                Console.WriteLine("Debug Helix Position: " + SnailsPace.debugHelixPosition);
+            }
 			if (input.inputDown("DebugZoomIn"))
 			{
 				Renderer.debugZoom -= 0.25f;
@@ -247,10 +254,11 @@ namespace SnailsPace.Core
 			{
 				Renderer.debugZoom += 0.25f;
 				Renderer.farClip = 500.0f + 2 * Renderer.normalCameraDistance * Renderer.debugZoom;
-			}
+            }
 			if (input.inputPressed("DebugTriggers"))
 			{
 				SnailsPace.debugTriggers = !SnailsPace.debugTriggers;
+                Console.WriteLine("Debug Triggers: " + SnailsPace.debugTriggers);
 			}
 #endif
 

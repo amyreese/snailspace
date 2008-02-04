@@ -28,9 +28,9 @@ namespace SnailsPace.Core
 		public static float nearClip = 0.1f;
 		public static float farClip = 500.0f + 2 * normalCameraDistance;
 		
-		VertexPositionTexture[] vertices;
+		VertexPositionColorTexture[] vertices;
 #if DEBUG
-		List<VertexPositionColor[]> boundingBoxVertices;
+		List<VertexPositionColorTexture[]> boundingBoxVertices;
 		Color boundingBoxColor = new Color(255, 0, 0, 128);
 		Color boundingBoxCenterColor = new Color(0, 0, 0, 64);
 #endif
@@ -136,79 +136,79 @@ namespace SnailsPace.Core
 		}
 
 		public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
-		{
-			SnailsPace.getInstance().GraphicsDevice.RenderState.CullMode = CullMode.None;
-			SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
-			SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
-			SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
-			Vector3 cameraTargetPosition = getCameraTargetPosition();
-			cameraTargetPosition.Z = cameraTargetPosition.Z * debugZoom;
-			if (!cameraPosition.Equals(cameraTargetPosition))
-			{
-				float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
-				Vector3 cameraDifference = cameraTargetPosition - cameraPosition;
-				Vector3 cameraPositionMovement = Vector3.Zero;
-				cameraPositionMovement.X = calculateCameraMovement(cameraDifference.X, elapsedTime);
-				cameraPositionMovement.Y = calculateCameraMovement(cameraDifference.Y, elapsedTime);
-				cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
-				cameraPosition = cameraPosition + cameraPositionMovement;
+        {
+            SnailsPace.getInstance().GraphicsDevice.RenderState.CullMode = CullMode.None;
+            SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferEnable = true;
+            SnailsPace.getInstance().GraphicsDevice.RenderState.DepthBufferWriteEnable = true;
+            SnailsPace.getInstance().GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 0);
+            Vector3 cameraTargetPosition = getCameraTargetPosition();
+            cameraTargetPosition.Z = cameraTargetPosition.Z * debugZoom;
+            if (!cameraPosition.Equals(cameraTargetPosition))
+            {
+                float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
+                Vector3 cameraDifference = cameraTargetPosition - cameraPosition;
+                Vector3 cameraPositionMovement = Vector3.Zero;
+                cameraPositionMovement.X = calculateCameraMovement(cameraDifference.X, elapsedTime);
+                cameraPositionMovement.Y = calculateCameraMovement(cameraDifference.Y, elapsedTime);
+                cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
+                cameraPosition = cameraPosition + cameraPositionMovement;
 
-				float cameraStopXDistance = (float)(1000 * Math.Tan(45 / 2.0));
-				float cameraStopYDistance = (float)(1000 * Math.Tan(MathHelper.PiOver4 / 2.0));
-				for (int i = 1; i < cameraBounds.Length; i++)
-				{
-					if (cameraBounds[i].X == cameraBounds[i - 1].X)
-					{
-						if ((cameraBounds[i].X < 0) && (cameraPosition.X - cameraStopXDistance < cameraBounds[i].X))
-							cameraPosition.X = cameraBounds[i].X + cameraStopXDistance;
-						else if ((cameraBounds[i].X > 0) && (cameraPosition.X + cameraStopXDistance > cameraBounds[i].X))
-							cameraPosition.X = cameraBounds[i].X - cameraStopXDistance;
-					}
-					else if (cameraBounds[i].Y == cameraBounds[i - 1].Y)
-					{
-						if((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopYDistance > cameraBounds[i].Y))
-							cameraPosition.Y = cameraBounds[i].Y - cameraStopYDistance;
-					}
-				}
-			}
+                float cameraStopXDistance = (float)(1000 * Math.Tan(45 / 2.0));
+                float cameraStopYDistance = (float)(1000 * Math.Tan(MathHelper.PiOver4 / 2.0));
+                for (int i = 1; i < cameraBounds.Length; i++)
+                {
+                    if (cameraBounds[i].X == cameraBounds[i - 1].X)
+                    {
+                        if ((cameraBounds[i].X < 0) && (cameraPosition.X - cameraStopXDistance < cameraBounds[i].X))
+                            cameraPosition.X = cameraBounds[i].X + cameraStopXDistance;
+                        else if ((cameraBounds[i].X > 0) && (cameraPosition.X + cameraStopXDistance > cameraBounds[i].X))
+                            cameraPosition.X = cameraBounds[i].X - cameraStopXDistance;
+                    }
+                    else if (cameraBounds[i].Y == cameraBounds[i - 1].Y)
+                    {
+                        if ((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopYDistance > cameraBounds[i].Y))
+                            cameraPosition.Y = cameraBounds[i].Y - cameraStopYDistance;
+                    }
+                }
+            }
 
-			Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
-			float aspectRatio = (float)viewport.Width / (float)viewport.Height;
-			cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
-			cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
-			BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
+            Viewport viewport = SnailsPace.getInstance().GraphicsDevice.Viewport;
+            float aspectRatio = (float)viewport.Width / (float)viewport.Height;
+            cameraProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, nearClip, farClip);
+            cameraView = Matrix.CreateLookAt(cameraPosition, cameraPosition + new Vector3(0, 0, -1), Vector3.Up);
+            BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
 #if DEBUG
-			boundingBoxVertices = new List<VertexPositionColor[]>();
+            boundingBoxVertices = new List<VertexPositionColorTexture[]>();
 #endif
-			if (objects != null)
-			{
-				List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
+            if (objects != null)
+            {
+                List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
 
-				SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionTexture.VertexElements);
-				while (objectEnumerator.MoveNext())
-				{
-					drawObject(objectEnumerator.Current, viewFrustum);
+                SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionColorTexture.VertexElements);
+                while (objectEnumerator.MoveNext())
+                {
+                    drawObject(objectEnumerator.Current, viewFrustum);
 #if DEBUG
-					if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
-					{
-						Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
-						Vector2[] boxVertices = boundingBox.GetPoints();
-						VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length + 2];
-						visualBoxVertices[0].Color = boundingBoxCenterColor;
-						visualBoxVertices[0].Position = new Vector3(objectEnumerator.Current.position, 1);
-						visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 1);
-						visualBoxVertices[visualBoxVertices.Length - 1].Color = boundingBoxColor;
-						for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
-						{
-							visualBoxVertices[boxVertexIndex + 1].Position = new Vector3(boxVertices[boxVertexIndex], 1);
-							visualBoxVertices[boxVertexIndex + 1].Color = boundingBoxColor;
-						}
-						boundingBoxVertices.Add(visualBoxVertices);
-					}
+                    if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
+                    {
+                        Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
+                        Vector2[] boxVertices = boundingBox.GetPoints();
+                        VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
+                        visualBoxVertices[0].Color = boundingBoxCenterColor;
+                        visualBoxVertices[0].Position = new Vector3(objectEnumerator.Current.position, 1);
+                        visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 1);
+                        visualBoxVertices[visualBoxVertices.Length - 1].Color = boundingBoxColor;
+                        for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
+                        {
+                            visualBoxVertices[boxVertexIndex + 1].Position = new Vector3(boxVertices[boxVertexIndex], 1);
+                            visualBoxVertices[boxVertexIndex + 1].Color = boundingBoxColor;
+                        }
+                        boundingBoxVertices.Add(visualBoxVertices);
+                    }
 #endif
-				}
-				objectEnumerator.Dispose();
+                }
+                objectEnumerator.Dispose();
 #if DEBUG
                 if (SnailsPace.debugTriggers)
                 {
@@ -220,10 +220,10 @@ namespace SnailsPace.Core
                     {
                         Objects.GameObjectBounds boundingBox = triggers.Current.bounds;
                         Vector2[] boxVertices = boundingBox.GetPoints();
-                        VertexPositionColor[] visualBoxVertices = new VertexPositionColor[boxVertices.Length + 2];
+                        VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
                         visualBoxVertices[0].Color = offwhite;
                         visualBoxVertices[0].Position = new Vector3(triggers.Current.position, 1);
-                        visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 1);
+                        visualBoxVertices[visualBoxVertices.Length - 1].Position = new Vector3(boxVertices[0], 10);
                         visualBoxVertices[visualBoxVertices.Length - 1].Color = white;
                         for (int boxVertexIndex = 0; boxVertexIndex < boxVertices.Length; boxVertexIndex++)
                         {
@@ -234,54 +234,55 @@ namespace SnailsPace.Core
                     }
                 }
 
-				// TODO this probably isn't how we want to do this if we end up using more than one effect
-				Effect effect = getOrCreateEffect("Resources/Effects/effects");
-				effect.CurrentTechnique = effect.Techniques["Colored"];
-				effect.Parameters["xView"].SetValue(cameraView);
-				effect.Parameters["xProjection"].SetValue(cameraProjection);
-				effect.Parameters["xWorld"].SetValue(Matrix.Identity);
-				effect.Begin();
+                // TODO this probably isn't how we want to do this if we end up using more than one effect
+                Effect effect = getOrCreateEffect("Resources/Effects/effects");
+                effect.CurrentTechnique = effect.Techniques["Colored"];
+                effect.Parameters["xView"].SetValue(cameraView);
+                effect.Parameters["xProjection"].SetValue(cameraProjection);
+                effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+                effect.Begin();
 
-				SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionColor.VertexElements);
-				List<VertexPositionColor[]>.Enumerator boundingBoxEnumerator = boundingBoxVertices.GetEnumerator();
-				while (boundingBoxEnumerator.MoveNext())
-				{
-					IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
-					while (effectPassEnumerator.MoveNext())
-					{
-						effectPassEnumerator.Current.Begin();
-						// The vertex declaration needs to be set before it gets here or it will fail.
-						SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleFan, boundingBoxEnumerator.Current, 0, boundingBoxEnumerator.Current.Length - 2);
-						effectPassEnumerator.Current.End();
-					}
-					effectPassEnumerator.Dispose();
-				}
-				boundingBoxEnumerator.Dispose();
-				effect.End();
+                List<VertexPositionColorTexture[]>.Enumerator boundingBoxEnumerator = boundingBoxVertices.GetEnumerator();
+                while (boundingBoxEnumerator.MoveNext())
+                {
+                    IEnumerator<EffectPass> effectPassEnumerator = effect.CurrentTechnique.Passes.GetEnumerator();
+                    while (effectPassEnumerator.MoveNext())
+                    {
+                        effectPassEnumerator.Current.Begin();
+                        // The vertex declaration needs to be set before it gets here or it will fail.
+                        SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColorTexture>(PrimitiveType.TriangleFan, boundingBoxEnumerator.Current, 0, boundingBoxEnumerator.Current.Length - 2);
+                        effectPassEnumerator.Current.End();
+                    }
+                    effectPassEnumerator.Dispose();
+                }
+                boundingBoxEnumerator.Dispose();
+                effect.End();
 #endif
-			}
+            }
 
-			if (strings != null)
-			{
-				SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
-				List<Objects.Text>.Enumerator textEnumerator = strings.GetEnumerator();
-				batch.Begin();
-				while (textEnumerator.MoveNext())
-				{
-					batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
-				}
-				batch.End();
-				textEnumerator.Dispose();
-			}
+            SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
+            batch.Begin();
 
-			SpriteBatch hudBatch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
-			hudBatch.Begin();
-			hudBatch.Draw(Engine.healthIcon, new Rectangle(0, 0, 32, 32), Color.White);
-			hudBatch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
-			hudBatch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
-			hudBatch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
-			hudBatch.End();
-		}
+            // Draw text strings
+            if (strings != null)
+            {
+                List<Objects.Text>.Enumerator textEnumerator = strings.GetEnumerator();
+                while (textEnumerator.MoveNext())
+                {
+                    batch.DrawString(textEnumerator.Current.font, textEnumerator.Current.content, textEnumerator.Current.position, textEnumerator.Current.color, textEnumerator.Current.rotation, Vector2.Zero, textEnumerator.Current.scale, SpriteEffects.None, 0);
+                }
+                textEnumerator.Dispose();
+            }
+
+            // Draw HUD
+            {
+                batch.Draw(Engine.healthIcon, new Rectangle(0, 0, 32, 32), Color.White);
+                batch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
+                batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
+                batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
+            }
+            batch.End();
+        }
 
 		private void drawObject(Objects.GameObject obj, BoundingFrustum viewFrustum)
 		{
@@ -294,8 +295,8 @@ namespace SnailsPace.Core
 					Vector3 objectPosition = new Vector3(obj.position + spriteEnumerator.Current.position, -obj.layer - spriteEnumerator.Current.layerOffset);
 					Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
 
-					BoundingSphere sphere = new BoundingSphere(objectPosition, objectScale.Length() );
-					if (viewFrustum.Intersects(sphere))
+                    BoundingSphere sphere =  new BoundingSphere(objectPosition, objectScale.Length() );
+                    if (viewFrustum.Intersects(sphere))
 					{
 
 						int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
@@ -303,7 +304,7 @@ namespace SnailsPace.Core
 
 						Matrix translationMatrix = Matrix.CreateScale(objectScale) * Matrix.CreateRotationZ(obj.rotation + spriteEnumerator.Current.rotation) *
 							Matrix.CreateTranslation(objectPosition);
-						VertexPositionTexture[] objVertices = new VertexPositionTexture[vertices.Length];
+						VertexPositionColorTexture[] objVertices = new VertexPositionColorTexture[vertices.Length];
 						int xFlip = 0;
 						if (spriteEnumerator.Current.horizontalFlip && !obj.horizontalFlip || obj.horizontalFlip && !spriteEnumerator.Current.horizontalFlip)
 						{
@@ -344,7 +345,7 @@ namespace SnailsPace.Core
 						{
 							effectPassEnumerator.Current.Begin();
 							// The vertex declaration needs to be set before it gets here, or this will fail
-							SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
+							SnailsPace.getInstance().GraphicsDevice.DrawUserPrimitives<VertexPositionColorTexture>(PrimitiveType.TriangleStrip, objVertices, 0, 2);
 							effectPassEnumerator.Current.End();
 						}
 						effectPassEnumerator.Dispose();
@@ -366,7 +367,7 @@ namespace SnailsPace.Core
 
 		private void setUpVertices()
 		{
-			vertices = new VertexPositionTexture[4];
+			vertices = new VertexPositionColorTexture[4];
 			vertices[3].Position = new Vector3(-0.5f, 0.5f, 0.0f);
 			vertices[3].TextureCoordinate.X = 0;
 			vertices[3].TextureCoordinate.Y = 0;
