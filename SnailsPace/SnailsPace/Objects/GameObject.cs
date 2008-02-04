@@ -56,8 +56,8 @@ namespace SnailsPace.Objects
 		public float maxVelocity;
 		public float terminalVelocity = 640.0f;
 		public Vector2 direction;
-		public float acceleration = 640.0f;
-		public float horizontalFriction = 1280.0f;
+		public float acceleration = 3840.0f;
+		public float horizontalFriction = 2560.0f;
 
         public bool affectedByGravity;
 		public bool collidable = true;

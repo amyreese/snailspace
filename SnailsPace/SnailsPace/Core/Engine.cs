@@ -796,6 +796,7 @@ namespace SnailsPace.Core
 
 			objects.Add(pause);
 			objects.AddRange(player.gameObjects());
+
 			return objects;
 		}
 
