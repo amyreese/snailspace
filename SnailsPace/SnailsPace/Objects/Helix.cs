@@ -17,7 +17,7 @@ namespace SnailsPace.Objects
 		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 1280.0f;
 		public const float walkingAcceleration = 3840.0f;
-		public const float flyingMaxVelocity = 384.0f;
+		public const float flyingMaxVelocity = 512.0f;
 		public const float walkingMaxVelocity = 384.0f;
 
         public Helix( Vector2 position ) : base()
@@ -62,9 +62,9 @@ namespace SnailsPace.Objects
 
             // TODO: Make hover it's own animation
             sprites.Add("Hover", fly.clone());
-            sprites["Hover"].animationStart = 8;
-            sprites["Hover"].animationEnd = 9;
-            sprites["Hover"].frame = 8;
+            sprites["Hover"].animationStart = 12;
+            sprites["Hover"].animationEnd = 12;
+            sprites["Hover"].frame = 12;
             sprites["Hover"].animationDelay = 1.0f / 7.0f;
             sprites["Hover"].timer = 0f;
 
@@ -243,6 +243,7 @@ namespace SnailsPace.Objects
 				horizontalFriction = walkingHorizontalFriction;
 				maxVelocity = walkingMaxVelocity;
 			}
+			Console.WriteLine(maxVelocity);
 
             GameObject crosshair = Player.crosshair;
             sprites["Gun"].rotation = ((crosshair.position.X - position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - position.Y) / (crosshair.position.X - position.X));

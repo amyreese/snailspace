@@ -336,7 +336,7 @@ namespace SnailsPace.Core
 			return null;
 		}
 
-		private readonly Vector2 gravity = new Vector2(0.0f, -256.0f);
+		private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
 		private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
 		{
 			if ((gravityEnabled && movingObject.affectedByGravity) || movingObject.velocity.Length() > 0 || movingObject.direction.Length() > 0)
@@ -353,10 +353,12 @@ namespace SnailsPace.Core
 					}
 					objectAccel = movingObject.direction * movingObject.acceleration * elapsedTime;
 					objectVelocity = objectAccel + movingObject.velocity;
-					if (objectVelocity.Length() > movingObject.velocity.Length() && objectVelocity.Length() > movingObject.desiredMaxVelocity)
+					Vector2 objectVelocityLessGravity = objectVelocity - movingObject.velocityFromGravity;
+					if (objectVelocityLessGravity.Length() > (movingObject.velocity - movingObject.velocityFromGravity).Length() && objectVelocityLessGravity.Length() > movingObject.desiredMaxVelocity)
 					{
-						objectVelocity.Normalize();
-						objectVelocity = objectVelocity * movingObject.desiredMaxVelocity;
+						objectVelocityLessGravity.Normalize();
+						objectVelocityLessGravity = objectVelocityLessGravity * movingObject.desiredMaxVelocity;
+						objectVelocity = objectVelocityLessGravity + movingObject.velocityFromGravity;
 					}
 				}
 				else
@@ -389,10 +391,13 @@ namespace SnailsPace.Core
 				{
 					if (-objectVelocity.Y < movingObject.terminalVelocity)
 					{
-						objectVelocity += gravity * elapsedTime;
+						Vector2 velocityFromGravity = gravity * elapsedTime;
+						objectVelocity += velocityFromGravity;
+						movingObject.velocityFromGravity += velocityFromGravity;
 						if (-objectVelocity.Y > movingObject.terminalVelocity)
 						{
 							objectVelocity.Y = -movingObject.terminalVelocity;
+							movingObject.velocityFromGravity = new Vector2(0, -movingObject.terminalVelocity);
 						}
 					}
 				}
@@ -509,19 +514,16 @@ namespace SnailsPace.Core
 						}
 					}
 				}
-				if (resultingMovement.Y == 0)
+				if (movingObject is Objects.Helix)
 				{
-					if (movingObject is Objects.Helix)
+					if (resultingMovement.Y == 0)
 					{
 						if (objectVelocity.Y < 0)
 						{
 							Player.helix.flying = false;
 						}
 					}
-				}
-				if (resultingMovement.Y > 0)
-				{
-					if (movingObject is Objects.Helix)
+					else
 					{
 						Player.helix.flying = true;
 					}
@@ -530,11 +532,16 @@ namespace SnailsPace.Core
 				{
 					movingObject.collidedWith(collidedObject);
 					movingObject.velocity = Vector2.Zero;
+					movingObject.velocityFromGravity = Vector2.Zero;
 				}
 				else
 				{
 					movingObject.position += resultingMovement;
 					movingObject.velocity = objectVelocity;
+					if (resultingMovement.Y >= 0)
+					{
+						movingObject.velocityFromGravity = Vector2.Zero;
+					}
 					if (resultingMovement.Y == 0)
 					{
 						movingObject.velocity.Y = 0;
