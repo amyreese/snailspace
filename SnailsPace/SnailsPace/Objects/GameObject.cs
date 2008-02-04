@@ -52,6 +52,7 @@ namespace SnailsPace.Objects
 		}
 
         public Vector2 velocity;
+		public Vector2 velocityFromGravity;
 		public float desiredMaxVelocity;
 		public float maxVelocity;
 		public float terminalVelocity = 640.0f;
