@@ -35,10 +35,10 @@ function Spider(startPos)
 	spider = Character()
 	spider.sprites:Add("Walk", walk)
 	spider.sprites:Add("Stand", stand)
-	spider.size = SpiderImage.size
+	spider.size = Vector2(SpiderImage.size.X - 64, SpiderImage.size.Y - 64)
 	spider.startPosition = startPos
 	spider.position = startPos
-	spider.velocity = Vector2(0,0)
+	spider.direction = Vector2(0,0)
 	spider.maxVelocity = 640
 	spider.thinker = "SpiderThinker"
 	spider.health = 2
@@ -55,26 +55,11 @@ end
 
 -- Spider behavior function
 function SpiderThinker( self, gameTime )
-	vision = 640
-	if ( self.state.mad == true and self.state.tracking ) then
-		vision = 1600
-	end
-	
-	if ( AI.canSeeHelix( self, vision ) ) then 
-		AI.moveToHelix( self, 128.0, 64.0 )
+	if ( AI.canSeeHelix( self, 300 )) then 
 		self:setSprite("Walk")
-		self.state.tracking = true		
+		self.direction = Vector2(0,-1)
 	else
-		AI.stop( self )
-		
-		if ( self.state.tracking == true ) then
-			print("getting angry")
-			self.state.mad = true
-		end
-		
-		self.state.tracking = false
-		self:setSprite("Stand")
+		self.direction = Vector2(0,1)
 	end
 	
-	-- TODO: Extend AI for the Fire Ant
 end
