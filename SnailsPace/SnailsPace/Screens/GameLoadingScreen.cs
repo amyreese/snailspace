@@ -14,8 +14,11 @@ namespace SnailsPace.Screens
         {
         }
 
+        Texture2D screenImage;
+
         protected override void LoadContent()
         {
+            screenImage = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/GameLoadingScreen");
         }
 
         protected override void UnloadContent()
@@ -26,6 +29,13 @@ namespace SnailsPace.Screens
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Red, 1.0f, 0);
+            SpriteBatch batch = new SpriteBatch(GraphicsDevice);
+            batch.Begin();
+            {
+                batch.Draw(screenImage, new Rectangle(0, 0, SnailsPace.getInstance().Window.ClientBounds.Width, SnailsPace.getInstance().Window.ClientBounds.Height), Color.White);
+            }
+            batch.End();
+            batch.Dispose();
         }
     }
 }

@@ -790,30 +790,26 @@ namespace SnailsPace.Core
 		private List<Objects.GameObject> allObjects()
 		{
 			List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
-			//objects.AddRange(map.objects);
-			List<Objects.Character>.Enumerator characterEnum = map.characters.GetEnumerator();
-			while (characterEnum.MoveNext())
-			{
-				objects.Add(characterEnum.Current);
-			}
-			characterEnum.Dispose();
 
-			List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
-			while (bulletEnum.MoveNext())
-			{
-				objects.Add(bulletEnum.Current);
-			}
-			bulletEnum.Dispose();
+            objects.AddRange(mapBounds);
 
-			List<Objects.GameObject>.Enumerator boundsEnum = mapBounds.GetEnumerator();
-			while (boundsEnum.MoveNext())
-			{
-				objects.Add(boundsEnum.Current);
-			}
-			boundsEnum.Dispose();
+            List<Objects.Character>.Enumerator characterEnum = map.characters.GetEnumerator();
+            while (characterEnum.MoveNext())
+            {
+                objects.Add(characterEnum.Current);
+            }
+            characterEnum.Dispose();
 
-			objects.Add(pause);
-			objects.AddRange(player.gameObjects());
+            objects.AddRange(player.gameObjects());
+
+            List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
+            while (bulletEnum.MoveNext())
+            {
+                objects.Add(bulletEnum.Current);
+            }
+            bulletEnum.Dispose();
+
+            objects.Add(pause);
 
 			return objects;
 		}

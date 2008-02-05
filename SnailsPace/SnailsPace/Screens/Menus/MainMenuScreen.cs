@@ -38,7 +38,7 @@ namespace SnailsPace.Screens.Menus
 
             if (input.inputPressed("MenuToggle") && gameStarted)
             {
-                snailsPace.changeState(SnailsPace.GameStates.Game);
+                snailsPace.changeState(SnailsPace.GameStates.GameLoading);
             }
 
             if (input.inputPressed("MenuSelect"))
@@ -47,7 +47,7 @@ namespace SnailsPace.Screens.Menus
                 {
                     case 0:
                         gameStarted = true;
-                        snailsPace.changeState(SnailsPace.GameStates.Game);
+                        snailsPace.changeState(SnailsPace.GameStates.GameLoading);
                         break;
                     case 1:
                         snailsPace.changeState(SnailsPace.GameStates.SettingsMenu);
