@@ -6,7 +6,7 @@
 
 -- Generic background image
 BackgroundImage = Image()
-BackgroundImage.filename = "Resources/Textures/Garden"
+BackgroundImage.filename = "Resources/Textures/Tunnel"
 BackgroundImage.blocks = Vector2(16.0, 12.0)
 BackgroundImage.size = Vector2(768.0, 768.0)
 
@@ -22,8 +22,8 @@ BackgroundSprite.animationDelay = 0.0
 BackgroundSprite.timer = 0.0
 
 -- Background offsets
-xOffset = -1280
-yOffset = -480
+xOffset = -BackgroundImage.size.X
+yOffset = -BackgroundImage.size.Y * (BackgroundImage.blocks.Y - 0.25);
 
 -- Create the background with multiple sprites
 for x = 0, BackgroundImage.blocks.X - 1 do

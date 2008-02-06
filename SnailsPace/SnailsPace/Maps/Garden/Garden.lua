@@ -11,6 +11,7 @@ include("Enemies/Spider.lua")
 
 -- Set up the background
 include("Scenery/Background.lua")
+include("Scenery/TunnelBackground.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")
