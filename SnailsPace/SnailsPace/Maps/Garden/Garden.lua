@@ -14,7 +14,7 @@ include("Scenery/Background.lua")
 include("Scenery/TunnelBackground.lua")
 
 -- Set up map platforms
-include("Scenery/Pit.lua")
+include("SaltPit/SaltPit.lua")
 include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
@@ -33,14 +33,7 @@ blackant7 = BlackAnt(Vector2(3360, 975), "platPatrol")
 
 --bee = Bee()
 
-spider = Spider(Vector2(2060, -1950))
-spider = Spider(Vector2(2260, -2200))
-spider = Spider(Vector2(2460, -2400))
-spider = Spider(Vector2(2660, -2600))
-spider = Spider(Vector2(2860, -2800))
-spider = Spider(Vector2(3060, -3000))
-spider = Spider(Vector2(3260, -3200))
-spider = Spider(Vector2(3460, -3400))
+
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1400, -80))
