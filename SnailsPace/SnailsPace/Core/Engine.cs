@@ -162,13 +162,15 @@ namespace SnailsPace.Core
 			gameRenderer.cameraBounds = map.bounds.ToArray();
 		}
 
+        bool tada = false;
 		public void think(GameTime gameTime)
 		{
 			Engine.gameTime = gameTime;
 			Input input = SnailsPace.inputManager;
 
-			if (input.inputPressed("Pause"))
+            if (input.inputPressed("Pause"))
 			{
+                SnailsPace.soundManager.playRepeat("tada");
 				enginePaused = !enginePaused;
 			}
 			if (input.inputPressed("MenuToggle"))
@@ -654,7 +656,18 @@ namespace SnailsPace.Core
 
                 if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
                 {
+                    if (!trigger.inside)
+                    {
+                        trigger.triggerIn(Player.helix);
+                    }
                     trigger.trigger(Player.helix);
+                }
+                else
+                {
+                    if (trigger.inside)
+                    {
+                        trigger.triggerOut(Player.helix);
+                    }
                 }
             }
             triggers.Dispose();

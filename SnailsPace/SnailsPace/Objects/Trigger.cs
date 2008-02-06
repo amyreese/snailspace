@@ -16,6 +16,7 @@ namespace SnailsPace.Objects
 
         // Object state for Lua
         public LuaTable state;
+        public bool inside = false;
 
         public Trigger()
         {
@@ -26,6 +27,16 @@ namespace SnailsPace.Objects
         public void trigger(Character character)
         {
             Engine.lua.CallOn(state, "trigger", character, Engine.gameTime);
+        }
+        public void triggerIn(Character character)
+        {
+            inside = true;
+            Engine.lua.CallOn(state, "triggerIn", character, Engine.gameTime);
+        }
+        public void triggerOut(Character character)
+        {
+            inside = false;
+            Engine.lua.CallOn(state, "triggerOut", character, Engine.gameTime);
         }
     }
 }
