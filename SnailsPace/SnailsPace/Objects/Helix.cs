@@ -163,6 +163,9 @@ namespace SnailsPace.Objects
             Input input = SnailsPace.inputManager;
 
 			direction = Vector2.Zero;
+
+			thrust = false;
+
             if (input.inputDown("Left") && input.inputDown("Right"))
             {
                 // do nothing
@@ -174,7 +177,11 @@ namespace SnailsPace.Objects
 					direction.X = -1;
                     horizontalFlip = true;
                     sprites["Gun"].horizontalFlip = true;
-                }
+				}
+				if (flying)
+				{
+					thrust = true;
+				}
             }
             else if (input.inputDown("Right"))
             {
@@ -183,8 +190,13 @@ namespace SnailsPace.Objects
 					direction.X = 1;
                     horizontalFlip = false;
                     sprites["Gun"].horizontalFlip = false;
-                }
-            }
+				}
+				if (flying)
+				{
+					thrust = true;
+				}
+            } 
+			
 
             if (input.inputDown("Up") && input.inputDown("Down"))
             {
@@ -204,11 +216,7 @@ namespace SnailsPace.Objects
 				{
 					direction.Y = -1;
 				}
-				thrust = false;
-			}
-			else
-			{
-				thrust = false;
+
 			}
 
 
