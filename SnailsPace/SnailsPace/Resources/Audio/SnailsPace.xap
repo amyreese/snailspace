@@ -225,8 +225,8 @@ Wave Bank
     Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 424438422;
-    Bank Last Revised High = 29910893;
+    Bank Last Revised Low = 283235842;
+    Bank Last Revised High = 29911248;
 
     Wave
     {
@@ -260,8 +260,70 @@ Sound Bank
     Windows File = SnailsPace.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 0;
-    Bank Last Modified High = 0;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
+
+    Sound
+    {
+        Name = tada;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = tada;
+                    Entry Index = 0;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Cue
+    {
+        Name = tada;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = tada;
+            Index = 0;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
 }

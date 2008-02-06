@@ -12,23 +12,102 @@ namespace SnailsPace.Core
         SoundBank soundBank;
         WaveBank waveBank;
 
+        Dictionary<String, Cue> cues;
+        Dictionary<String, bool> repeat;
+
         // Create the appropriate XACT crap.
         public Sound()
         {
             audioEngine = new AudioEngine("Resources/Audio/SnailsPace.xgs");
             soundBank = new SoundBank(audioEngine, "Resources/Audio/SnailsPace.xsb");
             waveBank = new WaveBank(audioEngine, "Resources/Audio/SnailsPace.xwb");
+
+            cues = new Dictionary<string,Cue>();
+            repeat = new Dictionary<string,bool>();
         }
 
         // Fire-and-forget sound
         public void play(String cue)
         {
-            soundBank.PlayCue(cue);
+            cache(cue);
+            if (cues[cue].IsPrepared)
+            {
+                cues[cue].Play();
+            }
+            else if (cues[cue].IsPaused)
+            {
+                cues[cue].Stop(AudioStopOptions.Immediate);
+                recache(cue);
+                cues[cue].Play();
+            }
+        }
+
+        // Start a repeating sound
+        public void playRepeat(String cue)
+        {
+            cache(cue);
+            repeat[cue] = true;
+            if (cues[cue].IsPrepared)
+            {
+                cues[cue].Play();
+            }
+            else if (cues[cue].IsPaused)
+            {
+                cues[cue].Stop(AudioStopOptions.Immediate);
+                recache(cue);
+                cues[cue].Play();
+            }
+        }
+
+        // Stop a sound
+        public void stop(String cue)
+        {
+            cache(cue);
+            if (cues[cue].IsPlaying || cues[cue].IsPaused)
+            {
+                cues[cue].Stop(AudioStopOptions.AsAuthored);
+            }
+            repeat[cue] = false;
+        }
+
+        // Cache the Cue object and whether it should be repeating
+        private void cache(String cue)
+        {
+            if (!cues.ContainsKey(cue))
+            {
+                cues.Add(cue, soundBank.GetCue(cue));
+                repeat.Add(cue, false);
+            }
+        }
+
+        // Recache a new version of a cue
+        private void recache(String cue)
+        {
+            cues[cue] = soundBank.GetCue(cue);
         }
 
         // Pass the update call to the AudioEngine
         public void update()
         {
+            List<String> allCues = new List<string>(cues.Keys);
+            List<String>.Enumerator cueKeys = allCues.GetEnumerator();
+            while(cueKeys.MoveNext())
+            {
+                String cue = cueKeys.Current;
+                bool repeatable = repeat[cue];
+
+                if (cues[cue].IsStopped)
+                {
+                    recache(cue);
+
+                    if (repeatable)
+                    {
+                        cues[cue].Play();
+                    }
+                }
+            }
+            cueKeys.Dispose();
+
             audioEngine.Update();
         }
     }
