@@ -28,6 +28,21 @@ saltSprite.frame = 0
 saltSprite.animationDelay = 0.0
 saltSprite.timer = 0.0
 
+pileImage = Image()
+pileImage.filename = "Resources/Textures/saltpile"
+pileImage.blocks = Vector2(1.0, 1.0)
+pileImage.size = Vector2(280.0, 122.0)
+
+pileSprite = Sprite()
+pileSprite.image = pileImage
+pileSprite.visible = true
+pileSprite.effect = "Resources/Effects/effects"
+pileSprite.animationStart = 0
+pileSprite.animationEnd = 0
+pileSprite.frame = 0
+pileSprite.animationDelay = 0.0
+pileSprite.timer = 0.0
+
 --Left Pit Wall
 xOffset = 18
 yOffset = -15.0
@@ -88,11 +103,22 @@ for x=0,40 do
  map.objects:Add(gravelObj)
 end
 
+--Pit Floor SaltPile
+pile1 = GameObject()
+ pile1Sprite = pileSprite:clone()
+ pile1Sprite.frame = 0
+ pile1.sprites:Add("Pile", pile1Sprite)
+ pile1.size = Vector2(pileImage.size.X - 32, gravelImage.size.Y - 192)
+ pile1.rotation = 0.0
+ pile1.position = Vector2(69*32, -33*32)
+ pile1.layer = 0.6
+ map.objects:Add(pile1)
+
 --Pit Floor Salt
 xOffset = 45
 yOffset = -31.0
 for x=0,37 do
- saltObj = GameObject()
+ saltObj = Character()
  saltObjSprite = saltSprite:clone()
  saltObjSprite.frame = 0
  saltObj.sprites:Add("salt", saltObjSprite)
@@ -139,7 +165,7 @@ end
 xOffset = 27
 yOffset = -45.0
 for x=0,30 do
- saltObj = GameObject()
+ saltObj = Character()
  saltObjSprite = saltSprite:clone()
  saltObjSprite.frame = 0
  saltObj.sprites:Add("salt", saltObjSprite)

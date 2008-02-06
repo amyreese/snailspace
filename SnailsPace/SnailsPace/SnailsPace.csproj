@@ -199,6 +199,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\Audio\SnailsPace.xap" />
+    <Content Include="Resources\Textures\pouringsalt.png" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">
