@@ -9,17 +9,57 @@ namespace SnailsPace.Objects
 	{
 		private Vector2 center;
 		private Vector2[] points;
-		public Vector2[] GetPoints()
+		private float rotation;
+
+		public float Left
 		{
-			return (Vector2[])points.Clone();
+			get
+			{
+				float val = points[0].X;
+				for (int i = 1; i < points.Length; i++)
+					val = MathHelper.Min(val, points[i].X);
+				return val;
+			}
 		}
 
-		private float rotation;
+		public float Right
+		{
+			get
+			{
+				float val = points[0].X;
+				for (int i = 1; i < points.Length; i++)
+					val = MathHelper.Max(val, points[i].X);
+				return val;
+			}
+		}
+
+		public float Top
+		{
+			get
+			{
+				float val = points[0].Y;
+				for (int i = 1; i < points.Length; i++)
+					val = MathHelper.Max(val, points[i].Y);
+				return val;
+			}
+		}
+
+		public float Bottom
+		{
+			get
+			{
+				float val = points[0].Y;
+				for (int i = 1; i < points.Length; i++)
+					val = MathHelper.Min(val, points[i].Y);
+				return val;
+			}
+		}
 
 		public GameObjectBounds(Vector2[] points)
 		{
 			this.points = points;
 		}
+
 		public GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
 			this.center = position;
@@ -40,6 +80,11 @@ namespace SnailsPace.Objects
 			{
 				Vector2.Transform(ref points[index], ref transform, out points[index]);
 			}
+		}
+
+		public Vector2[] GetPoints()
+		{
+			return (Vector2[])points.Clone();
 		}
 
 		internal void Move(Vector2 offset)

@@ -121,7 +121,7 @@ saltcan = GameObject()
 saltcanSprite.frame = 0
 saltcan.sprites:Add("Can", saltcanSprite)
 saltcan.size = Vector2(saltcanImage.size.X, saltcanImage.size.Y)
-saltcan.rotation = 1.57
+saltcan.rotation = MathHelper.PiOver2
 saltcan.position = Vector2( xOffset + 2048, yOffset - saltcanImage.size.Y / 2 )
 saltcan.layer = defaultLayer - 2
 saltcan.collidable = true;

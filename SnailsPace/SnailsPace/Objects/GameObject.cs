@@ -119,37 +119,35 @@ namespace SnailsPace.Objects
 		}
 
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
-		{
+		{		
             float left = position.X - size.X / 2;
             left = Math.Min(left, left + movementVector.X);
-            float otherRight = otherObject.position.X + otherObject.size.X / 2;
-            if (left > otherRight)
+            if (left > otherObject.bounds.Right)
             {
                 return false;
             }
-            float right = position.X + size.X / 2;
+
+			float right = position.X + size.X / 2;
             right = Math.Max(right, right + movementVector.X);
-            float otherLeft = otherObject.position.X - otherObject.size.X / 2;
-            if (otherLeft > right)
+            if (otherObject.bounds.Left > right)
             {
                 return false;
             }
 
-            float bottom = position.Y - size.Y / 2;
+			float bottom = position.Y - size.Y / 2;
             bottom = Math.Min(bottom, bottom + movementVector.Y);
-            float otherTop = otherObject.position.Y + otherObject.size.Y / 2;
-            if (bottom > otherTop)
+            if (bottom > otherObject.bounds.Top)
             {
                 return false;
             }
 
-            float top = position.Y + size.Y / 2;
+			float top = position.Y + size.Y / 2;
             top = Math.Max(top, top + movementVector.Y);
-            float otherBottom = otherObject.position.Y - otherObject.size.Y / 2;
-            if (otherBottom > top)
+            if (otherObject.bounds.Bottom > top)
             {
                 return false;
             }
+
 			return bounds.WillIntersect(otherObject.bounds, movementVector);
 		}
 
