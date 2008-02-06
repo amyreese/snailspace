@@ -43,6 +43,10 @@ pileSprite.frame = 0
 pileSprite.animationDelay = 0.0
 pileSprite.timer = 0.0
 
+
+
+
+
 --Left Pit Wall
 xOffset = 18
 yOffset = -15.0
@@ -113,6 +117,18 @@ pile1 = GameObject()
  pile1.position = Vector2(69*32, -33*32)
  pile1.layer = 0.6
  map.objects:Add(pile1)
+ 
+ -- Set up the saltPile Trigger
+--[[pileTrig = Trigger()
+pileTrig.position = Vector2(69*32,-33*32)
+pileTrig.bounds = GameObjectBounds( Vector2( 0,0 ), Vector2( 0,280 ), Vector2(140, 122))
+pileTrig.state = {}
+map.triggers:Add(pileTrig)
+
+ saltPile Trigger function
+function pileTrig.state:trigger( character, gameTime )
+	character.takeDamage(1)
+end]]--
 
 --Pit Floor Salt
 xOffset = 45
