@@ -12,7 +12,7 @@ namespace SnailsPace.Objects
         public float fuel;
 		public float maxFuel;
 		public bool flying;
-
+		public bool thrust;
 		public const float flyingHorizontalFriction = 640.0f;
 		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 2560.0f;
@@ -127,14 +127,17 @@ namespace SnailsPace.Objects
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
-				fuel -= fuelMod * (1 + 2 * direction.Length());
-				if (fuel < 0)
+				if (thrust)
 				{
-					fuel = 0;
-				}
-				if (fuel > 0)
-				{
-					//affectedByGravity = false;
+					fuel -= fuelMod * (1 + 2 * direction.Length());
+					if (fuel < 0)
+					{
+						fuel = 0;
+					}
+					if (fuel > 0)
+					{
+						//affectedByGravity = false;
+					}
 				}
 			}
 			else
@@ -192,15 +195,22 @@ namespace SnailsPace.Objects
                 if (fuel > 0)
                 {
 					direction.Y = 1;
+					thrust = true;
                 }
             }
-            else if (input.inputDown("Down"))
-            {
-                if (fuel > 0)
-                {
-                    direction.Y = -1;
-                }
-            }
+			else if (input.inputDown("Down"))
+			{
+				if (fuel > 0)
+				{
+					direction.Y = -1;
+				}
+				thrust = false;
+			}
+			else
+			{
+				thrust = false;
+			}
+
 
 			// Sprites & Animations
 			if (flying)
