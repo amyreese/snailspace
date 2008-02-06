@@ -50,7 +50,7 @@ namespace SnailsPace.Objects
 			// Assumes canCollideWith
 			if (otherObject is Character)
 			{
-				((Character)otherObject).health -= damage;
+				((Character)otherObject).takeDamage(damage);
 			}
 		}
 	}

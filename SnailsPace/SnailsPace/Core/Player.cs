@@ -46,7 +46,13 @@ namespace SnailsPace.Core
         {
             // Update things that depend on mouse position
 			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
-			
+
+			if (helix.health <= 0)
+			{
+				helix.position = load();
+				helix.health = helix.maxHealth;
+			}
+
             helix.think(gameTime);
         }
 

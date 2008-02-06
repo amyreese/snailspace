@@ -20,6 +20,9 @@ namespace SnailsPace.Objects
 		public const float flyingMaxVelocity = 640.0f;
 		public const float walkingMaxVelocity = 384.0f;
 
+		public double lastTookDamage;
+		public double invincibilityPeriod = 500;
+
         public Helix( Vector2 position ) : base()
         {
             Engine.lua["helix"] = this;
@@ -120,10 +123,6 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
-			if (health <= 0)
-			{
-				die();
-			}
 			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
@@ -274,25 +273,28 @@ namespace SnailsPace.Objects
 		public override bool canCollideWith(GameObject otherObject)
 		{
 			if ((otherObject is Objects.Bullet) && (((Bullet)otherObject).isPCBullet))
-			{
 				return false;
-			}
-			else
-			{
-				bool result = base.canCollideWith(otherObject);
-				
-				if ((result) && (otherObject is Objects.Character))
-					health--;
-					
-				return result;
-			}
+			
+			return base.canCollideWith(otherObject);
 		}
 
-		public void die()
+		public override void collidedWith(GameObject otherObject)
 		{
-			position = startPosition;
-			health = maxHealth;
+			if (otherObject is Objects.Character)
+				takeDamage();
+			else
+				base.collidedWith(otherObject);
 		}
 
+		public override void takeDamage(int damage)
+		{
+			if (lastTookDamage + invincibilityPeriod < Engine.gameTime.TotalRealTime.TotalMilliseconds)
+			{
+				base.takeDamage(damage);
+				lastTookDamage = Engine.gameTime.TotalRealTime.TotalMilliseconds;
+
+				//TODO: Bump helix away from danger
+			}
+		}
     }
 }
