@@ -23,6 +23,7 @@ import = luanet.import_type;
 
 using('Microsoft.Xna.Framework');
 
+MathHelper = import('Microsoft.Xna.Framework.MathHelper');
 Rectangle = import('Microsoft.Xna.Framework.Rectangle');
 Vector2 = import('Microsoft.Xna.Framework.Vector2');
 Vector3 = import('Microsoft.Xna.Framework.Vector3');

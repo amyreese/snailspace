@@ -58,7 +58,7 @@ saltcan = GameObject()
 saltcanSprite.frame = 0
 saltcan.sprites:Add("Can", saltcanSprite)
 saltcan.size = Vector2(saltcanImage.size.X - 16, saltcanImage.size.Y - 16)
-saltcan.rotation = 1.57
+saltcan.rotation = MathHelper.PiOver2
 saltcan.position = Vector2( (33+platOffX)*32, -12 * 32 )
 saltcan.layer = 0.5
 map.objects:Add(saltcan)
