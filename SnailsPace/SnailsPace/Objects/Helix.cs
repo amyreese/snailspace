@@ -87,6 +87,7 @@ namespace SnailsPace.Objects
 
             maxVelocity = walkingMaxVelocity;
             maxFuel = 40;
+            fuel = maxFuel;
             layer = 0;
             
             size = walk.image.size;
@@ -103,8 +104,9 @@ namespace SnailsPace.Objects
             points[9] = new Vector2(27.0f, 6.0f);
             points[10] = new Vector2(21.0f, 23.0f);
             bounds = new Objects.GameObjectBounds(points);
-            position = new Vector2(0, 0);
-			startPosition = position;
+            
+            this.position = position;
+            startPosition = position;
 
 			maxHealth = 20;
 			health = 20;
@@ -176,11 +178,8 @@ namespace SnailsPace.Objects
 					direction.X = -1;
                     horizontalFlip = true;
                     sprites["Gun"].horizontalFlip = true;
-				}
-				if (flying)
-				{
-					thrust = true;
-				}
+                    thrust = true;
+                }
             }
             else if (input.inputDown("Right"))
             {
@@ -189,11 +188,8 @@ namespace SnailsPace.Objects
 					direction.X = 1;
                     horizontalFlip = false;
                     sprites["Gun"].horizontalFlip = false;
-				}
-				if (flying)
-				{
-					thrust = true;
-				}
+                    thrust = true;
+                }
             } 
 			
 
@@ -214,6 +210,7 @@ namespace SnailsPace.Objects
 				if (fuel > 0)
 				{
 					direction.Y = -1;
+                    thrust = true;
 				}
 
 			}

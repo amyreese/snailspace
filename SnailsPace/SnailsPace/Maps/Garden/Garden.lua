@@ -1,6 +1,11 @@
+library('WorldBuilding')
 
 -- Player creation and starting position
-player = Player( Vector2(0,0) )
+startPosition = Vector2(0,0)
+-- startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
+-- startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
+-- startPosition = Vector2(3700, -7620) -- Salt Ramp Bottom
+player = Player( startPosition )
 include("Triggers/Message.lua")
 
 -- Enemy Character Definitions
@@ -9,12 +14,15 @@ include("Enemies/FireAnt.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
 
+-- Scenery Sprite Definitions
+include("Scenery/Sprites.lua")
+
 -- Set up the background
 include("Scenery/Background.lua")
 include("Scenery/TunnelBackground.lua")
 
 -- Set up map platforms
-include("SaltPit/SaltPit.lua")
+include("Scenery/SaltPit/SaltPit.lua")
 include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")

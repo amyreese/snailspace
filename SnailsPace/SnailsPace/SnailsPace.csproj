@@ -162,7 +162,13 @@
     <None Include="Lua\AI.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Lua\WorldBuilding.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Lua\Math.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden\Scenery\Sprites.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Enemies\BlackAnt.lua">
@@ -177,13 +183,13 @@
     <None Include="Maps\Garden\Garden.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\SaltPit\SaltPit.lua">
+    <None Include="Maps\Garden\Scenery\SaltPit\SaltPit.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\SaltPit\Enemies.lua">
+    <None Include="Maps\Garden\Scenery\SaltPit\Enemies.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden\SaltPit\Scenery.lua">
+    <None Include="Maps\Garden\Scenery\SaltPit\Scenery.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Scenery\TunnelBackground.lua">

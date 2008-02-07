@@ -271,6 +271,14 @@ namespace SnailsPace.Core
             SpriteBatch batch = new SpriteBatch(SnailsPace.getInstance().GraphicsDevice);
             batch.Begin();
 
+            // Draw HUD
+            {
+                batch.Draw(Engine.healthIcon, new Rectangle(0, 0, 32, 32), Color.White);
+                batch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
+                batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
+                batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
+            }
+
             // Draw text strings
             if (strings != null)
             {
@@ -282,13 +290,6 @@ namespace SnailsPace.Core
                 textEnumerator.Dispose();
             }
 
-            // Draw HUD
-            {
-                batch.Draw(Engine.healthIcon, new Rectangle(0, 0, 32, 32), Color.White);
-                batch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
-                batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
-                batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
-            }
             batch.End();
 			batch.Dispose();
         }

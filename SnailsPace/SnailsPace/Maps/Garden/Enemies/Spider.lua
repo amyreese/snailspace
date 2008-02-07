@@ -43,6 +43,7 @@ function Spider(startPos)
 	spider.thinker = "SpiderThinker"
 	spider.health = 2
 	spider.name = "Spider"
+	spider.coolDown = 250
 	spider:setSprite("Stand")
 	spider.state = {
 		tracking = false,
@@ -61,5 +62,7 @@ function SpiderThinker( self, gameTime )
 	else
 		self.direction = Vector2(0,1)
 	end
-	
+	if self.state.attacking then
+		AI.shootDirectlyAtHelix( self, gameTime )
+	end
 end
