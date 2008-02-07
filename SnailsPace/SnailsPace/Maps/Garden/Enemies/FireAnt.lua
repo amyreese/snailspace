@@ -57,8 +57,8 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	AI.platformPatrol(self)
-	
+	self:setSprite("Walk")
+	AI.moveToHelix(self)
 	AI.shootDirectlyAtHelix(self, gameTime)
 	-- TODO: Extend AI for the Fire Ant
 end

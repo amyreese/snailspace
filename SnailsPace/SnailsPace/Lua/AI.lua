@@ -66,5 +66,6 @@ end
 
 --[[Patrol on a platform]]--
 function AI.platformPatrol(self)
+	self.horizontalFriction = 3840.0
 	AI.patrol(self, self.startPosition.X + 10, self.startPosition.X - 10)
 end

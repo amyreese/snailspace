@@ -57,6 +57,11 @@ end
 
 -- Black Ant behavior function
 function BlackAntThinker( self, gameTime )
+	if(AI.canSeeHelix(self, 300)) then
+		AI.shootDirectlyAtHelix(self, gameTime)
+	end
+	
+	
 	if (self.behavior == "platPatrol") then
 		AI.platformPatrol(self)
 	elseif (self.behavior == "patrol") then

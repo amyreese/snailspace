@@ -278,7 +278,7 @@ namespace SnailsPace.Objects
 		public override void collidedWith(GameObject otherObject)
 		{
 			if (otherObject is Objects.Character)
-				takeDamage();
+				base.takeDamage();
 			else
 				base.collidedWith(otherObject);
 		}
@@ -290,7 +290,6 @@ namespace SnailsPace.Objects
 				base.takeDamage(damage);
 				lastTookDamage = Engine.gameTime.TotalRealTime.TotalMilliseconds;
 
-				//TODO: Bump helix away from danger
 			}
 		}
     }

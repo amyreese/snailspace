@@ -41,7 +41,7 @@ function Spider(startPos)
 	spider.direction = Vector2(0,0)
 	spider.maxVelocity = 640
 	spider.thinker = "SpiderThinker"
-	spider.health = 2
+	spider.health = 6
 	spider.name = "Spider"
 	spider.coolDown = 250
 	spider:setSprite("Stand")
@@ -56,7 +56,7 @@ end
 
 -- Spider behavior function
 function SpiderThinker( self, gameTime )
-	if ( AI.canSeeHelix( self, 300 )) then 
+	if ( helix.position.Y < self.position.Y and AI.canSeeHelix(self, 300)) then 
 		self:setSprite("Walk")
 		self.direction = Vector2(0,-1)
 	else

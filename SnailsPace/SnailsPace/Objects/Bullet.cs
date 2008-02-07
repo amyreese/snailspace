@@ -48,9 +48,17 @@ namespace SnailsPace.Objects
 		public override void collidedWith(GameObject otherObject)
 		{
 			// Assumes canCollideWith
-			if (otherObject is Character)
+			if (otherObject is Character && otherObject.name != "Helix")
 			{
 				((Character)otherObject).takeDamage(damage);
+			}
+			else if (otherObject is GameObject && otherObject.name == "fallingPlatform")
+			{
+				((GameObject)otherObject).affectedByGravity = true;
+				if (((GameObject)otherObject).sprites.ContainsKey("Pour"))
+				{
+					((GameObject)otherObject).sprites["Pour"].visible = false;
+				}
 			}
 		}
 	}

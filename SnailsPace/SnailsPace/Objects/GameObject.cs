@@ -116,6 +116,7 @@ namespace SnailsPace.Objects
 		public virtual void collidedWith(GameObject otherObject)
 		{
 			// Do nothing?
+
 		}
 
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
