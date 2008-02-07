@@ -1,0 +1,3 @@
+xOffset = fenceXOffset
+yOffset = fenceYOffset
+

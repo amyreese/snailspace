@@ -21,7 +21,7 @@ namespace SnailsPace.Objects
 		public const float walkingMaxVelocity = 384.0f;
 
 		public double lastTookDamage;
-		public double invincibilityPeriod = 500;
+		public double invincibilityPeriod = 100;
 
         public Helix( Vector2 position ) : base()
         {
@@ -86,7 +86,7 @@ namespace SnailsPace.Objects
             sprites["Gun"].timer = 0f;
 
             maxVelocity = walkingMaxVelocity;
-            maxFuel = 40;
+            maxFuel = 20;
             fuel = maxFuel;
             layer = 0;
             
@@ -130,7 +130,7 @@ namespace SnailsPace.Objects
 			{
 				if (thrust)
 				{
-					fuel -= fuelMod * (1 + 2 * direction.Length());
+					fuel -= fuelMod * (3 * direction.Length());
 					if (fuel < 0)
 					{
 						fuel = 0;

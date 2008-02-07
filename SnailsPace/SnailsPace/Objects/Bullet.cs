@@ -48,7 +48,7 @@ namespace SnailsPace.Objects
 		public override void collidedWith(GameObject otherObject)
 		{
 			// Assumes canCollideWith
-			if (otherObject is Character && otherObject.name != "Helix")
+            if (otherObject is Character)
 			{
 				((Character)otherObject).takeDamage(damage);
 			}

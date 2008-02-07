@@ -100,12 +100,15 @@ namespace SnailsPace.Objects
 
 		public void setSprite(String sprtName)
 		{
-			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = this.sprites.Values.GetEnumerator();
+			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
 			while (sprtEnumerator.MoveNext())
 			{
 				sprtEnumerator.Current.visible = false;
 			}
-			this.sprites[sprtName].visible = true;
+            if (sprites.ContainsKey(sprtName))
+            {
+                sprites[sprtName].visible = true;
+            }
 		}
 
 		public virtual bool canCollideWith(GameObject otherObject)

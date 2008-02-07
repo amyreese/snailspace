@@ -1,0 +1,3 @@
+xOffset = startAreaXOffset
+yOffset = startAreaYOffset
+
