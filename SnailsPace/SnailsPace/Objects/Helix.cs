@@ -76,7 +76,7 @@ namespace SnailsPace.Objects
 			sprites["NoFuel"].animationStart = 12;
 			sprites["NoFuel"].animationEnd = 13;
 			sprites["NoFuel"].frame = 12;
-			sprites["NoFuel"].animationDelay = 1.0f / 2.0f;
+			sprites["NoFuel"].animationDelay = 1.0f / 4.0f;
 			sprites["NoFuel"].timer = 0f;
 			
 			sprites.Add("Gun", fly.clone());
@@ -257,7 +257,7 @@ namespace SnailsPace.Objects
                 Engine.sound.playRepeat("alarm");
                 sprites["NoFuel"].visible = true;
 
-                if (fuel > 0)
+                if (thrustable)
                 {
                     sprites["NoFuel"].animate(gameTime);
                 }
