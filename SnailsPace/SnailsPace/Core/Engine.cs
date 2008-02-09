@@ -37,6 +37,7 @@ namespace SnailsPace.Core
 
 		// Bullets
 		public static List<Objects.Bullet> bullets;
+		public static List<Objects.Explosion> explosions;
 
 		// Pause Screen
 		public Objects.GameObject pause;
@@ -66,6 +67,7 @@ namespace SnailsPace.Core
 			map = new Objects.Map(mapName);
 
 			bullets = new List<Objects.Bullet>();
+			explosions = new List<Objects.Explosion>();
 			collidingObjects = new List<Objects.GameObject>();
 
 			loadFonts();
@@ -663,9 +665,12 @@ namespace SnailsPace.Core
 				while (destroyedBulletEnumerator.MoveNext())
 				{
 					bullets.Remove(destroyedBulletEnumerator.Current);
-					// TODO: explosion!!!
+					Objects.Explosion explosion = new Objects.Explosion();
+					explosion.position = destroyedBulletEnumerator.Current.position;
+					explosions.Add(explosion);
 				}
 				destroyedBulletEnumerator.Dispose();
+				bulletsToClear.Clear();
 			}
 
 			// Check all triggers against Helix
@@ -727,6 +732,24 @@ namespace SnailsPace.Core
 					sprtEnumerator.Dispose();
 				}
 				charEnumerator.Dispose();
+
+				List<Objects.Explosion>.Enumerator explosionEnumerator = explosions.GetEnumerator();
+				List<Objects.Explosion> explosionsToRemove = new List<Objects.Explosion>();
+				while (explosionEnumerator.MoveNext())
+				{
+					if (!explosionEnumerator.Current.DoAnimation( gameTime ))
+					{
+						explosionsToRemove.Add(explosionEnumerator.Current);
+					}
+				}
+				explosionEnumerator.Dispose();
+				explosionEnumerator = explosionsToRemove.GetEnumerator();
+				while (explosionEnumerator.MoveNext())
+				{
+					explosions.Remove(explosionEnumerator.Current );
+				}
+				explosionEnumerator.Dispose();
+
 			}
 		}
 
@@ -847,7 +870,14 @@ namespace SnailsPace.Core
 			}
 			bulletEnum.Dispose();
 
-			objects.Add(pause);
+			List<Objects.Explosion>.Enumerator explosionEnum = explosions.GetEnumerator();
+			while (explosionEnum.MoveNext())
+			{
+				objects.Add(explosionEnum.Current);
+			}
+			explosionEnum.Dispose();
+
+            objects.Add(pause);
 
 			return objects;
 		}

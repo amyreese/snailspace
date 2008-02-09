@@ -72,6 +72,7 @@
     <Compile Include="Core\Sound.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Character.cs" />
+    <Compile Include="Objects\Explosion.cs" />
     <Compile Include="Objects\GameObjectBoundsBuilder.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\GameObjectBounds.cs" />
