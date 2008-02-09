@@ -41,6 +41,7 @@ Text = import('SnailsPace.Objects.Text');
 
 GameObject = import('SnailsPace.Objects.GameObject');
 GameObjectBounds = import('SnailsPace.Objects.GameObjectBounds');
+GameObjectBoundsBuilder = import('SnailsPace.Objects.GameObjectBoundsBuilder');
 Bullet = import('SnailsPace.Objects.Bullet');
 Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');

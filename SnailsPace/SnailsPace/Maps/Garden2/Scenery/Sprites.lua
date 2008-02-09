@@ -28,21 +28,6 @@ gravelSprite.frame = 0
 gravelSprite.animationDelay = 0.0
 gravelSprite.timer = 0.0
 
-saltImage = Image()
-saltImage.filename = "Resources/Textures/salt"
-saltImage.blocks = Vector2(1.0, 1.0)
-saltImage.size = Vector2(256.0, 64.0)
-
-saltSprite = Sprite()
-saltSprite.image = saltImage
-saltSprite.visible = true
-saltSprite.effect = "Resources/Effects/effects"
-saltSprite.animationStart = 0
-saltSprite.animationEnd = 0
-saltSprite.frame = 0
-saltSprite.animationDelay = 0.0
-saltSprite.timer = 0.0
-
 dirtImage = Image()
 dirtImage.filename = "Resources/Textures/dirt"
 dirtImage.blocks = Vector2(1.0, 1.0)
@@ -88,6 +73,36 @@ saltcanSprite.frame = 0
 saltcanSprite.animationDelay = 0.0
 saltcanSprite.timer = 0.0
 
+saltImage = Image()
+saltImage.filename = "Resources/Textures/salt"
+saltImage.blocks = Vector2(1.0, 1.0)
+saltImage.size = Vector2(256.0, 64.0)
+
+saltSprite = Sprite()
+saltSprite.image = saltImage
+saltSprite.visible = true
+saltSprite.effect = "Resources/Effects/effects"
+saltSprite.animationStart = 0
+saltSprite.animationEnd = 0
+saltSprite.frame = 0
+saltSprite.animationDelay = 0.0
+saltSprite.timer = 0.0
+
+saltpileImage = Image()
+saltpileImage.filename = "Resources/Textures/saltpile"
+saltpileImage.blocks = Vector2(1.0, 1.0)
+saltpileImage.size = Vector2(340.0, 148.0)
+
+saltpileSprite = Sprite()
+saltpileSprite.image = saltpileImage
+saltpileSprite.visible = true
+saltpileSprite.effect = "Resources/Effects/effects"
+saltpileSprite.animationStart = 0
+saltpileSprite.animationEnd = 0
+saltpileSprite.frame = 0
+saltpileSprite.animationDelay = 0.0
+saltpileSprite.timer = 0.0
+
 pourImage = Image()
 pourImage.filename = "Resources/Textures/pouringsalt"
 pourImage.blocks = Vector2(4.0, 1.0)
@@ -102,6 +117,21 @@ pourSprite.animationEnd = 3
 pourSprite.frame = 0
 pourSprite.animationDelay = 0.1
 pourSprite.timer = 0.0
+
+pourSImage = Image()
+pourSImage.filename = "Resources/Textures/pouringsalt"
+pourSImage.blocks = Vector2(4.0, 1.0)
+pourSImage.size = Vector2(64.0, 256.0)
+
+pourSSprite = Sprite()
+pourSSprite.image = pourImage
+pourSSprite.visible = true
+pourSSprite.effect = "Resources/Effects/effects"
+pourSSprite.animationStart = 0
+pourSSprite.animationEnd = 3
+pourSSprite.frame = 0
+pourSSprite.animationDelay = 0.1
+pourSSprite.timer = 0.0
 
 fencePostImage = Image()
 fencePostImage.filename = "Resources/Textures/fencePost"
