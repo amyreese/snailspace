@@ -222,10 +222,10 @@
     <None Include="Maps\Garden2\Scenery\TunnelBackground.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Triggers\Powerups.lua">
+    <None Include="Maps\Garden2\Triggers\Traps.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Triggers\Message.lua">
+    <None Include="Maps\Garden2\Triggers\Powerups.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Scenery\Sprites.lua">

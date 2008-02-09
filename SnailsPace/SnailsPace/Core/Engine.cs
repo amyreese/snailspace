@@ -193,18 +193,24 @@ namespace SnailsPace.Core
 			while (charEnum.MoveNext())
 			{
 				//Is a character dead? Kill it!
-				if (charEnum.Current.health <= 0)
-					deadChars.Add(charEnum.Current);
-
-				//If not, let it think.
-				else
-					charEnum.Current.think(gameTime);
+                if (charEnum.Current.health <= 0)
+                {
+                    deadChars.Add(charEnum.Current);
+                    player.killedEnemy();
+                }
+                //If not, let it think.
+                else
+                {
+                    charEnum.Current.think(gameTime);
+                }
 			}
 			charEnum.Dispose();
 
 			List<Objects.Character>.Enumerator deadCharEnum = deadChars.GetEnumerator();
-			while (deadCharEnum.MoveNext())
-				map.characters.Remove(deadCharEnum.Current);
+            while (deadCharEnum.MoveNext())
+            {
+                map.characters.Remove(deadCharEnum.Current);
+            }
 			deadCharEnum.Dispose();
 
 #if DEBUG

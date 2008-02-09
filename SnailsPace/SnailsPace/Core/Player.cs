@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SnailsPace.Objects;
 
 namespace SnailsPace.Core
@@ -39,6 +40,15 @@ namespace SnailsPace.Core
 			crosshair.layer = 0;
 			crosshair.collidable = false;
 
+            strings = new List<Text>();
+            pointsText = new Text();
+            pointsText.position = new Vector2(400, 0);
+            pointsText.font = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Score");
+            pointsText.color = Color.White;
+            pointsText.scale = Vector2.One;
+            pointsText.content = points.ToString();
+            strings.Add(pointsText);
+            recalculatePoints();
             Engine.player = this;
         }
 
@@ -49,6 +59,7 @@ namespace SnailsPace.Core
 
 			if (helix.health <= 0)
 			{
+                deaths++;
 				helix.position = load();
 				helix.health = helix.maxHealth;
 			}
@@ -66,14 +77,51 @@ namespace SnailsPace.Core
             return objects;
         }
 
+        private Text pointsText;
+        private List<Text> strings;
         public List<Text> textStrings()
         {
-            return new List<Text>();
+            return strings;
         }
 
-        public void addPoints(int points)
+        private int shotsFired = 0;
+        public void shotBullet()
         {
-            this.points += points;
+            shotsFired++;
+            recalculatePoints();
+        }
+
+        private int enemiesHit = 0;
+        public void enemyHit()
+        {
+            enemiesHit++;
+            recalculatePoints();
+        }
+
+        private int timesHit = 0;
+        public void gotHit()
+        {
+            timesHit++;
+            recalculatePoints();
+        }
+
+        private int enemiesKilled = 0;
+        public void killedEnemy()
+        {
+            enemiesKilled++;
+            recalculatePoints();
+        }
+
+        public int deaths = 0;
+
+        public void recalculatePoints()
+        {
+            points = enemiesKilled * 100 - timesHit * 10 - deaths * 100;
+            if (shotsFired > 0)
+            {
+                points += (int)((100.0f * enemiesHit * enemiesHit) / shotsFired );
+            }
+            pointsText.content = "Score: " + points.ToString();
         }
 
         public void save(Vector2 position)

@@ -21,11 +21,6 @@ namespace SnailsPace.Objects
 			set
 			{
 				_health = value;
-				if (value <= 0)
-				{
-					SnailsPace.debug("Character died.");
-					// TODO handle death
-				}
 			}
 		}
 
@@ -57,6 +52,10 @@ namespace SnailsPace.Objects
 				bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
 				bullet.layer = -0.001f;
 				bullet.isPCBullet = this is Helix;
+                if (bullet.isPCBullet)
+                {
+                    Engine.player.shotBullet();
+                }
 				bullet.damage = 1;
 				Engine.bullets.Add(bullet);
 				lastFired = gameTime.TotalRealTime.TotalMilliseconds;
@@ -83,10 +82,14 @@ namespace SnailsPace.Objects
 
 		public override void collidedWith(GameObject otherObject)
 		{
-			if (otherObject is Objects.Helix)
-				((Helix)otherObject).takeDamage();
-			else
-				base.collidedWith(otherObject);
+            if (otherObject is Objects.Helix)
+            {
+                ((Helix)otherObject).takeDamage();
+            }
+            else
+            {
+                base.collidedWith(otherObject);
+            }
 		}
 
 		public void takeDamage()
@@ -96,6 +99,14 @@ namespace SnailsPace.Objects
 
 		public virtual void takeDamage(int damage)
 		{
+            if (this is Helix)
+            {
+                Engine.player.gotHit();
+            }
+            else
+            {
+                Engine.player.enemyHit();
+            }
 			health -= damage;
 		}
     }

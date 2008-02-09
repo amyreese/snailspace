@@ -5,7 +5,6 @@ yOffset = saltPitYOffset
 WorldBuilding.BuildSection( {height=17, xOffset=0, yOffset=0, sprite=dirtSprite, xOverlap=20, yOverlap=20, buildDown=true } )
 
 -- Drop Right Wall
--- WorldBuilding.BuildSection( 1, 18, 2560, 0, dirtSprite, 20, 20, nil, true )
 WorldBuilding.BuildRampDEPR( 9, 2048, 0, dirtSprite, - 0.25 - MathHelper.PiOver2, 20 )
 WorldBuilding.BuildRampDEPR( 11, 1584, -2016, dirtSprite, 0.35 - MathHelper.PiOver2, 20 )
 
@@ -20,93 +19,33 @@ saltcan.collidable = true;
 WorldBuilding.BuildSection( {width=5, xOffset=856, yOffset=-310, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
 -- Salt for platform 1
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 872 + platformOffset, yOffset - pourImage.size.Y + 32 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 872 + platformOffset, yOffset - 1.5 * pourImage.size.Y + 32 )
-pour1.layer = WorldBuilding.defaultLayer + 2
-map.objects:Add(pour1)
+WorldBuilding.BuildObject( {xOffset=768, yOffset=-pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=768, yOffset=-1.5 * pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+Traps.SaltPile( 768, 1.25 * -pourImage.size.Y + 32, pourImage.size.X, 1.5 * pourImage.size.Y )
 
 -- Platform 2
 WorldBuilding.BuildSection( {width=5, xOffset=400, yOffset=-1024, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
 -- Salt for platform 2
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1046 + platformOffset, yOffset - 1024 - pourImage.size.Y / 2 + 64 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
-pour1 = Character()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1046 + platformOffset, yOffset - 1024 - pourImage.size.Y * 3 / 2 + 128 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
+WorldBuilding.BuildObject( {xOffset=942, yOffset=-pourImage.size.Y / 2 - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=942, yOffset=-1.5 * pourImage.size.Y - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+Traps.SaltPile( 942, -pourImage.size.Y - 960, pourImage.size.X, 2 * pourImage.size.Y )
 
 -- Platform 3
 WorldBuilding.BuildSection( {width=6, xOffset=462, yOffset=-2048, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
 -- Salt for platform 3
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1226 + platformOffset, yOffset - 2048 - pourImage.size.Y / 2 + 64 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
-pour1 = Character()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1226 + platformOffset, yOffset - 2048 - pourImage.size.Y * 3 / 2 + 128 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
+WorldBuilding.BuildObject( {xOffset=1122, yOffset=-pourImage.size.Y / 2 - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1122, yOffset=-1.5 * pourImage.size.Y - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+Traps.SaltPile( 1122, -pourImage.size.Y - 1984, pourImage.size.X, 2 * pourImage.size.Y )
 
 -- Platform 4
 WorldBuilding.BuildSection( {width=3, xOffset=984, yOffset=-3060, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
 -- Left Salt for platform 4
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1008 + platformOffset, yOffset - 3060 - pourImage.size.Y / 2 + 64 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
-pour1 = GameObject()
-pour1Sprite = pourSprite:clone()
-pour1Sprite.frame = 0
-pour1.sprites:Add("Pour", pour1Sprite)
-pour1.size = Vector2(pourImage.size.X - 75, pourImage.size.Y)
-pour1.rotation = 0
-pour1.position = Vector2( xOffset + 1008 + platformOffset, yOffset - 3060 - pourImage.size.Y * 2 / 2 + 128 )
-pour1.layer = WorldBuilding.defaultLayer + 1
-map.objects:Add(pour1)
+WorldBuilding.BuildObject( {xOffset=904, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=904, yOffset=-1 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+Traps.SaltPile( 904, -0.75 * pourImage.size.Y - 2996, pourImage.size.X, 1.5 * pourImage.size.Y )
 
 -- Right Salt for platform 4
 pour1 = GameObject()

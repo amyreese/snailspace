@@ -289,7 +289,6 @@ namespace SnailsPace.Objects
 			{
 				base.takeDamage(damage);
 				lastTookDamage = Engine.gameTime.TotalRealTime.TotalMilliseconds;
-
 			}
 		}
     }

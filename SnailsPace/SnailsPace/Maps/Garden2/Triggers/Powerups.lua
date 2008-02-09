@@ -19,7 +19,6 @@ end
 function Powerups.TriggerFuelPowerup( trigger, powerupObj, character, gameTime )
 	if character == Player.helix then
 		if trigger.state.unused then
-			print(gameTime.TotalGameTime:ToString() .. ": " .. character.position:ToString())
 			Player.helix.fuel = Player.helix.fuel + Player.helix.maxFuel / 4
 			powerupObj:setSprite("")
 			trigger.state.unused  = false
@@ -46,7 +45,6 @@ end
 function Powerups.TriggerHealthPowerup( trigger, powerupObj, character, gameTime )
 	if character == Player.helix then
 		if trigger.state.unused then
-			print(gameTime.TotalGameTime:ToString() .. ": " .. character.position:ToString())
 			Player.helix.health = Player.helix.health + Player.helix.maxHealth / 4
 			powerupObj:setSprite("")
 			trigger.state.unused  = false

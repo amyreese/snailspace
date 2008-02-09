@@ -15,6 +15,7 @@ include("../Garden/Enemies/Spider.lua")
 
 -- Trigger Definitions
 include("Triggers/Powerups.lua")
+include("Triggers/Traps.lua")
 
 -- Scenery Sprite Definitions
 include("Scenery/Sprites.lua")
