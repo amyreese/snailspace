@@ -39,13 +39,13 @@ function Bee(startPos)
 	bee.size = BeeImage.size
 	bee.startPosition = startPos
 	bee.position = startPos
-	bee.velocity = Vector2(0,0)
-	bee.maxVelocity = 960
+	bee.direction = Vector2(0,1)
+	bee.maxVelocity = 1280
 	bee.thinker = "BeeThinker"
 	bee.state = {}
 	bee.name = "Bee"
 	bee.health = 3
-	bee.affectedByGravity = false
+	bee.affectedByGravity = true
 	bee:setSprite("Hover")
 	map.characters:Add(bee)
 
@@ -54,13 +54,7 @@ end
 
 -- Bee behavior function
 function BeeThinker( self, gameTime )
-	if ( AI.canSeeHelix( self, 640 ) ) then 
-		AI.moveToHelix( self, 384.0, 256.0 )
-		self:setSprite("Fly")
-	else
-		AI.stop( self )
-		self:setSprite("Hover")
-	end
+	AI.vertPatrol(self, self.startPosition.Y + 50, self.startPosition.Y - 50)
 	
 	-- TODO: Create AI for the Bee
 end
