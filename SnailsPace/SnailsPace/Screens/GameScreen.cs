@@ -31,8 +31,8 @@ namespace SnailsPace.Screens
         protected void loadEngine()
         {
             // TODO pass in a map
-            engine = new Engine("Garden");
-            //engine = new Engine("Garden2");
+            //engine = new Engine("Garden");
+            engine = new Engine("Garden2");
             this.ready = true;
         }
 

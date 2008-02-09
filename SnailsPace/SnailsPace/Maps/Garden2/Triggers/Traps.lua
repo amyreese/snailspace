@@ -11,7 +11,7 @@ function Traps.SaltPile( trapX, trapY, trapWidth, trapHeight, trapRotation )
 	function trig.state:trigger( character, gameTime )
 		Traps.DamageHelix( trig, 2, character, gameTime )
 	end
-
+	return trig
 end
 
 function Traps.DamageHelix( trigger, damage, character, gameTime )

@@ -13,7 +13,7 @@ function Powerups.BuildFuelPowerup( powerupX, powerupY )
 	function trig.state:trigger( character, gameTime )
 		Powerups.TriggerFuelPowerup( trig, powerupObj, character, gameTime )
 	end
-
+	return trig
 end
 
 function Powerups.TriggerFuelPowerup( trigger, powerupObj, character, gameTime )
@@ -40,7 +40,7 @@ function Powerups.BuildHealthPowerup( powerupX, powerupY )
 	function trig.state:trigger( character, gameTime )
 		Powerups.TriggerHealthPowerup( trig, powerupObj, character, gameTime )
 	end
-
+	return trig
 end
 
 function Powerups.TriggerHealthPowerup( trigger, powerupObj, character, gameTime )
