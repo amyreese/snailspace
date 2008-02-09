@@ -43,6 +43,36 @@ pileSprite.frame = 0
 pileSprite.animationDelay = 0.0
 pileSprite.timer = 0.0
 
+dirtImage = Image()
+dirtImage.filename = "Resources/Textures/dirt"
+dirtImage.blocks = Vector2(1.0, 1.0)
+dirtImage.size = Vector2(256.0, 128.0)
+
+dirtSprite = Sprite()
+dirtSprite.image = dirtImage
+dirtSprite.visible = true
+dirtSprite.effect = "Resources/Effects/effects"
+dirtSprite.animationStart = 0
+dirtSprite.animationEnd = 0
+dirtSprite.frame = 0
+dirtSprite.animationDelay = 0.0
+dirtSprite.timer = 0.0
+
+pourImage = Image()
+pourImage.filename = "Resources/Textures/pouringsalt"
+pourImage.blocks = Vector2(4.0, 1.0)
+pourImage.size = Vector2(128.0, 512.0)
+
+pourSprite = Sprite()
+pourSprite.image = pourImage
+pourSprite.visible = true
+pourSprite.effect = "Resources/Effects/effects"
+pourSprite.animationStart = 0
+pourSprite.animationEnd = 3
+pourSprite.frame = 0
+pourSprite.animationDelay = 0.1
+pourSprite.timer = 0.0
+
 
 
 
@@ -107,6 +137,28 @@ for x=0,40 do
  map.objects:Add(gravelObj)
 end
 
+--Pit Floor Secret Passage
+xOffset = 28
+yOffset = -35.0
+for x=0,1 do
+ dirtObj = GameObject()
+ dirtObj.name = "fallingPlatform"
+ if (x == 1) then
+	dirtObj.sprites:Add("Pour", pourSprite)
+	dirtObj.sprites["Pour"].position = Vector2(175, -150)
+ end
+ dirtObjSprite = dirtSprite:clone()
+ dirtObjSprite.frame = 0
+ dirtObj.sprites:Add("dirt", dirtObjSprite)
+ dirtObj.size = Vector2(dirtImage.size.X - 32, dirtImage.size.Y - 32)
+ dirtObj.rotation = 0.0
+ dirtObj.position = Vector2( ( x * 8 + xOffset ) * 32, ( -3.5 + yOffset ) * 32 )
+ dirtObj.layer = 0.6
+ map.objects:Add(dirtObj)
+end
+
+
+
 --Pit Floor SaltPile
 pile1 = GameObject()
  pile1Sprite = pileSprite:clone()
@@ -114,7 +166,7 @@ pile1 = GameObject()
  pile1.sprites:Add("Pile", pile1Sprite)
  pile1.size = Vector2(pileImage.size.X - 32, gravelImage.size.Y - 192)
  pile1.rotation = 0.0
- pile1.position = Vector2(69*32, -33*32)
+ pile1.position = Vector2(63*32, -33*32)
  pile1.layer = 0.6
  map.objects:Add(pile1)
  
