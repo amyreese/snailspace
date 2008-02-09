@@ -8,8 +8,6 @@ WorldBuilding.BuildSection( {height=17, xOffset=0, yOffset=0, sprite=dirtSprite,
 WorldBuilding.BuildRampDEPR( 9, 2048, 0, dirtSprite, - 0.25 - MathHelper.PiOver2, 20 )
 WorldBuilding.BuildRampDEPR( 11, 1584, -2016, dirtSprite, 0.35 - MathHelper.PiOver2, 20 )
 
-platformOffset = -104
-
 -- Salt Can
 saltcan = WorldBuilding.BuildObject( {xOffset=920, yOffset=-saltcanImage.size.Y / 2, sprite=saltcanSprite, spriteName="can", layerOffset=-2, rotation=MathHelper.PiOver2 } )
 saltcan.collidable = true;
@@ -23,11 +21,15 @@ WorldBuilding.BuildObject( {xOffset=768, yOffset=-pourImage.size.Y + 32, sprite=
 WorldBuilding.BuildObject( {xOffset=768, yOffset=-1.5 * pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 Traps.SaltPile( 768, 1.25 * -pourImage.size.Y + 32, pourImage.size.X, 1.5 * pourImage.size.Y )
 
+-- Platform 2
+WorldBuilding.BuildSection( {width=5, xOffset=400, yOffset=-1024, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
+
+-- Salt on Platform 2
 saltpile = WorldBuilding.BuildObject( {xOffset=784, yOffset=-1024 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
 boundBuilder = GameObjectBoundsBuilder()
-boundBuilder:AddPoint( Vector2( -140, -45 ) )
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, -61 ) )
-boundBuilder:AddPoint( Vector2( 140, -45 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, 61 ) )
 saltpile.bounds = boundBuilder:BuildBounds()
 saltpile.bounds:Move( saltpile.position )
@@ -41,20 +43,20 @@ boundBuilder:AddPoint( Vector2( 0, 100 ) )
 saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
-
--- Platform 2
-WorldBuilding.BuildSection( {width=5, xOffset=400, yOffset=-1024, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
-
--- Salt for platform 2
+-- Salt Stream for platform 2
 WorldBuilding.BuildObject( {xOffset=942, yOffset=-pourImage.size.Y / 2 - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=942, yOffset=-1.5 * pourImage.size.Y - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 Traps.SaltPile( 942, -pourImage.size.Y - 960, pourImage.size.X, 2 * pourImage.size.Y )
 
+-- Platform 3
+WorldBuilding.BuildSection( {width=6, xOffset=462, yOffset=-2048, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
+
+-- Salt on Platform 3
 saltpile = WorldBuilding.BuildObject( {xOffset=958, yOffset=-2048 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
 boundBuilder = GameObjectBoundsBuilder()
-boundBuilder:AddPoint( Vector2( -140, -45 ) )
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, -61 ) )
-boundBuilder:AddPoint( Vector2( 140, -45 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, 61 ) )
 saltpile.bounds = boundBuilder:BuildBounds()
 saltpile.bounds:Move( saltpile.position )
@@ -68,19 +70,20 @@ boundBuilder:AddPoint( Vector2( 0, 100 ) )
 saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
--- Platform 3
-WorldBuilding.BuildSection( {width=6, xOffset=462, yOffset=-2048, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
-
--- Salt for platform 3
+-- Salt Stream for platform 3
 WorldBuilding.BuildObject( {xOffset=1122, yOffset=-pourImage.size.Y / 2 - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=1122, yOffset=-1.5 * pourImage.size.Y - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 Traps.SaltPile( 1122, -pourImage.size.Y - 1984, pourImage.size.X, 2 * pourImage.size.Y )
 
+-- Platform 4
+WorldBuilding.BuildSection( {width=3, xOffset=984, yOffset=-3060, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
+
+-- Salt on Platform 4
 saltpile = WorldBuilding.BuildObject( {xOffset=1130, yOffset=-3060 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
 boundBuilder = GameObjectBoundsBuilder()
-boundBuilder:AddPoint( Vector2( -140, -45 ) )
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, -61 ) )
-boundBuilder:AddPoint( Vector2( 140, -45 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, 61 ) )
 saltpile.bounds = boundBuilder:BuildBounds()
 saltpile.bounds:Move( saltpile.position )
@@ -96,9 +99,9 @@ saltpileTrap.bounds:Move( saltpileTrap.position )
 
 saltpile = WorldBuilding.BuildObject( {xOffset=1074, yOffset=-3060 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
 boundBuilder = GameObjectBoundsBuilder()
-boundBuilder:AddPoint( Vector2( -140, -45 ) )
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, -61 ) )
-boundBuilder:AddPoint( Vector2( 140, -45 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
 boundBuilder:AddPoint( Vector2( 0, 61 ) )
 saltpile.bounds = boundBuilder:BuildBounds()
 saltpile.bounds:Move( saltpile.position )
@@ -112,15 +115,12 @@ boundBuilder:AddPoint( Vector2( 0, 100 ) )
 saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
--- Platform 4
-WorldBuilding.BuildSection( {width=3, xOffset=984, yOffset=-3060, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
-
--- Left Salt for platform 4
+-- Left Salt Stream for platform 4
 WorldBuilding.BuildObject( {xOffset=904, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=904, yOffset=-1 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 Traps.SaltPile( 904, -0.75 * pourImage.size.Y - 2996, pourImage.size.X, 1.5 * pourImage.size.Y )
 
--- Right Salt for platform 4
+-- Right Salt Stream for platform 4
 WorldBuilding.BuildObject( {xOffset=1288, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=1288, yOffset=-1.5 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 Traps.SaltPile( 1288, -1 * pourImage.size.Y - 2996, pourImage.size.X, 2 * pourImage.size.Y )
@@ -129,7 +129,46 @@ Traps.SaltPile( 1288, -1 * pourImage.size.Y - 2996, pourImage.size.X, 2 * pourIm
 WorldBuilding.BuildSection( {width=4, xOffset=668, yOffset=-3828, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 WorldBuilding.BuildSection( {width=5, xOffset=1176, yOffset=-4084, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
--- Salt for platforms 5 & 6
+-- Salt on Platform 5
+saltpile = WorldBuilding.BuildObject( {xOffset=930, yOffset=-3828 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, 61 ) )
+saltpile.bounds = boundBuilder:BuildBounds()
+saltpile.bounds:Move( saltpile.position )
+
+saltpileTrap = Traps.SaltPile( 930, -3828 + saltpileImage.size.Y * 4 / 5, saltpile.size.X, saltpile.size.Y )
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -165, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 180, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, 100 ) )
+saltpileTrap.bounds = boundBuilder:BuildBounds()
+saltpileTrap.bounds:Move( saltpileTrap.position )
+
+-- Salt on Platform 6
+saltpile = WorldBuilding.BuildObject( {xOffset=1272, yOffset=-4084 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
+saltpile.horizontalFlip = true
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -140, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 120, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, 61 ) )
+saltpile.bounds = boundBuilder:BuildBounds()
+saltpile.bounds:Move( saltpile.position )
+
+saltpileTrap = Traps.SaltPile( 1272, -4084 + saltpileImage.size.Y * 4 / 5, saltpile.size.X, saltpile.size.Y )
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -180, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 165, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, 100 ) )
+saltpileTrap.bounds = boundBuilder:BuildBounds()
+saltpileTrap.bounds:Move( saltpileTrap.position )
+
+-- Salt Stream for platforms 5 & 6
 WorldBuilding.BuildObject( {xOffset=1096, yOffset=-pourImage.size.Y / 2 - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=1096, yOffset=-1.5 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
 WorldBuilding.BuildObject( {xOffset=1096, yOffset=-2 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
@@ -162,6 +201,25 @@ WorldBuilding.BuildSection( {height=10, xOffset=960, yOffset=-4776, sprite=grave
 
 -- Bottom
 WorldBuilding.BuildSection( {width=19, xOffset=960, yOffset=-7016, sprite=gravelSprite, xOverlap=20, yOverlap=20 } )
+
+-- Salt on Ramp Bottom
+saltpile = WorldBuilding.BuildObject( {xOffset=3653, yOffset=-6960 + saltpileImage.size.Y * 4 / 5, sprite=saltpileSprite, layerOffset=-2, collidable=true } )
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -120, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 140, -55 ) )
+boundBuilder:AddPoint( Vector2( 0, 61 ) )
+saltpile.bounds = boundBuilder:BuildBounds()
+saltpile.bounds:Move( saltpile.position )
+
+saltpileTrap = Traps.SaltPile( 3653, -6960 + saltpileImage.size.Y * 4 / 5, saltpile.size.X, saltpile.size.Y )
+boundBuilder = GameObjectBoundsBuilder()
+boundBuilder:AddPoint( Vector2( -165, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, -61 ) )
+boundBuilder:AddPoint( Vector2( 180, -61 ) )
+boundBuilder:AddPoint( Vector2( 0, 100 ) )
+saltpileTrap.bounds = boundBuilder:BuildBounds()
+saltpileTrap.bounds:Move( saltpileTrap.position )
 
 -- Filler
 WorldBuilding.BuildSection( {height=7, xOffset=1152, yOffset=-5440, sprite=gravelSprite, xOverlap=20, yOverlap=10, buildDown=true } )

@@ -2,9 +2,9 @@ library('WorldBuilding')
 
 -- Player creation and starting position
 startPosition = Vector2(0,0)
--- startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
-startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
--- startPosition = Vector2(3700, -7620) -- Salt Ramp Bottom
+--startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
+--startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
+--startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
 player = Player( startPosition )
 
 -- Enemy Character Definitions
