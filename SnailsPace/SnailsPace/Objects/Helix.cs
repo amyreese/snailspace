@@ -13,6 +13,7 @@ namespace SnailsPace.Objects
 		public float maxFuel;
 		public bool flying;
 		public bool thrust;
+        public bool thrustable;
 		public const float flyingHorizontalFriction = 640.0f;
 		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 2560.0f;
@@ -86,7 +87,7 @@ namespace SnailsPace.Objects
             sprites["Gun"].timer = 0f;
 
             maxVelocity = walkingMaxVelocity;
-            maxFuel = 20;
+            maxFuel = 30;
             fuel = maxFuel;
             layer = 0;
             
@@ -125,31 +126,44 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
-			float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
+            float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{
-				if (thrust)
-				{
-					fuel -= fuelMod * (3 * direction.Length());
-					if (fuel < 0)
-					{
-						fuel = 0;
-					}
-					if (fuel > 0)
-					{
-						//affectedByGravity = false;
-					}
-				}
+                if (thrust)
+                {
+                    fuel -= fuelMod * (6 * direction.Length());
+                }
+                else
+                {
+                    fuel += fuelMod * 1;
+                }
 			}
 			else
 			{
 				setSprite("Walk", "Gun");
-				fuel += fuelMod * 10;
+				fuel += fuelMod * 15;
 				if (fuel > maxFuel)
 				{
 					fuel = maxFuel;
 				}
 			}
+
+            if (thrustable)
+            {
+                if (fuel < 0)
+                {
+                    fuel = 0;
+                    thrustable = false;
+                }
+            }
+            else
+            {
+                if (fuel > 1)
+                {
+                    thrustable = true;
+                }
+            }
+
 #if DEBUG
 			if( SnailsPace.debugFlying ) {
 				if (flying)
@@ -173,7 +187,7 @@ namespace SnailsPace.Objects
             }
             else if (input.inputDown("Left"))
             {
-                if (!flying || fuel > 0)
+                if (!flying || thrustable)
                 {
 					direction.X = -1;
                     horizontalFlip = true;
@@ -183,7 +197,7 @@ namespace SnailsPace.Objects
             }
             else if (input.inputDown("Right"))
             {
-                if (!flying || fuel > 0)
+                if (!flying || thrustable)
                 {
 					direction.X = 1;
                     horizontalFlip = false;
@@ -199,32 +213,26 @@ namespace SnailsPace.Objects
             }
             else if (input.inputDown("Up"))
             {
-                if (fuel > 0)
+                if (thrustable)
                 {
-					direction.Y = 1;
-					thrust = true;
+                    direction.Y = 1;
+                    thrust = true;
                 }
             }
 			else if (input.inputDown("Down"))
 			{
-				if (fuel > 0)
-				{
-					direction.Y = -1;
+                if (thrustable)
+                {
+                    direction.Y = -1;
                     thrust = true;
-				}
-
+                }
 			}
 
 
 			// Sprites & Animations
 			if (flying)
 			{
-				if (fuel <= 0)
-				{
-					setSprite("NoFuel", "Gun");
-					sprites["NoFuel"].animate(gameTime);
-				}
-				else if (direction.Y == 0 && direction.X == 0)
+                if (direction.Y == 0 && direction.X == 0)
 				{
 					// TODO: Hover
 					setSprite("Hover", "Gun");
@@ -243,6 +251,25 @@ namespace SnailsPace.Objects
 					sprites["Walk"].animate(gameTime);
 				}
 			}
+
+            if (fuel <= 6)
+            {
+                Engine.sound.playRepeat("alarm");
+                sprites["NoFuel"].visible = true;
+
+                if (fuel > 0)
+                {
+                    sprites["NoFuel"].animate(gameTime);
+                }
+                else
+                {
+                    sprites["NoFuel"].frame = sprites["NoFuel"].animationEnd;
+                }
+            }
+            else
+            {
+                Engine.sound.stop("alarm");
+            }
 
 			// Acceleration
 			if (flying)
@@ -264,6 +291,7 @@ namespace SnailsPace.Objects
             if (input.inputDown("Fire"))
             {
 				ShootAt(crosshair.position, gameTime);
+                Engine.sound.play("gun1");
             }
         }
 

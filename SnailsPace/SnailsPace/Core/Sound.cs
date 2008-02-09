@@ -27,7 +27,8 @@ namespace SnailsPace.Core
         }
 
         // Fire-and-forget sound
-        public void play(String cue)
+        public void play(String cue) { play(cue, true); }
+        public void play(String cue, bool overlap)
         {
             cache(cue);
             if (cues[cue].IsPrepared)
@@ -37,6 +38,11 @@ namespace SnailsPace.Core
             else if (cues[cue].IsPaused)
             {
                 cues[cue].Stop(AudioStopOptions.Immediate);
+                recache(cue);
+                cues[cue].Play();
+            }
+            else if (overlap)
+            {
                 recache(cue);
                 cues[cue].Play();
             }

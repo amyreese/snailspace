@@ -20,6 +20,7 @@ namespace SnailsPace.Core
 		// Engine state
 		bool enginePaused = false;
 		public static GameTime gameTime;
+        public static Sound sound;
 
 		// Game font
 		public SpriteFont gameFont;
@@ -55,6 +56,8 @@ namespace SnailsPace.Core
 		// Constructors
 		public Engine(String mapName)
 		{
+            sound = SnailsPace.soundManager;
+
 			// Initialize Lua, the Player, and the Map
 			lua = new GameLua(mapName);
 			map = new Objects.Map(mapName);

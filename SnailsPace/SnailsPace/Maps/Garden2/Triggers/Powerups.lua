@@ -19,6 +19,7 @@ end
 function Powerups.TriggerFuelPowerup( trigger, powerupObj, character, gameTime )
 	if character == Player.helix then
 		if trigger.state.unused then
+			Engine.sound:play("ding1")
 			Player.helix.fuel = Player.helix.fuel + Player.helix.maxFuel / 4
 			powerupObj:setSprite("")
 			trigger.state.unused  = false
@@ -45,6 +46,7 @@ end
 function Powerups.TriggerHealthPowerup( trigger, powerupObj, character, gameTime )
 	if character == Player.helix then
 		if trigger.state.unused then
+			Engine.sound:play("ding2")
 			Player.helix.health = Player.helix.health + Player.helix.maxHealth / 4
 			powerupObj:setSprite("")
 			trigger.state.unused  = false

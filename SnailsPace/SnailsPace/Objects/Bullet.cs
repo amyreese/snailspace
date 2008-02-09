@@ -50,6 +50,10 @@ namespace SnailsPace.Objects
 			// Assumes canCollideWith
             if (otherObject is Character)
 			{
+                if (isPCBullet)
+                {
+                    Engine.sound.play("ping");
+                }
 				((Character)otherObject).takeDamage(damage);
 			}
 			else if (otherObject is GameObject && otherObject.name == "fallingPlatform")
