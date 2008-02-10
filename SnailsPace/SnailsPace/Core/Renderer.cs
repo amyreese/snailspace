@@ -134,31 +134,35 @@ namespace SnailsPace.Core
 		public Vector3 getCameraTargetPosition()
 		{
 			Vector3 targetPosition = cameraTarget == null ? Vector3.Zero : new Vector3(cameraTarget.position, 0);
-			Vector3 velocityOffset = new Vector3(cameraTarget.velocity * new Vector2(1.1f,1.1f), normalCameraDistance);
-			int screenWidth = SnailsPace.videoConfig.getInt("width");
-			int screenHeight = SnailsPace.videoConfig.getInt("height");
-			Vector2 centerPositionOffset = new Vector2( screenWidth/2, screenHeight/2 );
-			float mouseX = (SnailsPace.inputManager.mousePosition.X - centerPositionOffset.X)*.9f;
-			float mouseY = (centerPositionOffset.Y - SnailsPace.inputManager.mousePosition.Y)*.9f;
-			if (mouseX < 0)
+
+			if (SnailsPace.inputManager.inputDown("Camera"))
 			{
-				mouseX = Math.Max(mouseX, -screenWidth / 2);
+				int screenWidth = SnailsPace.videoConfig.getInt("width");
+				int screenHeight = SnailsPace.videoConfig.getInt("height");
+				Vector2 centerPositionOffset = new Vector2(screenWidth / 2, screenHeight / 2);
+				float mouseX = (SnailsPace.inputManager.mousePosition.X - centerPositionOffset.X) * .9f;
+				float mouseY = (centerPositionOffset.Y - SnailsPace.inputManager.mousePosition.Y)*.9f;
+				if (mouseX < 0)
+				{
+					mouseX = Math.Max(mouseX, -screenWidth / 2);
+				}
+				else
+				{
+					mouseX = Math.Min(mouseX, screenWidth / 2);
+				}
+				if (mouseY < 0)
+				{
+					mouseY = Math.Max(mouseY, -screenHeight / 2);
+				}
+				else
+				{
+					mouseY = Math.Min(mouseY, screenHeight/2);
+				}
+				Vector2 mousePosition = new Vector2(mouseX, mouseY); 
+				cameraTargetOffset = new Vector3(mousePosition, normalCameraDistance);
+			} else {
+				cameraTargetOffset = new Vector3(cameraTarget.velocity * new Vector2(.35f,.35f), normalCameraDistance);
 			}
-			else
-			{
-				mouseX = Math.Min(mouseX, screenWidth / 2);
-			}
-			if (mouseY < 0)
-			{
-				mouseY = Math.Max(mouseY, -screenHeight / 2);
-			}
-			else
-			{
-				mouseY = Math.Min(mouseY, screenHeight/2);
-			}
-			Vector2 mousePosition = new Vector2(mouseX, mouseY); 
-			Vector3 CrosshairOffset = new Vector3(mousePosition, normalCameraDistance);
-			cameraTargetOffset = (velocityOffset + CrosshairOffset)/2;
 			return targetPosition + cameraTargetOffset;
 		}
 
