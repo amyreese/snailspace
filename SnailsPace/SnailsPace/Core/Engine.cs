@@ -640,14 +640,11 @@ namespace SnailsPace.Core
 				if (!noQuadTree)
 				{
 					Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1400, 1400);
-					QuadTree quad = new QuadTree(collidableObjects, visibleScreen, 2);
-
-					List<Objects.GameObject>.Enumerator collidingObjectEnum = collidingObjects.GetEnumerator();
-					while (collidingObjectEnum.MoveNext())
-					{
-						MoveOrCollide(collidingObjectEnum.Current, collidingObjects, elapsedTime, boundsSize, boundsCenter);
-					}
-					detectCollisionsInNode(quad.getRoot(), elapsedTime, boundsSize, boundsCenter);
+					QuadTree quad = new QuadTree(collidableObjects, boundsSize, boundsCenter, 2);
+					quad.print();
+					QuadTreeCollide(quad.getRoot(), elapsedTime, boundsSize, boundsCenter);
+					detectCollisionsInNode(quad.getRoot(), elapsedTime);
+					int i = 2;
 				}
 
 				if (noQuadTree)
@@ -754,7 +751,7 @@ namespace SnailsPace.Core
 			}
 		}
 
-		private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
+		private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime)
 		{
 			List<QuadTreeNode> children = node.getNodes();
 			if (children.Count == 0)
@@ -766,8 +763,14 @@ namespace SnailsPace.Core
 					String nodeName = node.name;
 					Vector2 objectVelocity = GetObjectVelocity(objectEnumerator.Current, elapsedTime);
 					Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
-					if (CheckForCollision(objectEnumerator.Current, containedObjects, objectMovement) != null)
+					Objects.GameObject collided = CheckForCollision(objectEnumerator.Current, containedObjects, objectMovement);
+					if ( collided != null )
 					{
+#if DEBUG
+						Debug.WriteLine("Collision Found: ");
+						Debug.WriteLine("   Node: " + nodeName);
+						Debug.WriteLine("   Objects: " + objectEnumerator.Current.name + ", " + collided.name);
+#endif 
 						collidingObjects.Add(objectEnumerator.Current);
 					}
 				}
@@ -777,7 +780,21 @@ namespace SnailsPace.Core
 				List<QuadTreeNode>.Enumerator childrenEnumerator = children.GetEnumerator();
 				while (childrenEnumerator.MoveNext())
 				{
-					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime, boundsSize, boundsCenter);
+					detectCollisionsInNode(childrenEnumerator.Current, elapsedTime);
+				}
+			}
+		}
+
+		private void QuadTreeCollide( QuadTreeNode node, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter )
+		{
+			List<QuadTreeNode> children = node.getNodes();
+			if (children.Count == 0)
+			{
+				List<Objects.GameObject> containedObjects = node.getContainedObjects();
+				List<Objects.GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
+				while (objectEnumerator.MoveNext())
+				{
+					MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime, boundsSize, boundsCenter);
 				}
 			}
 		}
