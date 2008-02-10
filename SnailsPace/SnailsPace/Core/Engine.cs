@@ -679,7 +679,8 @@ namespace SnailsPace.Core
 			{
 				Objects.Trigger trigger = triggers.Current;
 
-				if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
+				//if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
+				if (trigger.bounds.WillIntersect(Player.helix.bounds, Vector2.Zero))
 				{
 					if (!trigger.inside)
 					{
