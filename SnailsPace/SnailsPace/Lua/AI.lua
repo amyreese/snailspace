@@ -73,6 +73,10 @@ function AI.shootDirectlyAtHelix(self, gameTime)
     self:ShootAt(helix.position, gameTime)
 end
 
+function AI.shootSpiderPattern(self, gameTime)
+	self:ShootFanAt(Vector2(self.position.X, self.position.Y-1), 8, .5, gameTime)
+end
+
 --[[Patrol on a platform]]--
 function AI.platformPatrol(self)
 	self.horizontalFriction = 3840.0
