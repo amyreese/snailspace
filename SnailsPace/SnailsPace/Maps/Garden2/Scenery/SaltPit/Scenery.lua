@@ -203,7 +203,6 @@ Traps.SaltPile( 3253, -6778, pourImage.size.X, 2.5 * pourImage.size.Y, MathHelpe
 WorldBuilding.BuildSection( {height=10, xOffset=960, yOffset=-4776, sprite=gravelSprite, xOverlap=20, yOverlap=10, buildDown=true } )
 
 -- Save Point
-WorldBuilding.BuildObject( {xOffset=960, yOffset=-4584, sprite=savepointSprite, collidable=false})
 SavePoints.BuildSavePoint( 960, -4584 )
 
 -- Bottom
