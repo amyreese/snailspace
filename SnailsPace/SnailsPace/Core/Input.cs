@@ -39,6 +39,7 @@ namespace SnailsPace.Core
             inputKeys.Add("Left", "a");
             inputKeys.Add("Right", "d");
             inputKeys.Add("Fire", "Mouse1");
+			inputKeys.Add("Camera", "Mouse2");
             inputKeys.Add("Pause", "p");
 #if DEBUG
             inputKeys.Add("DebugFramerate", "control+f");
