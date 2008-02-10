@@ -178,3 +178,17 @@ healthSprite.frame = 0
 healthSprite.animationDelay = 0.0
 healthSprite.timer = 0.0
 
+savepointImage = Image()
+savepointImage.filename = "Resources/Textures/Checkpoint"
+savepointImage.blocks = Vector2(2.0, 1.0)
+savepointImage.size = Vector2(128.0, 128.0)
+
+savepointSprite = Sprite()
+savepointSprite.image = savepointImage
+savepointSprite.visible = true
+savepointSprite.effect = "Resources/Effects/effects"
+savepointSprite.animationStart = 1
+savepointSprite.animationEnd = 1
+savepointSprite.frame = 1
+savepointSprite.animationDelay = 0.0
+savepointSprite.timer = 0.0

@@ -224,6 +224,9 @@
     <None Include="Maps\Garden2\Scenery\TunnelBackground.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Maps\Garden2\Triggers\SavePoints.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Maps\Garden2\Triggers\Traps.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

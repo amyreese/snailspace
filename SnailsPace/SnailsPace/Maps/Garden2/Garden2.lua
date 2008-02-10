@@ -14,6 +14,7 @@ include("../Garden/Enemies/BlackAnt.lua")
 include("../Garden/Enemies/Spider.lua")
 
 -- Trigger Definitions
+include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
 include("Triggers/Traps.lua")
 

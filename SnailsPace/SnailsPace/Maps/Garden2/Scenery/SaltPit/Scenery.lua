@@ -12,13 +12,16 @@ WorldBuilding.BuildRampDEPR( 11, 1584, -2016, dirtSprite, 0.35 - MathHelper.PiOv
 saltcan = WorldBuilding.BuildObject( {xOffset=920, yOffset=-saltcanImage.size.Y / 2, sprite=saltcanSprite, spriteName="can", layerOffset=-2, rotation=MathHelper.PiOver2 } )
 saltcan.collidable = true;
 
+-- Save Point
+SavePoints.BuildSavePoint( 1200, -176 )
+
 -- Salt platforms
 --Platform 1
 WorldBuilding.BuildSection( {width=5, xOffset=856, yOffset=-310, sprite=dirtSpriteS, xOverlap=10, yOverlap=10 } )
 
 -- Salt for platform 1
-WorldBuilding.BuildObject( {xOffset=768, yOffset=-pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=768, yOffset=-1.5 * pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=768, yOffset=-pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=768, yOffset=-1.5 * pourImage.size.Y + 32, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 768, 1.25 * -pourImage.size.Y + 32, pourImage.size.X, 1.5 * pourImage.size.Y )
 
 -- Platform 2
@@ -44,8 +47,8 @@ saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
 -- Salt Stream for platform 2
-WorldBuilding.BuildObject( {xOffset=942, yOffset=-pourImage.size.Y / 2 - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=942, yOffset=-1.5 * pourImage.size.Y - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=942, yOffset=-pourImage.size.Y / 2 - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=942, yOffset=-1.5 * pourImage.size.Y - 960, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 942, -pourImage.size.Y - 960, pourImage.size.X, 2 * pourImage.size.Y )
 
 -- Platform 3
@@ -71,8 +74,8 @@ saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
 -- Salt Stream for platform 3
-WorldBuilding.BuildObject( {xOffset=1122, yOffset=-pourImage.size.Y / 2 - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=1122, yOffset=-1.5 * pourImage.size.Y - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1122, yOffset=-pourImage.size.Y / 2 - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1122, yOffset=-1.5 * pourImage.size.Y - 1984, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 1122, -pourImage.size.Y - 1984, pourImage.size.X, 2 * pourImage.size.Y )
 
 -- Platform 4
@@ -116,13 +119,13 @@ saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
 -- Left Salt Stream for platform 4
-WorldBuilding.BuildObject( {xOffset=904, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=904, yOffset=-1 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=904, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=904, yOffset=-1 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 904, -0.75 * pourImage.size.Y - 2996, pourImage.size.X, 1.5 * pourImage.size.Y )
 
 -- Right Salt Stream for platform 4
-WorldBuilding.BuildObject( {xOffset=1288, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=1288, yOffset=-1.5 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1288, yOffset=-pourImage.size.Y / 2 - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1288, yOffset=-1.5 * pourImage.size.Y - 2996, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 1288, -1 * pourImage.size.Y - 2996, pourImage.size.X, 2 * pourImage.size.Y )
 
 -- Platforms 5 & 6
@@ -169,35 +172,39 @@ saltpileTrap.bounds = boundBuilder:BuildBounds()
 saltpileTrap.bounds:Move( saltpileTrap.position )
 
 -- Salt Stream for platforms 5 & 6
-WorldBuilding.BuildObject( {xOffset=1096, yOffset=-pourImage.size.Y / 2 - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=1096, yOffset=-1.5 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
-WorldBuilding.BuildObject( {xOffset=1096, yOffset=-2 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, xSizeMod=-75, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1096, yOffset=-pourImage.size.Y / 2 - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1096, yOffset=-1.5 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
+WorldBuilding.BuildObject( {xOffset=1096, yOffset=-2 * pourImage.size.Y - 3764, sprite=pourSprite, spriteName="pour", layerOffset=2, collidable=false } )
 Traps.SaltPile( 1096, -1.25 * pourImage.size.Y - 3764, pourImage.size.X, 2.5 * pourImage.size.Y )
 
 -- Salt Ramp ("Big Rock")
 -- Ramp 1
 WorldBuilding.BuildRampDEPR( 5, 1024, -5120, gravelSprite, -0.93, 20 )
-WorldBuilding.BuildObject( {xOffset=1152, yOffset=-5100, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=1440, yOffset=-5484, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=1728, yOffset=-5868, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, xSizeMod=-75, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=1152, yOffset=-5100, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=1440, yOffset=-5484, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=1728, yOffset=-5868, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.93, collidable=false} )
 Traps.SaltPile( 1440, -5484, pourImage.size.X, 2.5 * pourImage.size.Y, MathHelper.PiOver2-0.93 )
 
 -- Ramp 2
 WorldBuilding.BuildRampDEPR( 5, 1664, -5950, gravelSprite, -0.67, 20 )
-WorldBuilding.BuildObject( {xOffset=1856, yOffset=-5950, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=2240, yOffset=-6251, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=2624, yOffset=-6552, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, xSizeMod=-75, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=1856, yOffset=-5950, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=2240, yOffset=-6251, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=2624, yOffset=-6552, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.67, collidable=false} )
 Traps.SaltPile( 2240, -6251, pourImage.size.X, 2.5 * pourImage.size.Y, MathHelper.PiOver2-0.67 )
 
 -- Ramp 3
 WorldBuilding.BuildRampDEPR( 5, 2460, -6600, gravelSprite, -0.37, 20 )
-WorldBuilding.BuildObject( {xOffset=2805, yOffset=-6600, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=3253, yOffset=-6778, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, xSizeMod=-75, collidable=false} )
-WorldBuilding.BuildObject( {xOffset=3477, yOffset=-6867, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, xSizeMod=-75, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=2805, yOffset=-6600, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=3253, yOffset=-6778, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, collidable=false} )
+WorldBuilding.BuildObject( {xOffset=3477, yOffset=-6867, sprite=pourSprite, spriteName="pour", rotation=MathHelper.PiOver2-0.37, collidable=false} )
 Traps.SaltPile( 3253, -6778, pourImage.size.X, 2.5 * pourImage.size.Y, MathHelper.PiOver2-0.37 )
 
 -- Left
 WorldBuilding.BuildSection( {height=10, xOffset=960, yOffset=-4776, sprite=gravelSprite, xOverlap=20, yOverlap=10, buildDown=true } )
+
+-- Save Point
+WorldBuilding.BuildObject( {xOffset=960, yOffset=-4584, sprite=savepointSprite, collidable=false})
+SavePoints.BuildSavePoint( 960, -4584 )
 
 -- Bottom
 WorldBuilding.BuildSection( {width=19, xOffset=960, yOffset=-7016, sprite=gravelSprite, xOverlap=20, yOverlap=20 } )
