@@ -3,7 +3,7 @@ TODOs:
  Add webs to salt ramp and "low road"
 ]]--
 
-spiderAttack = false
+spiderAttack = true
 
 xOffset = 0
 yOffset = -768
