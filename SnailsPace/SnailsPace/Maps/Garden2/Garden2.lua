@@ -37,6 +37,5 @@ LoadArea("QueensDen")
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1400, -80))
-map.bounds:Add(Vector2(-1400, 3000))
-map.bounds:Add(Vector2(9960, 3000))
-map.bounds:Add(Vector2(9960, 300))
+map.bounds:Add(Vector2(-1400, 2000))
+map.bounds:Add(Vector2(9960, 2000))
