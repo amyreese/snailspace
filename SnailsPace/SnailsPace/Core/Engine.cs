@@ -433,7 +433,7 @@ namespace SnailsPace.Core
 					}
 					return;
 				}
-				
+				bool upwardCreep = false;
 
 				List<Objects.GameObject> remainingCollidableObjects;
 				Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectMovement, out remainingCollidableObjects);
@@ -448,11 +448,11 @@ namespace SnailsPace.Core
 				else if (movingObject is Objects.Character)
 				{
 					bool noSecondXCollision = true;
+					bool noThirdXCollision = true;
 					bool noSecondYCollision = true;
 					float xTick = objectMovement.X * 0.25f;
 					float yTick = objectMovement.Y * 0.25f;
-
-					while ((noSecondXCollision && (Math.Abs(resultingMovement.X) < Math.Abs(objectMovement.X))) || (noSecondYCollision && (Math.Abs(resultingMovement.Y) < Math.Abs(objectMovement.Y))))
+					while ((noThirdXCollision && (Math.Abs(resultingMovement.X) < Math.Abs(objectMovement.X))) || (noSecondYCollision && (Math.Abs(resultingMovement.Y) < Math.Abs(objectMovement.Y))))
 					{
 						if (noSecondYCollision && yTick != 0)
 						{
@@ -474,6 +474,23 @@ namespace SnailsPace.Core
 								resultingMovement.X -= xTick;
 							}
 						}
+						else if( !noSecondXCollision )
+						{
+							resultingMovement.X += xTick;
+							resultingMovement.Y += elapsedTime * 32;
+							collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
+							if (collidedObject == null)
+							{
+								noSecondXCollision = true;
+								upwardCreep = true;
+							}
+							else
+							{
+								resultingMovement.X -= xTick;
+								resultingMovement.Y -= elapsedTime * 32;
+								noThirdXCollision = false;
+							}
+						}
 					}
 				}
 				if (movingObject is Objects.Helix)
@@ -487,7 +504,9 @@ namespace SnailsPace.Core
 					}
 					else
 					{
-						Player.helix.flying = true;
+						if( !upwardCreep ) {
+							Player.helix.flying = true;
+						}
 					}
 				}
 				if (resultingMovement.Length() == 0)
