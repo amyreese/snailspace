@@ -1,3 +1,0 @@
-xOffset = fenceXOffset
-yOffset = fenceYOffset
-

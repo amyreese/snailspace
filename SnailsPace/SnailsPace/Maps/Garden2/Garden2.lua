@@ -4,7 +4,8 @@ library('WorldBuilding')
 startPosition = Vector2(0,0)
 --startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
 --startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
---startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
+startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
+--startPosition = Vector2(6148, -8104) -- Queen's Den Entrance
 player = Player( startPosition )
 
 -- Enemy Character Definitions
@@ -27,12 +28,12 @@ include("Scenery/TunnelBackground.lua")
 
 -- Set up map regions
 function LoadArea( name )
-	include("Scenery/" .. name .. "/" .. name .. ".lua")
+	include("Scenery/" .. name .. ".lua")
 end
 LoadArea("StartArea")
 LoadArea("Fence")
 LoadArea("SaltPit")
-
+LoadArea("QueensDen")
 
 
 -- Set the bounds for this map

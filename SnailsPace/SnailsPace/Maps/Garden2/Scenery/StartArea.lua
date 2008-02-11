@@ -1,5 +1,5 @@
-xOffset = startAreaXOffset
-yOffset = startAreaYOffset
+xOffset = 0
+yOffset = 0
 
 WorldBuilding.BuildSection( { width=10, xOffset=-1280, yOffset=-192, sprite=grassSprite, xOverlap=20, yOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
 WorldBuilding.BuildSection( { width=20, xOffset=-1344, yOffset=-320, sprite=dirtSpriteS, xOverlap=10, yOverlap=10, xSizeMod=-32, ySizeMod=-32, layerOffset=-2 } )

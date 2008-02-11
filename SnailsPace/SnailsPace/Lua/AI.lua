@@ -49,6 +49,9 @@ end
 --[[ Patrol between two points ]]--
 function AI.patrol(self, pt1, pt2)
 	self:setSprite("Walk")
+	if (self.direction.X == 0 ) then
+		self.direction = Vector2(1,0)
+	end
 	if (self.position.X > pt1) then
 		self.direction = Vector2( -1, 0 )
 		self.acceleration = 1280
@@ -61,6 +64,9 @@ end
 --[[ Fly between two points ]]--
 function AI.vertPatrol(self, pt1, pt2)
 	self:setSprite("Fly")
+	if (self.direction.Y == 0 ) then
+		self.direction = Vector2(0,1)
+	end
 	if (self.position.Y > pt1) then
 		self.direction = Vector2(0, -1)
 	elseif (self.position.Y < pt2) then
