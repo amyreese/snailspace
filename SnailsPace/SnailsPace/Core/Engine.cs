@@ -602,7 +602,7 @@ namespace SnailsPace.Core
 			{
 				List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
 				List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
-				Vector2 boundsSize = new Vector2(1400, 1400);
+				Vector2 boundsSize = new Vector2(2192, 1680);
 				Vector2 boundsCenter = Player.helix.position;
 				while (objEnum.MoveNext())
 				{

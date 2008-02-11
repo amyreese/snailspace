@@ -29,7 +29,8 @@ end
 	
 
 -- Creates a Bee object
-function Bee(startPos)
+function Bee(startPos, behav)
+	behav = behav or "flyUp"
 	fly = BeeSprite(0, 3, .07)
 	hover = BeeSprite(0, 3, .035)
 	
@@ -39,14 +40,14 @@ function Bee(startPos)
 	bee.size = BeeImage.size
 	bee.startPosition = startPos
 	bee.position = startPos
-	bee.direction = Vector2(0,1)
-	bee.maxVelocity = 1280
+	bee.maxVelocity = 768
 	bee.thinker = "BeeThinker"
 	bee.state = {}
 	bee.name = "Bee"
 	bee.health = 3
 	bee.affectedByGravity = true
 	bee:setSprite("Hover")
+	bee.behavior = behav
 	map.characters:Add(bee)
 
 	return bee
@@ -54,7 +55,21 @@ end
 
 -- Bee behavior function
 function BeeThinker( self, gameTime )
-	AI.vertPatrol(self, self.startPosition.Y + 50, self.startPosition.Y - 50)
-	
+	if (self.behavior == "flyUp") then
+		AI.vertPatrol(self, self.startPosition.Y + 50, self.startPosition.Y - 50)
+	elseif (self.behavior == "flyUpRight") then
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X + 75, self.startPosition.Y + 100), Vector2( self.startPosition.X, self.startPosition.Y - 50 ))
+	elseif (self.behavior == "flyUpLeft") then
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X - 75, self.startPosition.Y + 100), Vector2( self.startPosition.X, self.startPosition.Y - 50 ))
+	elseif (self.behavior == "flyDownRight") then
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X + 75, self.startPosition.Y + 50), Vector2( self.startPosition.X, self.startPosition.Y - 100 ))
+	elseif (self.behavior == "flyDownLeft") then
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X - 75, self.startPosition.Y + 50), Vector2( self.startPosition.X, self.startPosition.Y - 100 ))
+	end	
+	if self.state.attacking then
+		if AI.canSeeHelix( self, 600 ) then
+			AI.shootDirectlyAtHelix( self, gameTime )
+		end
+	end
 	-- TODO: Create AI for the Bee
 end

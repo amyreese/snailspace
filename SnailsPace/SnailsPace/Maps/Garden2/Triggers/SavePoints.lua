@@ -8,7 +8,6 @@ function SavePoints.BuildSavePoint( savePointX, savePointY, sprite )
 	trig.position = Vector2( savePointX + xOffset, savePointY + yOffset )
 	trig.bounds = GameObjectBounds( Vector2( 128, 128 ), trig.position, 0 )
 	trig.state = {}
-	trig.state.unused = true
 	local saveObject = WorldBuilding.BuildObject( {xOffset=savePointX, yOffset=savePointY, sprite=sprite, spriteName="savePoint", collidable=false})
 	map.triggers:Add(trig)
 
@@ -22,15 +21,17 @@ end
 
 function SavePoints.TriggerSave( trigger, saveObject, character, gameTime )
 	if character == Player.helix then
-		for k,v in pairs(SavePoints.points) do
-			v.sprites["savePoint"].frame=1
-			v.sprites["savePoint"].animationStart=1
-			v.sprites["savePoint"].animationEnd=1
+		if saveObject.sprites["savePoint"].frame == 1 then
+			for k,v in pairs(SavePoints.points) do
+				v.sprites["savePoint"].frame=1
+				v.sprites["savePoint"].animationStart=1
+				v.sprites["savePoint"].animationEnd=1
+			end
+			saveObject.sprites["savePoint"].frame=0
+			saveObject.sprites["savePoint"].animationStart=0
+			saveObject.sprites["savePoint"].animationEnd=0
+			Engine.player:save(Player.helix.position)
+			Engine.sound:play("ding1")
 		end
-		saveObject.sprites["savePoint"].frame=0
-		saveObject.sprites["savePoint"].animationStart=0
-		saveObject.sprites["savePoint"].animationEnd=0
-		Engine.player:save(Player.helix.position)
-		Engine.sound:play("ding1")
 	end
 end

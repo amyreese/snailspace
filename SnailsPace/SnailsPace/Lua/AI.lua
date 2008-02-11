@@ -74,6 +74,35 @@ function AI.vertPatrol(self, pt1, pt2)
 	end
 end
 
+--[[ Fly between two points ]]--
+function AI.diagonalPatrol(self, pt1, pt2)
+    --[[
+	if (self.direction.Y == 0 ) then
+		self.direction = Vector2(0,1)
+	end
+	if (self.position.Y > pt1) then
+		self.direction = Vector2(0, -1)
+	elseif (self.position.Y < pt2) then
+		self.direction = Vector2(0, 1)
+	end
+	]]--
+	self:setSprite("Fly")
+	if self.state.movingDown then
+		if self.position.Y > pt2.Y then
+			self.direction = Vector2( pt2.X - self.position.X, pt2.Y - self.position.Y )
+		else
+			self.state.movingDown = false
+		end
+	else
+		self.state.movingDown = false
+		if self.position.Y < pt1.Y then
+			self.direction = Vector2( pt1.X - self.position.X, pt1.Y - self.position.Y )
+		else
+			self.state.movingDown = true
+		end
+	end
+end
+
 --[[ Attack Helix ]]--
 function AI.shootDirectlyAtHelix(self, gameTime)
     self:ShootAt(helix.position, gameTime)

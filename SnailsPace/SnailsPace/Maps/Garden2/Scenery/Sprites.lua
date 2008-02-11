@@ -192,3 +192,18 @@ savepointSprite.animationEnd = 1
 savepointSprite.frame = 1
 savepointSprite.animationDelay = 0.0
 savepointSprite.timer = 0.0
+
+beehiveImage = Image()
+beehiveImage.filename = "Resources/Textures/beehive"
+beehiveImage.blocks = Vector2(1.0, 1.0)
+beehiveImage.size = Vector2(256.0, 256.0)
+
+beehiveSprite = Sprite()
+beehiveSprite.image = beehiveImage
+beehiveSprite.visible = true
+beehiveSprite.effect = "Resources/Effects/effects"
+beehiveSprite.animationStart = 0
+beehiveSprite.animationEnd = 0
+beehiveSprite.frame = 0
+beehiveSprite.animationDelay = 0.0
+beehiveSprite.timer = 0.0

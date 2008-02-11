@@ -173,8 +173,15 @@ namespace SnailsPace.Objects
 
 		public override bool canCollideWith(GameObject otherObject)
 		{
-			if ((otherObject is Objects.Bullet) && !(((Bullet)otherObject).isPCBullet))
-				return false;
+            if ((otherObject is Objects.Bullet) && !(((Bullet)otherObject).isPCBullet))
+            {
+                return false;
+            }
+            else if (otherObject is Character && !(otherObject is Helix || this is Helix))
+            {
+                return false;
+            }
+
 
 			return base.canCollideWith(otherObject);
 		}
