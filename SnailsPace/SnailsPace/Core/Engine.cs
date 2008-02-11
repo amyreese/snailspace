@@ -57,6 +57,8 @@ namespace SnailsPace.Core
 		public static Texture2D fuelBar;
 		public static Texture2D fuelIcon;
 
+		private Vector2 activityBoundsSize = new Vector2(2192, 1680);
+
 		// Constructors
 		public Engine(String mapName)
 		{
@@ -210,7 +212,10 @@ namespace SnailsPace.Core
 				//If not, let it think.
 				else
 				{
-					charEnum.Current.think(gameTime);
+					if (IsWithinBounds(charEnum.Current, Player.helix.position, activityBoundsSize))
+					{
+						charEnum.Current.think(gameTime);
+					}
 				}
 			}
 			charEnum.Dispose();
@@ -355,7 +360,7 @@ namespace SnailsPace.Core
 
 		private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
 
-		private bool IsWithinBounds(Objects.GameObject movingObject, Vector2 objectMovement, Vector2 boundsSize, Vector2 boundsCenter)
+		private bool IsMovingWithinBounds(Objects.GameObject movingObject, Vector2 objectMovement, Vector2 boundsSize, Vector2 boundsCenter)
 		{
 			if (movingObject.position.X < boundsCenter.X)
 			{
@@ -420,7 +425,7 @@ namespace SnailsPace.Core
 				Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
 				Vector2 resultingMovement = Vector2.Zero;
 
-				if (!IsWithinBounds( movingObject, objectMovement, boundsSize, boundsCenter ))
+				if (!IsMovingWithinBounds( movingObject, objectMovement, boundsSize, boundsCenter ))
 				{
 					if (movingObject is Objects.Bullet)
 					{
@@ -586,6 +591,28 @@ namespace SnailsPace.Core
 			}
 			return objectVelocity;
 		}
+		
+		
+		public bool IsWithinBounds( Objects.GameObject objectToCheck, Vector2 boundsCenter, Vector2 boundsSize ) {
+			float left = objectToCheck.position.X - objectToCheck.size.X / 2;
+			float right = objectToCheck.position.X + objectToCheck.size.X / 2;
+			float top = objectToCheck.position.Y + objectToCheck.size.Y / 2;
+			float bottom = objectToCheck.position.Y - objectToCheck.size.Y / 2;
+			float leftDiff = left - boundsCenter.X;
+			float leftDiffAbs = Math.Abs(leftDiff);
+			float rightDiff = right - boundsCenter.X;
+			float rightDiffAbs = Math.Abs(rightDiff);
+			float topDiff = top - boundsCenter.Y;
+			float topDiffAbs = Math.Abs(topDiff);
+			float bottomDiff = bottom - boundsCenter.Y;
+			float bottomDiffAbs = Math.Abs(bottomDiff);
+			if (((leftDiffAbs < boundsSize.X / 2) || (rightDiffAbs < boundsSize.X / 2) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
+				&& ((topDiffAbs < boundsSize.Y / 2) || (bottomDiffAbs < boundsSize.Y / 2) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
+			{
+				return true;
+			}
+			return false;
+		}
 
 		public void physics(GameTime gameTime)
 		{
@@ -602,26 +629,12 @@ namespace SnailsPace.Core
 			{
 				List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
 				List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
-				Vector2 boundsSize = new Vector2(2192, 1680);
 				Vector2 boundsCenter = Player.helix.position;
 				while (objEnum.MoveNext())
 				{
 					if (objEnum.Current.collidable)
 					{
-						float left = objEnum.Current.position.X - objEnum.Current.size.X / 2;
-						float right = objEnum.Current.position.X + objEnum.Current.size.X / 2;
-						float top = objEnum.Current.position.Y + objEnum.Current.size.Y / 2;
-						float bottom = objEnum.Current.position.Y - objEnum.Current.size.Y / 2;
-						float leftDiff = left - boundsCenter.X;
-						float leftDiffAbs = Math.Abs(leftDiff);
-						float rightDiff = right - boundsCenter.X;
-						float rightDiffAbs = Math.Abs(rightDiff);
-						float topDiff = top - boundsCenter.Y;
-						float topDiffAbs = Math.Abs(topDiff);
-						float bottomDiff = bottom - boundsCenter.Y;
-						float bottomDiffAbs = Math.Abs(bottomDiff);
-						if (((leftDiffAbs < boundsSize.X / 2) || (rightDiffAbs < boundsSize.X / 2) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
-							&& ((topDiffAbs < boundsSize.Y / 2) || (bottomDiffAbs < boundsSize.Y / 2) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
+						if (IsWithinBounds(objEnum.Current, boundsCenter, activityBoundsSize))
 						{
 							collidableObjects.Add(objEnum.Current);
 						}
@@ -640,9 +653,9 @@ namespace SnailsPace.Core
 				if (!noQuadTree)
 				{
 					Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1400, 1400);
-					QuadTree quad = new QuadTree(collidableObjects, boundsSize, boundsCenter, 2);
+					QuadTree quad = new QuadTree(collidableObjects, activityBoundsSize, boundsCenter, 2);
 					quad.print();
-					QuadTreeCollide(quad.getRoot(), elapsedTime, boundsSize, boundsCenter);
+					QuadTreeCollide(quad.getRoot(), elapsedTime, activityBoundsSize, boundsCenter);
 					detectCollisionsInNode(quad.getRoot(), elapsedTime);
 					int i = 2;
 				}
@@ -652,7 +665,7 @@ namespace SnailsPace.Core
 					List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
 					while (collideableObjectEnum.MoveNext())
 					{
-						MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, boundsSize, boundsCenter);
+						MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, activityBoundsSize, boundsCenter);
 					}
 
 				}
