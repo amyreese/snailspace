@@ -194,6 +194,13 @@ namespace SnailsPace.Objects
                     sprites["Gun"].horizontalFlip = true;
                     thrust = true;
                 }
+                else if (!thrustable)
+                {
+                    direction.X = -0.2f;
+                    horizontalFlip = true;
+                    sprites["Gun"].horizontalFlip = true;
+                    thrust = true;
+                }
             }
             else if (input.inputDown("Right"))
             {
@@ -202,6 +209,13 @@ namespace SnailsPace.Objects
 					direction.X = 1;
                     horizontalFlip = false;
                     sprites["Gun"].horizontalFlip = false;
+                    thrust = true;
+                }
+                else if (!thrustable)
+                {
+                    direction.X = 0.2f;
+                    horizontalFlip = false;
+                    sprites["Gun"].horizontalFlip = true;
                     thrust = true;
                 }
             } 
