@@ -14,6 +14,7 @@ namespace SnailsPace.Screens
     class GameScreen : Screen
     {
 		private Engine engine;
+        private bool started = false;
 
         public GameScreen(SnailsPace game)
             : base(game)
@@ -50,6 +51,11 @@ namespace SnailsPace.Screens
 
         public override void Update(GameTime gameTime)
         {
+            if (!started)
+            {
+                Engine.player.load();
+                started = true;
+            }
 			engine.think(gameTime);
 			engine.physics(gameTime);
             base.Update(gameTime);

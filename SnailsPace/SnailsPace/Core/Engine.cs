@@ -181,7 +181,6 @@ namespace SnailsPace.Core
 
 			if (input.inputPressed("Pause"))
 			{
-				SnailsPace.soundManager.playRepeat("tada");
 				enginePaused = !enginePaused;
 			}
 			if (input.inputPressed("MenuToggle"))

@@ -10,10 +10,13 @@ namespace SnailsPace.Core
     class Player
     {
         private int points = 0;
-        private Vector2 savedPosition = new Vector2(0, 0);
 
         public static Objects.Helix helix;
         public static Objects.GameObject crosshair;
+        public static GameObject saveObject;
+
+        public static bool dead = false;
+        public double deathTimer = 0;
 
         public Player()
             : this(new Vector2(0, 0))
@@ -22,7 +25,11 @@ namespace SnailsPace.Core
 
         public Player( Vector2 startPosition )
         {
-            savedPosition = startPosition;
+            saveObject = new GameObject();
+            saveObject.affectedByGravity = false;
+            saveObject.collidable = false;
+
+            save(startPosition);
             helix = new Helix( startPosition );
 
             // Crosshair creation
@@ -57,15 +64,51 @@ namespace SnailsPace.Core
             // Update things that depend on mouse position
 			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
 
-			if (helix.health <= 0)
-			{
-                deaths++;
-				helix.position = load();
-				helix.health = helix.maxHealth;
-				helix.fuel = helix.maxFuel;
-			}
+            if (helix.health <= 0)
+            {
+                if (!dead)
+                {
+                    dead = true;
+                    deathTimer = 0;
+                    helix.health = 0;
+                    helix.fuel = 0;
+                    helix.collidable = false;
 
-            helix.think(gameTime);
+                    helix.sprites["NoFuel"].visible = false;
+                    Engine.sound.stop("alarm");
+                    
+                    Engine.sound.play("death");
+                }
+                else
+                {
+                    deathTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                    if (deathTimer > 3000)
+                    {
+                        dead = false;
+                        SnailsPace.inputManager.reset();
+                        
+                        load();
+                    }
+                    else if (deathTimer > 2000)
+                    {
+                        Renderer.cameraTarget = saveObject;
+                        Renderer.cameraTargetOffset = new Vector3();
+                    }
+                    else if (deathTimer > 1500)
+                    {
+                        Dictionary<String, Sprite>.Enumerator sprites = helix.sprites.GetEnumerator();
+                        while (sprites.MoveNext())
+                        {
+                            sprites.Current.Value.visible = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                helix.think(gameTime);
+            }
         }
 
         public List<GameObject> gameObjects()
@@ -127,12 +170,23 @@ namespace SnailsPace.Core
 
         public void save(Vector2 position)
         {
-            savedPosition = position;
+            saveObject.position = position;
         }
 
-        public Vector2 load()
+        public void load()
         {
-            return savedPosition;
+            helix.position = saveObject.position;
+            helix.velocity = new Vector2();
+
+            helix.health = helix.maxHealth;
+            helix.fuel = helix.maxFuel;
+
+            helix.collidable = true;
+
+            Engine.sound.play("ready");
+
+            Renderer.cameraTarget = helix;
+            Renderer.cameraTargetOffset = new Vector3();
         }
     }
 }
