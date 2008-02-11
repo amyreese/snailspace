@@ -109,7 +109,8 @@ namespace SnailsPace.Core
 		{
 			return containedObjects;
 		}
-#if DEBUG
+
+        [Conditional("DEBUG")]
 		public void print()
 		{
 			Debug.WriteLine(name + ". Contains " + containedObjects.Count + " objects.");
@@ -139,6 +140,5 @@ namespace SnailsPace.Core
 				SE.print();
 			}
 		}
-#endif
 	}
 }

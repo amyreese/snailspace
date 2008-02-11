@@ -137,18 +137,6 @@
     <Content Include="Resources\Libraries\LuaInterface.dll">
       <Name>LuaInterface</Name>
     </Content>
-    <Content Include="Resources\Textures\BeeTable.png" />
-    <Content Include="Resources\Textures\Bee_1.png" />
-    <Content Include="Resources\Textures\BlackAnt_1.png" />
-    <Content Include="Resources\Textures\dirt.png" />
-    <Content Include="Resources\Textures\FireAnt_1.png" />
-    <Content Include="Resources\Textures\gravel.png" />
-    <Content Include="Resources\Textures\Helix.png" />
-    <Content Include="Resources\Textures\HelixTable.png" />
-    <Content Include="Resources\Textures\salt.png" />
-    <Content Include="Resources\Textures\saltcan.png" />
-    <Content Include="Resources\Textures\SpiderTable.png" />
-    <Content Include="Resources\Textures\wood.jpg" />
     <EmbeddedResource Include="Resources\Libraries\luanet.dll">
       <Name>luanet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -176,49 +164,19 @@
     <None Include="Maps\Garden2\Scenery\Background.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Scenery\Fence\Enemies.lua">
+    <None Include="Maps\Garden2\Scenery\Fence.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Scenery\Fence\Scenery.lua">
+    <None Include="Maps\Garden2\Scenery\QueensDen.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Scenery\Fence\Fence.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\Pit.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\Plane1.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\Plane2.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\Platforms.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\SaltPit\Triggers.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\SaltPit\Enemies.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\SaltPit\SaltPit.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\SaltPit\Scenery.lua">
+    <None Include="Maps\Garden2\Scenery\SaltPit.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden2\Scenery\Sprites.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\Garden2\Scenery\StartArea\Enemies.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\StartArea\Scenery.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\Garden2\Scenery\StartArea\StartArea.lua">
+    <None Include="Maps\Garden2\Scenery\StartArea.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden2\Scenery\TunnelBackground.lua">
@@ -269,44 +227,12 @@
     <None Include="Maps\Garden\Triggers\Message.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Resources\Audio\SnailsPace.xap" />
-    <Content Include="Resources\Audio\Sound\bomb explosion.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\lift_arrive_beep.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\mallert 007.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\mallert 008.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\oddLarm01.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\rifle shot exterior.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\shot gun stereo 2.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\shot gun stereo 2a.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Audio\Sound\shot gun stereo 2b.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Textures\pouringsalt.png" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">
       <Project>{6e9d3ed5-2070-4a99-b89d-7d9d6a735f81}</Project>
       <Visible>False</Visible>
     </NestedContentProject>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Audio\Music\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

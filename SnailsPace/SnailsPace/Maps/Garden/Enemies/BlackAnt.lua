@@ -39,7 +39,6 @@ function BlackAnt(startPos, behav)
 	blackant.startPosition = startPos
 	blackant.position = startPos
 	blackant.affectedByGravity = true
-	blackant.direction = Vector2(1,0)
 	blackant.maxVelocity = 640
 	blackant.thinker = "BlackAntThinker"
 	blackant.health = 1

@@ -22,23 +22,11 @@
     <XnaPlatform>Windows</XnaPlatform>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\riemerstexture.bmp">
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Name>riemerstexture</Name>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Resources\Effects\effects.fx">
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Name>effects</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Resources\Textures\blendingtexture.jpg">
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Name>blendingtexture</Name>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -90,13 +78,6 @@
       <Name>Menu</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Resources\Textures\GardenPanorama.png">
-      <Name>GardenPanorama</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +297,54 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Audio\Music\103-Em_bass_arp.wav">
+      <Name>103-Em_bass_arp</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Audio\Sound\bomb explosion.wav">
+      <Name>bomb explosion</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\lift_arrive_beep.wav">
+      <Name>lift_arrive_beep</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\mallert 007.wav">
+      <Name>mallert 007</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\mallert 008.wav">
+      <Name>mallert 008</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\oddLarm01.wav">
+      <Name>oddLarm01</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\Plink_09.wav">
+      <Name>Plink_09</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\rifle shot exterior.wav">
+      <Name>rifle shot exterior</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\shot gun stereo 2.wav">
+      <Name>shot gun stereo 2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\shot gun stereo 2a.wav">
+      <Name>shot gun stereo 2a</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Audio\Sound\shot gun stereo 2b.wav">
+      <Name>shot gun stereo 2b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

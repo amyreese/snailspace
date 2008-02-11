@@ -24,13 +24,11 @@ namespace SnailsPace.Core
 			return rootNode;
 		}
 
-#if DEBUG
+        [Conditional("DEBUG")]
 		public void print()
 		{
 			rootNode.print();
 		}
-#endif
-	
 	
 	}
 }
