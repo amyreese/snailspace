@@ -62,6 +62,7 @@ namespace SnailsPace.Core
                 deaths++;
 				helix.position = load();
 				helix.health = helix.maxHealth;
+				helix.fuel = helix.maxFuel;
 			}
 
             helix.think(gameTime);
