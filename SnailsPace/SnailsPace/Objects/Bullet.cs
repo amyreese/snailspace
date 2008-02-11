@@ -12,11 +12,19 @@ namespace SnailsPace.Objects
 
 		public bool isPCBullet = false;
 
+		/// <summary>
+		/// Create a new bullet.
+		/// </summary>
 		public Bullet() : base()
 		{
 			horizontalFriction = 0;
 		}
 
+		/// <summary>
+		/// Decide if a collision can occur between this bullet and another object.
+		/// </summary>
+		/// <param name="otherObject">The object that this bullet collided with.</param>
+		/// <returns>Whether or not a collision should occur.</returns>
 		public override bool canCollideWith(GameObject otherObject)
 		{
 			// Note: This should be in the order of most specific to least specific (ie: Helix before character), otherwise more specific cases will be missed
@@ -45,6 +53,10 @@ namespace SnailsPace.Objects
 			return base.canCollideWith(otherObject);
 		}
 
+		/// <summary>
+		/// Action performed when this bullet collides with another object.
+		/// </summary>
+		/// <param name="otherObject">The object that this bullet collided with.</param>
 		public override void collidedWith(GameObject otherObject)
 		{
 			// Assumes canCollideWith

@@ -8,6 +8,9 @@ namespace SnailsPace.Objects
 {
 	class Explosion : GameObject
     {
+		/// <summary>
+		/// Create a new explosion.
+		/// </summary>
 		public Explosion() : base()
 		{
 			Image image = new Image();
@@ -27,6 +30,11 @@ namespace SnailsPace.Objects
 			collidable = false;
 		}
 
+		/// <summary>
+		/// Run the explosion's animation.
+		/// </summary>
+		/// <param name="gameTime">The current time.</param>
+		/// <returns>False, if the animation has ended.</returns>
 		public bool DoAnimation( GameTime gameTime )
 		{
 			int currentFrame = sprites["explosion"].frame;
