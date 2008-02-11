@@ -103,7 +103,6 @@ end
             }
 
             call += ")\nend";
-            Console.WriteLine("Lua object call: \n" + call + "\n");
             DoString(call);
         }
     }
