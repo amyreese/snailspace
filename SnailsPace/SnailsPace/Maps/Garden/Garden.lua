@@ -1,3 +1,4 @@
+library('Weapons')
 
 -- Player creation and starting position
 player = Player( Vector2(0,0) )
