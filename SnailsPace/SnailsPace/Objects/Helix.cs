@@ -215,7 +215,7 @@ namespace SnailsPace.Objects
                 {
                     direction.X = 0.2f;
                     horizontalFlip = false;
-                    sprites["Gun"].horizontalFlip = true;
+                    sprites["Gun"].horizontalFlip = false;
                     thrust = true;
                 }
             } 
@@ -314,7 +314,6 @@ namespace SnailsPace.Objects
             if (input.inputDown("Fire"))
             {
 				ShootAt(crosshair.position, gameTime);
-                Engine.sound.play("gun1");
             }
         }
 

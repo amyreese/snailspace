@@ -82,6 +82,7 @@
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Text.cs" />
     <Compile Include="Objects\Trigger.cs" />
+    <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Screens\Screen.cs">
       <Name>Screen</Name>
     </Compile>
@@ -150,6 +151,9 @@
       <Name>Class Diagram</Name>
     </None>
     <None Include="Lua\AI.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Lua\Weapons.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Lua\WorldBuilding.lua">

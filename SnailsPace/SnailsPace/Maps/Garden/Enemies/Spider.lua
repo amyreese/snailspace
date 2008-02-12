@@ -43,7 +43,7 @@ function Spider(startPos)
 	spider.thinker = "SpiderThinker"
 	spider.health = 6
 	spider.name = "Spider"
-	spider.coolDown = 500
+	spider.weapon.cooldown = 500
 	spider:setSprite("Stand")
 	spider.state = {
 		tracking = false,

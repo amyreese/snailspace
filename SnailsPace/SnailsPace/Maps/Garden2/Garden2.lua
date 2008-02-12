@@ -1,3 +1,4 @@
+library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
@@ -30,6 +31,7 @@ include("Scenery/TunnelBackground.lua")
 function LoadArea( name )
 	include("Scenery/" .. name .. ".lua")
 end
+
 LoadArea("StartArea")
 LoadArea("Fence")
 LoadArea("SaltPit")

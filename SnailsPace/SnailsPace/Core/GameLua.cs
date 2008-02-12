@@ -23,6 +23,7 @@ import = luanet.import_type;
 
 using('Microsoft.Xna.Framework');
 
+MSMath = import('System.Math');
 MathHelper = import('Microsoft.Xna.Framework.MathHelper');
 Rectangle = import('Microsoft.Xna.Framework.Rectangle');
 Vector2 = import('Microsoft.Xna.Framework.Vector2');
@@ -42,6 +43,7 @@ Text = import('SnailsPace.Objects.Text');
 GameObject = import('SnailsPace.Objects.GameObject');
 GameObjectBounds = import('SnailsPace.Objects.GameObjectBounds');
 GameObjectBoundsBuilder = import('SnailsPace.Objects.GameObjectBoundsBuilder');
+Weapon = import('SnailsPace.Objects.Weapon');
 Bullet = import('SnailsPace.Objects.Bullet');
 Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');
@@ -75,6 +77,8 @@ end
 
         public Object Call(String function, params object[] args) 
         {
+            this["retval"] = null;
+
             String call = "if ( " + function + " ~= nil ) then\n\t";
             call += "retval = " + function + "(";
 
@@ -95,6 +99,8 @@ end
         public Object CallOn(LuaTable self, String function, params object[] args)
         {
             this["this"] = self;
+            this["retval"] = null;
+
             String call = "if ( this." + function + " ~= nil ) then\n\t";
             call += "retval = this:" + function + "(";
 

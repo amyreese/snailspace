@@ -43,7 +43,7 @@ function FireAnt(startPos)
 	fireant.maxVelocity = 400
 	fireant.thinker = "FireAntThinker"
 	fireant.health = 3
-	fireant.coolDown = 800
+	fireant.weapon.cooldown = 800
 	fireant.name = "FireAnt"
 	fireant:setSprite("Stand")
 	fireant.state = {
