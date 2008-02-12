@@ -33,6 +33,7 @@ function Spider(startPos)
 	stand = SpiderSprite(0, 0, 0.07)
 	
 	spider = Character()
+	spider.weapon = Weapons:fanshot(8, .5)
 	spider.sprites:Add("Walk", walk)
 	spider.sprites:Add("Stand", stand)
 	spider.size = Vector2(SpiderImage.size.X - 64, SpiderImage.size.Y - 64)
