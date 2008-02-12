@@ -543,7 +543,7 @@ namespace SnailsPace.Core
 			if (movingObject.direction.Length() > 0)
 			{
 				movingObject.direction.Normalize();
-				if (movingObject.desiredMaxVelocity == 0)
+				if (movingObject.desiredMaxVelocity <= 0 || movingObject.desiredMaxVelocity > movingObject.maxVelocity )
 				{
 					movingObject.desiredMaxVelocity = movingObject.maxVelocity;
 				}
