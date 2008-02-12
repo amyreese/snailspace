@@ -30,7 +30,8 @@ function Weapons:generic( v )
                 
         bullet.sprites:Add("Bullet", Weapons.genericSprite)
         bullet.size = Weapons.genericImage.size
-        
+        bullet.damage = 1;
+            
         Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
 	end
 	
@@ -91,7 +92,7 @@ end
 function Weapons:minigun()
 	weapon = Weapon()
 	weapon.ammunition = 100;
-	weapon.cooldown = 10;
+	weapon.cooldown = 0;
 	weapon.cue = "explode"
 	weapon.state = { velocity = 256 }
 	
@@ -101,7 +102,8 @@ function Weapons:minigun()
                 
         bullet.sprites:Add("Bullet", Weapons.genericSprite)
         bullet.size = Weapons.genericImage.size
-        
+        bullet.damage = 1;
+            
         Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
 	end
 	
@@ -125,7 +127,6 @@ function Weapons.shootSingleBullet( self, bullet, shooter, targetPosition )
     bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
     
     bullet.layer = -0.001;
-    bullet.damage = 1;
     
     if (shooter == Player.helix) then
 		bullet.isPCBullet = true
