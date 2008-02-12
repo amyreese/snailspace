@@ -37,9 +37,7 @@ namespace SnailsPace.Core
             }
             else if (cues[cue].IsPaused)
             {
-                cues[cue].Stop(AudioStopOptions.Immediate);
-                recache(cue);
-                cues[cue].Play();
+                cues[cue].Resume();
             }
             else if (overlap)
             {
@@ -62,6 +60,15 @@ namespace SnailsPace.Core
                 cues[cue].Stop(AudioStopOptions.Immediate);
                 recache(cue);
                 cues[cue].Play();
+            }
+        }
+
+        public void pause(String cue)
+        {
+            cache(cue);
+            if (cues[cue].IsPlaying)
+            {
+                cues[cue].Pause();
             }
         }
 

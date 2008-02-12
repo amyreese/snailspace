@@ -191,6 +191,16 @@ namespace SnailsPace.Core
 
 			pause.sprites["Pause"].visible = enginePaused;
 
+            if (enginePaused)
+            {
+                sound.pause("music");
+                sound.stop("alarm");
+            }
+            else
+            {
+                sound.play("music", false);
+            }
+
 			if (enginePaused)
 			{
 				pause.position = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
