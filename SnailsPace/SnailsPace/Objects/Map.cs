@@ -33,9 +33,16 @@ namespace SnailsPace.Objects
             triggers = new List<Trigger>();
 			bounds = new List<Vector2>();
 
-            String filename = "Maps/" + name + "/" + name + ".lua";
-            Engine.lua["map"] = this;
-            Engine.lua.DoFile(filename);
+            try
+            {
+                String filename = "Maps/" + name + "/" + name + ".lua";
+                Engine.lua["map"] = this;
+                Engine.lua.DoFile(filename);
+            }
+            catch (LuaInterface.LuaException e)
+            {
+                SnailsPace.debug(e.Message);
+            }
         }
     }
 }

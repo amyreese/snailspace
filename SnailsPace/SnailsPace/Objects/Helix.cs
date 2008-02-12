@@ -34,7 +34,14 @@ namespace SnailsPace.Objects
         public Helix( Vector2 position, String weaponName)
             : base(weaponName)
         {
-            Engine.lua["helix"] = this;
+            try
+            {
+                Engine.lua["helix"] = this;
+            }
+            catch (LuaInterface.LuaException e)
+            {
+                SnailsPace.debug(e.Message);
+            }
             
             name = "Helix";
             affectedByGravity = true;

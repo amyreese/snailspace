@@ -26,7 +26,15 @@ namespace SnailsPace.Objects
 
         public static Weapon load(String name)
         {
-            return (Weapon)Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], name);
+            try
+            {
+                return (Weapon)Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], name);
+            }
+            catch (LuaException e)
+            {
+                SnailsPace.debug(e.Message);
+                return null;
+            }
         }
 
         /// <summary>

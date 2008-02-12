@@ -54,7 +54,15 @@ Player = import('SnailsPace.Core.Player');
 Engine = import('SnailsPace.Core.Engine');
             
             ";
-            this.DoString(initCode);
+
+            try
+            {
+                DoString(initCode);
+            }
+            catch (LuaException e)
+            {
+                SnailsPace.debug(e.Message);
+            }
             #endregion
 
             #region Lua helper functions
@@ -72,51 +80,79 @@ function include( filename )
 end
 
             ";
-            this.DoString(funcCode);
+            
+            try
+            {
+                DoString(funcCode);
+            }
+            catch (LuaException e)
+            {
+                SnailsPace.debug(e.Message);
+            }
             #endregion
         }
 
         public Object Call(String function, params object[] args) 
         {
-            this["retval"] = null;
-
-            String call = "if ( " + function + " ~= nil ) then\n\t";
-            call += "retval = " + function + "(";
-
-            for (int i = 0; i < args.Length; i++)
+            try
             {
-                String varname = "arg" + i;
-                this[varname] = args[i];
+                this["retval"] = null;
 
-                call += (i == 0 ? "" : ",") + varname;
+                String call = "if ( " + function + " ~= nil ) then\n\t";
+                call += "retval = " + function + "(";
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    String varname = "arg" + i;
+                    this[varname] = args[i];
+
+                    call += (i == 0 ? "" : ",") + varname;
+                }
+
+                call += ")\nend";
+
+                DoString(call);
+
+                return this["retval"];
             }
+            catch (LuaException e)
+            {
+                SnailsPace.debug(e.Message);
 
-            call += ")\nend";
-            DoString(call);
-
-            return this["retval"];
+                return null;
+            }
         }
 
         public Object CallOn(LuaTable self, String function, params object[] args)
         {
-            this["this"] = self;
-            this["retval"] = null;
-
-            String call = "if ( this." + function + " ~= nil ) then\n\t";
-            call += "retval = this:" + function + "(";
-
-            for (int i = 0; i < args.Length; i++)
+            try
             {
-                String varname = "arg" + i;
-                this[varname] = args[i];
+                this["this"] = self;
+                this["retval"] = null;
 
-                call += (i == 0 ? "" : ",") + varname;
+                String call = "if ( this." + function + " ~= nil ) then\n\t";
+                call += "retval = this:" + function + "(";
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    String varname = "arg" + i;
+                    this[varname] = args[i];
+
+                    call += (i == 0 ? "" : ",") + varname;
+                }
+
+                call += ")\nend";
+            
+                DoString(call);
+
+                return this["retval"];
             }
+            catch (LuaException e)
+            {
+                SnailsPace.debug(e.Message);
 
-            call += ")\nend";
-            DoString(call);
-
-            return this["retval"];
+                return null;
+            }
         }
     }
 }

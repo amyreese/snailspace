@@ -179,30 +179,33 @@ namespace SnailsPace
         {
             try {
                 lua.DoFile(filename);
+            
+                Dictionary<String, Double>.Enumerator DoubleDefaultEnumerator = DoubleDefaultValues.GetEnumerator();
+                while( DoubleDefaultEnumerator.MoveNext() )
+                {
+                    Object value = lua[DoubleDefaultEnumerator.Current.Key];
+                    if (null != value)
+                    {
+                        DoubleValues.Add(DoubleDefaultEnumerator.Current.Key, (Double)value);
+                    }
+                }
+                DoubleDefaultEnumerator.Dispose();
+
+                Dictionary<String, String>.Enumerator StringDefaultEnumerator = StringDefaultValues.GetEnumerator();
+                while (StringDefaultEnumerator.MoveNext())
+                {
+                    Object value = lua[StringDefaultEnumerator.Current.Key];
+                    if (null != value)
+                    {
+                        StringValues.Add(StringDefaultEnumerator.Current.Key, (String)value);
+                    }
+                }
+                StringDefaultEnumerator.Dispose();
+
             } catch( LuaException e ) {
+                SnailsPace.debug(e.Message);
             }
 
-            Dictionary<String, Double>.Enumerator DoubleDefaultEnumerator = DoubleDefaultValues.GetEnumerator();
-            while( DoubleDefaultEnumerator.MoveNext() )
-            {
-                Object value = lua[DoubleDefaultEnumerator.Current.Key];
-                if (null != value)
-                {
-                    DoubleValues.Add(DoubleDefaultEnumerator.Current.Key, (Double)value);
-                }
-            }
-            DoubleDefaultEnumerator.Dispose();
-
-            Dictionary<String, String>.Enumerator StringDefaultEnumerator = StringDefaultValues.GetEnumerator();
-            while (StringDefaultEnumerator.MoveNext())
-            {
-                Object value = lua[StringDefaultEnumerator.Current.Key];
-                if (null != value)
-                {
-                    StringValues.Add(StringDefaultEnumerator.Current.Key, (String)value);
-                }
-            }
-            StringDefaultEnumerator.Dispose();
         }
 
         /**
