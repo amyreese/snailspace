@@ -34,6 +34,7 @@ function SavePoints.TriggerSave( trigger, saveObject, character, gameTime )
 			saveObject.sprites["savePoint"].animationEnd=0
 			Engine.player:save(trigger.position)
 			Engine.sound:play("ding1")
+			character.health = character.maxHealth
 		end
 	end
 end
