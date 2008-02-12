@@ -285,6 +285,15 @@ namespace SnailsPace.Objects
                 Engine.sound.stop("alarm");
             }
 
+            if (flying && thrust)
+            {
+                Engine.sound.playRepeat("jetpack");
+            }
+            else
+            {
+                Engine.sound.stop("jetpack");
+            }
+
 			// Acceleration
 			if (flying)
 			{

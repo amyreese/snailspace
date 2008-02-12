@@ -182,6 +182,8 @@ namespace SnailsPace.Core
             helix.fuel = helix.maxFuel;
 
             helix.collidable = true;
+            helix.horizontalFlip = false;
+            helix.sprites["Gun"].horizontalFlip = false;
 
             Engine.sound.play("ready");
 
