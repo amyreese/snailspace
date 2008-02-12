@@ -73,9 +73,10 @@ end
             #endregion
         }
 
-        public void Call(String function, params object[] args) 
+        public Object Call(String function, params object[] args) 
         {
-            String call = "if ( " + function + " ~= nil ) then\n\t" + function + "(";
+            String call = "if ( " + function + " ~= nil ) then\n\t";
+            call += "retval = " + function + "(";
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -87,12 +88,15 @@ end
 
             call += ")\nend";
             DoString(call);
+
+            return this["retval"];
         }
 
-        public void CallOn(LuaTable self, String function, params object[] args)
+        public Object CallOn(LuaTable self, String function, params object[] args)
         {
             this["this"] = self;
-            String call = "if ( this." + function + " ~= nil ) then\n\tthis:" + function + "(";
+            String call = "if ( this." + function + " ~= nil ) then\n\t";
+            call += "retval = this:" + function + "(";
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -104,6 +108,8 @@ end
 
             call += ")\nend";
             DoString(call);
+
+            return this["retval"];
         }
     }
 }
