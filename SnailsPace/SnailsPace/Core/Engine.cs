@@ -321,6 +321,7 @@ namespace SnailsPace.Core
 		}
 
 		private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
+        private List<Objects.Bullet> bulletsToExplode = new List<Objects.Bullet>();
 		private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector,
 			out List<Objects.GameObject> remainingCollidableObjects)
 		{
@@ -453,7 +454,7 @@ namespace SnailsPace.Core
 				}
 				else if (movingObject is Objects.Bullet)
 				{
-					bulletsToClear.Add((Objects.Bullet)movingObject);
+					bulletsToExplode.Add((Objects.Bullet)movingObject);
 				}
 				else if (movingObject is Objects.Character)
 				{
@@ -699,17 +700,27 @@ namespace SnailsPace.Core
 
 				}
 
-				// Clear out exploded bullets
+				// Clear out of range bullets
 				List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
 				while (destroyedBulletEnumerator.MoveNext())
 				{
 					bullets.Remove(destroyedBulletEnumerator.Current);
-					Objects.Explosion explosion = new Objects.Explosion();
-					explosion.position = destroyedBulletEnumerator.Current.position;
-					explosions.Add(explosion);
 				}
 				destroyedBulletEnumerator.Dispose();
+
+                // explode collided bullets
+                destroyedBulletEnumerator = bulletsToExplode.GetEnumerator();
+                while (destroyedBulletEnumerator.MoveNext())
+                {
+                    bullets.Remove(destroyedBulletEnumerator.Current);
+                    Objects.Explosion explosion = new Objects.Explosion();
+                    explosion.position = destroyedBulletEnumerator.Current.position;
+                    explosions.Add(explosion);
+                }
+                destroyedBulletEnumerator.Dispose();
+
 				bulletsToClear.Clear();
+                bulletsToExplode.Clear();
 			}
 
 			// Check all triggers against Helix
