@@ -24,7 +24,15 @@ namespace SnailsPace.Objects
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
 
-        public Helix( Vector2 position ) : base()
+        public Dictionary<String, Weapon> inventory;
+
+        public Helix( Vector2 position )
+            : this(position, "generic")
+        {
+        }
+
+        public Helix( Vector2 position, String weaponName)
+            : base(weaponName)
         {
             Engine.lua["helix"] = this;
             
@@ -111,6 +119,13 @@ namespace SnailsPace.Objects
 
 			maxHealth = 20;
 			health = 20;
+
+            inventory = new Dictionary<String, Weapon>();
+            if (weaponName != "generic")
+            {
+                inventory.Add("generic", Weapon.load("generic"));
+            }
+            inventory.Add(weaponName, weapon);
 		}
 
 		public void setSprite(String sprtName, String aSprtName)

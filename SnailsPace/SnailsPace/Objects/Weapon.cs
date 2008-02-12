@@ -14,11 +14,18 @@ namespace SnailsPace.Objects
 
 		public double lastFired = 0;
         public double cooldown = 100;
+        public int ammunition = -1;
+        public String cue = "gun1";
 
         public LuaTable state;
 
         public Weapon()
         {
+        }
+
+        public static Weapon load(String name)
+        {
+            return (Weapon)Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], name);
         }
 
         /// <summary>
@@ -28,16 +35,21 @@ namespace SnailsPace.Objects
         /// <param name="gameTime">The current time, used for firing rate</param>
         public void ShootAt(Character shooter, Vector2 targetPosition, GameTime gameTime)
         {
-            if (lastFired + cooldown < gameTime.TotalRealTime.TotalMilliseconds)
+            if ((ammunition > 0 || ammunition == -1) && lastFired + cooldown < gameTime.TotalRealTime.TotalMilliseconds)
             {
                 lastFired = gameTime.TotalRealTime.TotalMilliseconds;
 
                 Engine.lua.CallOn(state, "ShootAt", shooter, targetPosition, gameTime);
+                if (ammunition > 0) ammunition--;
 
                 if (shooter is Helix)
                 {
-                    Engine.sound.play("gun1");
+                    Engine.sound.play(cue);
                 }
+            }
+            else if (shooter is Helix)
+            {
+                Player.helix.weapon = Player.helix.inventory["generic"];
             }
         }
 

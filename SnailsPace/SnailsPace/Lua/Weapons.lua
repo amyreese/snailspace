@@ -31,29 +31,7 @@ function Weapons:generic( v )
         bullet.sprites:Add("Bullet", Weapons.genericSprite)
         bullet.size = Weapons.genericImage.size
         
-        bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
-        bullet.velocity = Vector2.Normalize(bullet.velocity)
-        
-        if ((targetPosition.X - shooter.position.X) < 0) then
-			pi = MathHelper.Pi
-		else
-			pi = 0
-		end
-		
-		bullet.rotation = pi + math.atan((targetPosition.Y - shooter.position.Y) / (targetPosition.X - shooter.position.X));
-        bullet.position = Vector2.Add(shooter.position, Vector2.Multiply(bullet.velocity, math.max(shooter.size.X, shooter.size.Y) / 2));
-        bullet.maxVelocity = math.max(shooter.terminalVelocity, shooter.maxVelocity) + self.velocity;
-        bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
-        
-        bullet.layer = -0.001;
-        bullet.damage = 1;
-        
-        if (shooter == Player.helix) then
-			bullet.isPCBullet = true
-			Engine.player:shotBullet();
-		end
-        
-        Engine.bullets:Add(bullet);
+        Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
 	end
 	
 	return weapon;
@@ -108,4 +86,51 @@ function Weapons:fanshot( n, o, v )
 	end
 	
 	return weapon;
+end
+
+function Weapons:minigun()
+	weapon = Weapon()
+	weapon.ammunition = 100;
+	weapon.cooldown = 10;
+	weapon.cue = "explode"
+	weapon.state = { velocity = 256 }
+	
+	function weapon.state:ShootAt( shooter, targetPosition, gameTime)
+		bullet = Bullet();
+		bullet.explosion = Explosion()
+                
+        bullet.sprites:Add("Bullet", Weapons.genericSprite)
+        bullet.size = Weapons.genericImage.size
+        
+        Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
+	end
+	
+	return weapon
+end
+
+--[[ Single shot helper function ]]--
+function Weapons.shootSingleBullet( self, bullet, shooter, targetPosition ) 
+	bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
+    bullet.velocity = Vector2.Normalize(bullet.velocity)
+    
+    if ((targetPosition.X - shooter.position.X) < 0) then
+		pi = MathHelper.Pi
+	else
+		pi = 0
+	end
+	
+	bullet.rotation = pi + math.atan((targetPosition.Y - shooter.position.Y) / (targetPosition.X - shooter.position.X));
+    bullet.position = Vector2.Add(shooter.position, Vector2.Multiply(bullet.velocity, math.max(shooter.size.X, shooter.size.Y) / 2));
+    bullet.maxVelocity = math.max(shooter.terminalVelocity, shooter.maxVelocity) + self.velocity;
+    bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
+    
+    bullet.layer = -0.001;
+    bullet.damage = 1;
+    
+    if (shooter == Player.helix) then
+		bullet.isPCBullet = true
+		Engine.player:shotBullet();
+	end
+    
+    Engine.bullets:Add(bullet);
 end

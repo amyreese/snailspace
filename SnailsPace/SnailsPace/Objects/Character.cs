@@ -30,9 +30,14 @@ namespace SnailsPace.Objects
 		String thinker = "";
 
         public Character()
+            : this("generic")
+        {
+        }
+
+        public Character(String weaponName)
             : base()
         {
-            weapon = (Weapon) Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], "generic");
+            weapon = Weapon.load(weaponName);
         }
 
         public void ShootAt(Vector2 targetPosition, GameTime gameTime)

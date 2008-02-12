@@ -23,14 +23,20 @@ namespace SnailsPace.Core
         {    
         }
 
-        public Player( Vector2 startPosition )
+        public Player(Vector2 startPosition)
+            : this(startPosition, "generic")
+        {
+        }
+
+        public Player(Vector2 startPosition, String weaponName)
+            : base()
         {
             saveObject = new GameObject();
             saveObject.affectedByGravity = false;
             saveObject.collidable = false;
 
             save(startPosition);
-            helix = new Helix( startPosition );
+            helix = new Helix( startPosition, weaponName );
 
             // Crosshair creation
             Objects.Sprite crosshairSprite = new Objects.Sprite();
