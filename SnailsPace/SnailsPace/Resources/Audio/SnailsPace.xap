@@ -192,7 +192,7 @@ Global Settings
         Reserved = 1;
         Read Only = 1;
         Time = 0;
-        Value = 1.000000;
+        Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
         Max = 1024.000000;
@@ -225,8 +225,8 @@ Wave Bank
     Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 1390263974;
-    Bank Last Revised High = 29912256;
+    Bank Last Revised Low = 1047248024;
+    Bank Last Revised High = 29912331;
 
     Wave
     {
@@ -269,8 +269,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1669190353;
-            Last Modified High = 29911893;
+            Last Modified Low = 883205530;
+            Last Modified High = 29911945;
         }
     }
 
@@ -315,8 +315,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3254954900;
-            Last Modified High = 29911850;
+            Last Modified Low = 882893030;
+            Last Modified High = 29911945;
         }
     }
 
@@ -430,8 +430,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1084041373;
-            Last Modified High = 29911898;
+            Last Modified Low = 883205530;
+            Last Modified High = 29911945;
         }
     }
 
@@ -501,6 +501,75 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 2541455616;
             Last Modified High = 29911829;
+        }
+    }
+
+    Wave
+    {
+        Name = Filth squash;
+        File = Sound\Filth squash.wav;
+        Build Settings Last Modified Low = 3186335958;
+        Build Settings Last Modified High = 29912327;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 69404;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1926648458;
+            Last Modified High = 29912327;
+        }
+    }
+
+    Wave
+    {
+        Name = Filth squash2;
+        File = Sound\Filth squash2.wav;
+        Build Settings Last Modified Low = 3186335958;
+        Build Settings Last Modified High = 29912327;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 43860;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2145085958;
+            Last Modified High = 29912327;
+        }
+    }
+
+    Wave
+    {
+        Name = Filth squash a;
+        File = Sound\Filth squash a.wav;
+        Build Settings Last Modified Low = 174715320;
+        Build Settings Last Modified High = 29912330;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 136452;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4287026366;
+            Last Modified High = 29912329;
         }
     }
 }
@@ -1065,6 +1134,144 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = Filth squash;
+        Volume = -800;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = Filth squash;
+                    Entry Index = 12;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Filth squash2;
+        Volume = -800;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = Filth squash2;
+                    Entry Index = 13;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Filth squash a;
+        Volume = -600;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = Filth squash a;
+                    Entry Index = 14;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = ding1;
@@ -1269,6 +1476,54 @@ Sound Bank
         {
             Name = Rifle Being Cocked;
             Index = 11;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = squash;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = Filth squash;
+            Index = 12;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+
+        Sound Entry
+        {
+            Name = Filth squash2;
+            Index = 13;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = kill;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = Filth squash a;
+            Index = 14;
             Weight Min = 0;
             Weight Max = 255;
         }

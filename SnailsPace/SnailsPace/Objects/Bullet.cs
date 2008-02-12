@@ -62,7 +62,11 @@ namespace SnailsPace.Objects
 			// Assumes canCollideWith
             if (otherObject is Character)
 			{
-                if (otherObject is Helix)
+                if (isPCBullet)
+                {
+                    Engine.sound.play("squash");
+                }
+                else
                 {
                     Engine.sound.play("ping");
                 }

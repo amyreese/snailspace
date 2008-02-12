@@ -207,6 +207,7 @@ namespace SnailsPace.Core
 				{
 					deadChars.Add(charEnum.Current);
 					player.killedEnemy();
+                    Engine.sound.play("kill");
 				}
 				//If not, let it think.
 				else
