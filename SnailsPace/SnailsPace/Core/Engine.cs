@@ -713,7 +713,7 @@ namespace SnailsPace.Core
                 while (destroyedBulletEnumerator.MoveNext())
                 {
                     bullets.Remove(destroyedBulletEnumerator.Current);
-                    Objects.Explosion explosion = new Objects.Explosion();
+                    Objects.Explosion explosion = destroyedBulletEnumerator.Current.explosion;
                     explosion.position = destroyedBulletEnumerator.Current.position;
                     explosions.Add(explosion);
                 }

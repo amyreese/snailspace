@@ -10,8 +10,7 @@ namespace SnailsPace.Objects
     class Weapon
     {
         public String name;
-        public Bullet bulletType;
-        public static Objects.Sprite bulletSprite;
+        public Objects.Sprite bulletSprite;
 
 		public double lastFired = 0;
         public double cooldown = 100;

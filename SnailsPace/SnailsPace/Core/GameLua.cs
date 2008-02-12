@@ -45,6 +45,7 @@ GameObjectBounds = import('SnailsPace.Objects.GameObjectBounds');
 GameObjectBoundsBuilder = import('SnailsPace.Objects.GameObjectBoundsBuilder');
 Weapon = import('SnailsPace.Objects.Weapon');
 Bullet = import('SnailsPace.Objects.Bullet');
+Explosion = import('SnailsPace.Objects.Explosion');
 Character = import('SnailsPace.Objects.Character');
 Helix = import('SnailsPace.Objects.Helix');
 

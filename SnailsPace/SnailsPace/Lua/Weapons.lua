@@ -26,6 +26,7 @@ function Weapons:generic()
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet();
+		bullet.explosion = Explosion()
                 
         bullet.sprites:Add("Bullet", Weapons.genericSprite)
         bullet.size = Weapons.genericImage.size
