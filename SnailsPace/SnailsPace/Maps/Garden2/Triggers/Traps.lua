@@ -4,7 +4,7 @@ function Traps.SaltPile( trapX, trapY, trapWidth, trapHeight, trapRotation )
 	trapRotation = trapRotation or 0
 	local trig = Trigger()
 	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
-	trig.bounds = GameObjectBounds( Vector2( trapWidth / 25, trapHeight ), trig.position, trapRotation )
+	trig.bounds = GameObjectBounds( Vector2( trapWidth / 2, trapHeight ), trig.position, trapRotation )
 	trig.state = {}
 	map.triggers:Add(trig)
 
