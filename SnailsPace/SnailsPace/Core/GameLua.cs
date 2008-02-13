@@ -109,7 +109,8 @@ end
                     call += (i == 0 ? "" : ",") + varname;
                 }
 
-                call += ")\nend";
+                call += ")\nend\n";
+                call += "retval = retval or True";
 
                 DoString(call);
 
@@ -141,7 +142,8 @@ end
                     call += (i == 0 ? "" : ",") + varname;
                 }
 
-                call += ")\nend";
+                call += ")\nend\n";
+                call += "retval = retval or True";
             
                 DoString(call);
 
