@@ -387,6 +387,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+<<<<<<< .working
+<<<<<<< .mine
+  <ItemGroup>
+    <Compile Include="Resources\Textures\BoostIcon.png">
+      <Name>BoostIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+=======
   <ItemGroup>
     <Compile Include="Resources\Textures\BulletTable.png">
       <Name>BulletTable</Name>
@@ -394,6 +405,9 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+=======
+>>>>>>> .merge-right.r744
+>>>>>>> .r745
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

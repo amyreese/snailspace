@@ -28,7 +28,7 @@ function SpiderSprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a Spider object
-function Spider(startPos)
+function Spider(startPos, attack)
 	walk = SpiderSprite(0, 3, 0.07)
 	stand = SpiderSprite(0, 0, 0.07)
 	
@@ -49,6 +49,7 @@ function Spider(startPos)
 	spider.state = {
 		tracking = false,
 		mad = false,
+		attacking = attack,
 	}
 	map.characters:Add(spider)
 	

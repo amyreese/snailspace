@@ -2,6 +2,7 @@ library('Weapons')
 
 -- Player creation and starting position
 player = Player( Vector2(0,0) )
+--player = Player(Vector2(8000, -4856))
 include("Triggers/Message.lua")
 
 -- Enemy Character Definitions
@@ -13,6 +14,14 @@ include("Enemies/Spider.lua")
 -- Set up the background
 include("Scenery/Background.lua")
 include("Scenery/TunnelBackground.lua")
+
+-- Scenery Sprite Definitions
+include("Scenery/Sprites.lua")
+
+-- Trigger Definitions
+include("Triggers/SavePoints.lua")
+include("Triggers/Powerups.lua")
+include("Triggers/Traps.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")
@@ -32,6 +41,9 @@ fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
 fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
 fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
 fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
+
+--Boosts
+boost1 = Powerups.BuildBoostPowerup(7956, -4500)
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
@@ -57,14 +69,14 @@ bee = Bee(Vector2(0,400))
 
 
 --Pit Ramp Spiders
-spider1 = Spider(Vector2(2060, -1950))
-spider2 = Spider(Vector2(2260, -2200))
-spider3 = Spider(Vector2(2460, -2400))
-spider4 = Spider(Vector2(2660, -2600))
-spider5 = Spider(Vector2(2860, -2800))
-spider6 = Spider(Vector2(3060, -3000))
-spider7 = Spider(Vector2(3260, -3200))
-spider8 = Spider(Vector2(3460, -3400))
+spider1 = Spider(Vector2(2060, -1950), true)
+spider2 = Spider(Vector2(2260, -2200), true)
+spider3 = Spider(Vector2(2460, -2400), true)
+spider4 = Spider(Vector2(2660, -2600), true)
+spider5 = Spider(Vector2(2860, -2800), true)
+spider6 = Spider(Vector2(3060, -3000), true)
+spider7 = Spider(Vector2(3260, -3200), true)
+spider8 = Spider(Vector2(3460, -3400), true)
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1400, -80))

@@ -12,6 +12,7 @@ namespace SnailsPace.Objects
         public float fuel;
 		public float maxFuel;
 		public bool flying;
+		public bool boosting;
 		public bool thrust;
         public bool thrustable;
 		public const float flyingHorizontalFriction = 640.0f;
@@ -23,6 +24,7 @@ namespace SnailsPace.Objects
 
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
+		public int boostPeriod = 10;
 
         public Dictionary<String, Weapon> inventory;
 
@@ -319,9 +321,25 @@ namespace SnailsPace.Objects
 			// Acceleration
 			if (flying)
 			{
-				acceleration = flyingAcceleration;
-				horizontalFriction = flyingHorizontalFriction;
-				maxVelocity = flyingMaxVelocity;
+				if (boosting)
+				{
+					acceleration = flyingAcceleration * 2;
+					horizontalFriction = flyingHorizontalFriction;
+					maxVelocity = flyingMaxVelocity * 2;
+					if (boostPeriod == 0)
+					{
+						boosting = false;
+						boostPeriod = 11;
+					}
+					boostPeriod--;
+				}
+				else
+				{
+					acceleration = flyingAcceleration;
+					horizontalFriction = flyingHorizontalFriction;
+					maxVelocity = flyingMaxVelocity;
+				}
+
 			}
 			else
 			{
@@ -362,6 +380,10 @@ namespace SnailsPace.Objects
 				base.takeDamage(damage);
 				lastTookDamage = Engine.gameTime.TotalRealTime.TotalMilliseconds;
 			}
+		}
+
+		public void endBoost()
+		{
 		}
     }
 }
