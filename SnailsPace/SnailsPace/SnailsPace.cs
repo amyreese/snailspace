@@ -97,7 +97,8 @@ namespace SnailsPace
             MainMenu,
             SettingsMenu,
             GameLoading,
-            Game
+            Game,
+            LevelOver
         }
 
         private GameStates currentGameState = GameStates.MainMenuLoading;
@@ -129,6 +130,7 @@ namespace SnailsPace
             screens.Add(GameStates.SettingsMenu, new Screens.Menus.SettingsMenuScreen(this));
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
+            screens.Add(GameStates.LevelOver, new Screens.LevelOverScreen(this));
             Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();
             while (screenEnumerator.MoveNext())
             {

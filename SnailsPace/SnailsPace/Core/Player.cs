@@ -22,7 +22,7 @@ namespace SnailsPace.Core
 
         public Player()
             : this(new Vector2(0, 0))
-        {    
+        {
         }
 
         public Player(Vector2 startPosition)
@@ -38,22 +38,22 @@ namespace SnailsPace.Core
             saveObject.collidable = false;
 
             save(startPosition);
-            helix = new Helix( startPosition, weaponName );
+            helix = new Helix(startPosition, weaponName);
 
             // Crosshair creation
             Sprite crosshairSprite = new Sprite();
-			crosshairSprite.image = new Image();
-			crosshairSprite.image.filename = "Resources/Textures/Crosshair";
-			crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
-			crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
-			crosshairSprite.visible = true;
-			crosshairSprite.effect = "Resources/Effects/effects";
-			crosshair = new GameObject();
-			crosshair.sprites = new Dictionary<string, Sprite>();
-			crosshair.sprites.Add("Crosshair", crosshairSprite);
-			crosshair.position = new Vector2(0.0f, 0.0f);
-			crosshair.layer = 0;
-			crosshair.collidable = false;
+            crosshairSprite.image = new Image();
+            crosshairSprite.image.filename = "Resources/Textures/Crosshair";
+            crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
+            crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
+            crosshairSprite.visible = true;
+            crosshairSprite.effect = "Resources/Effects/effects";
+            crosshair = new GameObject();
+            crosshair.sprites = new Dictionary<string, Sprite>();
+            crosshair.sprites.Add("Crosshair", crosshairSprite);
+            crosshair.position = new Vector2(0.0f, 0.0f);
+            crosshair.layer = 0;
+            crosshair.collidable = false;
 
             // Weapon
             weapon = new GameObject();
@@ -78,7 +78,7 @@ namespace SnailsPace.Core
         public void think(GameTime gameTime)
         {
             // Update things that depend on mouse position
-			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
+            crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
 
             // Handle life and death
             if (helix.health <= 0)
@@ -86,6 +86,7 @@ namespace SnailsPace.Core
                 if (!dead)
                 {
                     dead = true;
+                    deaths++;
                     deathTimer = 0;
                     helix.health = 0;
                     helix.fuel = 0;
@@ -93,7 +94,7 @@ namespace SnailsPace.Core
 
                     helix.sprites["NoFuel"].visible = false;
                     Engine.sound.stop("alarm");
-                    
+
                     Engine.sound.play("death");
                 }
                 else
@@ -104,7 +105,7 @@ namespace SnailsPace.Core
                     {
                         dead = false;
                         SnailsPace.inputManager.reset();
-                        
+
                         load();
                     }
                     else if (deathTimer > 2000)
@@ -131,16 +132,16 @@ namespace SnailsPace.Core
 
         public List<GameObject> gameObjects()
         {
-            List<GameObject>objects = new List<GameObject>();
+            List<GameObject> objects = new List<GameObject>();
 
             Sprite weaponSprite = helix.weapon.sprite.clone();
-            
+
             weapon.horizontalFlip = weaponSprite.horizontalFlip = helix.horizontalFlip;
             weaponSprite.visible = showgun;
             weaponSprite.rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
             weapon.sprites["Weapon"] = weaponSprite;
             weapon.position = helix.position;
-            
+
             objects.Add(helix);
             objects.Add(weapon);
             objects.Add(crosshair);
@@ -187,12 +188,30 @@ namespace SnailsPace.Core
 
         public void recalculatePoints()
         {
-            points = enemiesKilled * 100 - timesHit * 10 - deaths * 100;
+            points = enemiesKilled * 100 + enemiesHit * 10;
+            pointsText.content = "Score: " + points.ToString();
+        }
+
+        public String GetFinalPoints()
+        {
+            recalculatePoints();
+            float accuracy = 0;
             if (shotsFired > 0)
             {
-                points += (int)((100.0f * enemiesHit * enemiesHit) / shotsFired );
+                accuracy = enemiesHit / (float)shotsFired;
             }
-            pointsText.content = "Score: " + points.ToString();
+            float accuracyBonus = (float)Math.Floor( (0.5f + accuracy) * 100.0f ) / 100.0f;
+            float deathPenalty = 0;
+            if (deaths > 0)
+            {
+                deathPenalty = deaths * 500;
+            }
+            String pointsString = "Base points: " + points;
+            pointsString +=     "\n   Accuracy: " + Math.Floor(accuracy * 100) + "% (x " + accuracyBonus + ")";
+            pointsString +=     "\n     Deaths: " + deaths + " (- " + deathPenalty + ")";
+            pointsString +=     "\n  -------------------------";
+            pointsString +=     "\n       Total: " + Math.Ceiling(points * accuracyBonus - deathPenalty);
+            return pointsString;
         }
 
         public void save(Vector2 position)

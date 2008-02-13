@@ -7,16 +7,17 @@ namespace SnailsPace.Screens
 {
     abstract class LoadingScreen : Screen
     {
-        private SnailsPace.GameStates nextState;
+        protected SnailsPace.GameStates nextState;
         protected LoadingScreen(SnailsPace game, SnailsPace.GameStates nextState)
             : base(game)
         {
             this.nextState = nextState;
+            ready = true;
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (snailsPace.getScreen(nextState).ready)
+            if (snailsPace.getScreen(nextState).ready && ready )
             {
                 snailsPace.changeState(nextState);
             }

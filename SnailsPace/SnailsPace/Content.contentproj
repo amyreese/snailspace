@@ -386,6 +386,11 @@
       <Name>jetpack</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Resources\Fonts\LevelOver.spritefont">
+      <Name>LevelOver</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Textures\BoostIcon.png">

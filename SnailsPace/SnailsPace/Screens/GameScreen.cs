@@ -24,16 +24,26 @@ namespace SnailsPace.Screens
         #region Graphics Stuff
         protected override void LoadContent()
         {
-            new System.Threading.Thread(loadEngine).Start();
+            ReloadEngine();
 			base.LoadContent();
-            
         }
 
+        public void ReloadEngine()
+        {
+            ReloadEngine(MAIN_MAP);
+        }
+
+        public void ReloadEngine( String map )
+        {
+            this.map = map;
+            new System.Threading.Thread(loadEngine).Start();
+        }
+
+        private const string MAIN_MAP = "Garden2";
+        private String map = "Garden2";
         protected void loadEngine()
         {
-            // TODO pass in a map
-            //engine = new Engine("Garden");
-            engine = new Engine("Garden2");
+            engine = new Engine(map);
             this.ready = true;
         }
 

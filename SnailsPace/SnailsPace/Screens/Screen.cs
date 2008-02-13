@@ -20,7 +20,7 @@ namespace SnailsPace.Screens
             {
                 return _ready;
             }
-            protected set
+            set
             {
                 _ready = value;
             }

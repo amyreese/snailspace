@@ -83,6 +83,7 @@
     <Compile Include="Objects\Text.cs" />
     <Compile Include="Objects\Trigger.cs" />
     <Compile Include="Objects\Weapon.cs" />
+    <Compile Include="Screens\LevelOverScreen.cs" />
     <Compile Include="Screens\Screen.cs">
       <Name>Screen</Name>
     </Compile>
