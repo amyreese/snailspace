@@ -20,16 +20,35 @@ namespace SnailsPace.Core
         public static bool showgun = true;
         public double deathTimer = 0;
 
+		private Text pointsText;
+		private List<Text> strings;
+
+		// Statistics
+		private int shotsFired = 0;
+		private int enemiesHit = 0;
+		private int timesHit = 0;
+		private int enemiesKilled = 0;
+		public int deaths = 0;
+
         public Player()
             : this(new Vector2(0, 0))
         {
         }
 
+		/// <summary>
+		/// Create a new player with a specified starting position and generic gun.
+		/// </summary>
+		/// <param name="startPosition">Coordinates at which to start the player.</param>
         public Player(Vector2 startPosition)
             : this(startPosition, "generic")
         {
         }
 
+		/// <summary>
+		/// Create a new player with a specified starting position and specified gun.
+		/// </summary>
+		/// <param name="startPosition">Coordinates at which to start the player.</param>
+		/// <param name="weaponName">Name of the player's default weapon.</param>
         public Player(Vector2 startPosition, String weaponName)
             : base()
         {
@@ -75,10 +94,14 @@ namespace SnailsPace.Core
             Engine.player = this;
         }
 
+		/// <summary>
+		/// Run player logic. Check for death and update crosshair location.
+		/// </summary>
+		/// <param name="gameTime">The current time.</param>
         public void think(GameTime gameTime)
         {
             // Update things that depend on mouse position
-            crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
+			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
 
             // Handle life and death
             if (helix.health <= 0)
@@ -93,6 +116,13 @@ namespace SnailsPace.Core
                     helix.collidable = false;
 
                     helix.sprites["NoFuel"].visible = false;
+
+					weapon.affectedByGravity = true;
+					weapon.collidable = true;
+					weapon.direction.Y = -1;
+					weapon.acceleration = 512;
+					weapon.maxVelocity = 1024;
+
                     Engine.sound.stop("alarm");
 
                     Engine.sound.play("death");
@@ -130,6 +160,10 @@ namespace SnailsPace.Core
             }
         }
 
+		/// <summary>
+		/// Return a list of all the player GameObjects.
+		/// </summary>
+		/// <returns>A list of all the player GameObjects.</returns>
         public List<GameObject> gameObjects()
         {
             List<GameObject> objects = new List<GameObject>();
@@ -138,9 +172,12 @@ namespace SnailsPace.Core
 
             weapon.horizontalFlip = weaponSprite.horizontalFlip = helix.horizontalFlip;
             weaponSprite.visible = showgun;
-            weaponSprite.rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
             weapon.sprites["Weapon"] = weaponSprite;
-            weapon.position = helix.position;
+			if (!dead)
+			{
+				weapon.position = helix.position;
+				weaponSprite.rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
+			}
 
             objects.Add(helix);
             objects.Add(weapon);
@@ -149,49 +186,60 @@ namespace SnailsPace.Core
             return objects;
         }
 
-        private Text pointsText;
-        private List<Text> strings;
         public List<Text> textStrings()
         {
             return strings;
         }
 
-        private int shotsFired = 0;
+		/// <summary>
+		/// Update this statistic and recalculate score.
+		/// </summary>
         public void shotBullet()
         {
             shotsFired++;
             recalculatePoints();
         }
 
-        private int enemiesHit = 0;
+		/// <summary>
+		/// Update this statistic and recalculate score.
+		/// </summary>
         public void enemyHit()
         {
             enemiesHit++;
             recalculatePoints();
         }
 
-        private int timesHit = 0;
+		/// <summary>
+		/// Update this statistic and recalculate score.
+		/// </summary>
         public void gotHit()
         {
             timesHit++;
             recalculatePoints();
         }
 
-        private int enemiesKilled = 0;
+		/// <summary>
+		/// Update this statistic and recalculate score.
+		/// </summary>
         public void killedEnemy()
         {
             enemiesKilled++;
             recalculatePoints();
         }
 
-        public int deaths = 0;
-
+		/// <summary>
+		/// Recalculate the player's score.
+		/// </summary>
         public void recalculatePoints()
         {
             points = enemiesKilled * 100 + enemiesHit * 10;
             pointsText.content = "Score: " + points.ToString();
         }
 
+		/// <summary>
+		/// Generate the player's final score.
+		/// </summary>
+		/// <returns>The player's final score.</returns>
         public String GetFinalPoints()
         {
             recalculatePoints();
@@ -214,11 +262,18 @@ namespace SnailsPace.Core
             return pointsString;
         }
 
+		/// <summary>
+		/// Save the player's current position, for when they hit a checkpoint.
+		/// </summary>
+		/// <param name="position">The player's current position.</param>
         public void save(Vector2 position)
         {
             saveObject.position = position;
         }
 
+		/// <summary>
+		/// Load the player's last saved position. Called when the player dies.
+		/// </summary>
         public void load()
         {
             helix.position = saveObject.position;
