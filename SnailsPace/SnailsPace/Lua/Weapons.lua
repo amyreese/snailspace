@@ -11,11 +11,12 @@ Weapons = {}
 Weapons.genericImage = Image()
 Weapons.genericImage.filename = "Resources/Textures/BulletTable"
 Weapons.genericImage.blocks = Vector2(4, 8)
-Weapons.genericImage.size = Vector2(16, 8);
+Weapons.genericImage.size = Vector2(64, 32);
 
 --[[ Basic bullet sprite for a given section of frames ]]--
-function Weapons.genericSprite( frame, frame2 )
+function Weapons.genericSprite( frame, frame2, delay )
 	frame2 = frame2 or frame
+	delay = delay or 0.25
 	
 	local sprite = Sprite()
 	sprite.image = Weapons.genericImage;
@@ -24,7 +25,7 @@ function Weapons.genericSprite( frame, frame2 )
 	sprite.frame = frame
 	sprite.animationStart = frame
 	sprite.animationEnd = frame2
-	sprite.animationDelay = 0.25
+	sprite.animationDelay = delay
 	
 	return sprite
 end
@@ -42,6 +43,7 @@ function Weapons:stinger()
 		
 		bullet.sprites:Add("Bullet", Weapons.genericSprite(1))
 		bullet.size = Weapons.genericImage.size
+		bullet.scale = Vector2(0.5, 0.5)
 		bullet.damage = 2
 		
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
@@ -64,6 +66,7 @@ function Weapons:minigun()
                 
         bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
         bullet.size = Weapons.genericImage.size
+        bullet.scale = Vector2(0.4,0.4)
         bullet.damage = 1
             
         Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
@@ -84,6 +87,7 @@ function Weapons:generic( v )
                 
         bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
         bullet.size = Weapons.genericImage.size
+        bullet.scale = Vector2(0.25, 0.25)
         bullet.damage = 1
             
         Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)

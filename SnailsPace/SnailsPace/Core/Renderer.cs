@@ -306,6 +306,10 @@ namespace SnailsPace.Core
                 batch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
                 batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
                 batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
+            
+                //Inventory
+                Texture2D weaponIcon = SnailsPace.getInstance().Content.Load<Texture2D>(Player.helix.weapon.hudicon);
+                batch.Draw(weaponIcon, new Rectangle(0,64,64,64), Color.White);
             }
 
             // Draw text strings
@@ -332,7 +336,7 @@ namespace SnailsPace.Core
 				if (spriteEnumerator.Current.visible)
 				{
 					Vector3 objectPosition = new Vector3(obj.position + spriteEnumerator.Current.position, -obj.layer - spriteEnumerator.Current.layerOffset);
-					Vector3 objectScale = new Vector3(spriteEnumerator.Current.image.size, 1);
+					Vector3 objectScale = new Vector3(Vector2.Multiply(spriteEnumerator.Current.image.size, obj.scale), 1);
 
                     BoundingSphere sphere =  new BoundingSphere(objectPosition, objectScale.Length() );
 					if (viewFrustum.Intersects(sphere))

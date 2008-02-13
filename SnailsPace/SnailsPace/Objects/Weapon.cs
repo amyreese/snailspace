@@ -16,7 +16,9 @@ namespace SnailsPace.Objects
 		public double lastFired = 0;
         public double cooldown = 100;
         public int ammunition = -1;
+
         public String cue = "gun1";
+        public String hudicon = "Resources/Textures/HealthIcon";
 
         public LuaTable state;
 

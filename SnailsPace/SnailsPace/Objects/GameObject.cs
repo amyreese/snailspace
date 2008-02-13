@@ -39,6 +39,7 @@ namespace SnailsPace.Objects
 		}
 
 		public Vector2 size;
+        public Vector2 scale = new Vector2(1,1);
 
 		private float _rotation;
 		public float rotation {
@@ -71,7 +72,7 @@ namespace SnailsPace.Objects
 			{
 				if (_bounds == null)
 				{
-					_bounds = new GameObjectBounds(size, position, rotation);
+					_bounds = new GameObjectBounds(Vector2.Multiply(size, scale), position, rotation);
 				}
 				return _bounds;
 			}
