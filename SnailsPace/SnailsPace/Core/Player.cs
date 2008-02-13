@@ -17,6 +17,7 @@ namespace SnailsPace.Core
         public static GameObject saveObject;
 
         public static bool dead = false;
+        public static bool showgun = true;
         public double deathTimer = 0;
 
         public Player()
@@ -118,6 +119,7 @@ namespace SnailsPace.Core
                         {
                             sprites.Current.Value.visible = false;
                         }
+                        showgun = false;
                     }
                 }
             }
@@ -134,6 +136,7 @@ namespace SnailsPace.Core
             Sprite weaponSprite = helix.weapon.sprite.clone();
             
             weapon.horizontalFlip = weaponSprite.horizontalFlip = helix.horizontalFlip;
+            weaponSprite.visible = showgun;
             weaponSprite.rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
             weapon.sprites["Weapon"] = weaponSprite;
             weapon.position = helix.position;
@@ -207,6 +210,7 @@ namespace SnailsPace.Core
 
             helix.collidable = true;
             helix.horizontalFlip = false;
+            showgun = true;
 
             Engine.sound.play("ready");
 
