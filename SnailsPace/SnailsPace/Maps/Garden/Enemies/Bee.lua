@@ -34,7 +34,7 @@ function Bee(startPos, behav)
 	fly = BeeSprite(0, 3, .07)
 	hover = BeeSprite(0, 3, .035)
 	
-	bee = Character()
+	bee = Character("stinger")
 	bee.sprites:Add("Fly", fly)
 	bee.sprites:Add("Hover", hover) 
 	bee.size = BeeImage.size

@@ -7,16 +7,70 @@
 -- Weapon Table
 Weapons = {}
 
---[[ Basic bullets, pink shot ]]--
+--[[ Basic bullets, orange shot ]]--
 Weapons.genericImage = Image()
 Weapons.genericImage.filename = "Resources/Textures/BulletTable"
 Weapons.genericImage.blocks = Vector2(4, 8)
 Weapons.genericImage.size = Vector2(16, 8);
 
-Weapons.genericSprite = Sprite();
-Weapons.genericSprite.image = Weapons.genericImage;
-Weapons.genericSprite.visible = true;
-Weapons.genericSprite.effect = "Resources/Effects/effects";
+--[[ Basic bullet sprite for a given section of frames ]]--
+function Weapons.genericSprite( frame, frame2 )
+	frame2 = frame2 or frame
+	
+	local sprite = Sprite()
+	sprite.image = Weapons.genericImage;
+	sprite.visible = true;
+	sprite.effect = "Resources/Effects/effects";
+	sprite.frame = frame
+	sprite.animationStart = frame
+	sprite.animationEnd = frame2
+	sprite.animationDelay = 0.25
+	
+	return sprite
+end
+
+--[[ Stinger gun, shoots bee's stingers. ]]--
+function Weapons:stinger()
+	weapon = Weapon()
+	weapon.ammunition = -1
+	weapon.cooldown = 700
+	weapon.state = { velocity = 0 }
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+		
+		bullet.sprites:Add("Bullet", Weapons.genericSprite(1))
+		bullet.size = Weapons.genericImage.size
+		bullet.damage = 2
+		
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+	
+	return weapon
+end
+
+--[[ Minigun, brutal fire rate, loud, fast ]]--
+function Weapons:minigun()
+	weapon = Weapon()
+	weapon.ammunition = 100
+	weapon.cooldown = 15
+	weapon.cue = "explode"
+	weapon.state = { velocity = 384 }
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+        bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
+        bullet.size = Weapons.genericImage.size
+        bullet.damage = 1
+            
+        Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+	
+	return weapon
+end
 
 --[[ Basic weapon, single shot ]]--
 function Weapons:generic( v )
@@ -25,14 +79,14 @@ function Weapons:generic( v )
 	weapon.state = { velocity=v or 0 }
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
-		bullet = Bullet();
+		bullet = Bullet()
 		bullet.explosion = Explosion()
                 
-        bullet.sprites:Add("Bullet", Weapons.genericSprite)
+        bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
         bullet.size = Weapons.genericImage.size
-        bullet.damage = 1;
+        bullet.damage = 1
             
-        Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
+        Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
 	
 	return weapon;
@@ -52,10 +106,10 @@ function Weapons:fanshot( n, o, v )
         end
         
         for i = 0, self.number, 1 do
-			bullet = Bullet();
+			bullet = Bullet()
 			bullet.explosion = Explosion()
 	                
-			bullet.sprites:Add("Bullet", Weapons.genericSprite)
+			bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
 			bullet.size = Weapons.genericImage.size
 	        
 			bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
@@ -89,29 +143,8 @@ function Weapons:fanshot( n, o, v )
 	return weapon;
 end
 
-function Weapons:minigun()
-	weapon = Weapon()
-	weapon.ammunition = 100;
-	weapon.cooldown = 0;
-	weapon.cue = "explode"
-	weapon.state = { velocity = 256 }
-	
-	function weapon.state:ShootAt( shooter, targetPosition, gameTime)
-		bullet = Bullet();
-		bullet.explosion = Explosion()
-                
-        bullet.sprites:Add("Bullet", Weapons.genericSprite)
-        bullet.size = Weapons.genericImage.size
-        bullet.damage = 1;
-            
-        Weapons.shootSingleBullet(self, bullet, shooter, targetPosition)
-	end
-	
-	return weapon
-end
-
 --[[ Single shot helper function ]]--
-function Weapons.shootSingleBullet( self, bullet, shooter, targetPosition ) 
+function Weapons.shootSingleBullet( bullet, velocity, shooter, targetPosition ) 
 	bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
     bullet.velocity = Vector2.Normalize(bullet.velocity)
     
@@ -123,10 +156,10 @@ function Weapons.shootSingleBullet( self, bullet, shooter, targetPosition )
 	
 	bullet.rotation = pi + math.atan((targetPosition.Y - shooter.position.Y) / (targetPosition.X - shooter.position.X));
     bullet.position = Vector2.Add(shooter.position, Vector2.Multiply(bullet.velocity, math.max(shooter.size.X, shooter.size.Y) / 2));
-    bullet.maxVelocity = math.max(shooter.terminalVelocity, shooter.maxVelocity) + self.velocity;
+    bullet.maxVelocity = math.max(shooter.terminalVelocity, shooter.maxVelocity) + velocity;
     bullet.velocity = Vector2.Multiply(bullet.velocity, bullet.maxVelocity);
     
-    bullet.layer = -0.001;
+    bullet.layer = -0.001
     
     if (shooter == Player.helix) then
 		bullet.isPCBullet = true
