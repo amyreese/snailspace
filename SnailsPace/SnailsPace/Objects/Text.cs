@@ -17,5 +17,19 @@ namespace SnailsPace.Objects
         public String content;
         public SpriteFont font;
         public Color color;
+
+        public Text()
+        {
+        }
+
+        public Text(String content, SpriteFont font, Vector2 position, Vector2 scale)
+        {
+            this.content = content;
+            this.font = font;
+            this.position = position;
+            this.scale = scale;
+            this.rotation = 0f;
+            this.color = Color.White;
+        }
     }
 }

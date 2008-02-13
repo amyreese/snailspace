@@ -7,19 +7,42 @@
 -- Weapon Table
 Weapons = {}
 
---[[ Basic bullets, orange shot ]]--
-Weapons.genericImage = Image()
-Weapons.genericImage.filename = "Resources/Textures/BulletTable"
-Weapons.genericImage.blocks = Vector2(4, 8)
-Weapons.genericImage.size = Vector2(64, 32);
+--[[ Bullet image, contains many bullets ]]--
+Weapons.bulletImage = Image()
+Weapons.bulletImage.filename = "Resources/Textures/BulletTable"
+Weapons.bulletImage.blocks = Vector2(4, 8)
+Weapons.bulletImage.size = Vector2(64, 32);
+
+--[[ Weapon image, contains many weapons ]]--
+Weapons.weaponImage = Image()
+Weapons.weaponImage.filename = "Resources/Textures/WeaponTable"
+Weapons.weaponImage.blocks = Vector2(4, 8)
+Weapons.weaponImage.size = Vector2(128, 64);
 
 --[[ Basic bullet sprite for a given section of frames ]]--
-function Weapons.genericSprite( frame, frame2, delay )
+function Weapons.bulletSprite( frame, frame2, delay )
 	frame2 = frame2 or frame
 	delay = delay or 0.25
 	
 	local sprite = Sprite()
-	sprite.image = Weapons.genericImage;
+	sprite.image = Weapons.bulletImage;
+	sprite.visible = true;
+	sprite.effect = "Resources/Effects/effects";
+	sprite.frame = frame
+	sprite.animationStart = frame
+	sprite.animationEnd = frame2
+	sprite.animationDelay = delay
+	
+	return sprite
+end
+
+--[[ Basic weapon sprite for a given section of frames ]]--
+function Weapons.weaponSprite( frame, frame2, delay )
+	frame2 = frame2 or frame
+	delay = delay or 0.25
+	
+	local sprite = Sprite()
+	sprite.image = Weapons.weaponImage;
 	sprite.visible = true;
 	sprite.effect = "Resources/Effects/effects";
 	sprite.frame = frame
@@ -41,8 +64,8 @@ function Weapons:stinger()
 		bullet = Bullet()
 		bullet.explosion = Explosion()
 		
-		bullet.sprites:Add("Bullet", Weapons.genericSprite(1))
-		bullet.size = Weapons.genericImage.size
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(1))
+		bullet.size = Weapons.bulletImage.size
 		bullet.scale = Vector2(0.5, 0.5)
 		bullet.damage = 2
 		
@@ -55,17 +78,20 @@ end
 --[[ Minigun, brutal fire rate, loud, fast ]]--
 function Weapons:minigun()
 	weapon = Weapon()
+	weapon.name = "Minigun"
 	weapon.ammunition = 100
 	weapon.cooldown = 15
 	weapon.cue = "explode"
 	weapon.state = { velocity = 384 }
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.slot = 2
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
 		bullet.explosion = Explosion()
                 
-        bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
-        bullet.size = Weapons.genericImage.size
+        bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+        bullet.size = Weapons.bulletImage.size
         bullet.scale = Vector2(0.4,0.4)
         bullet.damage = 1
             
@@ -78,15 +104,17 @@ end
 --[[ Basic weapon, single shot ]]--
 function Weapons:generic( v )
 	weapon = Weapon()
+	weapon.name = "Gun"
 	weapon.cooldown = 100
 	weapon.state = { velocity=v or 0 }
+	weapon.sprite = Weapons.weaponSprite(0)
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
 		bullet.explosion = Explosion()
                 
-        bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
-        bullet.size = Weapons.genericImage.size
+        bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+        bullet.size = Weapons.bulletImage.size
         bullet.scale = Vector2(0.25, 0.25)
         bullet.damage = 1
             
@@ -113,8 +141,8 @@ function Weapons:fanshot( n, o, v )
 			bullet = Bullet()
 			bullet.explosion = Explosion()
 	                
-			bullet.sprites:Add("Bullet", Weapons.genericSprite(0))
-			bullet.size = Weapons.genericImage.size
+			bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+			bullet.size = Weapons.bulletImage.size
 	        
 			bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
 			bullet.velocity = Vector2.Normalize(bullet.velocity)

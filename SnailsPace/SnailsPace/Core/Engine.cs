@@ -854,9 +854,6 @@ namespace SnailsPace.Core
 
 		public void render(GameTime gameTime)
 		{
-			// TODO: iterate through map.objects, map.characters, and this.bullets to gather all visible sprites
-			// and then send the list of sprites to the rendering system.
-			// TODO: add bullets
 			List<Objects.Text> strings = new List<Objects.Text>();
 			List<Objects.GameObject> objects = new List<Objects.GameObject>();
 

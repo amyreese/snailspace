@@ -26,7 +26,7 @@ namespace SnailsPace.Objects
 		public double invincibilityPeriod = 100;
 		public int boostPeriod = 10;
 
-        public Dictionary<String, Weapon> inventory;
+        public Weapon[] inventory;
 
         public Helix( Vector2 position )
             : this(position, "generic")
@@ -61,12 +61,6 @@ namespace SnailsPace.Objects
             fly.visible = false;
             fly.effect = walk.effect;
 
-            Objects.Sprite gun = new Objects.Sprite();
-            gun.image = walk.image;
-            gun.visible = true;
-            gun.effect = walk.effect;
-            gun.layerOffset = -1.0f;
-
             sprites.Add("Walk", walk);
             sprites["Walk"].animationStart = 0;
             sprites["Walk"].animationEnd = 7;
@@ -96,14 +90,7 @@ namespace SnailsPace.Objects
 			sprites["NoFuel"].animationDelay = 1.0f / 4.0f;
 			sprites["NoFuel"].timer = 0f;
 			
-			sprites.Add("Gun", fly.clone());
-            sprites["Gun"].animationStart = 15;
-            sprites["Gun"].animationEnd = 15;
-            sprites["Gun"].frame = 15;
-            sprites["Gun"].animationDelay = 1.0f / 15.0f;
-            sprites["Gun"].timer = 0f;
-
-            maxVelocity = walkingMaxVelocity;
+			maxVelocity = walkingMaxVelocity;
             maxFuel = 30;
             fuel = maxFuel;
             layer = 0;
@@ -129,23 +116,28 @@ namespace SnailsPace.Objects
 			maxHealth = 20;
 			health = 20;
 
-            inventory = new Dictionary<String, Weapon>();
+            inventory = new Weapon[5];
             if (weaponName != "generic")
             {
-                inventory.Add("generic", Weapon.load("generic"));
+                Weapon gun = Weapon.load("generic");
+                inventory[gun.slot] = gun;
             }
-            inventory.Add(weaponName, weapon);
+            inventory[weapon.slot] = weapon;
 		}
 
-		public void setSprite(String sprtName, String aSprtName)
+		public void setSprite(params String[] spriteNames)
 		{
 			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
 			while (sprtEnumerator.MoveNext())
 			{
 				sprtEnumerator.Current.visible = false;
 			}
-			sprites[sprtName].visible = true;
-			sprites[aSprtName].visible = true;
+            sprtEnumerator.Dispose();
+
+            for (int i = 0; i < spriteNames.Length; i++)
+            {
+                sprites[spriteNames[i]].visible = true;
+            }
 		}
 
         public override void think(GameTime gameTime)
@@ -164,7 +156,7 @@ namespace SnailsPace.Objects
 			}
 			else
 			{
-				setSprite("Walk", "Gun");
+				setSprite("Walk");
 				fuel += fuelMod * 15;
 				if (fuel > maxFuel)
 				{
@@ -215,14 +207,12 @@ namespace SnailsPace.Objects
                 {
 					direction.X = -1;
                     horizontalFlip = true;
-                    sprites["Gun"].horizontalFlip = true;
                     thrust = true;
                 }
                 else if (!thrustable)
                 {
                     direction.X = -0.2f;
                     horizontalFlip = true;
-                    sprites["Gun"].horizontalFlip = true;
                     thrust = true;
                 }
             }
@@ -232,14 +222,12 @@ namespace SnailsPace.Objects
                 {
 					direction.X = 1;
                     horizontalFlip = false;
-                    sprites["Gun"].horizontalFlip = false;
                     thrust = true;
                 }
                 else if (!thrustable)
                 {
                     direction.X = 0.2f;
                     horizontalFlip = false;
-                    sprites["Gun"].horizontalFlip = false;
                     thrust = true;
                 }
             } 
@@ -273,12 +261,12 @@ namespace SnailsPace.Objects
                 if (direction.Y == 0 && direction.X == 0)
 				{
 					// TODO: Hover
-					setSprite("Hover", "Gun");
+					setSprite("Hover");
 					sprites["Hover"].animate(gameTime);
 				}
 				else
 				{
-					setSprite("Fly", "Gun");
+					setSprite("Fly");
 					sprites["Fly"].animate(gameTime);
 				}
 			}
@@ -348,9 +336,15 @@ namespace SnailsPace.Objects
 				maxVelocity = walkingMaxVelocity;
 			}
 
-            GameObject crosshair = Player.crosshair;
-            sprites["Gun"].rotation = ((crosshair.position.X - position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - position.Y) / (crosshair.position.X - position.X));
+            int i = 0, s = weapon.slot;
+            while (i < inventory.Length && (weapon == null || weapon.ammunition == 0))
+            {
+                s = ++s >= inventory.Length ? 0 : s;
+                weapon = inventory[s];
+                i++;
+            }
 
+            GameObject crosshair = Player.crosshair;
             if (input.inputDown("Fire"))
             {
 				ShootAt(crosshair.position, gameTime);

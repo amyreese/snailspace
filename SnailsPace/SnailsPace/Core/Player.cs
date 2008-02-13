@@ -11,8 +11,9 @@ namespace SnailsPace.Core
     {
         private int points = 0;
 
-        public static Objects.Helix helix;
-        public static Objects.GameObject crosshair;
+        public static Helix helix;
+        public static GameObject crosshair;
+        public static GameObject weapon;
         public static GameObject saveObject;
 
         public static bool dead = false;
@@ -39,19 +40,27 @@ namespace SnailsPace.Core
             helix = new Helix( startPosition, weaponName );
 
             // Crosshair creation
-            Objects.Sprite crosshairSprite = new Objects.Sprite();
-			crosshairSprite.image = new Objects.Image();
+            Sprite crosshairSprite = new Sprite();
+			crosshairSprite.image = new Image();
 			crosshairSprite.image.filename = "Resources/Textures/Crosshair";
 			crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
 			crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
 			crosshairSprite.visible = true;
 			crosshairSprite.effect = "Resources/Effects/effects";
-			crosshair = new Objects.GameObject();
-			crosshair.sprites = new Dictionary<string, Objects.Sprite>();
+			crosshair = new GameObject();
+			crosshair.sprites = new Dictionary<string, Sprite>();
 			crosshair.sprites.Add("Crosshair", crosshairSprite);
 			crosshair.position = new Vector2(0.0f, 0.0f);
 			crosshair.layer = 0;
 			crosshair.collidable = false;
+
+            // Weapon
+            weapon = new GameObject();
+            weapon.sprites = new Dictionary<string, Sprite>();
+            weapon.sprites.Add("Weapon", helix.weapon.sprite);
+            weapon.position = helix.position;
+            weapon.layer = -5;
+            weapon.collidable = false;
 
             strings = new List<Text>();
             pointsText = new Text();
@@ -70,6 +79,7 @@ namespace SnailsPace.Core
             // Update things that depend on mouse position
 			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
 
+            // Handle life and death
             if (helix.health <= 0)
             {
                 if (!dead)
@@ -120,8 +130,16 @@ namespace SnailsPace.Core
         public List<GameObject> gameObjects()
         {
             List<GameObject>objects = new List<GameObject>();
+
+            Sprite weaponSprite = helix.weapon.sprite.clone();
+            
+            weapon.horizontalFlip = weaponSprite.horizontalFlip = helix.horizontalFlip;
+            weaponSprite.rotation = ((crosshair.position.X - helix.position.X) < 0 ? MathHelper.Pi : 0) + (float)Math.Atan((crosshair.position.Y - helix.position.Y) / (crosshair.position.X - helix.position.X));
+            weapon.sprites["Weapon"] = weaponSprite;
+            weapon.position = helix.position;
             
             objects.Add(helix);
+            objects.Add(weapon);
             objects.Add(crosshair);
 
             return objects;
@@ -189,7 +207,6 @@ namespace SnailsPace.Core
 
             helix.collidable = true;
             helix.horizontalFlip = false;
-            helix.sprites["Gun"].horizontalFlip = false;
 
             Engine.sound.play("ready");
 
