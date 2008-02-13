@@ -83,7 +83,7 @@ function Weapons:minigun()
 	weapon.cooldown = 15
 	weapon.cue = "explode"
 	weapon.state = { velocity = 384 }
-	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.sprite = Weapons.weaponSprite(1)
 	weapon.slot = 2
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)

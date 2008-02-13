@@ -386,6 +386,15 @@
       <Name>jetpack</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Resources\Textures\Sources\BulletTable.psd">
+      <Name>BulletTable</Name>
+    </Compile>
+    <Compile Include="Resources\Textures\Sources\GameLoadingScreen.psd">
+      <Name>GameLoadingScreen</Name>
+    </Compile>
+    <Compile Include="Resources\Textures\Sources\WeaponTable.psd">
+      <Name>WeaponTable</Name>
+    </Compile>
     <Compile Include="Resources\Fonts\LevelOver.spritefont">
       <Name>LevelOver</Name>
       <Importer>FontDescriptionImporter</Importer>
