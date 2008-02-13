@@ -9,9 +9,9 @@ Weapons = {}
 
 --[[ Basic bullets, pink shot ]]--
 Weapons.genericImage = Image()
-Weapons.genericImage.filename = "Resources/Textures/Bullet"
-Weapons.genericImage.blocks = Vector2(1.0, 1.0)
-Weapons.genericImage.size = Vector2(16.0, 8.0);
+Weapons.genericImage.filename = "Resources/Textures/BulletTable"
+Weapons.genericImage.blocks = Vector2(4, 8)
+Weapons.genericImage.size = Vector2(16, 8);
 
 Weapons.genericSprite = Sprite();
 Weapons.genericSprite.image = Weapons.genericImage;
@@ -22,7 +22,7 @@ Weapons.genericSprite.effect = "Resources/Effects/effects";
 function Weapons:generic( v )
 	weapon = Weapon()
 	weapon.cooldown = 100
-	weapon.state = { velocity=v or 128 }
+	weapon.state = { velocity=v or 0 }
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet();
