@@ -120,7 +120,7 @@ namespace SnailsPace.Core
 					weapon.affectedByGravity = true;
 					weapon.collidable = true;
 					weapon.direction.Y = -1;
-					weapon.acceleration = 512;
+					weapon.acceleration = 384;
 					weapon.maxVelocity = 1024;
 
                     Engine.sound.stop("alarm");
@@ -130,10 +130,12 @@ namespace SnailsPace.Core
                 else
                 {
                     deathTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+					weapon.rotation += .3f;
 
                     if (deathTimer > 3000)
                     {
                         dead = false;
+						weapon.rotation = 0;
                         SnailsPace.inputManager.reset();
 
                         load();
