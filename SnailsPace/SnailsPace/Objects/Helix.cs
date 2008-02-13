@@ -116,13 +116,19 @@ namespace SnailsPace.Objects
 			maxHealth = 20;
 			health = 20;
 
+			Weapon wep = weapon;
             inventory = new Weapon[5];
-            if (weaponName != "generic")
+			if (weaponName != "generic")
             {
-                Weapon gun = Weapon.load("generic");
-                inventory[gun.slot] = gun;
+				AddWeapon(Weapon.load("generic"));
             }
-            inventory[weapon.slot] = weapon;
+			AddWeapon(wep);
+		}
+
+		public void AddWeapon(Weapon gun)
+		{
+			inventory[gun.slot] = gun;
+			weapon = gun;
 		}
 
 		public void setSprite(params String[] spriteNames)

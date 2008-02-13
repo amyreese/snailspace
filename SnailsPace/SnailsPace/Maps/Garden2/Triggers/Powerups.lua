@@ -53,3 +53,36 @@ function Powerups.TriggerHealthPowerup( trigger, powerupObj, character, gameTime
 		end
 	end
 end
+
+function Powerups.BuildWeaponPowerup( powerupX, powerupY, weaponname, ammo, cooldownModifier )
+	ammo = ammo or 100
+	cooldownModifier = cooldownModifier or 1
+	local trig = Trigger()
+	trig.position = Vector2( powerupX + xOffset, powerupY + yOffset )
+	trig.bounds = GameObjectBounds( Vector2( 128, 128 ), trig.position, 0 )
+	trig.state = {}
+	trig.state.unused = true
+	map.triggers:Add(trig)
+
+	local weapon = Weapon.load(weaponname)
+	weapon.ammunition = ammo
+	weapon.cooldown = weapon.cooldown * cooldownModifier
+	
+	local powerupObj = WorldBuilding.BuildObject( { xOffset=powerupX, yOffset=powerupY, sprite=weapon.sprite, layer=0, collidable=false } )
+
+	function trig.state:trigger( character, gameTime )
+		Powerups.TriggerWeaponPowerup( trig, powerupObj, character, gameTime, weapon )
+	end
+	return trig
+end
+
+function Powerups.TriggerWeaponPowerup( trigger, powerupObj, character, gameTime, weapon )
+	if character == Player.helix then
+		if trigger.state.unused then
+			Engine.sound:play("ding1")
+			Player.helix:AddWeapon( weapon )
+			powerupObj:setSprite("")
+			trigger.state.unused  = false
+		end
+	end
+end

@@ -55,9 +55,12 @@ end
 
 --[[ Stinger gun, shoots bee's stingers. ]]--
 function Weapons:stinger(weapon)
+	weapon.name = "Stinger"
 	weapon.ammunition = -1
 	weapon.cooldown = 700
 	weapon.state = { velocity = 0 }
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.slot = 3
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
