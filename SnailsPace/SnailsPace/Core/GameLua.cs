@@ -92,14 +92,12 @@ end
             #endregion
         }
 
-        public Object Call(String function, params object[] args) 
+        public void Call(String function, params object[] args) 
         {
             try
             {
-                this["retval"] = null;
-
                 String call = "if ( " + function + " ~= nil ) then\n\t";
-                call += "retval = " + function + "(";
+                call += function + "(";
 
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -110,29 +108,23 @@ end
                 }
 
                 call += ")\nend\n";
-                call += "retval = retval or True";
-
+                
                 DoString(call);
-
-                return this["retval"];
             }
             catch (LuaException e)
             {
                 SnailsPace.debug(e.Message);
-
-                return null;
             }
         }
 
-        public Object CallOn(LuaTable self, String function, params object[] args)
+        public void CallOn(LuaTable self, String function, params object[] args)
         {
             try
             {
                 this["this"] = self;
-                this["retval"] = null;
-
+                
                 String call = "if ( this." + function + " ~= nil ) then\n\t";
-                call += "retval = this:" + function + "(";
+                call += "this:" + function + "(";
 
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -143,17 +135,12 @@ end
                 }
 
                 call += ")\nend\n";
-                call += "retval = retval or True";
             
                 DoString(call);
-
-                return this["retval"];
             }
             catch (LuaException e)
             {
                 SnailsPace.debug(e.Message);
-
-                return null;
             }
         }
     }

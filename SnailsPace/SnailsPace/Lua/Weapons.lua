@@ -54,8 +54,7 @@ function Weapons.weaponSprite( frame, frame2, delay )
 end
 
 --[[ Stinger gun, shoots bee's stingers. ]]--
-function Weapons:stinger()
-	weapon = Weapon()
+function Weapons:stinger(weapon)
 	weapon.ammunition = -1
 	weapon.cooldown = 700
 	weapon.state = { velocity = 0 }
@@ -71,13 +70,10 @@ function Weapons:stinger()
 		
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
-	
-	return weapon
 end
 
 --[[ Minigun, brutal fire rate, loud, fast ]]--
-function Weapons:minigun()
-	weapon = Weapon()
+function Weapons:minigun(weapon)
 	weapon.name = "Minigun"
 	weapon.ammunition = 100
 	weapon.cooldown = 15
@@ -97,13 +93,10 @@ function Weapons:minigun()
             
         Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
-	
-	return weapon
 end
 
 --[[ Basic weapon, single shot ]]--
-function Weapons:generic( v )
-	weapon = Weapon()
+function Weapons:generic( weapon, v )
 	weapon.name = "Gun"
 	weapon.cooldown = 100
 	weapon.state = { velocity=v or 0 }
@@ -120,15 +113,12 @@ function Weapons:generic( v )
             
         Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
-	
-	return weapon;
 end
 
 --[[ Fanned shot weapon, multiple shot ]]--
-function Weapons:fanshot( n, o, v )
-	weapon = Weapon()
+function Weapons:fanshot( weapon, n, o, v )
 	weapon.cooldown = 100
-	weapon.state = { velocity=v or 128, number=n, offset=o }
+	weapon.state = { velocity=v or 128, number=n or 8, offset=o or 0.5 }
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		if (self.number % 2 == 0) then
@@ -171,8 +161,6 @@ function Weapons:fanshot( n, o, v )
 			targetPosition.X = targetPosition.X + self.offset
 		end
 	end
-	
-	return weapon;
 end
 
 --[[ Single shot helper function ]]--

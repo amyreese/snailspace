@@ -33,7 +33,9 @@ namespace SnailsPace.Objects
         {
             try
             {
-                return (Weapon)Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], name);
+                Weapon weapon = new Weapon();
+                Engine.lua.CallOn((LuaTable)Engine.lua["Weapons"], name, weapon);
+                return weapon;
             }
             catch (LuaException e)
             {
