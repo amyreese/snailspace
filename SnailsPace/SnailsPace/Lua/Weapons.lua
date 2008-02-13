@@ -131,7 +131,7 @@ function Weapons:fanshot( weapon, n, o, v )
 			bullet = Bullet()
 			bullet.explosion = Explosion()
 	                
-			bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+			bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
 			bullet.size = Weapons.bulletImage.size
 	        
 			bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
