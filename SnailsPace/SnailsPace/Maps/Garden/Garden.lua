@@ -2,8 +2,10 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---player = Player( Vector2(0,0) )
-player = Player(Vector2(7956, -4800))
+player = Player( Vector2(-1000,0) )
+--player = Player(Vector2(7956, -4800))
+--player = Player(Vector2(800, -800))
+--player = Player(Vector2(5456, -4500))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -39,14 +41,14 @@ map.bounds:Add(Vector2(9960, 300))
 -- Create an enemy
 fireAntY = -4856
 fireAntX = 100
---fireant1 = FireAnt(Vector2(5056, fireAntY))
---fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
---fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
---fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
---fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
---fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
---fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
---fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
+fireant1 = FireAnt(Vector2(5056, fireAntY))
+fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
+fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
+fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
+fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
+fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
+fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
+fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
@@ -68,8 +70,23 @@ spider14 = Spider(Vector2(2520, -100))
 spider15 = Spider(Vector2(3160, 375))
 spider16 = Spider(Vector2(3610, -250))
 
-bee = Bee(Vector2(0,400))
-
+--Plane1 Bees
+bee1 = Bee(Vector2(0,50))
+bee2 = Bee(Vector2(50,50))
+bee3 = Bee(Vector2(100,50))
+bee4 = Bee(Vector2(150,50))
+bee5 = Bee(Vector2(200,50))
+bee6 = Bee(Vector2(250,50))
+bee7 = Bee(Vector2(300,50))
+bee8 = Bee(Vector2(350,50))
+bee1.state.attacking = true
+bee2.state.attacking = true
+bee3.state.attacking = true
+bee4.state.attacking = true
+bee5.state.attacking = true
+bee6.state.attacking = true
+bee7.state.attacking = true
+bee8.state.attacking = true
 
 --Pit Ramp Spiders
 spider1 = Spider(Vector2(2060, -1950), true)
@@ -81,9 +98,19 @@ spider6 = Spider(Vector2(3060, -3000), true)
 spider7 = Spider(Vector2(3260, -3200), true)
 spider8 = Spider(Vector2(3460, -3400), true)
 
---Boosts
+--Escape Boosts
 boost1 = Powerups.BuildBoostPowerup(7956, -4500)
 boost2 = Powerups.BuildBoostPowerup(7656, -3500)
 boost3 = Powerups.BuildBoostPowerup(7356, -2500)
 boost4 = Powerups.BuildBoostPowerup(7656, -1500)
 boost5 = Powerups.BuildBoostPowerup(7956, -500)
+
+--Secret Boosts
+boost5 = Powerups.BuildBoostPowerup(6950, 1000)
+
+--Health
+health1 = Powerups.BuildHealthPowerup( 650, -1400 )
+
+--Weapons
+stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
+minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)

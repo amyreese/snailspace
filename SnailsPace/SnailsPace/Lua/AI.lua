@@ -25,14 +25,16 @@ function AI.canSeeHelix( self, dmin )
 end
 
 --[[ Move the AI towards Helix with certain limits ]]--
-function AI.moveToHelix( self, dmax, dmin, vmax )
+function AI.moveToHelix( self, dmax, dmin, vmax, canfly )
 	if ( vmax == nil ) then
 		vmax = self.maxVelocity
 	if ( dmin == nil ) then
 		dmin = 0.0
 	if ( dmax == nil ) then
 		dmax = 0.0
-	end; end; end;
+	if ( canfly == nil) then
+		canfly = true
+	end; end; end; end;
 			
 	dth, cx, cy = Math.components( self, helix )
 		
@@ -42,8 +44,14 @@ function AI.moveToHelix( self, dmax, dmin, vmax )
 		cx, cy = 0, 0
 	end
 	
+	
+	
     self.desiredMaxVelocity = vmax;
-	self.direction = Vector2( cx, cy )
+    if (canfly) then
+		self.direction = Vector2( cx, cy )
+	else
+		self.direction = Vector2( cx, 0 )
+	end
 end
 
 --[[ Patrol between two points ]]--

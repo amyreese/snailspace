@@ -60,7 +60,7 @@ end
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
 	self:setSprite("Walk")
-	AI.moveToHelix(self)
+	AI.moveToHelix(self, nil, nil, nil, false)
 	AI.shootDirectlyAtHelix(self, gameTime)
 	-- TODO: Extend AI for the Fire Ant
 end
