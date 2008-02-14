@@ -45,7 +45,13 @@ namespace SnailsPace.Screens
             if (firstDraw)
             {
                 pointsString = Core.Engine.player.GetFinalPoints();
-                ((GameScreen)SnailsPace.getInstance().getScreen(nextState)).ReloadEngine();
+                String nextMap = "Garden";
+                GameScreen screen = ((GameScreen)SnailsPace.getInstance().getScreen(nextState));
+                if (screen.map.Equals(nextMap))
+                {
+                    nextMap = "Garden2";
+                }
+                screen.ReloadEngine(nextMap);
                 firstDraw = false;
             }
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
@@ -56,6 +62,7 @@ namespace SnailsPace.Screens
                 batch.Draw(screenImage, new Rectangle(0, 0, SnailsPace.getInstance().Window.ClientBounds.Width, SnailsPace.getInstance().Window.ClientBounds.Height), Color.White);
                 batch.DrawString(font, "Your score is...", new Vector2(100, 25), Color.White);
                 batch.DrawString(font, pointsString, new Vector2(50, 60), Color.White);
+                batch.DrawString(font, "Press escape to continue...", new Vector2(250, 400), Color.White);
             }
             batch.End();
             batch.Dispose();

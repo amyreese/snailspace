@@ -7,14 +7,12 @@ function SavePoints.BuildSavePoint( savePointX, savePointY, sprite )
 	local trig = Trigger()
 	trig.position = Vector2( savePointX + xOffset, savePointY + yOffset )
 	trig.bounds = GameObjectBounds( Vector2( 128, 128 ), trig.position, 0 )
-	trig.state = { saved=False }
+	trig.state = {}
 	local saveObject = WorldBuilding.BuildObject( {xOffset=savePointX, yOffset=savePointY, sprite=sprite, spriteName="savePoint", collidable=false})
 	map.triggers:Add(trig)
 
 	function trig.state:triggerIn( character, gameTime )
-		if (not saved) then
-			SavePoints.TriggerSave( trig, saveObject, character, gameTime )
-		end
+		SavePoints.TriggerSave( trig, saveObject, character, gameTime )
 	end
 	SavePoints.points[SavePoints.numPoints] = saveObject
 	SavePoints.numPoints = SavePoints.numPoints + 1

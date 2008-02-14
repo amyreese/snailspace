@@ -52,6 +52,7 @@ Helix = import('SnailsPace.Objects.Helix');
 Map = import('SnailsPace.Objects.Map');
 Player = import('SnailsPace.Core.Player');
 Engine = import('SnailsPace.Core.Engine');
+Engine = Engine.GetInstance()
             
             ";
 

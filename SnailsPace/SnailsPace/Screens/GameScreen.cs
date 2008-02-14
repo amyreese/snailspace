@@ -40,7 +40,7 @@ namespace SnailsPace.Screens
         }
 
         private const string MAIN_MAP = "Garden";
-        private String map = "Garden";
+        public String map = "Garden";
         protected void loadEngine()
         {
             engine = new Engine(map);

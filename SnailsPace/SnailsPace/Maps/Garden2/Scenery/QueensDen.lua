@@ -60,3 +60,4 @@ WorldBuilding.BuildRamp({ length=4, xOffset=2220, yOffset=1680, sprite=dirtSprit
 WorldBuilding.BuildRamp({length=6, xOffset=2732, yOffset=1412, sprite=dirtSprite, overlap=20, rotation=1.35 })
 
 -- **** Exit Path ****
+EndLevel.BuildLevelEnd( 2220 + 512, 2052 + 256 )

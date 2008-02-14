@@ -59,9 +59,16 @@ namespace SnailsPace.Core
 
         private Vector2 activityBoundsSize = new Vector2(2192, 1680);
 
+        private static Engine instance;
+        public static Engine GetInstance()
+        {
+            return instance;
+        }
         // Constructors
+
         public Engine(String mapName)
         {
+            instance = this;
             sound = SnailsPace.soundManager;
 
             // Initialize Lua, the Player, and the Map

@@ -24,6 +24,7 @@ include("Scenery/Sprites.lua")
 include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
 --include("Triggers/Traps.lua")
+include("Triggers/EndLevel.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")
@@ -105,6 +106,8 @@ boost3 = Powerups.BuildBoostPowerup(7356, -2500)
 boost4 = Powerups.BuildBoostPowerup(7656, -1500)
 boost5 = Powerups.BuildBoostPowerup(7956, -500)
 
+EndLevel.BuildLevelEnd( 9000, 338+128 )
+
 --Secret Boosts
 boost5 = Powerups.BuildBoostPowerup(6950, 1000)
 
@@ -114,3 +117,4 @@ health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 --Weapons
 stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
 minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
+
