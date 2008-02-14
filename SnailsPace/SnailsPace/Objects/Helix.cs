@@ -329,15 +329,19 @@ namespace SnailsPace.Objects
             if (boosting)
             {
                 boostPeriod -= gameTime.ElapsedRealTime.TotalSeconds;
-                boostPeriod = Math.Max(boostPeriod, 0);
-                Console.WriteLine(boostPeriod);
-                acceleration = (float)( acceleration * ( 1 + 3 * boostPeriod ) );
-                horizontalFriction = 0;
-                maxVelocity = (float)(maxVelocity * ( 1 + 10 * boostPeriod));
-                desiredMaxVelocity = maxVelocity;
-                if (boostPeriod <= 0)
+                if (boostPeriod > 0)
+                {
+                    acceleration = (float)(acceleration * (1 + boostPeriod));
+                    horizontalFriction = 0;
+                }
+                if (boostPeriod < -0.5)
                 {
                     boosting = false;
+                }
+                else
+                {
+                    maxVelocity = (float)(maxVelocity * (1 + 2 * (0.5 + boostPeriod)));
+                    desiredMaxVelocity = maxVelocity;
                 }
             }
 
