@@ -24,7 +24,7 @@ namespace SnailsPace.Objects
 
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
-		public int boostPeriod = 20;
+		public double boostPeriod = 0;
 
         public Weapon[] inventory;
 
@@ -315,27 +315,9 @@ namespace SnailsPace.Objects
 			// Acceleration
 			if (flying)
 			{
-				if (boosting)
-				{
-					acceleration = flyingAcceleration * 5;
-					horizontalFriction = 0;
-					maxVelocity = flyingMaxVelocity * 5;
-					desiredMaxVelocity = flyingMaxVelocity * 5;
-					if (boostPeriod == 0)
-					{
-						boosting = false;
-						boostPeriod = 21;
-					}
-					boostPeriod--;
-				}
-				else
-				{
-					acceleration = flyingAcceleration;
-					horizontalFriction = flyingHorizontalFriction;
-					maxVelocity = flyingMaxVelocity;
-					
-				}
-
+    			acceleration = flyingAcceleration;
+				horizontalFriction = flyingHorizontalFriction;
+				maxVelocity = flyingMaxVelocity;
 			}
 			else
 			{
@@ -343,6 +325,21 @@ namespace SnailsPace.Objects
 				horizontalFriction = walkingHorizontalFriction;
 				maxVelocity = walkingMaxVelocity;
 			}
+
+            if (boosting)
+            {
+                boostPeriod -= gameTime.ElapsedRealTime.TotalSeconds;
+                boostPeriod = Math.Max(boostPeriod, 0);
+                Console.WriteLine(boostPeriod);
+                acceleration = (float)( acceleration * ( 1 + 3 * boostPeriod ) );
+                horizontalFriction = 0;
+                maxVelocity = (float)(maxVelocity * ( 1 + 10 * boostPeriod));
+                desiredMaxVelocity = maxVelocity;
+                if (boostPeriod <= 0)
+                {
+                    boosting = false;
+                }
+            }
 
             int i = 0, s = weapon.slot;
             while (i < inventory.Length && (weapon == null || weapon.ammunition == 0))
