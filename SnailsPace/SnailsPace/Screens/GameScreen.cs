@@ -39,8 +39,8 @@ namespace SnailsPace.Screens
             new System.Threading.Thread(loadEngine).Start();
         }
 
-        private const string MAIN_MAP = "Garden2";
-        private String map = "Garden2";
+        private const string MAIN_MAP = "Garden";
+        private String map = "Garden";
         protected void loadEngine()
         {
             engine = new Engine(map);

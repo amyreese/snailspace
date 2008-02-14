@@ -31,10 +31,12 @@ end
 function Spider(startPos, attack)
 	walk = SpiderSprite(0, 3, 0.07)
 	stand = SpiderSprite(0, 0, 0.07)
+	die = SpiderSprite(8, 11, .08)
 	
 	spider = Character("fanshot")
 	spider.sprites:Add("Walk", walk)
 	spider.sprites:Add("Stand", stand)
+	spider.sprites:Add("Die", die)
 	spider.size = Vector2(SpiderImage.size.X - 64, SpiderImage.size.Y - 64)
 	spider.startPosition = startPos
 	spider.position = startPos

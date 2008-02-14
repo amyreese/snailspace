@@ -31,10 +31,12 @@ end
 function FireAnt(startPos)
 	walk = FASprite(0, 3, 0.07)
 	stand = FASprite(0, 0, 0.07)
+	die = FASprite(8, 11, .17)
 	
 	fireant = Character()
 	fireant.sprites:Add("Walk", walk)
 	fireant.sprites:Add("Stand", stand)
+	fireant.sprites:Add("Die", die)
 	fireant.size = Vector2(FireAntImage.size.X, FireAntImage.size.Y - 64)
 	fireant.startPosition = startPos
 	fireant.position = startPos

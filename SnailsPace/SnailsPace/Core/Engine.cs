@@ -278,7 +278,12 @@ namespace SnailsPace.Core
                 //Is a character dead? Kill it!
                 if (charEnum.Current.health <= 0)
                 {
-                    deadChars.Add(charEnum.Current);
+					
+					if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
+					{
+						deadChars.Add(charEnum.Current);
+					}
+					charEnum.Current.setSprite("Die");
                     player.killedEnemy();
                     Engine.sound.play("kill");
                 }

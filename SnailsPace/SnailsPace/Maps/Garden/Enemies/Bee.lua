@@ -33,10 +33,12 @@ function Bee(startPos, behav)
 	behav = behav or "flyUp"
 	fly = BeeSprite(0, 3, .07)
 	hover = BeeSprite(0, 3, .035)
+	die = BeeSprite(8, 11, .25)
 	
 	bee = Character("stinger")
 	bee.sprites:Add("Fly", fly)
-	bee.sprites:Add("Hover", hover) 
+	bee.sprites:Add("Hover", hover)
+	bee.sprites:Add("Die", die)
 	bee.size = BeeImage.size
 	bee.startPosition = startPos
 	bee.position = startPos

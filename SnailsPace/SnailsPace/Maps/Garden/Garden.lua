@@ -1,4 +1,5 @@
 library('Weapons')
+library('WorldBuilding')
 
 -- Player creation and starting position
 player = Player( Vector2(0,0) )
@@ -21,13 +22,19 @@ include("Scenery/Sprites.lua")
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
-include("Triggers/Traps.lua")
+--include("Triggers/Traps.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")
 include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
+
+-- Set the bounds for this map
+map.bounds:Add(Vector2(-1400, -80))
+map.bounds:Add(Vector2(-1400, 3000))
+map.bounds:Add(Vector2(9960, 3000))
+map.bounds:Add(Vector2(9960, 300))
 
 
 -- Create an enemy
@@ -41,9 +48,6 @@ fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
 fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
 fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
 fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
-
---Boosts
-boost1 = Powerups.BuildBoostPowerup(7956, -4500)
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
@@ -78,8 +82,5 @@ spider6 = Spider(Vector2(3060, -3000), true)
 spider7 = Spider(Vector2(3260, -3200), true)
 spider8 = Spider(Vector2(3460, -3400), true)
 
--- Set the bounds for this map
-map.bounds:Add(Vector2(-1400, -80))
-map.bounds:Add(Vector2(-1400, 3000))
-map.bounds:Add(Vector2(9960, 3000))
-map.bounds:Add(Vector2(9960, 300))
+--Boosts
+boost1 = Powerups.BuildBoostPowerup(7956, -4500)

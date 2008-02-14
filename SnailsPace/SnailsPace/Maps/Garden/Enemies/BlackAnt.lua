@@ -31,10 +31,12 @@ end
 function BlackAnt(startPos, behav)
 	walk = BASprite(0, 3, 0.07)
 	stand = BASprite(0, 0, 0.07)
+	die = BASprite(8, 11, .1)
 	
 	blackant = Character()
 	blackant.sprites:Add("Walk", walk)
 	blackant.sprites:Add("Stand", stand)
+	blackant.sprites:Add("Die", die)
 	blackant.size = Vector2(BlackAntImage.size.X, BlackAntImage.size.Y - 64)
 	blackant.startPosition = startPos
 	blackant.position = startPos
