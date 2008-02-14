@@ -10,7 +10,7 @@ library('AI')
 BeeImage = Image()
 BeeImage.filename = "Resources/Textures/BeeTable"
 BeeImage.blocks = Vector2(4, 4)
-BeeImage.size = Vector2(128, 128)
+BeeImage.size = Vector2(64, 64)
 
 -- Creates a Sprite for a Bee
 function BeeSprite(animSt, animEnd, animDelay)

@@ -2,9 +2,8 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-player = Player( Vector2(0,0) )
---player = Player(Vector2(8000, -4856))
-include("Triggers/Message.lua")
+--player = Player( Vector2(0,0) )
+player = Player(Vector2(7956, -4800))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -40,14 +39,14 @@ map.bounds:Add(Vector2(9960, 300))
 -- Create an enemy
 fireAntY = -4856
 fireAntX = 100
-fireant1 = FireAnt(Vector2(5056, fireAntY))
-fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
-fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
-fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
-fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
-fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
-fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
-fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
+--fireant1 = FireAnt(Vector2(5056, fireAntY))
+--fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
+--fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
+--fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
+--fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
+--fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
+--fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
+--fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
@@ -84,3 +83,7 @@ spider8 = Spider(Vector2(3460, -3400), true)
 
 --Boosts
 boost1 = Powerups.BuildBoostPowerup(7956, -4500)
+boost2 = Powerups.BuildBoostPowerup(7656, -3500)
+boost3 = Powerups.BuildBoostPowerup(7356, -2500)
+boost4 = Powerups.BuildBoostPowerup(7656, -1500)
+boost5 = Powerups.BuildBoostPowerup(7956, -500)

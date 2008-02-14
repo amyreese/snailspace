@@ -24,7 +24,7 @@ namespace SnailsPace.Objects
 
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
-		public int boostPeriod = 10;
+		public int boostPeriod = 20;
 
         public Weapon[] inventory;
 
@@ -317,13 +317,14 @@ namespace SnailsPace.Objects
 			{
 				if (boosting)
 				{
-					acceleration = flyingAcceleration * 2;
-					horizontalFriction = flyingHorizontalFriction;
-					maxVelocity = flyingMaxVelocity * 2;
+					acceleration = flyingAcceleration * 5;
+					horizontalFriction = 0;
+					maxVelocity = flyingMaxVelocity * 5;
+					desiredMaxVelocity = flyingMaxVelocity * 5;
 					if (boostPeriod == 0)
 					{
 						boosting = false;
-						boostPeriod = 11;
+						boostPeriod = 21;
 					}
 					boostPeriod--;
 				}
@@ -332,6 +333,7 @@ namespace SnailsPace.Objects
 					acceleration = flyingAcceleration;
 					horizontalFriction = flyingHorizontalFriction;
 					maxVelocity = flyingMaxVelocity;
+					
 				}
 
 			}
@@ -382,8 +384,5 @@ namespace SnailsPace.Objects
 			}
 		}
 
-		public void endBoost()
-		{
-		}
     }
 }

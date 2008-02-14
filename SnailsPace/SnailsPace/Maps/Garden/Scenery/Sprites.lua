@@ -163,6 +163,21 @@ fuelSprite.frame = 0
 fuelSprite.animationDelay = 0.0
 fuelSprite.timer = 0.0
 
+boostImage = Image()
+boostImage.filename = "Resources/Textures/BoostIcon"
+boostImage.blocks = Vector2(1.0, 1.0)
+boostImage.size = Vector2(64.0, 64.0)
+
+boostSprite = Sprite()
+boostSprite.image = boostImage
+boostSprite.visible = true
+boostSprite.effect = "Resources/Effects/effects"
+boostSprite.animationStart = 0
+boostSprite.animationEnd = 0
+boostSprite.frame = 0
+boostSprite.animationDelay = 0.0
+boostSprite.timer = 0.0
+
 healthImage = Image()
 healthImage.filename = "Resources/Textures/HealthIcon"
 healthImage.blocks = Vector2(1.0, 1.0)

@@ -86,3 +86,31 @@ function Powerups.TriggerWeaponPowerup( trigger, powerupObj, character, gameTime
 		end
 	end
 end
+
+function Powerups.BuildBoostPowerup( powerupX, powerupY )
+	local trig = Trigger()
+	trig.position = Vector2( powerupX + xOffset, powerupY + yOffset )
+	trig.bounds = GameObjectBounds( Vector2( 128, 128 ), trig.position, 0 )
+	trig.state = {}
+	trig.state.unused = true
+	map.triggers:Add(trig)
+
+	local powerupObj = WorldBuilding.BuildObject( { xOffset=powerupX, yOffset=powerupY, sprite=boostSprite, layer=0, collidable=false } )
+
+	function trig.state:trigger( character, gameTime )
+		Powerups.TriggerBoostPowerup( trig, powerupObj, character, gameTime )
+	end
+	return trig
+end
+
+function Powerups.TriggerBoostPowerup( trigger, powerupObj, character, gameTime )
+	if character == Player.helix then
+		if trigger.state.unused then
+			Engine.sound:play("ding1")
+			Player.helix.boosting = true
+			Player.helix.fuel = Player.helix.fuel + Player.helix.maxFuel / 8
+			powerupObj:setSprite("")
+			trigger.state.unused  = false
+		end
+	end
+end
