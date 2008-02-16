@@ -1,6 +1,7 @@
 Traps = {}
 
-function Traps.SaltPile( trapX, trapY, trapWidth, trapHeight, trapRotation )
+function Traps.SaltPile( trapX, trapY, trapWidth, trapHeight, trapRotation, trapDamage )
+	trapDamage = trapDamage or 1
 	trapRotation = trapRotation or 0
 	local trig = Trigger()
 	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
@@ -9,7 +10,7 @@ function Traps.SaltPile( trapX, trapY, trapWidth, trapHeight, trapRotation )
 	map.triggers:Add(trig)
 
 	function trig.state:trigger( character, gameTime )
-		Traps.DamageHelix( trig, 2, character, gameTime )
+		Traps.DamageHelix( trig, trapDamage, character, gameTime )
 	end
 	return trig
 end

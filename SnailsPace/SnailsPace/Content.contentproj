@@ -213,7 +213,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <?ompile Include="Resources\Textures\HealthIcon.png">
+    <Compile Include="Resources\Textures\HealthIcon.png">
       <Name>HealthIcon</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -325,7 +325,7 @@
     <None Include="Resources\Audio\Sound\rifle shot exterior.wav">
       <Name>rifle shot exterior</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None?
+    </None>
     <None Include="Resources\Audio\Sound\shot gun stereo 2.wav">
       <Name>shot gun stereo 2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -434,7 +434,7 @@
     <Compile Include="Resources\Textures\SettingsScreen.png">
       <Name>SettingsScreen</Name>
       <Importer>TextureImporter</Importer>
-      <Processor>Text?reProcessor</Processor>
+      <Processor>TextPreProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
