@@ -681,7 +681,19 @@ namespace SnailsPace.Core
             float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 0.5);
 
 
-
+            // Out of range bullets
+            {
+                List<Objects.Bullet>.Enumerator bulletEnumerator = Engine.bullets.GetEnumerator();
+                while (bulletEnumerator.MoveNext())
+                {
+                    Objects.Bullet bullet = bulletEnumerator.Current;
+                    if (bullet.range < Vector2.Distance(bullet.createPosition, bullet.position))
+                    {
+                        bulletsToClear.Add(bullet);
+                    }
+                }
+                bulletEnumerator.Dispose();
+            }
 
             // Collision Detection
             {

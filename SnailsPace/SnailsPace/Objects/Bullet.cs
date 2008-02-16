@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using SnailsPace.Core;
+using Microsoft.Xna.Framework;
 
 namespace SnailsPace.Objects
 {
@@ -13,6 +14,9 @@ namespace SnailsPace.Objects
         public bool destroy = true;
         public bool hit = false;
 
+        public Vector2 createPosition;
+        public float range = 1000;
+
 		public bool isPCBullet = false;
 
 		/// <summary>
@@ -21,6 +25,7 @@ namespace SnailsPace.Objects
 		public Bullet() : base()
 		{
 			horizontalFriction = 0;
+            createPosition = Player.helix.position;
 		}
 
 		/// <summary>

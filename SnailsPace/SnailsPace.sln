@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+# Visual C# Express 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnailsPace", "SnailsPace\SnailsPace.csproj", "{3508366F-62DF-46B4-982E-907EED797697}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F55CABBB-4108-4A39-94E1-581FD46DC021} = {F55CABBB-4108-4A39-94E1-581FD46DC021}
@@ -28,12 +28,6 @@ Global
 		{3508366F-62DF-46B4-982E-907EED797697}.Release|Mixed Platforms.Build.0 = Release|x86
 		{3508366F-62DF-46B4-982E-907EED797697}.Release|x86.ActiveCfg = Release|x86
 		{3508366F-62DF-46B4-982E-907EED797697}.Release|x86.Build.0 = Release|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|x86.ActiveCfg = Debug|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|Any CPU.ActiveCfg = Release|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|x86.ActiveCfg = Release|x86
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -44,6 +38,12 @@ Global
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F55CABBB-4108-4A39-94E1-581FD46DC021}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Debug|x86.ActiveCfg = Debug|x86
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|Any CPU.ActiveCfg = Release|x86
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

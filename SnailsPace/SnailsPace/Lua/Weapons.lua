@@ -116,6 +116,7 @@ function Weapons:flamethrower( weapon )
 		bullet.size = Weapons.bulletImage.size
 		bullet.scale = Vector2(2.8,1.8)
 		bullet.damage = 4
+		bullet.range = 500;
 		
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
