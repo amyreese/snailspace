@@ -159,6 +159,7 @@ namespace SnailsPace.Core
             }
             else
             {
+				dead = false;
                 helix.think(gameTime);
             }
         }
