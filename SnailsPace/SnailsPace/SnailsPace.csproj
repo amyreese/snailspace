@@ -145,7 +145,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Documents\Design Document.doc">
       <Name>Design Document</Name>
     </None>
