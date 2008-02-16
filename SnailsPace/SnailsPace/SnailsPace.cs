@@ -95,13 +95,14 @@ namespace SnailsPace
         {
             MainMenuLoading,
             MainMenu,
+			LevelSelectMenu,
             SettingsMenu,
             GameLoading,
             Game,
             LevelOver
         }
 
-        private GameStates currentGameState = GameStates.GameLoading;
+		private GameStates currentGameState = GameStates.MainMenuLoading;
 
         public void changeState(GameStates toState)
         {
@@ -126,8 +127,9 @@ namespace SnailsPace
         {
             screens = new Dictionary<GameStates, Screen>();
             screens.Add(GameStates.MainMenuLoading, new Screens.MainMenuLoadingScreen(this));
-            screens.Add(GameStates.MainMenu, new Screens.Menus.MainMenuScreen(this));
-            screens.Add(GameStates.SettingsMenu, new Screens.Menus.SettingsMenuScreen(this));
+			screens.Add(GameStates.MainMenu, new Screens.Menus.MainMenuScreen(this));
+			screens.Add(GameStates.LevelSelectMenu, new Screens.Menus.LevelSelectScreen(this));
+			screens.Add(GameStates.SettingsMenu, new Screens.Menus.SettingsMenuScreen(this));
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
             screens.Add(GameStates.LevelOver, new Screens.LevelOverScreen(this));

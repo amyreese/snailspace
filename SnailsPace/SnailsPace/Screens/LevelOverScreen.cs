@@ -10,7 +10,7 @@ namespace SnailsPace.Screens
     class LevelOverScreen : LoadingScreen
     {
         public LevelOverScreen(SnailsPace game)
-            : base(game, SnailsPace.GameStates.Game)
+            : base(game, SnailsPace.GameStates.MainMenuLoading)
         {
             ready = false;
         }
@@ -44,18 +44,13 @@ namespace SnailsPace.Screens
         {
             if (firstDraw)
             {
-                Core.Engine.sound.stop("music");
+				((Menus.MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = false;
+				
+				Core.Engine.sound.stop("music");
                 Core.Engine.sound.stop("alarm");
                 Core.Engine.sound.stop("jetpack");
-
-                pointsString = Core.Engine.player.GetFinalPoints();
-                String nextMap = "Garden";
-                GameScreen screen = ((GameScreen)SnailsPace.getInstance().getScreen(nextState));
-                if (screen.map.Equals(nextMap))
-                {
-                    nextMap = "Garden2";
-                }
-                screen.ReloadEngine(nextMap);
+				
+				pointsString = Core.Engine.player.GetFinalPoints();
                 firstDraw = false;
             }
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,

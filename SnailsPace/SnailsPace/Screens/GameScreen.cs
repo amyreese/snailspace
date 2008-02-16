@@ -35,6 +35,7 @@ namespace SnailsPace.Screens
 
         public void ReloadEngine( String map )
         {
+			this.ready = false;
             this.map = map;
             new System.Threading.Thread(loadEngine).Start();
         }

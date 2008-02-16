@@ -84,6 +84,7 @@
     <Compile Include="Objects\Trigger.cs" />
     <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Screens\LevelOverScreen.cs" />
+    <Compile Include="Screens\Menus\LevelSelectScreen.cs" />
     <Compile Include="Screens\Screen.cs">
       <Name>Screen</Name>
     </Compile>
@@ -161,6 +162,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Lua\Math.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden2\Enemies\Bee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden2\Enemies\BlackAnt.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden2\Enemies\FireAnt.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Garden2\Enemies\Spider.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden2\Garden2.lua">
