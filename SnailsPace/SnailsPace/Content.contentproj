@@ -416,6 +416,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Textures\MainMenuScreen.PNG">
+      <Name>MainMenuScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Textures\SettingsScreen.png">
+      <Name>SettingsScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Resources\Textures\wood.png">
       <Name>wood</Name>
       <Importer>TextureImporter</Importer>

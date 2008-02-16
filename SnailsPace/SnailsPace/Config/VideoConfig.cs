@@ -15,8 +15,8 @@ namespace SnailsPace.Config
 
             // Default double values
             Dictionary<String, Double> doubles = new Dictionary<String, Double>();
-            doubles.Add("height", 600);
-            doubles.Add("width", 800);
+            doubles.Add("height", 768);
+            doubles.Add("width", 1024);
             setDefaults(doubles);
 
             // Default string values

@@ -28,6 +28,11 @@ namespace SnailsPace.Screens.Menus
         {
         }
 
+		protected override string GetBackgroundImage()
+		{
+			return "Resources/Textures/MainMenuScreen";
+		}
+
 		private static LevelDefinition[] levels = { new LevelDefinition( "Garden", "Garden" ), new LevelDefinition("Garden #2", "Garden2") };
         protected override void SetupMenuItems()
         {

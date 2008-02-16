@@ -17,15 +17,21 @@ namespace SnailsPace.Screens.Menus
             : base(game)
         {
         }
+
+
+		protected override string GetBackgroundImage()
+		{
+			return "Resources/Textures/SettingsScreen";
+		}
 		
-        protected override void SetupMenuItems()
+		protected override void SetupMenuItems()
         {
 			Input input = SnailsPace.inputManager;
 
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
             menuItems = new MenuItem[7];
-            menuItems[0] = new MenuItem("Back", this, new Vector2(itemX, itemY));
+            menuItems[0] = new MenuItem("Back to Menu", this, new Vector2(itemX, itemY));
 			menuItems[1] = new MenuItem("Move Up/Jetpack: " + input.getKeyBinding("Up"), this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
 			menuItems[2] = new MenuItem("Move Left: " +input.getKeyBinding("Left"), this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
 			menuItems[3] = new MenuItem("Move Down: " + input.getKeyBinding("Down"), this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));

@@ -16,6 +16,8 @@ namespace SnailsPace.Screens.Menus
         protected MenuItem[] menuItems;
         protected int menuItemIndex = 0;
 
+		private Texture2D screenImage;
+
         public MenuScreen(SnailsPace game)
             : base(game)
         {
@@ -59,7 +61,9 @@ namespace SnailsPace.Screens.Menus
             {
                 spriteFont = Game.Content.Load<SpriteFont>("Resources/Fonts/Menu");
             }
-            SetupMenuItems();
+
+			screenImage = Game.Content.Load<Texture2D>(GetBackgroundImage()); 
+			SetupMenuItems();
             for (int index = 0; index < menuItems.Length; index++)
             {
                 menuItems[index].Selected = index == menuItemIndex;
@@ -68,6 +72,7 @@ namespace SnailsPace.Screens.Menus
         }
 
         protected abstract void SetupMenuItems();
+		protected abstract String GetBackgroundImage();
 
         protected override void UnloadContent()
         {
@@ -78,7 +83,12 @@ namespace SnailsPace.Screens.Menus
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Black, 1.0f, 0);
-            if (menuItems != null)
+			
+			spriteBatch.Begin();
+			spriteBatch.Draw(screenImage, new Rectangle(0, 0, SnailsPace.getInstance().Window.ClientBounds.Width, SnailsPace.getInstance().Window.ClientBounds.Height), Color.White);
+			spriteBatch.End();
+			
+			if (menuItems != null)
             {
                 for (int menuItemIndex = 0; menuItemIndex < menuItems.Length; menuItemIndex++)
                 {

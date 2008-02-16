@@ -20,6 +20,11 @@ namespace SnailsPace.Screens.Menus
         {
         }
 
+		protected override string GetBackgroundImage()
+		{
+			return "Resources/Textures/MainMenuScreen";
+		}
+
         protected override void SetupMenuItems()
         {
             float itemY = spriteFont.LineSpacing;

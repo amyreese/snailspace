@@ -24,7 +24,7 @@ namespace SnailsPace.Screens.Menus
         {
 			if (Visible)
 			{
-				Color color = Selected ? Color.Yellow : Color.White;
+				Color color = Selected ? new Color(255,50,45) : new Color( 255, 255, 255);
 				float scale = Selected ? 1.5f : 1f;
 				SpriteBatch spriteBatch = screen.spriteBatch;
 				SpriteFont font = screen.spriteFont;
