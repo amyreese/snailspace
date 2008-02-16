@@ -292,6 +292,7 @@ namespace SnailsPace.Core
                         player.killedEnemy();
                         Engine.sound.play("kill");
                     }
+					charEnum.Current.collidable = false;
 					charEnum.Current.setSprite("Die");
                 }
                 //If not, let it think.
