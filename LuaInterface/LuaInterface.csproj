@@ -56,7 +56,6 @@
     <Compile Include="ProxyType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="luainterface.snk" />
   </ItemGroup>
   <ItemGroup>
