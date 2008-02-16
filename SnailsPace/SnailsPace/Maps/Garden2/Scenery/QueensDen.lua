@@ -49,7 +49,7 @@ ant = BlackAnt( Vector2( xOffset + 1240, yOffset + 1320 ), "patrol" )
 ant = BlackAnt( Vector2( xOffset + 1560, yOffset + 1320 ), "patrol" )
 
 -- Queen Ant
-ant = BlackAnt( Vector2( xOffset + 2060, yOffset + 1320 ), "standGround" )
+ant = Queen( Vector2( xOffset + 2060, yOffset + 1320 ) )
 
 -- Ceiling
 WorldBuilding.BuildSection({ width=5, xOffset=600, yOffset=2052, sprite=dirtSprite, xOverlap=20 })
