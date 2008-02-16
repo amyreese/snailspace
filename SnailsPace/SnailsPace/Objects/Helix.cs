@@ -167,6 +167,14 @@ namespace SnailsPace.Objects
 
         public override void think(GameTime gameTime)
         {
+			if (fuel > maxFuel)
+			{
+				fuel = maxFuel;
+			}
+			if (health > maxHealth)
+			{
+				health = maxHealth;
+			}
             float fuelMod = (float)Math.Min(1, gameTime.ElapsedRealTime.TotalSeconds);
 			if (flying)
 			{

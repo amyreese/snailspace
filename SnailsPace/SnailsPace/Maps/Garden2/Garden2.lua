@@ -10,10 +10,10 @@ startPosition = Vector2(0,0)
 player = Player( startPosition, "minigun" )
 
 -- Enemy Character Definitions
-include("../Garden/Enemies/Bee.lua")
-include("../Garden/Enemies/FireAnt.lua")
-include("../Garden/Enemies/BlackAnt.lua")
-include("../Garden/Enemies/Spider.lua")
+include("Enemies/Bee.lua")
+include("Enemies/FireAnt.lua")
+include("Enemies/BlackAnt.lua")
+include("Enemies/Spider.lua")
 
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
