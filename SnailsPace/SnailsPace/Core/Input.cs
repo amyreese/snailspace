@@ -34,10 +34,12 @@ namespace SnailsPace.Core
             inputKeys.Add("MenuRight", "right");
             inputKeys.Add("MenuSelect", "enter");
             inputKeys.Add("MenuToggle", "escape");
+
             inputKeys.Add("Up", "w");
             inputKeys.Add("Down", "s");
             inputKeys.Add("Left", "a");
             inputKeys.Add("Right", "d");
+            inputKeys.Add("WeaponNext", "q");
             inputKeys.Add("Fire", "Mouse1");
 			inputKeys.Add("Camera", "Mouse2");
             inputKeys.Add("Pause", "p");

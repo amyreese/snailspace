@@ -225,14 +225,8 @@ Wave Bank
     Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 239417338;
-    Bank Last Revised High = 29912297;
+    Bank Last Revised Low = 2488305908;
+    Bank Last Revised High = 29913252;
 
     Wave
     {
@@ -252,8 +246,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2191913472;
-            Last Modified High = 29911843;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -275,8 +269,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 883205530;
-            Last Modified High = 29911945;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -298,8 +292,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 4046880768;
-            Last Modified High = 29911842;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -321,8 +315,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 882893030;
-            Last Modified High = 29911945;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -344,8 +338,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1169815353;
-            Last Modified High = 29911893;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -367,8 +361,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1031913472;
-            Last Modified High = 29911843;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -390,8 +384,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1747569715;
-            Last Modified High = 29911896;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -413,8 +407,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3356319715;
-            Last Modified High = 29911896;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -436,8 +430,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 883205530;
-            Last Modified High = 29911945;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -459,8 +453,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1271913472;
-            Last Modified High = 29911843;
+            Last Modified Low = 1253875712;
+            Last Modified High = 29911903;
         }
     }
 
@@ -482,8 +476,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3848512520;
-            Last Modified High = 29912255;
+            Last Modified Low = 2971074304;
+            Last Modified High = 29912276;
         }
     }
 
@@ -505,8 +499,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2541455616;
-            Last Modified High = 29911829;
+            Last Modified Low = 2971074304;
+            Last Modified High = 29912276;
         }
     }
 
@@ -574,8 +568,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 4287026366;
-            Last Modified High = 29912329;
+            Last Modified Low = 371466752;
+            Last Modified High = 29912288;
         }
     }
 
@@ -622,6 +616,29 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 3976572134;
             Last Modified High = 29912296;
+        }
+    }
+
+    Wave
+    {
+        Name = snailofdeath;
+        File = Music\snailofdeath.wav;
+        Build Settings Last Modified Low = 416398204;
+        Build Settings Last Modified High = 29913251;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 38711808;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1657993408;
+            Last Modified High = 29913252;
         }
     }
 }
@@ -823,7 +840,7 @@ Sound Bank
     Sound
     {
         Name = oddLarm01;
-        Volume = -1200;
+        Volume = -1380;
         Pitch = 0;
         Priority = 0;
 
@@ -1099,7 +1116,7 @@ Sound Bank
     Sound
     {
         Name = machine down (Tadi);
-        Volume = -1200;
+        Volume = -860;
         Pitch = 0;
         Priority = 0;
 
@@ -1191,7 +1208,7 @@ Sound Bank
     Sound
     {
         Name = Filth squash;
-        Volume = -800;
+        Volume = -920;
         Pitch = 0;
         Priority = 0;
 
@@ -1237,7 +1254,7 @@ Sound Bank
     Sound
     {
         Name = Filth squash2;
-        Volume = -800;
+        Volume = -920;
         Pitch = 0;
         Priority = 0;
 
@@ -1375,7 +1392,7 @@ Sound Bank
     Sound
     {
         Name = jetpack;
-        Volume = -800;
+        Volume = -920;
         Pitch = 0;
         Priority = 0;
 
@@ -1412,6 +1429,53 @@ Sound Bank
                     Bank Index = 0;
                     Entry Name = jetpack;
                     Entry Index = 16;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = snailofdeath;
+        Volume = -500;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Loop Count = 255;
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = snailofdeath;
+                    Entry Index = 17;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1669,15 +1733,15 @@ Sound Bank
 
         Variation
         {
-            Variation Type = 3;
+            Variation Type = 2;
             Variation Table Type = 1;
             New Variation on Loop = 0;
         }
 
         Sound Entry
         {
-            Name = 103-Em_bass_arp;
-            Index = 15;
+            Name = snailofdeath;
+            Index = 17;
             Weight Min = 0;
             Weight Max = 255;
         }

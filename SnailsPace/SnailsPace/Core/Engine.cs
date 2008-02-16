@@ -204,6 +204,7 @@ namespace SnailsPace.Core
             {
                 sound.pause("music");
                 sound.stop("alarm");
+                sound.stop("jetpack");
             }
             else
             {
@@ -286,9 +287,12 @@ namespace SnailsPace.Core
 					{
 						deadChars.Add(charEnum.Current);
 					}
+                    else if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
+                    {
+                        player.killedEnemy();
+                        Engine.sound.play("kill");
+                    }
 					charEnum.Current.setSprite("Die");
-                    player.killedEnemy();
-                    Engine.sound.play("kill");
                 }
                 //If not, let it think.
                 else

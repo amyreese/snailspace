@@ -101,7 +101,7 @@ namespace SnailsPace
             LevelOver
         }
 
-        private GameStates currentGameState = GameStates.MainMenuLoading;
+        private GameStates currentGameState = GameStates.GameLoading;
 
         public void changeState(GameStates toState)
         {

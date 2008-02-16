@@ -131,6 +131,25 @@ namespace SnailsPace.Objects
 			weapon = gun;
 		}
 
+        public void NextWeapon()
+        {
+            int i = 0, s = weapon.slot;
+            while (i < inventory.Length)
+            {
+                do
+                {
+                    s = ++s >= inventory.Length ? 0 : s;
+                    weapon = inventory[s];
+                    i++;
+                } while (weapon == null);
+                
+                if (weapon.ammunition == -1 || weapon.ammunition > 0)
+                {
+                    break;
+                }
+            }
+        }
+
 		public void setSprite(params String[] spriteNames)
 		{
 			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
@@ -345,18 +364,15 @@ namespace SnailsPace.Objects
                 }
             }
 
-            int i = 0, s = weapon.slot;
-            while (i < inventory.Length && (weapon == null || weapon.ammunition == 0))
-            {
-                s = ++s >= inventory.Length ? 0 : s;
-                weapon = inventory[s];
-                i++;
-            }
-
             GameObject crosshair = Player.crosshair;
             if (input.inputDown("Fire"))
             {
 				ShootAt(crosshair.position, gameTime);
+            }
+
+            if (input.inputPressed("WeaponNext") || weapon.ammunition == 0)
+            {
+                NextWeapon();
             }
         }
 

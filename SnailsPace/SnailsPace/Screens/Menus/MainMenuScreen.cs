@@ -25,7 +25,7 @@ namespace SnailsPace.Screens.Menus
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
             menuItems = new MenuItem[3];
-			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
+			menuItems[0] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
             menuItems[1] = new MenuItem("Settings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
             menuItems[2] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
             menuItemIndex = 0;

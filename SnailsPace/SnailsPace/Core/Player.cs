@@ -124,6 +124,7 @@ namespace SnailsPace.Core
 					weapon.maxVelocity = 1024;
 
                     Engine.sound.stop("alarm");
+                    Engine.sound.stop("jetpack");
 
                     Engine.sound.play("death");
                 }
