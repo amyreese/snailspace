@@ -22,15 +22,18 @@ namespace SnailsPace.Screens.Menus
 
         public void Draw(GameTime time)
         {
-            Color color = Selected ? Color.Yellow : Color.White;
-            float scale = Selected ? 1.5f : 1f;
-            SpriteBatch spriteBatch = screen.spriteBatch;
-            SpriteFont font = screen.spriteFont;
+			if (Visible)
+			{
+				Color color = Selected ? Color.Yellow : Color.White;
+				float scale = Selected ? 1.5f : 1f;
+				SpriteBatch spriteBatch = screen.spriteBatch;
+				SpriteFont font = screen.spriteFont;
 
-            Vector2 origin = new Vector2(0, font.LineSpacing / 2);
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, text, position, color, 0, origin, scale, SpriteEffects.None, 0);
-            spriteBatch.End();
+				Vector2 origin = new Vector2(0, font.LineSpacing / 2);
+				spriteBatch.Begin();
+				spriteBatch.DrawString(font, text, position, color, 0, origin, scale, SpriteEffects.None, 0);
+				spriteBatch.End();
+			}
         }
 
         private bool _selected = false;

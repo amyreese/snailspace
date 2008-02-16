@@ -97,23 +97,29 @@ namespace SnailsPace.Screens.Menus
             if (input.inputPressed("MenuUp"))
             {
                 menuItems[menuItemIndex].Selected = false;
-                menuItemIndex--;
-                if (menuItemIndex < 0)
-                {
-                    menuItemIndex = menuItems.Length - 1;
-                }
+				do
+				{
+					menuItemIndex--;
+					if (menuItemIndex < 0)
+					{
+						menuItemIndex = menuItems.Length - 1;
+					}
+				} while (!menuItems[menuItemIndex].Visible);
                 menuItems[menuItemIndex].Selected = true;
             }
 
             if (input.inputPressed("MenuDown"))
             {
                 menuItems[menuItemIndex].Selected = false;
-                menuItemIndex++;
-                if (menuItemIndex >= menuItems.Length)
-                {
-                    menuItemIndex = 0;
-                }
-                menuItems[menuItemIndex].Selected = true;
+				do
+				{
+					menuItemIndex++;
+					if (menuItemIndex >= menuItems.Length)
+					{
+						menuItemIndex = 0;
+					}
+				} while (!menuItems[menuItemIndex].Visible);
+				menuItems[menuItemIndex].Selected = true;
             }
             #endregion
 
