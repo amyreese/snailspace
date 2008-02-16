@@ -83,6 +83,18 @@ namespace SnailsPace.Core
             repeat[cue] = false;
         }
 
+        // Stop all types of a sound.
+        public void stopAll()
+        {
+            List<Cue>.Enumerator allCues = new List<Cue>(cues.Values).GetEnumerator();
+            while (allCues.MoveNext())
+            {
+                Cue cue = allCues.Current;
+                cue.Stop(AudioStopOptions.Immediate);
+            }
+            allCues.Dispose();
+        }
+
         // Cache the Cue object and whether it should be repeating
         private void cache(String cue)
         {
