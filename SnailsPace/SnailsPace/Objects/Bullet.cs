@@ -10,6 +10,8 @@ namespace SnailsPace.Objects
         // Bullet characteristics.
         public int damage;
         public Explosion explosion;
+        public bool destroy = true;
+        public bool hit = false;
 
 		public bool isPCBullet = false;
 
@@ -71,7 +73,16 @@ namespace SnailsPace.Objects
                 {
                     Engine.sound.play("ping");
                 }
-				((Character)otherObject).takeDamage(damage);
+                
+                if (!hit)
+                {
+                    ((Character)otherObject).takeDamage(damage);
+                    hit = true;
+                }
+                else
+                {
+                    ((Character)otherObject).takeDamage(damage / 4);
+                }
 			}
 			else if (otherObject is GameObject && otherObject.name == "fallingPlatform")
 			{

@@ -98,6 +98,30 @@ function Weapons:minigun(weapon)
 	end
 end
 
+--[[ Flamethrower!!! Rawr. ]]--
+function Weapons:flamethrower( weapon )
+	weapon.name = "Flamethrower"
+	weapon.slot = 1
+	weapon.cooldown = 150
+	weapon.state = { velocity = 100 }
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.ammunition = 50
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+		bullet.destroy = false;
+		
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(28,31,0.1))
+		bullet.size = Weapons.bulletImage.size
+		bullet.scale = Vector2(2.8,1.8)
+		bullet.damage = 4
+		
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+end
+	
+
 --[[ Basic weapon, single shot ]]--
 function Weapons:generic( weapon, v )
 	weapon.name = "Gun"

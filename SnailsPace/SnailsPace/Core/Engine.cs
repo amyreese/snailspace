@@ -472,7 +472,10 @@ namespace SnailsPace.Core
                 }
                 else if (movingObject is Objects.Bullet)
                 {
-                    bulletsToExplode.Add((Objects.Bullet)movingObject);
+                    if (!(collidedObject is Objects.Character) || ((Objects.Bullet)movingObject).destroy)
+                    {
+                        bulletsToExplode.Add((Objects.Bullet)movingObject);
+                    }
                 }
                 else if (movingObject is Objects.Character)
                 {
@@ -542,25 +545,30 @@ namespace SnailsPace.Core
                 if (resultingMovement.Length() == 0)
                 {
                     movingObject.collidedWith(collidedObject);
-                    movingObject.velocity = Vector2.Zero;
-                    movingObject.velocityFromGravity = Vector2.Zero;
-                }
-                else
-                {
-                    movingObject.position += resultingMovement;
-                    movingObject.velocity = objectVelocity;
-                    if (resultingMovement.Y >= 0)
+                    if (movingObject is Objects.Bullet)
                     {
+                        resultingMovement = objectMovement;
+                    }
+                    else
+                    {
+                        movingObject.velocity = Vector2.Zero;
                         movingObject.velocityFromGravity = Vector2.Zero;
                     }
-                    if (resultingMovement.Y == 0)
-                    {
-                        movingObject.velocity.Y = 0;
-                    }
-                    if (resultingMovement.X == 0)
-                    {
-                        movingObject.velocity.X = 0;
-                    }
+                }
+                
+                movingObject.position += resultingMovement;
+                movingObject.velocity = objectVelocity;
+                if (resultingMovement.Y >= 0)
+                {
+                    movingObject.velocityFromGravity = Vector2.Zero;
+                }
+                if (resultingMovement.Y == 0)
+                {
+                    movingObject.velocity.Y = 0;
+                }
+                if (resultingMovement.X == 0)
+                {
+                    movingObject.velocity.X = 0;
                 }
             }
         }
@@ -781,6 +789,19 @@ namespace SnailsPace.Core
                     sprtEnumerator.Dispose();
                 }
                 objEnumerator.Dispose();
+
+                List<Objects.Bullet>.Enumerator bulletEnumerator = Engine.bullets.GetEnumerator();
+                while (bulletEnumerator.MoveNext())
+                {
+                    Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = bulletEnumerator.Current.sprites.Values.GetEnumerator();
+                    while (sprtEnumerator.MoveNext())
+                    {
+                        sprtEnumerator.Current.animate(gameTime);
+                    }
+                    sprtEnumerator.Dispose();
+                }
+                bulletEnumerator.Dispose();
+
 
                 List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
                 while (charEnumerator.MoveNext())
