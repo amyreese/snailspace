@@ -60,7 +60,6 @@ namespace SnailsPace.Objects
 
                 if (shooter is Helix)
                 {
-                    Engine.player.shotBullet();
                     Engine.sound.play(cue);
                 }
             }

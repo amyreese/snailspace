@@ -244,6 +244,7 @@
     <None Include="Maps\Garden\Triggers\SavePoints.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Libraries\lua51.lib" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content.contentproj">

@@ -9,7 +9,6 @@ namespace SnailsPace
         /// </summary>
         static void Main(string[] args)
         {
-			System.Diagnostics.Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(1);
 			using (SnailsPace game = new SnailsPace())
             {
 				game.Run();

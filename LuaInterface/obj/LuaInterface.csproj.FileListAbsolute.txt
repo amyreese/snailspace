@@ -1,0 +1,5 @@
+L:\Joe\School\2D Graphics Programming\SnailsPace\SnailsPace\Resources\Libraries\LuaInterface.dll
+L:\Joe\School\2D Graphics Programming\SnailsPace\SnailsPace\Resources\Libraries\LuaInterface.pdb
+L:\Joe\School\2D Graphics Programming\LuaInterface\obj\Debug\ResolveAssemblyReference.cache
+L:\Joe\School\2D Graphics Programming\LuaInterface\obj\Debug\LuaInterface.dll
+L:\Joe\School\2D Graphics Programming\LuaInterface\obj\Debug\LuaInterface.pdb

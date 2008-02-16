@@ -44,6 +44,10 @@ namespace SnailsPace.Screens
         {
             if (firstDraw)
             {
+                Core.Engine.sound.stop("music");
+                Core.Engine.sound.stop("alarm");
+                Core.Engine.sound.stop("jetpack");
+
                 pointsString = Core.Engine.player.GetFinalPoints();
                 String nextMap = "Garden";
                 GameScreen screen = ((GameScreen)SnailsPace.getInstance().getScreen(nextState));

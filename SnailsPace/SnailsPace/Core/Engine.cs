@@ -182,10 +182,6 @@ namespace SnailsPace.Core
 
         public void think(GameTime gameTime)
         {
-            if (gameTime.TotalRealTime.Minutes == 5)
-            {
-                EndLevel();
-            }
             Engine.gameTime = gameTime;
             Input input = SnailsPace.inputManager;
 
