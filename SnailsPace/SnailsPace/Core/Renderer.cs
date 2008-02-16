@@ -333,12 +333,12 @@ namespace SnailsPace.Core
                         continue;
                     }
 
-                    int tx = weapon.sprite.animationStart / 4, ty = weapon.sprite.animationStart % 4;
+                    int tx = weapon.sprite.animationStart % 4, ty = weapon.sprite.animationStart / 4;
                     Rectangle spot, source;
                     
                     if (currentWeapon == weapon)
                     {
-                        spot = new Rectangle(8, y, 128, 64);
+                        spot = new Rectangle(0, y, 128, 64);
                         strings.Add(new Objects.Text((i + 1).ToString(), font, new Vector2(2, y + 20), new Vector2(0.5f, 0.5f)));
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(128, y + 16), new Vector2(0.5f, 0.4f)));
                         strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(128, y + 32), new Vector2(0.5f, 0.4f)));
@@ -346,7 +346,7 @@ namespace SnailsPace.Core
                     }
                     else
                     {
-                        spot = new Rectangle(8, y, 96, 48);
+                        spot = new Rectangle(0, y, 96, 48);
                         strings.Add(new Objects.Text((i + 1).ToString(), font, new Vector2(2, y + 12), new Vector2(0.5f, 0.5f)));
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(96, y + 8), new Vector2(0.5f, 0.4f)));
                         strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(96, y + 24), new Vector2(0.5f, 0.4f)));
