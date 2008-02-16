@@ -3,9 +3,10 @@ library('WorldBuilding')
 
 -- Player creation and starting position
 --player = Player( Vector2(-1000,0) )
-player = Player(Vector2(7956, -4500))
+--player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
+player = Player(Vector2(8500, 0))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -13,6 +14,7 @@ include("Enemies/FireAnt.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
 include("Enemies/Queen.lua")
+include("Enemies/Shaker.lua")
 
 -- Set up the background
 include("Scenery/Background.lua")
@@ -120,7 +122,9 @@ minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
 --Queen Boss
 --theQueen = Queen(Vector2(7856, -4856))
 
-EndLevel.BuildLevelEnd( 9000, 338+128 )
+saltShaker = Shaker(Vector2(9800, 500))
+
+--EndLevel.BuildLevelEnd( 10000, 338+128 )
 
 
 
