@@ -14,6 +14,7 @@ include("Enemies/Bee.lua")
 include("Enemies/FireAnt.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
+include("Enemies/Queen.lua")
 
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
