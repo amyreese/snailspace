@@ -2,8 +2,8 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-player = Player( Vector2(-1000,0) )
---player = Player(Vector2(7956, -4800))
+--player = Player( Vector2(-1000,0) )
+player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
 
@@ -12,6 +12,7 @@ include("Enemies/Bee.lua")
 include("Enemies/FireAnt.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
+include("Enemies/Queen.lua")
 
 -- Set up the background
 include("Scenery/Background.lua")
@@ -42,14 +43,14 @@ map.bounds:Add(Vector2(9960, 300))
 -- Create an enemy
 fireAntY = -4856
 fireAntX = 100
-fireant1 = FireAnt(Vector2(5056, fireAntY))
-fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
-fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
-fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
-fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
-fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
-fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
-fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
+--fireant1 = FireAnt(Vector2(5056, fireAntY))
+--fireant2 = FireAnt(Vector2(5456 + fireAntX, fireAntY))
+--fireant3 = FireAnt(Vector2(5856 + fireAntX, fireAntY))
+--fireant4 = FireAnt(Vector2(6256 + fireAntX, fireAntY))
+--fireant5 = FireAnt(Vector2(6656 + fireAntX, fireAntY))
+--fireant6 = FireAnt(Vector2(7056 + fireAntX, fireAntY))
+--fireant7 = FireAnt(Vector2(7456 + fireAntX, fireAntY))
+--fireant8 = FireAnt(Vector2(7856 + fireAntX, fireAntY))
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
@@ -106,8 +107,6 @@ boost3 = Powerups.BuildBoostPowerup(7356, -2500)
 boost4 = Powerups.BuildBoostPowerup(7656, -1500)
 boost5 = Powerups.BuildBoostPowerup(7956, -500)
 
-EndLevel.BuildLevelEnd( 9000, 338+128 )
-
 --Secret Boosts
 boost5 = Powerups.BuildBoostPowerup(6950, 1000)
 
@@ -117,4 +116,11 @@ health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 --Weapons
 stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
 minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
+
+--Queen Boss
+--theQueen = Queen(Vector2(7856, -4856))
+
+EndLevel.BuildLevelEnd( 9000, 338+128 )
+
+
 

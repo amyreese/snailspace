@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{6E9D3ED5-2070-4A99-B89D-7D9D6A735F81}</ProjectGuid>
     <ProjectTypeGuids>{96E2B04D-8817-42c6-938A-82C39BA4D311};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -213,7 +213,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\HealthIcon.png">
+    <?ompile Include="Resources\Textures\HealthIcon.png">
       <Name>HealthIcon</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -325,7 +325,7 @@
     <None Include="Resources\Audio\Sound\rifle shot exterior.wav">
       <Name>rifle shot exterior</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </None?
     <None Include="Resources\Audio\Sound\shot gun stereo 2.wav">
       <Name>shot gun stereo 2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -416,6 +416,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Textures\QueenTable.png">
+      <Name>QueenTable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Resources\Textures\MainMenuScreen.PNG">
       <Name>MainMenuScreen</Name>
       <Importer>TextureImporter</Importer>
@@ -426,7 +434,7 @@
     <Compile Include="Resources\Textures\SettingsScreen.png">
       <Name>SettingsScreen</Name>
       <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Processor>Text?reProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
