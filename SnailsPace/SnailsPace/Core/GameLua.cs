@@ -25,6 +25,7 @@ using('Microsoft.Xna.Framework');
 
 MSMath = import('System.Math');
 MathHelper = import('Microsoft.Xna.Framework.MathHelper');
+Matrix = import('Microsoft.Xna.Framework.Matrix');
 Rectangle = import('Microsoft.Xna.Framework.Rectangle');
 Vector2 = import('Microsoft.Xna.Framework.Vector2');
 Vector3 = import('Microsoft.Xna.Framework.Vector3');

@@ -145,31 +145,29 @@ end
 
 --[[ Fanned shot weapon, multiple shot ]]--
 function Weapons:fanshot( weapon, n, o, v )
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.ammunition = 50
 	weapon.cooldown = 100
-	weapon.state = { velocity=v or 128, number=n or 8, offset=o or 0.5 }
+	weapon.state = { velocity=v or 128, number=n or 8, offset=o or 0.3 }
 	
-	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
-		if (self.number % 2 == 0) then
-			targetPosition.X = targetPosition.X - self.offset * (self.number / 2) - (self.offset / 2)
-        else
-            targetPosition.X = targetPosition.X - self.offset * (self.number / 2);
-        end
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)     
+		transform = Matrix.Multiply(Matrix.Multiply(Matrix.CreateTranslation(Vector3(-shooter.position.X, -shooter.position.Y, 0)), Matrix.CreateRotationZ(-self.offset * ((self.number - 1) / 2))), Matrix.CreateTranslation(Vector3(shooter.position, 0)))
+
+		targetPosition = Vector2.Transform(targetPosition, transform)
+		
+		transform = Matrix.Multiply(Matrix.Multiply(Matrix.CreateTranslation(Vector3(-shooter.position.X, -shooter.position.Y, 0)), Matrix.CreateRotationZ(self.offset)), Matrix.CreateTranslation(Vector3(shooter.position, 0)))
         
-        for i = 0, self.number, 1 do
+        for i = 1, self.number, 1 do
 			bullet = Bullet()
 			bullet.explosion = Explosion()
 	                
 			bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
-			bullet.size = Weapons.bulletImage.size
-	        
-			bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)
-			bullet.velocity = Vector2.Normalize(bullet.velocity)
-			
+			bullet.size = Weapons.bulletImage.size		
 			bullet.damage = 1
 	        
 			Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 			
-			targetPosition.X = targetPosition.X + self.offset
+			targetPosition = Vector2.Transform(targetPosition, transform)
 		end
 	end
 end
