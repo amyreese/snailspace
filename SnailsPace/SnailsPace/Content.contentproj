@@ -445,6 +445,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Textures\LevelEndScreen.png">
+      <Name>LevelEndScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Resources\Textures\ShakerTable.png">
       <Name>ShakerTable</Name>
       <Importer>TextureImporter</Importer>

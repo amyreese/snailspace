@@ -22,7 +22,7 @@ namespace SnailsPace.Screens
 
         protected override void LoadContent()
         {
-            screenImage = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/GameLoadingScreen");
+            screenImage = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/LevelEndScreen");
             font = Game.Content.Load<SpriteFont>("Resources/Fonts/LevelOver");
         }
 
@@ -61,7 +61,7 @@ namespace SnailsPace.Screens
                 batch.Draw(screenImage, new Rectangle(0, 0, SnailsPace.getInstance().Window.ClientBounds.Width, SnailsPace.getInstance().Window.ClientBounds.Height), Color.White);
                 batch.DrawString(font, "Your score is...", new Vector2(100, 25), Color.White);
                 batch.DrawString(font, pointsString, new Vector2(50, 60), Color.White);
-                batch.DrawString(font, "Press escape to continue...", new Vector2(250, 400), Color.White);
+                batch.DrawString(font, "Press escape to continue...", new Vector2(250, 500), Color.White);
             }
             batch.End();
             batch.Dispose();

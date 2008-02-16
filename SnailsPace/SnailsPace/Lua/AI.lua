@@ -18,7 +18,7 @@ end
 -- TODO: Implement a 'better' algorithm
 function AI.canSeeHelix( self, dmin )
 	if ( dmin == nil ) then
-		dmin = 15.0
+		dmin = 250.0
 	end
 	
 	return ( Math.distance( self, helix ) < dmin )

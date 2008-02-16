@@ -275,7 +275,7 @@ namespace SnailsPace.Core
             }
 
             // TODO: iterate through map.characters calling think() on each one.
-            List<Objects.Character>.Enumerator charEnum = map.characters.GetEnumerator();
+            List<Objects.Character>.Enumerator charEnum = new List<Objects.Character>(map.characters).GetEnumerator();
             List<Objects.Character> deadChars = new List<Objects.Character>();
             while (charEnum.MoveNext())
             {
