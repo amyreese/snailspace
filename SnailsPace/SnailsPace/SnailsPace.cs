@@ -20,8 +20,9 @@ namespace SnailsPace
     /// </summary>
     public class SnailsPace : Microsoft.Xna.Framework.Game
 	{
-		#region Debug flags
+		#region Debug Flags & Variables
 #if DEBUG
+        // Flags
 		public static bool debugFramerate = false;
         public static bool debugCameraPosition = false;
         public static bool debugHelixPosition = false;
@@ -31,8 +32,13 @@ namespace SnailsPace
         public static bool debugBoundingBoxes = false;
         public static bool debugFlying = false;
         public static bool debugTriggers = false;
+
+        // Framerate variables
+        private int frames = 0;
+        private int currentFramerateIndex = 0;
+        private double[] framerates = new double[50];
 #endif
-		#endregion
+        #endregion
 
         #region Managers for input, sound, and configrations
         internal static Input inputManager;
@@ -70,8 +76,7 @@ namespace SnailsPace
         }
         #endregion
 
-        #region Graphics and Content Managers
-
+        #region GraphicsManager
         private GraphicsDeviceManager _graphics;
         public GraphicsDeviceManager graphics
         {
@@ -213,11 +218,6 @@ namespace SnailsPace
             base.Update(gameTime);
         }
 
-#if DEBUG
-        private int frames = 0;
-		private int currentFramerateIndex = 0;
-		private double[] framerates = new double[50];
-#endif
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -268,16 +268,6 @@ namespace SnailsPace
         public void exitGame(GameTime gameTime)
         {
             this.Exit();
-        }
-
-        public void startGame(GameTime gameTime)
-        {
-            changeState(GameStates.GameLoading);
-        }
-
-        public void goToMainMenu(GameTime gameTime)
-        {
-            changeState(GameStates.MainMenu);
         }
         #endregion
     }
