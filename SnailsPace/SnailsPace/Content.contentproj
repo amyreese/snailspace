@@ -26,7 +26,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Name>effects</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -44,33 +43,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\Bee_1.png">
-      <Name>Bee_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Resources\Textures\BlackAnt_1.png">
-      <Name>BlackAnt_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Resources\Textures\FireAnt_1.png">
-      <Name>FireAnt_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Resources\Textures\Helix.png">
-      <Name>Helix</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Resources\Textures\HelixTable.png">
       <Name>HelixTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -116,22 +92,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\gun.png">
-      <Name>gun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Resources\Textures\BlackAntTable.png">
       <Name>BlackAntTable</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Resources\Textures\Bullet.png">
-      <Name>Bullet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -158,7 +120,6 @@
       <Name>dirt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +141,6 @@
       <Name>salt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +148,6 @@
       <Name>saltcan</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -241,18 +200,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\Spider.png">
-      <Name>Spider</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Resources\Textures\saltpile.png">
       <Name>saltpile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +211,6 @@
       <Name>pouringsalt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -294,90 +244,73 @@
   <ItemGroup>
     <None Include="Resources\Audio\Music\103-Em_bass_arp.wav">
       <Name>103-Em_bass_arp</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\bomb explosion.wav">
       <Name>bomb explosion</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\lift_arrive_beep.wav">
       <Name>lift_arrive_beep</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\mallert 007.wav">
       <Name>mallert 007</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\mallert 008.wav">
       <Name>mallert 008</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\oddLarm01.wav">
       <Name>oddLarm01</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\Plink_09.wav">
       <Name>Plink_09</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\rifle shot exterior.wav">
       <Name>rifle shot exterior</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\shot gun stereo 2.wav">
       <Name>shot gun stereo 2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\shot gun stereo 2a.wav">
       <Name>shot gun stereo 2a</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\shot gun stereo 2b.wav">
       <Name>shot gun stereo 2b</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Textures\beehive.png">
+    <Content Include="Resources\Textures\beehive.png">
       <Name>beehive</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\machine down %28Tadi%29.wav">
       <Name>machine down %28Tadi%29</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\Rifle Being Cocked.wav">
       <Name>Rifle Being Cocked</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\Filth squash.wav">
       <Name>Filth squash</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Audio\Sound\Filth squash2.wav">
       <Name>Filth squash2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\Filth squash a.wav">
       <Name>Filth squash a</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\jetpack.wav">
       <Name>jetpack</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="Resources\Fonts\LevelOver.spritefont">
       <Name>LevelOver</Name>
@@ -390,7 +323,6 @@
       <Name>BoostIcon</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -398,7 +330,6 @@
       <Name>BulletTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -406,13 +337,11 @@
       <Name>WeaponTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Music\snailofdeath.wav">
       <Name>snailofdeath</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -420,7 +349,6 @@
       <Name>QueenTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -456,7 +384,6 @@
       <Name>ShakerTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -464,13 +391,11 @@
       <Name>SackTable</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\flamethrower.wav">
       <Name>flamethrower</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

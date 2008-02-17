@@ -29,7 +29,7 @@ end
 
 -- Creates a Spider object
 function Spider(startPos, attack)
-	walk = SpiderSprite(0, 3, 0.07)
+	walk = SpiderSprite(2, 3, 0.07)
 	stand = SpiderSprite(0, 0, 0.07)
 	die = SpiderSprite(8, 11, .08)
 	

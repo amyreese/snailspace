@@ -16,7 +16,7 @@ Garden (Garden) -
 Photographer: chalkie_colour_circl es
 http://www.flickr.com/photos/chalkie_circle2000/754400890
 
-Explosions (ExplosionTable) -
+Explosions (ExplosionTable1) -
 ???
 
 Dirt (dirt) -
