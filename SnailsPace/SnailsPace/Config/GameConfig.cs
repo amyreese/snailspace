@@ -11,7 +11,19 @@ namespace SnailsPace
         public GameConfig()
             : base()
         {
+            #region Default values
+            // Default string values
+            Dictionary<String, String> strings = new Dictionary<String, String>();
+            strings.Add("levels", "Garden:Garden;Garden #2:Garden2");
+            strings.Add("levelSplit", ";");
+            strings.Add("levelSubsplit", ":");
+            setDefaults(strings);
+
+            #endregion
+
+            // Load user preferences
             this.readFile(gameConfigFile);
+
         }
 
         public void save()

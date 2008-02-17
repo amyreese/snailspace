@@ -143,6 +143,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\Game.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Documents\Design Document.doc">
       <Name>Design Document</Name>
     </None>

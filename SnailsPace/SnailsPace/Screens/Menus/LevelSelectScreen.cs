@@ -23,16 +23,22 @@ namespace SnailsPace.Screens.Menus
 				this.file = file;
 			}
 		}
-        private static LevelDefinition[] levels = { new LevelDefinition("Garden", "Garden"), new LevelDefinition("Garden #2", "Garden2") };
+        private static LevelDefinition[] levels;
         #endregion
 
         /// <summary>
         /// Creates the screen
         /// </summary>
         /// <param name="game">Snails Pace instance</param>
-        public LevelSelectScreen(SnailsPace game)
+        /// <param name="levelsSetting">The levels for the game, [n][0] = display name, [n][1] = file</param>
+        public LevelSelectScreen(SnailsPace game, String[][] levelsSetting )
             : base(game)
         {
+            levels = new LevelDefinition[levelsSetting.Length];
+            for (int index = 0; index < levelsSetting.Length; index++)
+            {
+                levels[index] = new LevelDefinition(levelsSetting[index][0], levelsSetting[index][1]);
+            }
         }
 
         /// <summary>

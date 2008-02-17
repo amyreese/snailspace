@@ -34,13 +34,12 @@ namespace SnailsPace
 #endif
 		#endregion
 
-		public Matrix viewMatrix;
-        public Matrix projectionMatrix;
-
+        #region Managers for input, sound, and configrations
         internal static Input inputManager;
         internal static Sound soundManager;
         internal static GameConfig gameConfig;
         internal static VideoConfig videoConfig;
+        #endregion
 
         #region Constructor & Instancing
         public SnailsPace()
@@ -52,8 +51,6 @@ namespace SnailsPace
             _instance = this;
 
             graphics = new GraphicsDeviceManager(this);
-            //Content.RootDirectory = "Content";
-
             inputManager = new Input();
             soundManager = new Sound();
             gameConfig = new GameConfig();
@@ -124,9 +121,16 @@ namespace SnailsPace
 
         protected void initializeGameScreens()
         {
+            String levelSplit = gameConfig.getString("levelSplit");
+            String levelSubsplit = gameConfig.getString("levelSubsplit");
+            String[] levels = gameConfig.getString("levels").Split(levelSplit.ToCharArray());
+            String[][] levelsSetting = new String[levels.Length][];
+            for( int index = 0; index < levels.Length; index++ ) {
+                levelsSetting[index] = levels[index].Split(levelSubsplit.ToCharArray());
+            }
             screens = new Dictionary<GameStates, Screen>();
 			screens.Add(GameStates.MainMenu, new Screens.Menus.MainMenuScreen(this));
-			screens.Add(GameStates.LevelSelectMenu, new Screens.Menus.LevelSelectScreen(this));
+			screens.Add(GameStates.LevelSelectMenu, new Screens.Menus.LevelSelectScreen(this, levelsSetting));
 			screens.Add(GameStates.KeyBindingsMenu, new Screens.Menus.KeyBindingsMenuScreen(this));
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
