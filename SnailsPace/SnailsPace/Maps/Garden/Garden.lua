@@ -2,11 +2,11 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---player = Player( Vector2(-1000,0) )
+player = Player( Vector2(-1000,0) )
 --player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
-player = Player(Vector2(8500, 0))
+--player = Player(Vector2(8500, 0))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -112,6 +112,12 @@ boost5 = Powerups.BuildBoostPowerup(7956, -500)
 --Secret Boosts
 boost5 = Powerups.BuildBoostPowerup(6950, 1000)
 
+--Save Points
+SavePoints.BuildSavePoint( 4000, 35, savepointSprite )
+SavePoints.BuildSavePoint( 5456, -4865, savepointSprite )
+SavePoints.BuildSavePoint( 8600, 375, savepointSprite )
+SavePoints.BuildSavePoint( 7500, 2575, savepointSprite )
+
 --Health
 health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 
@@ -120,7 +126,7 @@ stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
 minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
 
 --Queen Boss
-theQueen = Queen(Vector2(7856, -4856), false)
+theQueen = Queen(Vector2(7856, -4856))
 
 saltShaker = Shaker(Vector2(9800, 500))
 
