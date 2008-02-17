@@ -15,6 +15,7 @@ namespace SnailsPace.Objects
 		public bool boosting;
 		public bool thrust;
         public bool thrustable;
+		public bool repelling;
 		public const float flyingHorizontalFriction = 640.0f;
 		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 2560.0f;
@@ -25,6 +26,7 @@ namespace SnailsPace.Objects
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
 		public double boostPeriod = 0;
+		public double repelPeriod = 0;
 
         public Weapon[] inventory;
 
@@ -372,6 +374,26 @@ namespace SnailsPace.Objects
                 }
             }
 
+			if (repelling)
+			{
+				repelPeriod -= gameTime.ElapsedRealTime.TotalSeconds;
+
+				// TODO: Make helix bounce away from the enemy.
+				if (repelPeriod > 0)
+				{
+
+				}
+				if (repelPeriod < -0.5)
+				{
+
+				}
+				else
+				{
+
+				}
+
+			}
+
             GameObject crosshair = Player.crosshair;
             if (input.inputDown("Fire"))
             {
@@ -395,9 +417,15 @@ namespace SnailsPace.Objects
 		public override void collidedWith(GameObject otherObject)
 		{
 			if (otherObject is Objects.Character)
+			{
 				base.takeDamage();
+				repelling = true;
+				repelPeriod = 0.5;
+			}
 			else
+			{
 				base.collidedWith(otherObject);
+			}
 		}
 
 		public override void takeDamage(int damage)
