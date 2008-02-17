@@ -106,6 +106,7 @@ function Weapons:flamethrower( weapon )
 	weapon.name = "Flamethrower"
 	weapon.slot = 2
 	weapon.cooldown = 150
+	weapon.cue = "flamethrower"
 	weapon.state = { velocity = 100 }
 	weapon.sprite = Weapons.weaponSprite(2)
 	weapon.ammunition = 50
