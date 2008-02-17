@@ -172,6 +172,19 @@ function Weapons:fanshot( weapon, n, o, v )
 	end
 end
 
+--[[ Scattered shot weapon ]]--
+function Weapons:scattershot( weapon, n, v )
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.cooldown = 100
+	weapon.state = { velocity=v or 128, number=n or 8 }
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		for i = 1, self.number, 1 do
+			-- Do math
+		end
+	end
+end
+
 --[[ Single shot helper function ]]--
 function Weapons.shootSingleBullet( bullet, velocity, shooter, targetPosition ) 
 	bullet.velocity = Vector2.Subtract(targetPosition, shooter.position)

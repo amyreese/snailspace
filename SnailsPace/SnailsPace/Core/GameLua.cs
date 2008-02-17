@@ -24,6 +24,7 @@ import = luanet.import_type;
 using('Microsoft.Xna.Framework');
 
 MSMath = import('System.Math');
+Random = import('System.Random');
 MathHelper = import('Microsoft.Xna.Framework.MathHelper');
 Matrix = import('Microsoft.Xna.Framework.Matrix');
 Rectangle = import('Microsoft.Xna.Framework.Rectangle');
