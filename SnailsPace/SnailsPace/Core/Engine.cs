@@ -432,57 +432,33 @@ namespace SnailsPace.Core
             #region Strings for Debugging
 #if DEBUG
             int numDebugStrings = 0;
+            List<String> debugStrings = new List<String>();
             if (SnailsPace.debugHelixPosition)
             {
-                Text debugString = new Text();
-                debugString.color = Color.Yellow;
-                debugString.content = "Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
+                debugStrings.Add("Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")");
             }
             if (SnailsPace.debugCameraPosition)
             {
+                debugStrings.Add("Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")");
+                Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
+                debugStrings.Add("Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")");
+
+                Vector3 distance = cameraTargetPosition - Renderer.cameraPosition;
+                debugStrings.Add("Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")");
+                debugStrings.Add("Crosshair: (" + Player.crosshair.position.X + ", " + Player.crosshair.position.Y + ")");
+            }
+            List<String>.Enumerator debugStringEnum = debugStrings.GetEnumerator();
+            while (debugStringEnum.MoveNext())
+            {
                 Text debugString = new Text();
                 debugString.color = Color.Yellow;
-                debugString.content = "Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")";
+                debugString.content = debugStringEnum.Current;
                 debugString.font = debugFont;
                 debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Text();
-                debugString.color = Color.Yellow;
-                Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
-                debugString.content = "Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Text();
-                debugString.color = Color.Yellow;
-                Vector3 distance = cameraTargetPosition - Renderer.cameraPosition;
-                debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Text();
-                debugString.color = Color.Yellow;
-                debugString.content = "Crosshair: (" + Player.crosshair.position.X + ", " + Player.crosshair.position.Y + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
                 debugString.scale = Vector2.One;
                 strings.Add(debugString);
             }
+            debugStringEnum.Dispose();
 #endif
             #endregion
             strings.AddRange(player.textStrings());
