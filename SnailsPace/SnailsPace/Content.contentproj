@@ -279,11 +279,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Textures\beehive.png">
+    <Compile Include="Resources\Textures\beehive.png">
       <Name>beehive</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Content>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Audio\Sound\machine down %28Tadi%29.wav">
