@@ -15,16 +15,16 @@ namespace SnailsPace.Objects
 		{
 			Image image = new Image();
 			image.filename = "Resources/Textures/ExplosionTable";
-			image.blocks = new Vector2(4, 4);
-			image.size = new Vector2(64, 64);
+			image.blocks = new Vector2(4, 2);
+			image.size = new Vector2(48, 48);
 			Sprite sprite = new Sprite();
 			sprite.image = image;
 			sprite.visible = true;
 			sprite.effect = "Resources/Effects/effects";
 			sprite.animationStart = 0;
-			sprite.animationEnd = 15;
+			sprite.animationEnd = 7;
 			sprite.frame = 0;
-			sprite.animationDelay = 0.025f;
+			sprite.animationDelay = 0.035f;
 			sprite.timer = 0;
 			sprites.Add("explosion", sprite);
 			collidable = false;
