@@ -56,13 +56,13 @@ fireAntX = 100
 
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
-blackant2 = BlackAnt(Vector2(1560, -130), "platPatrol")
-blackant3 = BlackAnt(Vector2(2310, -580), "platPatrol")
+blackant2 = BlackAnt(Vector2(1560, -160), "platPatrol")
+blackant3 = BlackAnt(Vector2(2310, -510), "platPatrol")
 blackant4 = BlackAnt(Vector2(3160, -480), "platPatrol")
 blackant5 = BlackAnt(Vector2(1720, 260), "platPatrol")
 blackant6 = BlackAnt(Vector2(2520, 100), "platPatrol")
 blackant7 = BlackAnt(Vector2(3160, 575), "platPatrol")
-blackant8 = BlackAnt(Vector2(3610, 50), "platPatrol")
+blackant8 = BlackAnt(Vector2(3460, 50), "platPatrol")
 
 --Platform Spiders
 spider9 = Spider(Vector2(1080, -250))
