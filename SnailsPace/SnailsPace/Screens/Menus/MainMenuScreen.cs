@@ -36,7 +36,7 @@ namespace SnailsPace.Screens.Menus
 
 			menuItems[3] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
 			menuItems[4] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-			menuItems[5] = new MenuItem("Settings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+            menuItems[5] = new MenuItem("Key Bindings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
 			menuItems[6] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
 
 			menuItemIndex = 0;
