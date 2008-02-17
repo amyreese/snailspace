@@ -104,7 +104,7 @@ end
 --[[ Flamethrower!!! Rawr. ]]--
 function Weapons:flamethrower( weapon )
 	weapon.name = "Flamethrower"
-	weapon.slot = 2
+	weapon.slot = 3
 	weapon.cooldown = 150
 	weapon.cue = "flamethrower"
 	weapon.state = { velocity = 100 }
@@ -119,7 +119,7 @@ function Weapons:flamethrower( weapon )
 		bullet.sprites:Add("Bullet", Weapons.bulletSprite(28,31,0.1))
 		bullet.size = Weapons.bulletImage.size
 		bullet.scale = Vector2(2.8,1.8)
-		bullet.damage = 4
+		bullet.damage = 3
 		bullet.range = 600;
 		
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)

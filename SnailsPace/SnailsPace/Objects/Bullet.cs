@@ -9,11 +9,10 @@ namespace SnailsPace.Objects
     class Bullet : GameObject
     {
         // Bullet characteristics.
-        public int damage;
+        public float damage;
         public Explosion explosion;
         public bool destroy = true;
-        public bool hit = false;
-
+        public int hits = 0;
         public Vector2 createPosition;
         public float range = 1000;
 
@@ -78,15 +77,15 @@ namespace SnailsPace.Objects
                 {
                     Engine.sound.play("ping");
                 }
-                
-                if (!hit)
+
+                hits++;
+                if (hits == 1)
                 {
                     ((Character)otherObject).takeDamage(damage);
-                    hit = true;
                 }
                 else
                 {
-                    ((Character)otherObject).takeDamage(damage / 4);
+                    ((Character)otherObject).takeDamage(damage / ( hits * 3 ), false);
                 }
 			}
 			else if (otherObject is GameObject && otherObject.name == "fallingPlatform")

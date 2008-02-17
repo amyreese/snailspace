@@ -13,8 +13,8 @@ namespace SnailsPace.Objects
     {
 		// Character properties.
 		public int maxHealth;
-        private int _health;
-		public int health {
+        private float _health;
+		public float health {
 			get 
 			{
 				return _health;
@@ -109,13 +109,18 @@ namespace SnailsPace.Objects
 		/// Make this character take a specified amount of damage.
 		/// </summary>
 		/// <param name="damage">The amount of damage.</param>
-		public virtual void takeDamage(int damage)
-		{
+        public virtual void takeDamage(float damage)
+        {
+            takeDamage(damage, true);
+        }
+
+        public virtual void takeDamage(float damage, bool initialHit)
+        {
             if (this is Helix)
             {
                 Engine.player.gotHit();
             }
-            else
+            else if( initialHit )
             {
                 Engine.player.enemyHit();
             }

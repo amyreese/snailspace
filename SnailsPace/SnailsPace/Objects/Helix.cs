@@ -119,7 +119,7 @@ namespace SnailsPace.Objects
 			health = 20;
 
 			Weapon wep = weapon;
-            inventory = new Weapon[3];
+            inventory = new Weapon[4];
 			if (weaponName != "generic")
             {
 				AddWeapon(Weapon.load("generic"));
@@ -428,7 +428,7 @@ namespace SnailsPace.Objects
 			}
 		}
 
-		public override void takeDamage(int damage)
+		public override void takeDamage(float damage)
 		{
 			if (lastTookDamage + invincibilityPeriod < Engine.gameTime.TotalRealTime.TotalMilliseconds)
 			{
