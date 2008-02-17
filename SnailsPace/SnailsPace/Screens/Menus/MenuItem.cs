@@ -9,10 +9,21 @@ namespace SnailsPace.Screens.Menus
 {
     class MenuItem : Microsoft.Xna.Framework.IDrawable
     {
+        // The text of the menu item
         private String text;
+
+        // The screen this menu item is on
         private MenuScreen screen;
+
+        // The location of this menu item
         private Vector2 position;
 
+        /// <summary>
+        /// Creates the menu item
+        /// </summary>
+        /// <param name="text">The text of the menu item</param>
+        /// <param name="screen">The screen this menu item is on</param>
+        /// <param name="position">The location of this menu item</param>
         public MenuItem(String text, MenuScreen screen, Vector2 position)
         {
             this.text = text;
@@ -20,6 +31,10 @@ namespace SnailsPace.Screens.Menus
             this.position = position;
         }
 
+        /// <summary>
+        /// Draws the menu item if it is visible
+        /// </summary>
+        /// <param name="time">The time for this update</param>
         public void Draw(GameTime time)
         {
 			if (Visible)
@@ -36,6 +51,9 @@ namespace SnailsPace.Screens.Menus
 			}
         }
 
+        /// <summary>
+        /// Flag indicating if this item is selected or not
+        /// </summary>
         private bool _selected = false;
         public bool Selected
         {
@@ -49,6 +67,9 @@ namespace SnailsPace.Screens.Menus
             }
         }
 
+        /// <summary>
+        /// Flag indicating if this item is visible or not
+        /// </summary>
         private bool _visible = true;
         public bool Visible
         {
@@ -67,6 +88,7 @@ namespace SnailsPace.Screens.Menus
             }
         }
 
+        #region Required by IDrawable, but don't have an impact for our use
         private int _drawOrder = 0;
         public int DrawOrder
         {
@@ -110,5 +132,6 @@ namespace SnailsPace.Screens.Menus
                 _visibleChangedListners.Remove(value);
             }
         }
+        #endregion
     }
 }

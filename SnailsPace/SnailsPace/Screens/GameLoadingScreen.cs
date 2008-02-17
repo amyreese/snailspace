@@ -7,24 +7,36 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SnailsPace.Screens
 {
+    /// <summary>
+    /// A screen displayed when the game is loading
+    /// </summary>
     class GameLoadingScreen : LoadingScreen
     {
+        /// <summary>
+        /// Constructor for the screen
+        /// </summary>
+        /// <param name="game">Snails Pace instance</param>
         public GameLoadingScreen(SnailsPace game)
             : base(game, SnailsPace.GameStates.Game)
         {
         }
 
-        Texture2D screenImage;
+        // The background image
+        private Texture2D screenImage;
 
+        /// <summary>
+        /// Load the background image
+        /// </summary>
         protected override void LoadContent()
         {
             screenImage = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/GameLoadingScreen");
+            base.LoadContent();
         }
 
-        protected override void UnloadContent()
-        {
-        }
-
+        /// <summary>
+        /// Draw the screen
+        /// </summary>
+        /// <param name="gameTime">GameTime for this draw</param>
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,

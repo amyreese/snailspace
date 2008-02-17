@@ -7,31 +7,62 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SnailsPace.Screens
 {
+    /// <summary>
+    /// A screen displayed at the end of a level
+    /// </summary>
     class LevelOverScreen : LoadingScreen
     {
+        /// <summary>
+        /// Constructor for the screen
+        /// </summary>
+        /// <param name="game">The instance of Snails Pace</param>
         public LevelOverScreen(SnailsPace game)
-            : base(game, SnailsPace.GameStates.MainMenuLoading)
+            : base(game, SnailsPace.GameStates.MainMenu)
         {
+            // This screen waits for input before being ready to transition
             ready = false;
         }
 
+        // The image drawn in the background
         private Texture2D screenImage;
-        private SpriteFont font;
-        private String pointsString;
-        public bool firstDraw = true;
 
+        // The font used for text
+        private SpriteFont font;
+
+        // The string that indicates point calculation
+        private String pointsString;
+
+        // True if this is the first cycle of drawing; used to disable sounds and get the points string
+        public bool initializeScreen = true;
+
+        /// <summary>
+        /// Load the background image and font
+        /// </summary>
         protected override void LoadContent()
         {
             screenImage = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/LevelEndScreen");
             font = Game.Content.Load<SpriteFont>("Resources/Fonts/LevelOver");
         }
 
-        protected override void UnloadContent()
-        {
-        }
-
+        /// <summary>
+        /// Checks to see if the user has indicated that they are done reading
+        /// If this is the first time through, initialize the screen
+        /// </summary>
+        /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
+            if (initializeScreen)
+            {
+                ((Menus.MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = false;
+
+                Core.Engine.sound.stop("music");
+                Core.Engine.sound.stop("alarm");
+                Core.Engine.sound.stop("jetpack");
+
+                pointsString = Core.Engine.player.GetFinalPoints();
+                initializeScreen = false;
+            }
+
             Core.Input input = SnailsPace.inputManager;
             if (input.inputPressed("MenuToggle"))
             {
@@ -40,19 +71,12 @@ namespace SnailsPace.Screens
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draw the background image, the player's score, and a string indicating how to leave the screen.
+        /// </summary>
+        /// <param name="gameTime">GameTime for this update</param>
         public override void Draw(GameTime gameTime)
         {
-            if (firstDraw)
-            {
-				((Menus.MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = false;
-				
-				Core.Engine.sound.stop("music");
-                Core.Engine.sound.stop("alarm");
-                Core.Engine.sound.stop("jetpack");
-				
-				pointsString = Core.Engine.player.GetFinalPoints();
-                firstDraw = false;
-            }
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
                 Color.Red, 1.0f, 0);
             SpriteBatch batch = new SpriteBatch(GraphicsDevice);
@@ -61,7 +85,7 @@ namespace SnailsPace.Screens
                 batch.Draw(screenImage, new Rectangle(0, 0, SnailsPace.getInstance().Window.ClientBounds.Width, SnailsPace.getInstance().Window.ClientBounds.Height), Color.White);
                 batch.DrawString(font, "Your score is...", new Vector2(100, 25), Color.White);
                 batch.DrawString(font, pointsString, new Vector2(50, 60), Color.White);
-                batch.DrawString(font, "Press escape to continue...", new Vector2(250, 500), Color.White);
+                batch.DrawString(font, "Press " + SnailsPace.inputManager.getKeyBinding("MenuToggle") + " to continue...", new Vector2(250, 500), Color.White);
             }
             batch.End();
             batch.Dispose();

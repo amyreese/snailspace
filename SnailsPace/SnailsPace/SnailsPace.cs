@@ -93,16 +93,15 @@ namespace SnailsPace
 
         public enum GameStates
         {
-            MainMenuLoading,
             MainMenu,
 			LevelSelectMenu,
-            SettingsMenu,
+            KeyBindingsMenu,
             GameLoading,
             Game,
             LevelOver
         }
 
-		private GameStates currentGameState = GameStates.MainMenuLoading;
+		private GameStates currentGameState = GameStates.MainMenu;
 
         public void changeState(GameStates toState)
         {
@@ -126,10 +125,9 @@ namespace SnailsPace
         protected void initializeGameScreens()
         {
             screens = new Dictionary<GameStates, Screen>();
-            screens.Add(GameStates.MainMenuLoading, new Screens.MainMenuLoadingScreen(this));
 			screens.Add(GameStates.MainMenu, new Screens.Menus.MainMenuScreen(this));
 			screens.Add(GameStates.LevelSelectMenu, new Screens.Menus.LevelSelectScreen(this));
-			screens.Add(GameStates.SettingsMenu, new Screens.Menus.SettingsMenuScreen(this));
+			screens.Add(GameStates.KeyBindingsMenu, new Screens.Menus.KeyBindingsMenuScreen(this));
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
             screens.Add(GameStates.LevelOver, new Screens.LevelOverScreen(this));
@@ -275,7 +273,7 @@ namespace SnailsPace
 
         public void goToMainMenu(GameTime gameTime)
         {
-            changeState(GameStates.MainMenuLoading);
+            changeState(GameStates.MainMenu);
         }
         #endregion
     }

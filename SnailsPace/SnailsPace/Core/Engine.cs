@@ -654,7 +654,7 @@ namespace SnailsPace.Core
         /// </summary>
         public void EndLevel()
         {
-            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).firstDraw = true;
+            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).initializeScreen = true;
             ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).ready = false;
             SnailsPace.getInstance().changeState(SnailsPace.GameStates.LevelOver);
         }

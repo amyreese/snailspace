@@ -11,55 +11,68 @@ using SnailsPace.Core;
 
 namespace SnailsPace.Screens
 {
+    /// <summary>
+    /// The screen for the actual game
+    /// </summary>
     class GameScreen : Screen
     {
+        // The game engine being used
 		private Engine engine;
+
+        // Has the game has been started?
         private bool started = false;
 
+        /// <summary>
+        /// Constructor for the screen
+        /// </summary>
+        /// <param name="game">Snails Pace Instance</param>
         public GameScreen(SnailsPace game)
             : base(game)
         {
+            ready = false;
         }
 
-        #region Graphics Stuff
-        protected override void LoadContent()
-        {
-            ReloadEngine();
-			base.LoadContent();
-        }
-
-        public void ReloadEngine()
-        {
-            ReloadEngine(MAIN_MAP);
-        }
-
+        #region Engine Loading
+        /// <summary>
+        /// Reload the engine, using the specified map
+        /// </summary>
+        /// <param name="map">The map to load</param>
         public void ReloadEngine( String map )
         {
-			this.ready = false;
+			ready = false;
+            started = false;
             this.map = map;
             new System.Threading.Thread(loadEngine).Start();
         }
 
-        private const string MAIN_MAP = "Garden2";
-        public String map = "Garden";
+        // The current map
+        public String map;
+
+        /// <summary>
+        /// Start up the engine using the current map
+        /// </summary>
         protected void loadEngine()
         {
             engine = new Engine(map);
-            this.ready = true;
+            ready = true;
         }
+        #endregion
 
-        protected override void UnloadContent()
-        {
-            base.UnloadContent();
-        }
-
+        /// <summary>
+        /// Tell the engine that rendering should be done
+        /// </summary>
+        /// <param name="gameTime">GameTime for this draw</param>
         public override void Draw(GameTime gameTime)
         {
 			engine.render(gameTime);
 			base.Draw(gameTime);
         }
-        #endregion
 
+        /// <summary>
+        /// If the game hasn't started yet, start it.
+        /// Tell the engine to run the AI and physics
+        /// </summary>
+        /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
             if (!started)

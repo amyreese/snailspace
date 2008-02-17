@@ -15,16 +15,27 @@ namespace SnailsPace.Screens.Menus
     {
         public bool gameStarted = false;
 
+        /// <summary>
+        /// Creates the screen
+        /// </summary>
+        /// <param name="game">Snails Pace instance</param>
         public MainMenuScreen(SnailsPace game)
             : base(game)
         {
         }
 
-		protected override string GetBackgroundImage()
+        /// <summary>
+        /// The background image to be used for this menu
+        /// </summary>
+        /// <returns>The background image to be used for this menu</returns>
+        protected override string GetBackgroundImage()
 		{
 			return "Resources/Textures/MainMenuScreen";
 		}
 
+        /// <summary>
+        /// Prepare the menu items to be displayed on this menu
+        /// </summary>
         protected override void SetupMenuItems()
         {
             float itemY = spriteFont.LineSpacing;
@@ -43,6 +54,11 @@ namespace SnailsPace.Screens.Menus
             ready = true;
         }
 
+        /// <summary>
+        /// Check to see if any of the menu items have been selected
+        /// Toggle visibility based on game started status
+        /// </summary>
+        /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
 
@@ -88,7 +104,7 @@ namespace SnailsPace.Screens.Menus
 							break;
 					case 1:
 					case 5:
-						snailsPace.changeState(SnailsPace.GameStates.SettingsMenu);
+						snailsPace.changeState(SnailsPace.GameStates.KeyBindingsMenu);
                         break;
 					case 2:
 					case 6:

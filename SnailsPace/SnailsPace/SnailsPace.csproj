@@ -97,7 +97,7 @@
     <Compile Include="Program.cs">
       <Name>Program</Name>
     </Compile>
-    <Compile Include="Screens\Menus\SettingsMenuScreen.cs" />
+    <Compile Include="Screens\Menus\KeyBindingsMenuScreen.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
     <Compile Include="Screens\Menus\MainMenuScreen.cs">
       <Name>MainMenuScreen</Name>
@@ -110,9 +110,6 @@
     </Compile>
     <Compile Include="Screens\LoadingScreen.cs">
       <Name>LoadingScreen</Name>
-    </Compile>
-    <Compile Include="Screens\MainMenuLoadingScreen.cs">
-      <Name>MainMenuLoadingScreen</Name>
     </Compile>
     <Compile Include="Screens\Menus\MenuItem.cs" />
     <Compile Include="SnailsPace.cs">

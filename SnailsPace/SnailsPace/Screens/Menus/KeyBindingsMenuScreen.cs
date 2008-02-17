@@ -11,19 +11,32 @@ using SnailsPace.Core;
 
 namespace SnailsPace.Screens.Menus
 {
-    class SettingsMenuScreen : MenuScreen
+    /// <summary>
+    /// A screen displaying the key bindings
+    /// </summary>
+    class KeyBindingsMenuScreen : MenuScreen
     {
-        public SettingsMenuScreen(SnailsPace game)
+        /// <summary>
+        /// Creates the screen
+        /// </summary>
+        /// <param name="game">Snails Pace instance</param>
+        public KeyBindingsMenuScreen(SnailsPace game)
             : base(game)
         {
         }
 
-
+        /// <summary>
+        /// The background image to be used for this menu
+        /// </summary>
+        /// <returns>The background image to be used for this menu</returns>
 		protected override string GetBackgroundImage()
 		{
 			return "Resources/Textures/SettingsScreen";
 		}
 		
+        /// <summary>
+        /// Prepare the menu items to be displayed on this menu
+        /// </summary>
 		protected override void SetupMenuItems()
         {
 			Input input = SnailsPace.inputManager;
@@ -44,6 +57,10 @@ namespace SnailsPace.Screens.Menus
             ready = true;
         }
 
+        /// <summary>
+        /// Check to see if any of the menu items have been selected
+        /// </summary>
+        /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
             Input input = SnailsPace.inputManager;

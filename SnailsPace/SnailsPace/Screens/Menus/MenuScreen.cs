@@ -13,17 +13,26 @@ namespace SnailsPace.Screens.Menus
 {
     abstract class MenuScreen : Screen
     {
+        // The items displayed in the menu
         protected MenuItem[] menuItems;
+
+        // The index of the currently selected menu item
         protected int menuItemIndex = 0;
 
-		private Texture2D screenImage;
-
+        /// <summary>
+        /// Constructor for the screen
+        /// </summary>
+        /// <param name="game">Snails Pace instance</param>
         public MenuScreen(SnailsPace game)
             : base(game)
         {
         }
 
         #region Graphics Stuff
+        // The background image
+        private Texture2D screenImage;
+
+        // The sprite batch for the screen
         protected SpriteBatch _spriteBatch;
         public SpriteBatch spriteBatch
         {
@@ -37,6 +46,7 @@ namespace SnailsPace.Screens.Menus
             }
         }
 
+        // The font for the screen
         protected SpriteFont _spriteFont;
         public SpriteFont spriteFont
         {
@@ -50,6 +60,9 @@ namespace SnailsPace.Screens.Menus
             }
         }
 
+        /// <summary>
+        /// Load the background image, font, and menu items for the screen
+        /// </summary>
         protected override void LoadContent()
         {
             // Don't overwrite what was already created by any subclass
@@ -71,14 +84,21 @@ namespace SnailsPace.Screens.Menus
             base.LoadContent();
         }
 
+        /// <summary>
+        /// Prepare the menu items to be displayed on this menu
+        /// </summary>
         protected abstract void SetupMenuItems();
-		protected abstract String GetBackgroundImage();
+        
+        /// <summary>
+        /// The background image to be used for this menu
+        /// </summary>
+        /// <returns>The background image to be used for this menu</returns>
+        protected abstract String GetBackgroundImage();
 
-        protected override void UnloadContent()
-        {
-            base.UnloadContent();
-        }
-
+        /// <summary>
+        /// Draw the background image and the menu items
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer,
@@ -99,6 +119,10 @@ namespace SnailsPace.Screens.Menus
         }
         #endregion
 
+        /// <summary>
+        /// Check to see if the menu is being cycled through
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             #region Input Commands
