@@ -320,6 +320,8 @@ namespace SnailsPace.Core
                 SpriteFont font = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Score");
 
                 int y = 64;
+                int bigSize = 32;
+                int smallSize = 24;
                 Objects.Weapon currentWeapon = Player.helix.weapon;
                 for(int i = 0; i < Player.helix.inventory.Length; i++)
                 {
@@ -328,26 +330,27 @@ namespace SnailsPace.Core
                     Objects.Weapon weapon = Player.helix.inventory[i];
                     if (weapon == null)
                     {
-                        y += 24;
+                        y += 8;
                         continue;
                     }
 
                     int tx = weapon.sprite.animationStart % 4, ty = weapon.sprite.animationStart / 4;
                     Rectangle spot, source;
-                    
                     if (currentWeapon == weapon)
                     {
-                        spot = new Rectangle(0, y, 128, 64);
-                        strings.Add(new Objects.Text(weapon.name, font, new Vector2(128, y + 16), new Vector2(0.5f, 0.4f)));
-                        strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(128, y + 32), new Vector2(0.5f, 0.4f)));
-                        y += 64;
+                        Color textColor = Color.White;
+                        spot = new Rectangle(0, y, bigSize * 2, bigSize);
+                        strings.Add(new Objects.Text(weapon.name, font, new Vector2(bigSize * 2, y), new Vector2(0.5f, 0.5f), textColor));
+                        strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(bigSize * 2, y + bigSize / 2.25f), new Vector2(0.5f, 0.5f), textColor));
+                        y += bigSize;
                     }
                     else
                     {
-                        spot = new Rectangle(0, y, 96, 48);
-                        strings.Add(new Objects.Text(weapon.name, font, new Vector2(96, y + 8), new Vector2(0.5f, 0.4f)));
-                        strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(96, y + 24), new Vector2(0.5f, 0.4f)));
-                        y += 48;
+                        Color textColor = Color.LightGray;
+                        spot = new Rectangle(0, y, smallSize * 2, smallSize);
+                        strings.Add(new Objects.Text(weapon.name, font, new Vector2(smallSize * 2, y), new Vector2(0.4f, 0.4f), textColor));
+                        strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(smallSize * 2, y + smallSize / 2.25f), new Vector2(0.4f, 0.4f), textColor));
+                        y += smallSize;
                     }
                     
                     source = new Rectangle(tx * 128, ty * 64, 128, 64);

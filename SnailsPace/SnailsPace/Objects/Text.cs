@@ -22,14 +22,17 @@ namespace SnailsPace.Objects
         {
         }
 
-        public Text(String content, SpriteFont font, Vector2 position, Vector2 scale)
+        public Text(String content, SpriteFont font, Vector2 position, Vector2 scale, Color color)
         {
             this.content = content;
             this.font = font;
             this.position = position;
             this.scale = scale;
             this.rotation = 0f;
-            this.color = Color.White;
+            this.color = color;
+        }
+        public Text(String content, SpriteFont font, Vector2 position, Vector2 scale) : this(content, font, position, scale, Color.White )
+        {
         }
     }
 }
