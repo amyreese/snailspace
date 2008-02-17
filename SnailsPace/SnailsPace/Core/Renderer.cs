@@ -297,7 +297,7 @@ namespace SnailsPace.Core
 #endif
             }
 
-            if (strings != null)
+            if (strings == null)
             {
                 strings = new List<Objects.Text>();
             }
