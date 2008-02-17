@@ -59,13 +59,17 @@ end
 
 -- Spider behavior function
 function SpiderThinker( self, gameTime )
-	if ( helix.position.Y < self.position.Y and AI.canSeeHelix(self, 300)) then 
-		self:setSprite("Walk")
-		self.direction = Vector2(0,-1)
+	if ( AI.canSeeHelix(self, 500) ) then
+		if AI.canSeeHelix(self, 300) then 
+			self:setSprite("Walk")
+			self.direction = Vector2(0,-1)
+		else
+			self.direction = Vector2(0,1)
+		end
+		
+		AI.shootDirectlyAtHelix(self, gameTime);
+		--AI.shootSpiderPattern( self, gameTime );
 	else
 		self.direction = Vector2(0,1)
-	end
-	if self.state.attacking then
-		AI.shootSpiderPattern( self, gameTime );
 	end
 end

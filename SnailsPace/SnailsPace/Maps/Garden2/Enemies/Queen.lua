@@ -72,7 +72,7 @@ function Queen(startPos)
 	queen.direction = Vector2(0,0)
 	queen.maxVelocity = 400
 	queen.thinker = "QueenThinker"
-	queen.health = 50
+	queen.health = 150
 	queen.weapon.cooldown = 2000
 	queen.name = "Queen"
 	queen:setSprites("Stand","Sack")

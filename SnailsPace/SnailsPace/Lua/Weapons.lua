@@ -59,7 +59,7 @@ function Weapons:stinger(weapon)
 	weapon.ammunition = -1
 	weapon.cooldown = 700
 	weapon.state = { velocity = 0 }
-	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.sprite = Weapons.weaponSprite(3)
 	weapon.slot = 1
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
@@ -71,6 +71,9 @@ function Weapons:stinger(weapon)
 		bullet.scale = Vector2(0.5, 0.5)
 		bullet.damage = 2
 		
+		if shooter == Player.helix then
+			self.velocity = 250
+		end
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
 end
@@ -78,7 +81,7 @@ end
 --[[ Minigun, brutal fire rate, loud, fast ]]--
 function Weapons:minigun(weapon)
 	weapon.name = "Minigun"
-	weapon.ammunition = 100
+	weapon.ammunition = 200
 	weapon.cooldown = 15
 	weapon.cue = "explode"
 	weapon.state = { velocity = 384 }
@@ -101,7 +104,7 @@ end
 --[[ Flamethrower!!! Rawr. ]]--
 function Weapons:flamethrower( weapon )
 	weapon.name = "Flamethrower"
-	weapon.slot = 1
+	weapon.slot = 2
 	weapon.cooldown = 150
 	weapon.state = { velocity = 100 }
 	weapon.sprite = Weapons.weaponSprite(2)
@@ -116,7 +119,7 @@ function Weapons:flamethrower( weapon )
 		bullet.size = Weapons.bulletImage.size
 		bullet.scale = Vector2(2.8,1.8)
 		bullet.damage = 4
-		bullet.range = 500;
+		bullet.range = 600;
 		
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
@@ -169,6 +172,26 @@ function Weapons:fanshot( weapon, n, o, v )
 			
 			targetPosition = Vector2.Transform(targetPosition, transform)
 		end
+		
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
+		bullet.size = Weapons.bulletImage.size		
+		bullet.damage = 1
+        
+        targetPosition = Vector2(shooter.position.X - 100, shooter.position.Y)
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+		
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
+		bullet.size = Weapons.bulletImage.size		
+		bullet.damage = 1
+        
+        targetPosition = Vector2(shooter.position.X + 100, shooter.position.Y)
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
 end
 

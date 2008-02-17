@@ -11,7 +11,7 @@ WorldBuilding.BuildRamp( {length=6, xOffset=144, yOffset=-640, sprite=dirtSprite
 WorldBuilding.BuildRamp( {length=12, xOffset=840, yOffset=-728, sprite=dirtSpriteS, overlap=10, rotation=0.05, layerOffset=2 } )
 WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y / 2 - 384, sprite=fencePostSprite, xSizeMod=-256, layerOffset=-3 } )
 WorldBuilding.BuildObject( { xOffset=352, yOffset=1960, sprite=beehiveSprite, xSizeMod=-50, layerOffset=-3, rotation=-0.35 } )
-Powerups.BuildWeaponPowerup( 160, 1768, "stinger", 250, 0.1 )
+Powerups.BuildWeaponPowerup( 160, 1768, "stinger", 100, 0.1 )
 
 bee = Bee( Vector2( xOffset + 128, yOffset + 222 ), "flyDownRight" )
 bee.state.attacking = true
