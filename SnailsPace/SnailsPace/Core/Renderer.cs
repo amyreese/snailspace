@@ -328,7 +328,6 @@ namespace SnailsPace.Core
                     Objects.Weapon weapon = Player.helix.inventory[i];
                     if (weapon == null)
                     {
-                        strings.Add(new Objects.Text((i+1).ToString(), font, new Vector2(2, y), new Vector2(0.5f, 0.5f)));
                         y += 24;
                         continue;
                     }
@@ -339,7 +338,6 @@ namespace SnailsPace.Core
                     if (currentWeapon == weapon)
                     {
                         spot = new Rectangle(0, y, 128, 64);
-                        strings.Add(new Objects.Text((i + 1).ToString(), font, new Vector2(2, y + 20), new Vector2(0.5f, 0.5f)));
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(128, y + 16), new Vector2(0.5f, 0.4f)));
                         strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(128, y + 32), new Vector2(0.5f, 0.4f)));
                         y += 64;
@@ -347,7 +345,6 @@ namespace SnailsPace.Core
                     else
                     {
                         spot = new Rectangle(0, y, 96, 48);
-                        strings.Add(new Objects.Text((i + 1).ToString(), font, new Vector2(2, y + 12), new Vector2(0.5f, 0.5f)));
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(96, y + 8), new Vector2(0.5f, 0.4f)));
                         strings.Add(new Objects.Text((weapon.ammunition != -1 ? weapon.ammunition.ToString() : "Inf"), font, new Vector2(96, y + 24), new Vector2(0.5f, 0.4f)));
                         y += 48;

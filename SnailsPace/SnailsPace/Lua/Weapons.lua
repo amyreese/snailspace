@@ -60,7 +60,7 @@ function Weapons:stinger(weapon)
 	weapon.cooldown = 700
 	weapon.state = { velocity = 0 }
 	weapon.sprite = Weapons.weaponSprite(0)
-	weapon.slot = 3
+	weapon.slot = 1
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
@@ -104,7 +104,7 @@ function Weapons:flamethrower( weapon )
 	weapon.slot = 1
 	weapon.cooldown = 150
 	weapon.state = { velocity = 100 }
-	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.sprite = Weapons.weaponSprite(2)
 	weapon.ammunition = 50
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
@@ -127,7 +127,7 @@ end
 function Weapons:generic( weapon, v )
 	weapon.name = "Gun"
 	weapon.cooldown = 100
-	weapon.state = { velocity=v or 0 }
+	weapon.state = { velocity=v or 250 }
 	weapon.sprite = Weapons.weaponSprite(0)
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
