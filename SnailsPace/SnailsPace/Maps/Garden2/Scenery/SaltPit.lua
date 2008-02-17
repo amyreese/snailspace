@@ -353,7 +353,7 @@ WorldBuilding.BuildRampDEPR( 6, 8, -3792 - 128 * 5 - 128 * 7 - 64 - 236 * 4, dir
 -- ** "Low Road" **
 -- Floor
 WorldBuilding.BuildSection( {width=24, xOffset=484, yOffset=-7528, sprite=dirtSprite, xOverlap=20, yOverlap=20 } )
-Powerups.BuildWeaponPowerup( 730, -5300, "minigun", 250, 1 )
+Powerups.BuildWeaponPowerup( 730, -4300, "flamethrower", 50, 1 )
 
 -- Spiders
 for x = 0, 16 do
@@ -364,4 +364,4 @@ end
 
 -- ** Exit Save Point **
 SavePoints.BuildSavePoint( 5892, -7336 )
-Powerups.BuildWeaponPowerup( 6300, -7300, "flamethrower", 50, 1 )
+Powerups.BuildWeaponPowerup( 6300, -7300, "minigun", 150, 1 )
