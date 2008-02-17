@@ -29,7 +29,6 @@ function QueenSprite(animSt, animEnd, animDelay)
 	sprt.animationDelay = animDelay
 	sprt.frame = 0
 	sprt.timer = 0
-	sprt.horizontalFlip = true
 	
 	return sprt
 end
@@ -46,7 +45,6 @@ function SackSprite(animSt, animEnd, animDelay)
 	sprt.frame = 0
 	sprt.timer = 0
 	sprt.layerOffset = -10
-	sprt.horizontalFlip = true
 	sprt.position = Vector2( 200, 0 )
 	
 	return sprt
@@ -64,6 +62,7 @@ function Queen(startPos)
 	queen.sprites:Add("Stand", stand)
 	queen.sprites:Add("Die", die)
 	queen.sprites:Add("Sack", sack)
+    queen.horizontalFlip = true
 
 	queen.size = Vector2(QueenImage.size.X, QueenImage.size.Y - 64)
 	queen.startPosition = startPos

@@ -1,3 +1,4 @@
+#region Using Statements
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -5,111 +6,156 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-
+using SnailsPace.Objects;
+#endregion
 
 namespace SnailsPace.Core
 {
+    /// <summary>
+    /// This class handles initializing everything needed for playing a level, dealing with physics,
+    /// artificial intelligence, and passing information along to the renderer so that everything can be drawn
+    /// </summary>
     class Engine
     {
-        // Toggle for collision detection
-        bool collisionDetectionOn = true;
 
-        // Toggle for gravity
-        bool gravityEnabled = true;
+        #region Debugging toggles
+        private bool collisionDetectionOn = true;
+        private bool gravityEnabled = true;
+        #endregion
 
-        // Engine state
-        bool enginePaused = false;
-        public static GameTime gameTime;
-        public static Sound sound;
-
-        // Game font
-        public SpriteFont gameFont;
-#if DEBUG
-        public SpriteFont debugFont;
-#endif
-
-        // Game map
-        public static GameLua lua;
-        public static Objects.Map map;
-
-        // Player
-        public static Core.Player player;
-
-        // Bullets
-        public static List<Objects.Bullet> bullets;
-        public static List<Objects.Explosion> explosions;
-
-        // Pause Screen
-        public Objects.GameObject pause;
-
-        // Renderer
-        public Renderer gameRenderer;
-
-        // Invisible map bounding objects
-        public List<Objects.GameObject> mapBounds;
-
-        // list of objects that are colliding in this frame
-        private List<Objects.GameObject> collidingObjects;
-
+        #region Sprites & Fonts
         // HUD sprites
         public static Texture2D healthBar;
         public static Texture2D healthIcon;
         public static Texture2D fuelBar;
         public static Texture2D fuelIcon;
 
-        private Vector2 activityBoundsSize = new Vector2(2192, 1680);
+        // Fonts
+        public SpriteFont gameFont;
+#if DEBUG
+        public SpriteFont debugFont;
+#endif
+        #endregion
 
+        #region Game Settings & States
+        private readonly Vector2 activityBoundsSize = new Vector2(2192, 1680);
+        private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
+        private bool enginePaused = false;
+        #endregion
+
+        #region Game Components
+        // Game map
+        public static Map map;
+
+        // Player
+        public static Core.Player player;
+
+        // Used to allow the most-recent frame's game time to be known by more things
+        public static GameTime gameTime;
+
+        // Sound Engine
+        public static Sound sound;
+
+        // Lua Engine
+        public static GameLua lua;
+
+        // Rendering Engine
+        public Renderer gameRenderer;
+
+        // Bullets
+        public static List<Bullet> bullets;
+        public static List<Explosion> explosions;
+
+        // Pause Screen
+        public GameObject pause;
+
+        // Invisible map bounding objects
+        public List<GameObject> mapBounds;
+
+        // list of objects that are colliding in this frame
+        private List<GameObject> collidingObjects;
+        #endregion
+
+        #region Constructor
         private static Engine instance;
         public static Engine GetInstance()
         {
             return instance;
         }
-        // Constructors
 
+        /// <summary>
+        /// Starts up a game engine for the specified map
+        /// </summary>
+        /// <param name="mapName">The name given to the map in the file system</param>
         public Engine(String mapName)
         {
+            if (instance != null)
+            {
+                #region Cleanup the old instance
+                instance = null;
+                map = null;
+                bullets = null;
+                explosions = null;
+                lua = null;
+                sound = null;
+                player = null;
+                System.GC.Collect();
+                #endregion
+            }
             instance = this;
             sound = SnailsPace.soundManager;
 
             // Initialize Lua, the Player, and the Map
             lua = new GameLua(mapName);
-            map = new Objects.Map(mapName);
+            map = new Map(mapName);
 
-            bullets = new List<Objects.Bullet>();
-            explosions = new List<Objects.Explosion>();
-            collidingObjects = new List<Objects.GameObject>();
+            // Setup lists for objects that will be used later
+            bullets = new List<Bullet>();
+            explosions = new List<Explosion>();
+            collidingObjects = new List<GameObject>();
 
+            // Load the Fonts, Sprites, and some helper Game Objects that will be needed.
             loadFonts();
             loadHUD();
             setupPauseOverlay();
-            setupGameRenderer();
             setupMapBounds();
-        }
 
+            // Initialize the Renderer
+            setupGameRenderer();
+        }
+        #endregion
+
+        #region Renderer, Font, Sprite, and helper Game Object initialization
+        /// <summary>
+        /// Creates a game object to be used as an overlay when the game is paused
+        /// </summary>
         private void setupPauseOverlay()
         {
-            Objects.Sprite pauseSprite = new Objects.Sprite();
-            pauseSprite.image = new Objects.Image();
+            Sprite pauseSprite = new Sprite();
+            pauseSprite.image = new Image();
             pauseSprite.image.filename = "Resources/Textures/PauseScreen";
             pauseSprite.image.blocks = new Vector2(1.0f, 1.0f);
             pauseSprite.image.size = new Vector2(800.0f, 600.0f);
             pauseSprite.visible = false;
             pauseSprite.effect = "Resources/Effects/effects";
-            pause = new Objects.GameObject();
-            pause.sprites = new Dictionary<string, Objects.Sprite>();
+            pause = new GameObject();
+            pause.sprites = new Dictionary<string, Sprite>();
             pause.sprites.Add("Pause", pauseSprite);
             pause.position = new Vector2(0.0f, 0.0f);
             pause.layer = -300;
             pause.collidable = false;
         }
 
+        /// <summary>
+        /// Sets up invisible borders to prevent the player from moving off the edge of the map
+        /// </summary>
         private void setupMapBounds()
         {
-            mapBounds = new List<Objects.GameObject>();
+            mapBounds = new List<GameObject>();
 
             //Build each bounding wall
-            Objects.Sprite mapBoundsSprite = new Objects.Sprite();
-            mapBoundsSprite.image = new Objects.Image();
+            Sprite mapBoundsSprite = new Sprite();
+            mapBoundsSprite.image = new Image();
             mapBoundsSprite.image.filename = "Resources/Textures/BoundingBox";
             mapBoundsSprite.image.blocks = new Vector2(1.0f);
             mapBoundsSprite.visible = false;
@@ -117,14 +163,14 @@ namespace SnailsPace.Core
 
             Vector2 lastPoint = map.bounds[0];
             Vector2 currentPoint;
-            Objects.GameObject mapBound;
+            GameObject mapBound;
 
             for (int i = 1; i < map.bounds.Count; i++)
             {
                 currentPoint = map.bounds[i];
 
                 mapBoundsSprite = mapBoundsSprite.clone();
-                mapBound = new Objects.GameObject();
+                mapBound = new GameObject();
 
                 if (lastPoint.X == currentPoint.X)
                 {
@@ -149,6 +195,9 @@ namespace SnailsPace.Core
             }
         }
 
+        /// <summary>
+        /// Loads the fonts used in the game
+        /// </summary>
         private void loadFonts()
         {
             gameFont = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Menu");
@@ -157,6 +206,9 @@ namespace SnailsPace.Core
 #endif
         }
 
+        /// <summary>
+        /// Loads the sprites used for the HUD
+        /// </summary>
         private void loadHUD()
         {
             healthBar = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/HealthBar");
@@ -165,52 +217,34 @@ namespace SnailsPace.Core
             fuelIcon = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/FuelIcon");
         }
 
+        /// <summary>
+        /// Initializes the renderer, sets the renderer to focus on Helix, and tells
+        /// it where the bounds of the map are so the camera doesn't move too far
+        /// </summary>
         private void setupGameRenderer()
         {
             gameRenderer = new Renderer();
-            //            gameRenderer.createTexturesAndEffects(allObjects());
+            gameRenderer.createTexturesAndEffects(allObjects());
 
-            Vector2 offsetPosition = new Vector2(0, 0);
-            Renderer.cameraPosition = new Vector3(); //Player.helix.position + offsetPosition, Renderer.cameraTargetOffset.Z * 1.5f);
+            Renderer.cameraPosition = new Vector3(Player.helix.position, Renderer.normalCameraDistance);
 
             Renderer.cameraTarget = Player.helix;
-            Renderer.cameraTargetOffset.X = -64;
-            Renderer.cameraTargetOffset.Y = 192;
 
             gameRenderer.cameraBounds = map.bounds.ToArray();
         }
+        #endregion
 
+        #region AI
+        /// <summary>
+        /// Handles input and initiates the AI for all the characters
+        /// </summary>
+        /// <param name="gameTime">The game time for this update</param>
         public void think(GameTime gameTime)
         {
             Engine.gameTime = gameTime;
             Input input = SnailsPace.inputManager;
 
-            if (input.inputPressed("Pause"))
-            {
-                enginePaused = !enginePaused;
-            }
-            if (input.inputPressed("MenuToggle"))
-            {
-                enginePaused = true;
-                SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
-            }
-            if (!SnailsPace.getInstance().IsActive)
-            {
-                enginePaused = true;
-            }
-            pause.sprites["Pause"].visible = enginePaused;
-
-            if (enginePaused)
-            {
-                sound.pause("music");
-                sound.stop("alarm");
-                sound.stop("jetpack");
-            }
-            else
-            {
-                sound.play("music", false);
-            }
-
+            #region Adjust Debug Settings based on input
 #if DEBUG
             if (input.inputPressed("DebugFramerate"))
             {
@@ -267,35 +301,61 @@ namespace SnailsPace.Core
                 Console.WriteLine("Debug Triggers: " + SnailsPace.debugTriggers);
             }
 #endif
+            #endregion
+
+            #region Check for pausing, unpausing, and accessing the menu
+            if (input.inputPressed("Pause"))
+            {
+                enginePaused = !enginePaused;
+            }
+            if (input.inputPressed("MenuToggle"))
+            {
+                enginePaused = true;
+                SnailsPace.getInstance().changeState(SnailsPace.GameStates.MainMenu);
+            }
+            if (!SnailsPace.getInstance().IsActive)
+            {
+                enginePaused = true;
+            }
+            #endregion
+
+            #region Adjust sounds and sprites based on paused state; Break out of think loop if paused
+            pause.sprites["Pause"].visible = enginePaused;
 
             if (enginePaused)
             {
+                sound.pause("music");
+                sound.stop("alarm");
+                sound.stop("jetpack");
                 pause.position = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
                 return;
             }
+            else
+            {
+                sound.play("music", false);
+            }
+            #endregion
 
-            // TODO: iterate through map.characters calling think() on each one.
-            List<Objects.Character>.Enumerator charEnum = new List<Objects.Character>(map.characters).GetEnumerator();
-            List<Objects.Character> deadChars = new List<Objects.Character>();
+            #region Let non-dying characters think, let dying characters die, cleanup dead characters
+            List<Character>.Enumerator charEnum = new List<Character>(map.characters).GetEnumerator();
             while (charEnum.MoveNext())
             {
                 //Is a character dead? Kill it!
                 if (charEnum.Current.health <= 0)
                 {
-					
-					if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
-					{
-						deadChars.Add(charEnum.Current);
-					}
+                    if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
+                    {
+                        map.characters.Remove(charEnum.Current);
+                    }
                     else if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
                     {
                         player.killedEnemy();
                         Engine.sound.play("kill");
                     }
-					charEnum.Current.collidable = false;
-					charEnum.Current.setSprite("Die");
+                    charEnum.Current.collidable = false;
+                    charEnum.Current.setSprite("Die");
                 }
-                //If not, let it think.
+                //If not, let it think (as long as it is close enough to Helix).
                 else
                 {
                     if (IsWithinBounds(charEnum.Current, Player.helix.position, activityBoundsSize))
@@ -305,92 +365,155 @@ namespace SnailsPace.Core
                 }
             }
             charEnum.Dispose();
+            #endregion
 
-            List<Objects.Character>.Enumerator deadCharEnum = deadChars.GetEnumerator();
-            while (deadCharEnum.MoveNext())
-            {
-                map.characters.Remove(deadCharEnum.Current);
-            }
-            deadCharEnum.Dispose();
-
+            // Deal with Helix's autonomous behaviors and player input
             player.think(gameTime);
         }
+        #endregion
 
-        public static Vector2 mouseToGame(Vector2 mousePosition)
+        #region helper Functions
+
+        #region Compiled Lists of Objects and Strings for the level
+        /// <summary>
+        /// Gets a list of all of the objects in the level
+        /// </summary>
+        /// <returns></returns>
+        private List<GameObject> allObjects()
         {
-            int screenWidth = SnailsPace.videoConfig.getInt("width");
-            int screenHeight = SnailsPace.videoConfig.getInt("height");
-            float scaleX = Renderer.cameraPosition.Z / 1.8f;
-            float scaleY = Renderer.cameraPosition.Z / -2.4f;
+            List<GameObject> objects = new List<GameObject>(map.objects);
 
-            Vector2 gamePosition = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
-            gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
-            gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
+            // The invisible bounds for the map
+            objects.AddRange(mapBounds);
 
-            return gamePosition;
-        }
-
-        public static float screenSignedPercentage(float position, int size)
-        {
-            int halfSize = size / 2;
-            float halfPosition = position - halfSize;
-            float percentage = halfPosition / (float)halfSize;
-
-            return percentage;
-        }
-
-        private List<Objects.Bullet> bulletsToClear = new List<Objects.Bullet>();
-        private List<Objects.Bullet> bulletsToExplode = new List<Objects.Bullet>();
-        private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector,
-			out List<Objects.GameObject> remainingCollidableObjects)
-        {
-            return CheckForCollision(movingObject, collidableObjects, motionVector, out remainingCollidableObjects, true);
-        }
-        private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector)
-        {
-            List<Objects.GameObject> x;
-            return CheckForCollision(movingObject, collidableObjects, motionVector, out x, false);
-        }
-        private Objects.GameObject CheckForCollision(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, Vector2 motionVector,
-			out List<Objects.GameObject> remainingCollidableObjects, bool populateRemaining)
-        {
-            remainingCollidableObjects = new List<Objects.GameObject>(collidableObjects);
-            if (movingObject.collidable && collisionDetectionOn)
+            #region Characters
+            List<Character>.Enumerator characterEnum = map.characters.GetEnumerator();
+            while (characterEnum.MoveNext())
             {
-                List<Objects.GameObject>.Enumerator collideableObjEnumerator = collidableObjects.GetEnumerator();
-                while (collideableObjEnumerator.MoveNext())
-                {
-                    if (collideableObjEnumerator.Current.collidable && collideableObjEnumerator.Current != movingObject)
-                    {
-                        if (movingObject.willIntersect(motionVector, collideableObjEnumerator.Current))
-                        {
-                            if (movingObject.canCollideWith(collideableObjEnumerator.Current))
-                            {
-#if DEBUG
-                                if (SnailsPace.debugCollisions)
-                                {
-                                    SnailsPace.debug("Collision: " + movingObject.position);
-                                }
-#endif
-                                return collideableObjEnumerator.Current;
-                            }
-                            else
-                            {
-                                if (populateRemaining)
-                                {
-                                    remainingCollidableObjects.Remove(collideableObjEnumerator.Current);
-                                }
-                            }
-                        }
-                    }
-                }
+                objects.Add(characterEnum.Current);
             }
-            return null;
+            characterEnum.Dispose();
+            #endregion
+
+            // Helix
+            objects.AddRange(player.gameObjects());
+
+            #region Bullets
+            List<Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
+            while (bulletEnum.MoveNext())
+            {
+                objects.Add(bulletEnum.Current);
+            }
+            bulletEnum.Dispose();
+            #endregion
+
+            #region Explosions
+            List<Explosion>.Enumerator explosionEnum = explosions.GetEnumerator();
+            while (explosionEnum.MoveNext())
+            {
+                objects.Add(explosionEnum.Current);
+            }
+            explosionEnum.Dispose();
+            #endregion
+
+            // The pause screen
+            objects.Add(pause);
+
+            return objects;
         }
 
-        private readonly Vector2 gravity = new Vector2(0.0f, -512.0f);
+        /// <summary>
+        /// Gets a list of all of the strings that should be drawn
+        /// </summary>
+        /// <returns></returns>
+        private List<Text> allStrings()
+        {
+            List<Text> strings = new List<Text>();
+            #region Strings for Debugging
+#if DEBUG
+            int numDebugStrings = 0;
+            if (SnailsPace.debugHelixPosition)
+            {
+                Text debugString = new Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+            }
+            if (SnailsPace.debugCameraPosition)
+            {
+                Text debugString = new Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
 
-        private bool IsMovingWithinBounds(Objects.GameObject movingObject, Vector2 objectMovement, Vector2 boundsSize, Vector2 boundsCenter)
+                debugString = new Text();
+                debugString.color = Color.Yellow;
+                Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
+                debugString.content = "Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+
+                debugString = new Text();
+                debugString.color = Color.Yellow;
+                Vector3 distance = cameraTargetPosition - Renderer.cameraPosition;
+                debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+
+                debugString = new Text();
+                debugString.color = Color.Yellow;
+                debugString.content = "Crosshair: (" + Player.crosshair.position.X + ", " + Player.crosshair.position.Y + ")";
+                debugString.font = debugFont;
+                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
+                debugString.rotation = 0;
+                debugString.scale = Vector2.One;
+                strings.Add(debugString);
+            }
+#endif
+            #endregion
+            strings.AddRange(player.textStrings());
+            return strings;
+        }
+        #endregion
+
+        #region Object Positioning & Movement
+        public bool IsWithinBounds(GameObject objectToCheck, Vector2 boundsCenter, Vector2 boundsSize)
+        {
+            float left = objectToCheck.position.X - objectToCheck.size.X / 2;
+            float right = objectToCheck.position.X + objectToCheck.size.X / 2;
+            float top = objectToCheck.position.Y + objectToCheck.size.Y / 2;
+            float bottom = objectToCheck.position.Y - objectToCheck.size.Y / 2;
+            float leftDiff = left - boundsCenter.X;
+            float leftDiffAbs = Math.Abs(leftDiff);
+            float rightDiff = right - boundsCenter.X;
+            float rightDiffAbs = Math.Abs(rightDiff);
+            float topDiff = top - boundsCenter.Y;
+            float topDiffAbs = Math.Abs(topDiff);
+            float bottomDiff = bottom - boundsCenter.Y;
+            float bottomDiffAbs = Math.Abs(bottomDiff);
+            if (((leftDiffAbs < boundsSize.X / 2) || (rightDiffAbs < boundsSize.X / 2) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
+                && ((topDiffAbs < boundsSize.Y / 2) || (bottomDiffAbs < boundsSize.Y / 2) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsMovingWithinBounds(GameObject movingObject, Vector2 objectMovement, Vector2 boundsSize, Vector2 boundsCenter)
         {
             if (movingObject.position.X < boundsCenter.X)
             {
@@ -446,135 +569,8 @@ namespace SnailsPace.Core
             }
             return true;
         }
-        private void MoveOrCollide(Objects.GameObject movingObject, List<Objects.GameObject> collidableObjects, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
-        {
-            if ((gravityEnabled && movingObject.affectedByGravity) || movingObject.velocity.Length() > 0 || movingObject.direction.Length() > 0)
-            {
 
-                Vector2 objectVelocity = GetObjectVelocity(movingObject, elapsedTime);
-                Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
-                Vector2 resultingMovement = Vector2.Zero;
-
-                if (!IsMovingWithinBounds(movingObject, objectMovement, boundsSize, boundsCenter))
-                {
-                    if (movingObject is Objects.Bullet)
-                    {
-                        bulletsToClear.Add((Objects.Bullet)movingObject);
-                    }
-                    return;
-                }
-                bool upwardCreep = false;
-
-                List<Objects.GameObject> remainingCollidableObjects;
-                Objects.GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectMovement, out remainingCollidableObjects);
-                if (collidedObject == null)
-                {
-                    resultingMovement = objectMovement;
-                }
-                else if (movingObject is Objects.Bullet)
-                {
-                    if (!(collidedObject is Objects.Character) || ((Objects.Bullet)movingObject).destroy)
-                    {
-                        bulletsToExplode.Add((Objects.Bullet)movingObject);
-                    }
-                }
-                else if (movingObject is Objects.Character)
-                {
-                    bool noSecondXCollision = true;
-                    bool noThirdXCollision = true;
-                    bool noSecondYCollision = true;
-                    float xTick = objectMovement.X * 0.25f;
-                    float yTick = objectMovement.Y * 0.25f;
-                    while ((noThirdXCollision && (Math.Abs(resultingMovement.X) < Math.Abs(objectMovement.X))) || (noSecondYCollision && (Math.Abs(resultingMovement.Y) < Math.Abs(objectMovement.Y))))
-                    {
-                        if (noSecondYCollision && yTick != 0)
-                        {
-                            resultingMovement.Y += yTick;
-                            collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
-                            if (collidedObject != null)
-                            {
-                                noSecondYCollision = false;
-                                resultingMovement.Y -= yTick;
-                            }
-                        }
-                        if (noSecondXCollision && xTick != 0)
-                        {
-                            resultingMovement.X += xTick;
-                            collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
-                            if (collidedObject != null)
-                            {
-                                noSecondXCollision = false;
-                                resultingMovement.X -= xTick;
-                            }
-                        }
-                        else if (!noSecondXCollision)
-                        {
-                            resultingMovement.X += xTick;
-                            resultingMovement.Y += elapsedTime * 32;
-                            collidedObject = CheckForCollision(movingObject, remainingCollidableObjects, resultingMovement);
-                            if (collidedObject == null)
-                            {
-                                noSecondXCollision = true;
-                                upwardCreep = true;
-                            }
-                            else
-                            {
-                                resultingMovement.X -= xTick;
-                                resultingMovement.Y -= elapsedTime * 32;
-                                noThirdXCollision = false;
-                            }
-                        }
-                    }
-                }
-                if (movingObject is Objects.Helix)
-                {
-                    if (resultingMovement.Y == 0)
-                    {
-                        if (objectVelocity.Y < 0)
-                        {
-                            Player.helix.flying = false;
-                        }
-                    }
-                    else
-                    {
-                        if (!upwardCreep)
-                        {
-                            Player.helix.flying = true;
-                        }
-                    }
-                }
-                if (resultingMovement.Length() == 0)
-                {
-                    movingObject.collidedWith(collidedObject);
-                    if (movingObject is Objects.Bullet)
-                    {
-                        resultingMovement = objectMovement;
-                    }
-                    else
-                    {
-                        movingObject.velocity = Vector2.Zero;
-                        movingObject.velocityFromGravity = Vector2.Zero;
-                    }
-                }
-                
-                movingObject.position += resultingMovement;
-                movingObject.velocity = objectVelocity;
-                if (resultingMovement.Y >= 0)
-                {
-                    movingObject.velocityFromGravity = Vector2.Zero;
-                }
-                if (resultingMovement.Y == 0)
-                {
-                    movingObject.velocity.Y = 0;
-                }
-                if (resultingMovement.X == 0)
-                {
-                    movingObject.velocity.X = 0;
-                }
-            }
-        }
-
-        private Vector2 GetObjectVelocity(Objects.GameObject movingObject, float elapsedTime)
+        private Vector2 GetObjectVelocity(GameObject movingObject, float elapsedTime)
         {
             Vector2 objectVelocity = Vector2.Zero;
             Vector2 objectAccel = Vector2.Zero;
@@ -649,57 +645,304 @@ namespace SnailsPace.Core
             }
             return objectVelocity;
         }
+        #endregion
 
-
-        public bool IsWithinBounds(Objects.GameObject objectToCheck, Vector2 boundsCenter, Vector2 boundsSize)
+        #region Coordinate Manipulation
+        public static Vector2 mouseToGame(Vector2 mousePosition)
         {
-            float left = objectToCheck.position.X - objectToCheck.size.X / 2;
-            float right = objectToCheck.position.X + objectToCheck.size.X / 2;
-            float top = objectToCheck.position.Y + objectToCheck.size.Y / 2;
-            float bottom = objectToCheck.position.Y - objectToCheck.size.Y / 2;
-            float leftDiff = left - boundsCenter.X;
-            float leftDiffAbs = Math.Abs(leftDiff);
-            float rightDiff = right - boundsCenter.X;
-            float rightDiffAbs = Math.Abs(rightDiff);
-            float topDiff = top - boundsCenter.Y;
-            float topDiffAbs = Math.Abs(topDiff);
-            float bottomDiff = bottom - boundsCenter.Y;
-            float bottomDiffAbs = Math.Abs(bottomDiff);
-            if (((leftDiffAbs < boundsSize.X / 2) || (rightDiffAbs < boundsSize.X / 2) || (rightDiff < 0 && leftDiff > 0 || rightDiff > 0 && leftDiff < 0))
-                && ((topDiffAbs < boundsSize.Y / 2) || (bottomDiffAbs < boundsSize.Y / 2) || (topDiff < 0 && bottomDiff > 0 || topDiff > 0 && bottomDiff < 0)))
-            {
-                return true;
-            }
-            return false;
+            int screenWidth = SnailsPace.videoConfig.getInt("width");
+            int screenHeight = SnailsPace.videoConfig.getInt("height");
+            float scaleX = Renderer.cameraPosition.Z / 1.8f;
+            float scaleY = Renderer.cameraPosition.Z / -2.4f;
+
+            Vector2 gamePosition = new Vector2(Renderer.cameraPosition.X, Renderer.cameraPosition.Y);
+            gamePosition.X += scaleX * screenSignedPercentage(mousePosition.X, screenWidth);
+            gamePosition.Y += scaleY * screenSignedPercentage(mousePosition.Y, screenHeight);
+
+            return gamePosition;
         }
 
+        public static float screenSignedPercentage(float position, int size)
+        {
+            int halfSize = size / 2;
+            float halfPosition = position - halfSize;
+            float percentage = halfPosition / (float)halfSize;
+
+            return percentage;
+        }
+        #endregion
+
+        #region Game State Manipulation
+        /// <summary>
+        /// The level has ended
+        /// </summary>
+        public void EndLevel()
+        {
+            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).firstDraw = true;
+            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).ready = false;
+            SnailsPace.getInstance().changeState(SnailsPace.GameStates.LevelOver);
+        }
+        #endregion
+
+        #endregion
+
+        #region Collision Detection
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="movingObject"></param>
+        /// <param name="collidableObjects"></param>
+        /// <param name="motionVector"></param>
+        /// <param name="remainingCollidableObjects"></param>
+        /// <param name="populateRemaining"></param>
+        /// <returns></returns>
+        private GameObject CheckForCollision(GameObject movingObject, List<GameObject> collidableObjects, Vector2 motionVector )
+        {
+            if (movingObject.collidable && collisionDetectionOn)
+            {
+                List<GameObject>.Enumerator collideableObjEnumerator = collidableObjects.GetEnumerator();
+                while (collideableObjEnumerator.MoveNext())
+                {
+                    if (collideableObjEnumerator.Current.collidable && collideableObjEnumerator.Current != movingObject)
+                    {
+                        if (movingObject.willIntersect(motionVector, collideableObjEnumerator.Current))
+                        {
+                            if (movingObject.canCollideWith(collideableObjEnumerator.Current))
+                            {
+#if DEBUG
+                                if (SnailsPace.debugCollisions)
+                                {
+                                    SnailsPace.debug("Collision: " + movingObject.position);
+                                }
+#endif
+                                return collideableObjEnumerator.Current;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// Move objects, as long as they don't collide with anything
+        /// </summary>
+        /// <param name="movingObject">The object that is moving</param>
+        /// <param name="collidableObjects">Objects that might collide with the moving object</param>
+        /// <param name="elapsedTime">The time (in seconds) since the last update</param>
+        /// <param name="boundsSize">The size of the region that collision detection can reliably be performed</param>
+        /// <param name="boundsCenter">The center of the region where collision detection can reliably be performed</param>
+        private void MoveOrCollide(GameObject movingObject, List<GameObject> collidableObjects, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
+        {
+            // Make sure the object will actually be moving if it doesn't collide
+            if ((gravityEnabled && movingObject.affectedByGravity) || movingObject.velocity.Length() > 0
+                    || movingObject.direction.Length() > 0)
+            {
+
+                Vector2 objectVelocity = GetObjectVelocity(movingObject, elapsedTime);
+                Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
+
+                #region Make sure the object isn't moving outside the bounds
+                if (!IsMovingWithinBounds(movingObject, objectMovement, boundsSize, boundsCenter))
+                {
+                    if (movingObject is Bullet)
+                    {
+                        bullets.Remove((Bullet)movingObject);
+                    }
+                    return;
+                }
+                #endregion
+
+                Vector2 resultingMovement = Vector2.Zero;
+                bool upwardCreep = false;
+
+                // Check to see if the object can move all the way without colliding
+                GameObject collidedObject = CheckForCollision(movingObject, collidableObjects, objectMovement);
+                if (collidedObject == null)
+                {
+                    // The object didn't collide, move all the way
+                    resultingMovement = objectMovement;
+                }
+                else if (movingObject is Bullet)
+                {
+                    // The object collided, and was a bullet (damage taken care of below)
+                    // If it hit a non-character, or if the bullet is not supposed to move through things, explode
+                    if (!(collidedObject is Character) || ((Bullet)movingObject).destroy)
+                    {
+                        #region Make the bullet explode!
+                        Bullet b = (Bullet)movingObject;
+                        bullets.Remove(b);
+                        Explosion explosion = b.explosion;
+                        explosion.position = b.position;
+                        explosions.Add(explosion);
+                        #endregion
+                    }
+                }
+                else
+                {
+                    #region Try to move the object a little closer to whatever it collided with
+
+                    bool noSecondXCollision = true;
+                    bool noThirdXCollision = true;
+                    bool noSecondYCollision = true;
+                    float xTick = objectMovement.X * 0.25f;
+                    float yTick = objectMovement.Y * 0.25f;
+
+                    // Until we can't get any closer...
+                    while ((noThirdXCollision && (Math.Abs(resultingMovement.X) < Math.Abs(objectMovement.X)))
+                        || (noSecondYCollision && (Math.Abs(resultingMovement.Y) < Math.Abs(objectMovement.Y))))
+                    {
+                        #region If we can move closer vertically, move a little closer
+                        if (noSecondYCollision && yTick != 0)
+                        {
+                            resultingMovement.Y += yTick;
+                            collidedObject = CheckForCollision(movingObject, collidableObjects, resultingMovement);
+                            if (collidedObject != null)
+                            {
+                                noSecondYCollision = false;
+                                resultingMovement.Y -= yTick;
+                            }
+                        }
+                        #endregion
+
+                        #region If we can move closer horizontally, move a little closer
+                        if (noSecondXCollision && xTick != 0)
+                        {
+                            resultingMovement.X += xTick;
+                            collidedObject = CheckForCollision(movingObject, collidableObjects, resultingMovement);
+                            if (collidedObject != null)
+                            {
+                                noSecondXCollision = false;
+                                resultingMovement.X -= xTick;
+                            }
+                        }
+                        #endregion
+                        #region If we failed to move closer horizontally before, move up a little while moving horizontally (walk up gentle slopes)
+                        else if (!noSecondXCollision)
+                        {
+                            resultingMovement.X += xTick;
+                            resultingMovement.Y += elapsedTime * 32;
+                            collidedObject = CheckForCollision(movingObject, collidableObjects, resultingMovement);
+                            if (collidedObject == null)
+                            {
+                                // We could move! Continue creeping closer to our target
+                                noSecondXCollision = true;
+                                upwardCreep = true;
+                            }
+                            else
+                            {
+                                // We couldn't move, stop trying to move horizontally
+                                resultingMovement.X -= xTick;
+                                resultingMovement.Y -= elapsedTime * 32;
+                                noThirdXCollision = false;
+                            }
+                        }
+                        #endregion
+                    }
+                    #endregion
+                }
+                
+                #region If it was Helix that moved, check to see if his movement caused him to start or stop flying
+                if (movingObject is Helix)
+                {
+                    if (resultingMovement.Y == 0)
+                    {
+                        if (objectVelocity.Y < 0)
+                        {
+                            Player.helix.flying = false;
+                        }
+                    }
+                    else
+                    {
+                        if (!upwardCreep)
+                        {
+                            Player.helix.flying = true;
+                        }
+                    }
+                }
+                #endregion
+
+                #region If the object didn't move, collide with whatever got in the way
+                if (resultingMovement.Length() == 0)
+                {
+                    movingObject.collidedWith(collidedObject);
+                    if (movingObject is Bullet)
+                    {
+                        // Keep moving at full speed
+                        resultingMovement = objectMovement;
+                    }
+                    else
+                    {
+                        // Reset velocity and gravitational velocity
+                        movingObject.velocity = Vector2.Zero;
+                        movingObject.velocityFromGravity = Vector2.Zero;
+                    }
+                }
+                #endregion
+
+                #region Update the object's velocity, position, and velocity from gravity appropriately
+                movingObject.position += resultingMovement;
+                movingObject.velocity = objectVelocity;
+                if (resultingMovement.Y >= 0)
+                {
+                    movingObject.velocityFromGravity = Vector2.Zero;
+                }
+                else
+                {
+                    if (movingObject.velocity.Y > movingObject.velocityFromGravity.Y)
+                    {
+                        movingObject.velocityFromGravity.Y = movingObject.velocity.Y;
+                    }
+                }
+                if (resultingMovement.Y == 0)
+                {
+                    movingObject.velocity.Y = 0;
+                }
+                if (resultingMovement.X == 0)
+                {
+                    movingObject.velocity.X = 0;
+                }
+                #endregion
+            }
+        }
+        #endregion
+
+        #region Physics
+        /// <summary>
+        /// Movement and Collision Detection
+        /// </summary>
+        /// <param name="gameTime">The game time for this update</param>
         public void physics(GameTime gameTime)
         {
+            // If it's paused, don't do anything
             if (enginePaused)
             {
                 return;
             }
+
+            // Don't let things act as if more than half a second has elapsed (to minimize impact of lag & debugging)
             float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 0.5);
 
-
-            // Out of range bullets
+            #region Get rid of out of range bullets
             {
-                List<Objects.Bullet>.Enumerator bulletEnumerator = Engine.bullets.GetEnumerator();
+                List<Bullet>.Enumerator bulletEnumerator = new List<Bullet>(bullets).GetEnumerator();
                 while (bulletEnumerator.MoveNext())
                 {
-                    Objects.Bullet bullet = bulletEnumerator.Current;
-                    if (bullet.range < Vector2.Distance(bullet.createPosition, bullet.position))
+                    if (bulletEnumerator.Current.range < Vector2.Distance(bulletEnumerator.Current.createPosition, bulletEnumerator.Current.position))
                     {
-                        bulletsToClear.Add(bullet);
+                        bullets.Remove(bulletEnumerator.Current);
                     }
                 }
                 bulletEnumerator.Dispose();
             }
+            #endregion
 
-            // Collision Detection
+            #region Collision Detection
             {
-                List<Objects.GameObject> collidableObjects = new List<Objects.GameObject>();
-                List<Objects.GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
+                List<GameObject> collidableObjects = new List<GameObject>();
+                #region Determine what objects are close enough to Helix to even care about collision detection
+                List<GameObject>.Enumerator objEnum = allObjects().GetEnumerator();
                 Vector2 boundsCenter = Player.helix.position;
                 while (objEnum.MoveNext())
                 {
@@ -711,90 +954,75 @@ namespace SnailsPace.Core
                         }
                         else
                         {
-                            if (objEnum.Current is Objects.Bullet)
+                            if (objEnum.Current is Bullet)
                             {
-                                bulletsToClear.Add((Objects.Bullet)objEnum.Current);
+                                bullets.Remove((Bullet)objEnum.Current);
                             }
                         }
                     }
                 }
                 objEnum.Dispose();
+                #endregion
 
                 bool noQuadTree = true;
                 if (!noQuadTree)
                 {
+                    #region Quad Tree Collisions
                     Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1400, 1400);
                     QuadTree quad = new QuadTree(collidableObjects, activityBoundsSize, boundsCenter, 2);
                     quad.print();
                     QuadTreeCollide(quad.getRoot(), elapsedTime, activityBoundsSize, boundsCenter);
                     detectCollisionsInNode(quad.getRoot(), elapsedTime);
-                    int i = 2;
+                    #endregion
                 }
-
-                if (noQuadTree)
+                else
                 {
-                    List<Objects.GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
+                    #region Move everything, checking for collisions
+                    List<GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
                     while (collideableObjectEnum.MoveNext())
                     {
                         MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, activityBoundsSize, boundsCenter);
                     }
-
-                }
-
-                // Clear out of range bullets
-                List<Objects.Bullet>.Enumerator destroyedBulletEnumerator = bulletsToClear.GetEnumerator();
-                while (destroyedBulletEnumerator.MoveNext())
-                {
-                    bullets.Remove(destroyedBulletEnumerator.Current);
-                }
-                destroyedBulletEnumerator.Dispose();
-
-                // explode collided bullets
-                destroyedBulletEnumerator = bulletsToExplode.GetEnumerator();
-                while (destroyedBulletEnumerator.MoveNext())
-                {
-                    bullets.Remove(destroyedBulletEnumerator.Current);
-                    Objects.Explosion explosion = destroyedBulletEnumerator.Current.explosion;
-                    explosion.position = destroyedBulletEnumerator.Current.position;
-                    explosions.Add(explosion);
-                }
-                destroyedBulletEnumerator.Dispose();
-
-                bulletsToClear.Clear();
-                bulletsToExplode.Clear();
-            }
-
-            // Check all triggers against Helix
-            List<Objects.Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
-            while (triggers.MoveNext())
-            {
-                Objects.Trigger trigger = triggers.Current;
-
-                //if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
-                if (trigger.bounds.WillIntersect(Player.helix.bounds, Vector2.Zero))
-                {
-                    if (!trigger.inside)
-                    {
-                        trigger.triggerIn(Player.helix);
-                    }
-                    trigger.trigger(Player.helix);
-                }
-                else
-                {
-                    if (trigger.inside)
-                    {
-                        trigger.triggerOut(Player.helix);
-                    }
+                    #endregion
                 }
             }
-            triggers.Dispose();
+            #endregion
 
-            // Animate everything
+            #region Check all triggers against Helix
             {
-                List<Objects.GameObject>.Enumerator objEnumerator = map.objects.GetEnumerator();
+                List<Trigger>.Enumerator triggers = map.triggers.GetEnumerator();
+                while (triggers.MoveNext())
+                {
+                    Trigger trigger = triggers.Current;
+
+                    //if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
+                    if (trigger.bounds.WillIntersect(Player.helix.bounds, Vector2.Zero))
+                    {
+                        if (!trigger.inside)
+                        {
+                            trigger.triggerIn(Player.helix);
+                        }
+                        trigger.trigger(Player.helix);
+                    }
+                    else
+                    {
+                        if (trigger.inside)
+                        {
+                            trigger.triggerOut(Player.helix);
+                        }
+                    }
+                }
+                triggers.Dispose();
+            }
+            #endregion
+
+            #region Animate everything
+            {
+                #region Map Objects
+                List<GameObject>.Enumerator objEnumerator = map.objects.GetEnumerator();
                 while (objEnumerator.MoveNext())
                 {
-                    Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = objEnumerator.Current.sprites.Values.GetEnumerator();
+                    Dictionary<string, Sprite>.ValueCollection.Enumerator sprtEnumerator = objEnumerator.Current.sprites.Values.GetEnumerator();
                     while (sprtEnumerator.MoveNext())
                     {
                         sprtEnumerator.Current.animate(gameTime);
@@ -802,11 +1030,13 @@ namespace SnailsPace.Core
                     sprtEnumerator.Dispose();
                 }
                 objEnumerator.Dispose();
+                #endregion
 
-                List<Objects.Bullet>.Enumerator bulletEnumerator = Engine.bullets.GetEnumerator();
+                #region Bullets
+                List<Bullet>.Enumerator bulletEnumerator = Engine.bullets.GetEnumerator();
                 while (bulletEnumerator.MoveNext())
                 {
-                    Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = bulletEnumerator.Current.sprites.Values.GetEnumerator();
+                    Dictionary<string, Sprite>.ValueCollection.Enumerator sprtEnumerator = bulletEnumerator.Current.sprites.Values.GetEnumerator();
                     while (sprtEnumerator.MoveNext())
                     {
                         sprtEnumerator.Current.animate(gameTime);
@@ -814,63 +1044,66 @@ namespace SnailsPace.Core
                     sprtEnumerator.Dispose();
                 }
                 bulletEnumerator.Dispose();
+                #endregion
 
-
-                List<Objects.Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
+                #region Characters
+                List<Character>.Enumerator charEnumerator = map.characters.GetEnumerator();
                 while (charEnumerator.MoveNext())
                 {
-
-                    if (charEnumerator.Current.velocity.X >= 0)
+                    #region Turn the character in the proper direction
+                    if (charEnumerator.Current.velocity.X > 0)
                     {
                         charEnumerator.Current.horizontalFlip = false;
                     }
-                    else
+                    else if (charEnumerator.Current.velocity.X < 0)
                     {
                         charEnumerator.Current.horizontalFlip = true;
                     }
+                    #endregion
 
-                    Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = charEnumerator.Current.sprites.Values.GetEnumerator();
+                    #region Animate the character
+                    Dictionary<string, Sprite>.ValueCollection.Enumerator sprtEnumerator = charEnumerator.Current.sprites.Values.GetEnumerator();
                     while (sprtEnumerator.MoveNext())
                     {
                         sprtEnumerator.Current.animate(gameTime);
                     }
                     sprtEnumerator.Dispose();
+                    #endregion
                 }
                 charEnumerator.Dispose();
+                #endregion
 
-                List<Objects.Explosion>.Enumerator explosionEnumerator = explosions.GetEnumerator();
-                List<Objects.Explosion> explosionsToRemove = new List<Objects.Explosion>();
+                #region Explosions
+                List<Explosion>.Enumerator explosionEnumerator = new List<Explosion>(explosions).GetEnumerator();
                 while (explosionEnumerator.MoveNext())
                 {
                     if (!explosionEnumerator.Current.DoAnimation(gameTime))
                     {
-                        explosionsToRemove.Add(explosionEnumerator.Current);
+                        // Get rid of the explosion - it's done exploding
+                        explosions.Remove(explosionEnumerator.Current);
                     }
                 }
                 explosionEnumerator.Dispose();
-                explosionEnumerator = explosionsToRemove.GetEnumerator();
-                while (explosionEnumerator.MoveNext())
-                {
-                    explosions.Remove(explosionEnumerator.Current);
-                }
-                explosionEnumerator.Dispose();
-
+                #endregion
             }
+            #endregion
         }
+        #endregion
 
+        #region Quad Tree Collision Detection
         private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime)
         {
             List<QuadTreeNode> children = node.getNodes();
             if (children.Count == 0)
             {
-                List<Objects.GameObject> containedObjects = node.getContainedObjects();
-                List<Objects.GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
+                List<GameObject> containedObjects = node.getContainedObjects();
+                List<GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
                 while (objectEnumerator.MoveNext())
                 {
                     String nodeName = node.name;
                     Vector2 objectVelocity = GetObjectVelocity(objectEnumerator.Current, elapsedTime);
                     Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
-                    Objects.GameObject collided = CheckForCollision(objectEnumerator.Current, containedObjects, objectMovement);
+                    GameObject collided = CheckForCollision(objectEnumerator.Current, containedObjects, objectMovement);
                     if (collided != null)
                     {
 #if DEBUG
@@ -897,125 +1130,26 @@ namespace SnailsPace.Core
             List<QuadTreeNode> children = node.getNodes();
             if (children.Count == 0)
             {
-                List<Objects.GameObject> containedObjects = node.getContainedObjects();
-                List<Objects.GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
+                List<GameObject> containedObjects = node.getContainedObjects();
+                List<GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
                 while (objectEnumerator.MoveNext())
                 {
                     MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime, boundsSize, boundsCenter);
                 }
             }
         }
+        #endregion
 
+        #region Rendering
+        /// <summary>
+        /// Tell the renderer it's time for it to do its thing
+        /// </summary>
+        /// <param name="gameTime">The time for the current update</param>
         public void render(GameTime gameTime)
         {
-            List<Objects.Text> strings = new List<Objects.Text>();
-            List<Objects.GameObject> objects = new List<Objects.GameObject>();
-
-#if DEBUG
-            int numDebugStrings = 0;
-            if (SnailsPace.debugHelixPosition)
-            {
-                Objects.Text debugString = new Objects.Text();
-                debugString.color = Color.Yellow;
-                debugString.content = "Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-            }
-            if (SnailsPace.debugCameraPosition)
-            {
-                Objects.Text debugString = new Objects.Text();
-                debugString.color = Color.Yellow;
-                debugString.content = "Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Objects.Text();
-                debugString.color = Color.Yellow;
-                Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
-                debugString.content = "Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Objects.Text();
-                debugString.color = Color.Yellow;
-                Vector3 distance = cameraTargetPosition - Renderer.cameraPosition;
-                debugString.content = "Distance: (" + distance.X + ", " + distance.Y + ", " + distance.Z + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-
-                debugString = new Objects.Text();
-                debugString.color = Color.Yellow;
-                debugString.content = "Crosshair: (" + Player.crosshair.position.X + ", " + Player.crosshair.position.Y + ")";
-                debugString.font = debugFont;
-                debugString.position = new Vector2(2 * debugFont.Spacing, debugFont.Spacing + numDebugStrings++ * debugFont.LineSpacing);
-                debugString.rotation = 0;
-                debugString.scale = Vector2.One;
-                strings.Add(debugString);
-            }
-#endif
-            strings.AddRange(allStrings());
-            objects.AddRange(allObjects());
-            gameRenderer.render(objects, strings, gameTime);
+            gameRenderer.render(allObjects(), allStrings(), gameTime);
         }
+        #endregion
 
-        private List<Objects.GameObject> allObjects()
-        {
-            List<Objects.GameObject> objects = new List<Objects.GameObject>(map.objects);
-
-            objects.AddRange(mapBounds);
-
-            List<Objects.Character>.Enumerator characterEnum = map.characters.GetEnumerator();
-            while (characterEnum.MoveNext())
-            {
-                objects.Add(characterEnum.Current);
-            }
-            characterEnum.Dispose();
-
-            objects.AddRange(player.gameObjects());
-
-            List<Objects.Bullet>.Enumerator bulletEnum = bullets.GetEnumerator();
-            while (bulletEnum.MoveNext())
-            {
-                objects.Add(bulletEnum.Current);
-            }
-            bulletEnum.Dispose();
-
-            List<Objects.Explosion>.Enumerator explosionEnum = explosions.GetEnumerator();
-            while (explosionEnum.MoveNext())
-            {
-                objects.Add(explosionEnum.Current);
-            }
-            explosionEnum.Dispose();
-
-            objects.Add(pause);
-
-            return objects;
-        }
-
-        private List<Objects.Text> allStrings()
-        {
-            List<Objects.Text> strings = new List<Objects.Text>();
-            strings.AddRange(player.textStrings());
-            return strings;
-        }
-
-        public void EndLevel()
-        {
-            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).firstDraw = true;
-            ((Screens.LevelOverScreen)SnailsPace.getInstance().getScreen(SnailsPace.GameStates.LevelOver)).ready = false;
-            SnailsPace.getInstance().changeState(SnailsPace.GameStates.LevelOver);
-        }
     }
 }
