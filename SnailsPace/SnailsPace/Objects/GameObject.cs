@@ -99,18 +99,35 @@ namespace SnailsPace.Objects
             sprites = new Dictionary<string,Sprite>();
         }
 
-		public void setSprite(String sprtName)
-		{
-			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
-			while (sprtEnumerator.MoveNext())
-			{
-				sprtEnumerator.Current.visible = false;
-			}
+        public void setSprite(String sprtName)
+        {
+            Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
+            while (sprtEnumerator.MoveNext())
+            {
+                sprtEnumerator.Current.visible = false;
+            }
             if (sprites.ContainsKey(sprtName))
             {
                 sprites[sprtName].visible = true;
             }
-		}
+        }
+
+        public void setSprites(String sprtName, String sprtName2)
+        {
+            Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
+            while (sprtEnumerator.MoveNext())
+            {
+                sprtEnumerator.Current.visible = false;
+            }
+            if (sprites.ContainsKey(sprtName))
+            {
+                sprites[sprtName].visible = true;
+            }
+            if (sprites.ContainsKey(sprtName2))
+            {
+                sprites[sprtName2].visible = true;
+            }
+        }
 
 		public virtual bool canCollideWith(GameObject otherObject)
 		{

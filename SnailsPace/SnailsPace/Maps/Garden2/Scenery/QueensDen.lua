@@ -1,6 +1,5 @@
 --[[
 TODOs
-Add in Queen Ant
 Add in patrolling ants
 Finish Exit Path
 ]]--
@@ -49,7 +48,7 @@ ant = BlackAnt( Vector2( xOffset + 1240, yOffset + 1320 ), "patrol" )
 ant = BlackAnt( Vector2( xOffset + 1560, yOffset + 1320 ), "patrol" )
 
 -- Queen Ant
-ant = Queen( Vector2( xOffset + 2260, yOffset + 1420 ) )
+ant = Queen( Vector2( xOffset + 2260, yOffset + 1420) )
 
 -- Ceiling
 WorldBuilding.BuildSection({ width=5, xOffset=600, yOffset=2052, sprite=dirtSprite, xOverlap=20 })
