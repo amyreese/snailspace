@@ -59,8 +59,6 @@ end
 
 -- Fire Ant behavior function
 function ShakerThinker( self, gameTime )
-	self:setSprite("Walk")
-	AI.moveToHelix(self, nil, nil, nil, false)
-	AI.shootDirectlyAtHelix(self, gameTime)
+	AI.jump(self)
 	-- TODO: Extend AI for the Fire Ant
 end
