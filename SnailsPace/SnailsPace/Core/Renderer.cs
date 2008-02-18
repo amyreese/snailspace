@@ -197,8 +197,10 @@ namespace SnailsPace.Core
                     }
                     else if (cameraBounds[i].Y == cameraBounds[i - 1].Y)
                     {
-                        if ((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopYDistance > cameraBounds[i].Y))
-                            cameraPosition.Y = cameraBounds[i].Y - cameraStopYDistance;
+						if ((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopYDistance > cameraBounds[i].Y))
+							cameraPosition.Y = cameraBounds[i].Y - cameraStopYDistance;
+						else if ((cameraBounds[i].Y < 0) && (cameraPosition.Y - cameraStopYDistance < cameraBounds[i].Y))
+							cameraPosition.Y = cameraBounds[i].Y + cameraStopYDistance;
                     }
                 }
             }

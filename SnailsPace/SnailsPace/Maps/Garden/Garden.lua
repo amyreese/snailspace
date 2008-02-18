@@ -39,8 +39,8 @@ include("Scenery/Plane2.lua")
 map.bounds:Add(Vector2(-1400, -80))
 map.bounds:Add(Vector2(-1400, 3000))
 map.bounds:Add(Vector2(9960, 3000))
-map.bounds:Add(Vector2(9960, 300))
-
+map.bounds:Add(Vector2(9960, -5100))
+map.bounds:Add(Vector2(4000, -5100))
 
 -- Create an enemy
 fireAntY = -4856
