@@ -64,8 +64,6 @@
     <Compile Include="Config\VideoConfig.cs" />
     <Compile Include="Core\GameLua.cs" />
     <Compile Include="Core\Player.cs" />
-    <Compile Include="Core\QuadTree.cs" />
-    <Compile Include="Core\QuadTreeNode.cs" />
     <Compile Include="Core\Renderer.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Input.cs" />

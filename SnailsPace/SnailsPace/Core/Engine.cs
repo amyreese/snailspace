@@ -940,27 +940,13 @@ namespace SnailsPace.Core
                 objEnum.Dispose();
                 #endregion
 
-                bool noQuadTree = true;
-                if (!noQuadTree)
-                {
-                    #region Quad Tree Collisions
-                    Rectangle visibleScreen = new Rectangle((int)(Player.helix.position.X - 600), (int)(Player.helix.position.Y) - 600, 1400, 1400);
-                    QuadTree quad = new QuadTree(collidableObjects, activityBoundsSize, boundsCenter, 2);
-                    quad.print();
-                    QuadTreeCollide(quad.getRoot(), elapsedTime, activityBoundsSize, boundsCenter);
-                    detectCollisionsInNode(quad.getRoot(), elapsedTime);
-                    #endregion
-                }
-                else
-                {
-                    #region Move everything, checking for collisions
+                #region Move everything, checking for collisions
                     List<GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
                     while (collideableObjectEnum.MoveNext())
                     {
                         MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, activityBoundsSize, boundsCenter);
                     }
                     #endregion
-                }
             }
             #endregion
 
@@ -1063,56 +1049,6 @@ namespace SnailsPace.Core
                 #endregion
             }
             #endregion
-        }
-        #endregion
-
-        #region Quad Tree Collision Detection
-        private void detectCollisionsInNode(QuadTreeNode node, float elapsedTime)
-        {
-            List<QuadTreeNode> children = node.getNodes();
-            if (children.Count == 0)
-            {
-                List<GameObject> containedObjects = node.getContainedObjects();
-                List<GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
-                while (objectEnumerator.MoveNext())
-                {
-                    String nodeName = node.name;
-                    Vector2 objectVelocity = GetObjectVelocity(objectEnumerator.Current, elapsedTime);
-                    Vector2 objectMovement = Vector2.Multiply(objectVelocity, elapsedTime);
-                    GameObject collided = CheckForCollision(objectEnumerator.Current, containedObjects, objectMovement);
-                    if (collided != null)
-                    {
-#if DEBUG
-                        Debug.WriteLine("Collision Found: ");
-                        Debug.WriteLine("   Node: " + nodeName);
-                        Debug.WriteLine("   Objects: " + objectEnumerator.Current.name + ", " + collided.name);
-#endif
-                        collidingObjects.Add(objectEnumerator.Current);
-                    }
-                }
-            }
-            else
-            {
-                List<QuadTreeNode>.Enumerator childrenEnumerator = children.GetEnumerator();
-                while (childrenEnumerator.MoveNext())
-                {
-                    detectCollisionsInNode(childrenEnumerator.Current, elapsedTime);
-                }
-            }
-        }
-
-        private void QuadTreeCollide(QuadTreeNode node, float elapsedTime, Vector2 boundsSize, Vector2 boundsCenter)
-        {
-            List<QuadTreeNode> children = node.getNodes();
-            if (children.Count == 0)
-            {
-                List<GameObject> containedObjects = node.getContainedObjects();
-                List<GameObject>.Enumerator objectEnumerator = containedObjects.GetEnumerator();
-                while (objectEnumerator.MoveNext())
-                {
-                    MoveOrCollide(objectEnumerator.Current, containedObjects, elapsedTime, boundsSize, boundsCenter);
-                }
-            }
         }
         #endregion
 
