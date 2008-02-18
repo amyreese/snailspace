@@ -77,6 +77,7 @@
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\GameObjectBounds.cs" />
     <Compile Include="Objects\Helix.cs" />
+    <Compile Include="Objects\HighScoreList.cs" />
     <Compile Include="Objects\Image.cs" />
     <Compile Include="Objects\Map.cs" />
     <Compile Include="Objects\Sprite.cs" />
@@ -124,9 +125,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Documents\readme.txt">
-      <Name>readme</Name>
-    </Content>
     <EmbeddedResource Include="Resources\Libraries\lua51.dll">
       <Name>lua51</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -145,12 +143,6 @@
   <ItemGroup>
     <None Include="Config\Game.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Documents\Design Document.doc">
-      <Name>Design Document</Name>
-    </None>
-    <None Include="Documents\Class Diagram.dia">
-      <Name>Class Diagram</Name>
     </None>
     <None Include="Lua\AI.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -264,6 +256,48 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Maps\Garden\Triggers\SavePoints.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Enemies\Bee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Enemies\BlackAnt.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Enemies\FireAnt.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Enemies\Hive.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Enemies\Spider.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Scenery\Background.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Scenery\Fort.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Scenery\Sprites.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Scenery\TreeTrunk.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Tree Fort.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Triggers\EndLevel.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Triggers\Powerups.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Triggers\SavePoints.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Tree Fort\Triggers\Traps.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Libraries\lua51.lib" />

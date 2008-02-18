@@ -53,10 +53,10 @@ ant = Queen( Vector2( xOffset + 2260, yOffset + 1420) )
 -- Ceiling
 WorldBuilding.BuildSection({ width=5, xOffset=600, yOffset=2052, sprite=dirtSprite, xOverlap=20 })
 WorldBuilding.BuildRamp({ length=3, xOffset=1652, yOffset=2052, sprite=dirtSprite, overlap=20, rotation=-0.65 })
-WorldBuilding.BuildRamp({ length=4, xOffset=2220, yOffset=1680, sprite=dirtSprite, overlap=20, rotation=1.20 })
+WorldBuilding.BuildRamp({ length=10, xOffset=2220, yOffset=1680, sprite=dirtSprite, overlap=20, rotation=1.20 })
 
 -- Right Wall
-WorldBuilding.BuildRamp({length=6, xOffset=2732, yOffset=1412, sprite=dirtSprite, overlap=20, rotation=1.35 })
+WorldBuilding.BuildRamp({length=10, xOffset=2732, yOffset=1412, sprite=dirtSprite, overlap=20, rotation=1.35 })
 
 -- **** Exit Path ****
-EndLevel.BuildLevelEnd( 2220 + 512, 2052 + 256 )
+EndLevel.BuildLevelEnd( 2220 + 386, 2052 )

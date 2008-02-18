@@ -3,18 +3,19 @@ library('WorldBuilding')
 
 -- Player creation and starting position
 startPosition = Vector2(0,0)
---startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
---startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
---startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
---startPosition = Vector2(6148, -8104) -- Queen's Den Entrance
+startPosition = Vector2(0, 3136) -- Tree Fort Door
 player = Player( startPosition )
+
+rotmod = 5
+function newRotation()
+	return ( math.random() - 0.5 ) / rotmod;
+end
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
-include("Enemies/FireAnt.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
-include("Enemies/Queen.lua")
+include("Enemies/Hive.lua")
 
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
@@ -27,19 +28,17 @@ include("Scenery/Sprites.lua")
 
 -- Set up the background
 include("Scenery/Background.lua")
-include("Scenery/TunnelBackground.lua")
 
 -- Set up map regions
 function LoadArea( name )
 	include("Scenery/" .. name .. ".lua")
 end
 
-LoadArea("StartArea")
-LoadArea("Fence")
-LoadArea("SaltPit")
-LoadArea("QueensDen")
+LoadArea("TreeTrunk")
+LoadArea("Fort")
 
 -- Set the bounds for this map
-map.bounds:Add(Vector2(-1400, -80))
-map.bounds:Add(Vector2(-1400, 2000))
-map.bounds:Add(Vector2(2000, 2000))
+map.bounds:Add(Vector2(-1536, -80))
+map.bounds:Add(Vector2(-1536, 6000))
+map.bounds:Add(Vector2(2560, 6000))
+map.bounds:Add(Vector2(2560, -80))
