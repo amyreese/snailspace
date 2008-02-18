@@ -109,7 +109,7 @@ namespace SnailsPace.Objects
 			}
 		}
 
-		internal bool WillIntersect(GameObjectBounds otherBounds, Vector2 movementVector)
+		internal bool WillIntersect(GameObjectBounds otherBounds, Vector2 movementVector, bool output)
 		{
 			Vector2[] intersectionPoints = new Vector2[points.Length];
 			for (int index = 0; index < points.Length; index++)
@@ -136,12 +136,14 @@ namespace SnailsPace.Objects
 					Vector2 b = intersectionPoints[myIndex2];
 					if (checkForIntersection(a, b, c, d))
 					{
-						return true;
+                        if (output) Core.Engine.collisionLine = new Vector2(c.X - d.X, c.Y - d.Y);
+                        return true;
 					}
 					b = points[myIndex];
 					if (checkForIntersection(a, b, c, d))
 					{
-						return true;
+                        if (output) Core.Engine.collisionLine = new Vector2(c.X - d.X, c.Y - d.Y);
+                        return true;
 					}
 				}
 			}

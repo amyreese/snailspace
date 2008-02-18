@@ -74,6 +74,9 @@ namespace SnailsPace.Core
 
         // list of objects that are colliding in this frame
         private List<GameObject> collidingObjects;
+
+        // Last collision vector
+        public static Vector2 collisionLine;
         #endregion
 
         #region Constructor
@@ -745,9 +748,31 @@ namespace SnailsPace.Core
                     // If the object collides with a wall and is bounceable, then bounce!
                     if (!(collidedObject is Character) && movingObject.bounceable)
                     {
-                        float mod = -0.8f;
-                        resultingMovement = new Vector2(objectMovement.X * mod, objectMovement.Y * mod);
-                        objectVelocity = new Vector2(objectVelocity.X * mod, objectVelocity.Y * mod);
+                        collisionLine.Normalize();
+                        collisionLine.X = Math.Abs(collisionLine.X);
+                        collisionLine.Y = Math.Abs(collisionLine.Y);
+                        float mod = 0.8f, xmod = 0f, ymod = 0f;
+                        float diff = Math.Abs(collisionLine.X - collisionLine.Y);
+
+                        if (diff < 0.2)
+                        {
+                            xmod = -mod;
+                            ymod = -mod;
+                        }
+                        else if (collisionLine.X > collisionLine.Y)
+                        {
+                            xmod = collisionLine.X * mod;
+                            ymod = (1 - collisionLine.Y) * -mod;
+                        }
+                        else
+                        {
+                            xmod = (1 - collisionLine.X) * -mod;
+                            ymod = collisionLine.Y * mod;
+                        }
+                        SnailsPace.debug(diff.ToString() + ", " + xmod.ToString() + ", " + ymod.ToString());
+                        
+                        resultingMovement = new Vector2(objectMovement.X * xmod, objectMovement.Y * ymod);
+                        objectVelocity = new Vector2(objectVelocity.X * xmod, objectVelocity.Y * ymod);
                     }
                     // The object collided, and was a bullet (damage taken care of below)
                     // If it hit a non-character, or if the bullet is not supposed to move through things, explode
@@ -996,7 +1021,7 @@ namespace SnailsPace.Core
                     Trigger trigger = triggers.Current;
 
                     //if (trigger.bounds.containsPoint(Player.helix.position.X, Player.helix.position.Y))
-                    if (trigger.bounds.WillIntersect(Player.helix.bounds, Vector2.Zero))
+                    if (trigger.bounds.WillIntersect(Player.helix.bounds, Vector2.Zero, false))
                     {
                         if (!trigger.inside)
                         {

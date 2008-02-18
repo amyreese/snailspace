@@ -173,7 +173,7 @@ namespace SnailsPace.Objects
                 return false;
             }
 
-			return bounds.WillIntersect(otherObject.bounds, movementVector);
+			return bounds.WillIntersect(otherObject.bounds, movementVector, this is Bullet);
 		}
 
 		public Rectangle getRectangle()
