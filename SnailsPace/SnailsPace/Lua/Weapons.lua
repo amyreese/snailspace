@@ -101,6 +101,30 @@ function Weapons:minigun(weapon)
 	end
 end
 
+function Weapons:grenadelauncher( weapon )
+	weapon.name = "Grenade Launcher"
+	weapon.slot = 3
+	weapon.cooldown = 400
+	weapon.state = {}
+	weapon.sprite = Weapons.weaponSprite(3)
+	weapon.ammunition = -1
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+		
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+		bullet.size = Weapons.bulletImage.size
+		bullet.scale = Vector2(1,1)
+		bullet.damage = 10
+		bullet.affectedByGravity = true
+		bullet.bounceable = true
+		bullet.bounceTime = 4000
+		
+		Weapons.shootSingleBullet(bullet, 60, shooter, targetPosition)
+	end
+end
+
 --[[ Flamethrower!!! Rawr. ]]--
 function Weapons:flamethrower( weapon )
 	weapon.name = "Flamethrower"

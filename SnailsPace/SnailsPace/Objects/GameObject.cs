@@ -65,6 +65,9 @@ namespace SnailsPace.Objects
 		public bool collidable = true;
 		public bool horizontalFlip;
 
+        public bool bounceable = false;
+        public double bounceTime = 0;
+
 		private GameObjectBounds _bounds;
 		public GameObjectBounds bounds
 		{

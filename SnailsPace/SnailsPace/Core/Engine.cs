@@ -742,9 +742,16 @@ namespace SnailsPace.Core
                 }
                 else if (movingObject is Bullet)
                 {
+                    // If the object collides with a wall and is bounceable, then bounce!
+                    if (!(collidedObject is Character) && movingObject.bounceable)
+                    {
+                        float mod = -0.8f;
+                        resultingMovement = new Vector2(objectMovement.X * mod, objectMovement.Y * mod);
+                        objectVelocity = new Vector2(objectVelocity.X * mod, objectVelocity.Y * mod);
+                    }
                     // The object collided, and was a bullet (damage taken care of below)
                     // If it hit a non-character, or if the bullet is not supposed to move through things, explode
-                    if (!(collidedObject is Character) || ((Bullet)movingObject).destroy)
+                    else if (!(collidedObject is Character) || ((Bullet)movingObject).destroy)
                     {
                         #region Make the bullet explode!
                         Bullet b = (Bullet)movingObject;
@@ -879,20 +886,36 @@ namespace SnailsPace.Core
                 {
                     movingObject.velocity.X = 0;
                 }
-                if (movingObject is Bullet && movingObject.affectedByGravity)
+                if (movingObject is Bullet)
                 {
-                    Vector2 normalized = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
-                    normalized.Normalize();
+                    if (movingObject.bounceable)
+                    {
+                        movingObject.bounceTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                        if (movingObject.bounceTime < 0)
+                        {
+                            #region Make the bullet explode!
+                            Bullet b = (Bullet)movingObject;
+                            bullets.Remove(b);
+                            Explosion explosion = b.explosion;
+                            explosion.position = b.position;
+                            explosions.Add(explosion);
+                            #endregion
+                        }
+                    }
+                    if (movingObject.affectedByGravity)
+                    {
+                        Vector2 normalized = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
+                        normalized.Normalize();
 
-                    float mod = normalized.X >= 0 ? -1 : 1;
-                    float tvel = movingObject.maxVelocity;
-                    float vel = movingObject.velocity.Length();
-                    float value = Math.Min( tvel/vel, 1.0f );
+                        float mod = normalized.X >= 0 ? -1 : 1;
+                        float tvel = movingObject.maxVelocity;
+                        float vel = movingObject.velocity.Length();
+                        float value = Math.Min(tvel / vel, 1.0f);
 
-                    SnailsPace.debug(value.ToString());
-                    movingObject.rotation += mod * value * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    /// TODO: Make it so we don't need to recreate GOB's
-                    movingObject.bounds = new GameObjectBounds(movingObject.size, movingObject.position, movingObject.rotation);
+                        movingObject.rotation += mod * value * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        /// TODO: Make it so we don't need to recreate GOB's
+                        movingObject.bounds = new GameObjectBounds(movingObject.size, movingObject.position, movingObject.rotation);
+                    }
                 }
                 #endregion
             }

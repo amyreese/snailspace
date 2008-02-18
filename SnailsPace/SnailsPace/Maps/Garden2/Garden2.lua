@@ -7,7 +7,7 @@ startPosition = Vector2(0,0)
 --startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
 --startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
 --startPosition = Vector2(6148, -8104) -- Queen's Den Entrance
-player = Player( startPosition )
+player = Player( startPosition, "grenadelauncher" )
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
