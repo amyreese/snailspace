@@ -145,104 +145,61 @@ namespace SnailsPace.Objects
 					}
 				}
 			}
-			return false;
+			if (containsPoint(otherBounds.center.X, otherBounds.center.Y))
+			{
+				return true;
+			}
+			Vector2 center = otherBounds.center + movementVector;
+			return containsPoint(center.X, center.Y);
 		}
 
-        public bool containsPoint(float x, float y)
-        {
-            int hits = 0;
-            int length = points.Length;
-            
-            float lx = points[length - 1].X;
-            float ly = points[length - 1].Y;
-
-            float cx, cy;
-
-            for (int i = 0; i < length; lx = cx, ly = cy, i++)
-            {
-                cx = points[i].X;
-                cy = points[i].Y;
-
-                if (cy == ly)
-                {
-                    continue;
-                }
-
-                float left;
-                if (cx < lx)
-                {
-                    if (x >= lx)
-                    {
-                        continue;
-                    }
-                    left = cx;
-                }
-                else
-                {
-                    if (x >= cx)
-                    {
-                        continue;
-                    }
-                    left = x;
-                }
-
-                float tx, ty;
-                if (cy < ly)
-                {
-                    if (y < cy || y >= ly)
-                    {
-                        continue;
-                    }
-                    if (x < lx)
-                    {
-                        hits++;
-                        continue;
-                    }
-                    tx = x - cx;
-                    ty = y - cy;
-                }
-                else
-                {
-                    if (y < ly || y >= cy)
-                    {
-                        continue;
-                    }
-                    if (x < lx)
-                    {
-                        hits++;
-                        continue;
-                    }
-                    tx = x - lx;
-                    ty = y - ly;
-                }
-
-                if (tx < (ty / (ly - cy) * (lx - cx)))
-                {
-                    hits++;
-                }
-            }
-
-            return ((hits & 1) != 0);
-        }
-
-        private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+		private bool containsPoint(float x, float y)
 		{
-            float bxax = b.X - a.X;
-            float dycy = d.Y - c.Y;
-            float byay = b.Y - a.Y;
-            float dxcx = d.X - c.X;
-            float denom = bxax * dycy - byay * dxcx;
 
-            float aycy = a.Y - c.Y;
-            float axcx = a.X - c.X;
+			int hits = 0;
+			int length = points.Length;
+
+			float lx = points[length - 1].X;
+			float ly = points[length - 1].Y;
+
+			float cx, cy;
+
+			int j = length - 1;
+			bool oddNodes = false;
+
+			for (int i = 0; i < length; i++)
+			{
+				if (points[i].Y < y && points[j].Y >= y
+				|| points[j].Y < y && points[i].Y >= y)
+				{
+					if (points[i].X + (y - points[i].Y) / (points[j].Y - points[i].Y) * (points[j].X - points[i].X) < x)
+					{
+						oddNodes = !oddNodes;
+					}
+				}
+				j = i;
+			}
+			return oddNodes;
+		}
+
+		private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+		{
+			float bxax = b.X - a.X;
+			float dycy = d.Y - c.Y;
+			float byay = b.Y - a.Y;
+			float dxcx = d.X - c.X;
+			float denom = bxax * dycy - byay * dxcx;
+
+			float aycy = a.Y - c.Y;
+			float axcx = a.X - c.X;
 			float r = (aycy * dxcx - axcx * dycy) / denom;
-            if (0 <= r && r <= 1)
-            {
-                float s = (aycy * bxax - axcx * byay) / denom;
-                if (0 <= s && s <= 1)
-                {
-                    return true;
-                }
+			if (0 <= r && r <= 1)
+			{
+				float s = (aycy * bxax - axcx * byay) / denom;
+				if (0 <= s && s <= 1)
+				{
+					return true;
+				}
 			}
 			return false;
 		}
@@ -251,7 +208,7 @@ namespace SnailsPace.Objects
 		{
 			get
 			{
-				return Math.Abs( points[1].X - points[0].X );
+				return Math.Abs(points[1].X - points[0].X);
 			}
 		}
 
@@ -259,7 +216,7 @@ namespace SnailsPace.Objects
 		{
 			get
 			{
-				return Math.Abs( points[0].Y - points[2].Y );
+				return Math.Abs(points[0].Y - points[2].Y);
 			}
 		}
 
@@ -267,7 +224,7 @@ namespace SnailsPace.Objects
 		{
 			get
 			{
-				return Math.Min( points[0].X, points[2].X ) + Width / 2;
+				return Math.Min(points[0].X, points[2].X) + Width / 2;
 			}
 		}
 
@@ -275,7 +232,7 @@ namespace SnailsPace.Objects
 		{
 			get
 			{
-				return Math.Max( points[0].Y, points[1].Y) - Height / 2;
+				return Math.Max(points[0].Y, points[1].Y) - Height / 2;
 			}
 		}
 	}

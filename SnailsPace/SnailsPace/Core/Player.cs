@@ -57,7 +57,15 @@ namespace SnailsPace.Core
             saveObject.collidable = false;
 
             save(startPosition);
-            helix = new Helix(startPosition, weaponName);
+			if (helix == null)
+			{
+				helix = new Helix(startPosition, weaponName);
+			}
+			else
+			{
+				load();
+				helix.AddWeapon(Weapon.load( weaponName ) );
+			}
 
             // Crosshair creation
             Sprite crosshairSprite = new Sprite();
