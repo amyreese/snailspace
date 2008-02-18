@@ -879,6 +879,21 @@ namespace SnailsPace.Core
                 {
                     movingObject.velocity.X = 0;
                 }
+                if (movingObject is Bullet && movingObject.affectedByGravity)
+                {
+                    Vector2 normalized = new Vector2(movingObject.velocity.X, movingObject.velocity.Y);
+                    normalized.Normalize();
+
+                    float mod = normalized.X >= 0 ? -1 : 1;
+                    float tvel = movingObject.maxVelocity;
+                    float vel = movingObject.velocity.Length();
+                    float value = Math.Min( tvel/vel, 1.0f );
+
+                    SnailsPace.debug(value.ToString());
+                    movingObject.rotation += mod * value * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    /// TODO: Make it so we don't need to recreate GOB's
+                    movingObject.bounds = new GameObjectBounds(movingObject.size, movingObject.position, movingObject.rotation);
+                }
                 #endregion
             }
         }
