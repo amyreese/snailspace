@@ -113,15 +113,16 @@ function Weapons:grenadelauncher( weapon )
 		bullet = Bullet()
 		bullet.explosion = Explosion()
 		
-		bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(8))
 		bullet.size = Weapons.bulletImage.size
-		bullet.scale = Vector2(1,1)
+		bullet.scale = Vector2(0.6,0.6)
 		bullet.damage = 10
 		bullet.affectedByGravity = true
 		bullet.bounceable = true
 		bullet.bounceTime = 4000
+		bullet.range = 2500
 		
-		Weapons.shootSingleBullet(bullet, 60, shooter, targetPosition)
+		Weapons.shootSingleBullet(bullet, 150, shooter, targetPosition)
 	end
 end
 

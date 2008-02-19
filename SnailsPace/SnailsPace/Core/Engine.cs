@@ -754,7 +754,7 @@ namespace SnailsPace.Core
                         float mod = 0.8f, xmod = 0f, ymod = 0f;
                         float diff = Math.Abs(collisionLine.X - collisionLine.Y);
 
-                        if (diff < 0.2)
+                        if (diff < 0.25)
                         {
                             xmod = -mod;
                             ymod = -mod;
