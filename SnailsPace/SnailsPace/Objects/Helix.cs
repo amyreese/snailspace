@@ -125,7 +125,7 @@ namespace SnailsPace.Objects
 			health = 20;
 
 			Weapon wep = weapon;
-            inventory = new Weapon[4];
+            inventory = new Weapon[5];
 			if (weaponName != "generic")
             {
 				AddWeapon(Weapon.load("generic"));

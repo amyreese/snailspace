@@ -9,10 +9,17 @@ WorldBuilding.BuildSection( { width=12, xOffset=448, yOffset=-674, sprite=dirtSp
 WorldBuilding.BuildRamp( {length=3, xOffset=-24, yOffset=-400, sprite=dirtSpriteS, overlap=10, rotation=-1.05, layerOffset=2 } )
 WorldBuilding.BuildRamp( {length=6, xOffset=144, yOffset=-640, sprite=dirtSpriteS, overlap=10, rotation=-0.15, layerOffset=2 } )
 WorldBuilding.BuildRamp( {length=12, xOffset=840, yOffset=-728, sprite=dirtSpriteS, overlap=10, rotation=0.05, layerOffset=2 } )
-WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y / 2 - 384, sprite=fencePostSprite, xSizeMod=-256, layerOffset=-3 } )
-WorldBuilding.BuildObject( { xOffset=352, yOffset=1960, sprite=beehiveSprite, xSizeMod=-50, layerOffset=-3, rotation=-0.35 } )
-Powerups.BuildWeaponPowerup( 160, 1768, "stinger", 100, 0.2 )
+WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y / 2 - 384, sprite=fencePostSprite, xSizeMod=-16, ySizeMod=0, rotation=0 } )
+Powerups.BuildWeaponPowerup( 352, 128, "stinger", 100, 0.3 )
 
+for i=0,9 do
+	bee = Bee( Vector2( xOffset + 128, yOffset + 222 + i * 276 ), "swarmHelixA" )
+	bee.state.attacking = true
+	bee = Bee( Vector2( xOffset + 128, yOffset + 360 + i * 276 ), "swarmHelixB" )
+	bee.state.attacking = true
+end
+--[[
+WorldBuilding.BuildObject( { xOffset=352, yOffset=1960, sprite=beehiveSprite, xSizeMod=-50, layerOffset=-3, rotation=-0.35 } )
 bee = Bee( Vector2( xOffset + 128, yOffset + 222 ), "flyDownRight" )
 bee.state.attacking = true
 bee = Bee( Vector2( xOffset + 128, yOffset + 360 ), "flyDownLeft" )
@@ -73,3 +80,4 @@ bee = Bee( Vector2( xOffset + -260, yOffset + 1740 ), "flyDownLeft" )
 bee.state.attacking = true
 bee = Bee( Vector2( xOffset + -260, yOffset + 1878 ), "flyDownRight" )
 bee.state.attacking = true
+]]--

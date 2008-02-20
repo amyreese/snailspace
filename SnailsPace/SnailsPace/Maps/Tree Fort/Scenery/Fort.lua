@@ -5,6 +5,7 @@ wallHeight = 4
 
 rotmod = 5
 -- Floor
+WorldBuilding.BuildObject( { xOffset=2.2 * -woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=1.8 * -woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=-woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
@@ -12,6 +13,7 @@ WorldBuilding.BuildObject( { xOffset=1.8 * woodSprite.image.size.X, yOffset=0, s
 WorldBuilding.BuildObject( { xOffset=2.6 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=3.4 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=4.2 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
+WorldBuilding.BuildObject( { xOffset=4.6 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 
 -- Side walls
 for i=0,wallHeight do

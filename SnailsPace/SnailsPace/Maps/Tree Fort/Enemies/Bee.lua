@@ -77,5 +77,4 @@ function BeeThinker( self, gameTime )
 			AI.shootDirectlyAtHelix( self, gameTime )
 		end
 	end
-	-- TODO: Create AI for the Bee
 end

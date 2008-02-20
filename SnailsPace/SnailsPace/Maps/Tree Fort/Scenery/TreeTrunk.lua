@@ -2,6 +2,7 @@ xOffset = 0
 yOffset = 0
 
 WorldBuilding.BuildSection( { height=4, width=18, xOffset=-1536, yOffset=-160, sprite=grassSprite, xOverlap=20, yOverlap=32, xSizeMod=-32, ySizeMod=-32, buildDown=true } )
+WorldBuilding.BuildObject( { xOffset=-1436, yOffset=-384 + fencePostImage.size.Y / 2, sprite=fencePostSprite, xSizeMod=-16, ySizeMod=0, rotation=0 } )
 
 rotmod = 2
 height = 6

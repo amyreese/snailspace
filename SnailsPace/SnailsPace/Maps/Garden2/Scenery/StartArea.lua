@@ -9,3 +9,5 @@ WorldBuilding.BuildSection( { width=8, xOffset=-636, yOffset=-674, sprite=dirtSp
 WorldBuilding.BuildRamp( {length=3, xOffset=872, yOffset=-384, sprite=dirtSpriteS, overlap=10, rotation=-0.65-MathHelper.PiOver2, layerOffset=2 } )
 WorldBuilding.BuildRamp( {length=6, xOffset=664, yOffset=-608, sprite=dirtSpriteS, overlap=10, rotation=-1.4-MathHelper.PiOver2, layerOffset=2 } )
 WorldBuilding.BuildRamp( {length=12, xOffset=-1280, yOffset=-640, sprite=dirtSpriteS, overlap=10, rotation=-0.05, layerOffset=2 } )
+
+Powerups.BuildWeaponPowerup( -1256 + xOffset, 0 + yOffset, "grenadelauncher" )

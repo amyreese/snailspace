@@ -28,6 +28,7 @@ include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
 include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
+include("Triggers/Message.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")

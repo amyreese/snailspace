@@ -109,7 +109,7 @@ pourSSprite.animationDelay = 0.1
 fencePostImage = Image()
 fencePostImage.filename = "Resources/Textures/fencePost"
 fencePostImage.blocks = Vector2(1.0, 1.0)
-fencePostImage.size = Vector2(512.0, 5096.0)
+fencePostImage.size = Vector2(256.0, 4096.0)
 
 fencePostSprite = Sprite()
 fencePostSprite.image = fencePostImage
