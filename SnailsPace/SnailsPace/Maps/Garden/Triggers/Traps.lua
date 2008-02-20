@@ -21,7 +21,7 @@ function Traps.DamageHelix( trigger, damage, character, gameTime )
 	end
 end
 
-function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, plats)
+function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, keystone)
 	trapRotation = trapRotation or 0
 	local trig = Trigger()
 	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
@@ -30,9 +30,7 @@ function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, pl
 	map.triggers:Add(trig)
 
 	function trig.state:trigger( character, gameTime )
-		for x in plats do
-		
-		end
+		keystone.affectedByGravity = true
 	end
 	return trig
 end

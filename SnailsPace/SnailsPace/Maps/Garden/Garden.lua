@@ -2,11 +2,11 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---player = Player( Vector2(-1000,0) )
---player = Player(Vector2(7956, -4500))
---player = Player(Vector2(800, -800))
---player = Player(Vector2(5456, -4500))
-player = Player(Vector2(8500, 0), "Tree Fort")
+--player = Player( Vector2(-1000,0), "Tree Fort" )
+--player = Player(Vector2(7956, -4500), "Tree Fort")
+--player = Player(Vector2(800, -800), "Tree Fort")
+--player = Player(Vector2(5456, -4500), "Tree Fort")
+player = Player(Vector2(8500, 0))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -127,12 +127,12 @@ health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
 minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
 
---Queen Boss
-theQueen = Queen(Vector2(7856, -4856))
+--Princess Boss
+thePrincess = Queen(Vector2(7856, -4856))
 
 saltShaker = Shaker(Vector2(9800, 500))
 
---EndLevel.BuildLevelEnd( 10000, 338+128 )
+
 
 
 

@@ -44,7 +44,7 @@ function Shaker(startPos)
 	shaker.direction = Vector2(1,0)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
-	shaker.health = 10
+	shaker.health = 5
 	shaker.weapon.cooldown = 800
 	shaker.name = "Shaker"
 	shaker:setSprite("Stand")
@@ -59,9 +59,11 @@ end
 
 -- Fire Ant behavior function
 function ShakerThinker( self, gameTime )
-	
-	self:ShootAt(Vector2(9000, 500, gameTime))
-
+	if(self.health == 1) then
+		EndLevel.BuildBossEnd( self.position.X, self.position.Y )
 	end
+	
+	self:ShootAt(Vector2(9000, 500), gameTime)
+	
 	-- TODO: Extend AI for the Fire Ant
 end
