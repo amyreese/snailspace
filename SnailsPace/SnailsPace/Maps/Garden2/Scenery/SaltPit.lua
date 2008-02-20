@@ -3,6 +3,18 @@ TODOs:
  Add webs to salt ramp and "low road"
 ]]--
 
+trackChange = Trigger()
+trackChange.position = Vector2( 1200, -250 )
+trackChange.bounds = GameObjectBounds( Vector2( 600, 200 ), trackChange.position, 0 )
+trackChange.state = { triggered=0 }
+function trackChange.state:triggerIn(character, gameTime)
+	if self.triggered == 0 then
+		Engine.sound:set("MusicTrack", 2)
+	end
+end
+map.triggers:Add(trackChange)
+	
+
 spiderAttack = true
 
 xOffset = 0
