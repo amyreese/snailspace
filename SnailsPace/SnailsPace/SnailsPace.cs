@@ -45,6 +45,7 @@ namespace SnailsPace
         internal static Sound soundManager;
         internal static GameConfig gameConfig;
         internal static VideoConfig videoConfig;
+		internal static Objects.HighScoreList highScoreList;
         #endregion
 
         #region Constructor & Instancing
@@ -61,6 +62,7 @@ namespace SnailsPace
             soundManager = new Sound();
             gameConfig = new GameConfig();
             videoConfig = new VideoConfig();
+			highScoreList = new Objects.HighScoreList();
 
             initializeGameScreens();
         }
@@ -100,7 +102,9 @@ namespace SnailsPace
             KeyBindingsMenu,
             GameLoading,
             Game,
-            LevelOver
+            LevelOver,
+			HighScoreListMenu,
+			HighScores
         }
 
 		private GameStates currentGameState = GameStates.MainMenu;
@@ -140,6 +144,9 @@ namespace SnailsPace
             screens.Add(GameStates.GameLoading, new Screens.GameLoadingScreen(this));
             screens.Add(GameStates.Game, new Screens.GameScreen(this));
             screens.Add(GameStates.LevelOver, new Screens.LevelOverScreen(this));
+			screens.Add(GameStates.HighScoreListMenu, new Screens.Menus.HighScoreMenuScreen(this));
+			screens.Add(GameStates.HighScores, new Screens.HighScoreScreen(this, "Test"));
+
             Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();
             while (screenEnumerator.MoveNext())
             {
