@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework;
@@ -13,40 +11,49 @@ namespace SnailsPace.Objects
 	[Serializable]
 	class HighScoreList
 	{
-		public Dictionary<String, SortedDictionary<int, String>> pointsScores;
+		public Dictionary<String, List<Score>> pointsScores;
 
-		public Dictionary<String, SortedDictionary<int, String>> accuracyScores;
+		public Dictionary<String, List<Score>> accuracyScores;
 
 		public HighScoreList()
 		{
-			pointsScores = new Dictionary<String, SortedDictionary<int, String>>();
-			accuracyScores = new Dictionary<String, SortedDictionary<int, String>>();
+			pointsScores = new Dictionary<String, List<Score>>();
+			accuracyScores = new Dictionary<String, List<Score>>();
+			pointsScores.Add("Test", new List<Score>());
+			List<Score> list;
+			pointsScores.TryGetValue("Test", out list);
+			list.Add(new Score(123,"testName"));
+			accuracyScores.Add("Test", new List<Score>());
+			List<Score> list2;
+			accuracyScores.TryGetValue("Test", out list2);
+			list2.Add(new Score(321,"testName"));
 		}
 
 		public Boolean isHighAccuracy(String map, int accuracy)
 		{
-			SortedDictionary<int, String> mapScores;
-			accuracyScores.TryGetValue( map, out mapScores );
+			List<Score> mapScores;
+			accuracyScores.TryGetValue(map, out mapScores);
 			if (mapScores == null)
 			{
-				pointsScores.Add( map, new SortedDictionary<int, String>() ); 
+				accuracyScores.Add(map, new List<Score>());
 			}
 			accuracyScores.TryGetValue(map, out mapScores);
-			SortedDictionary<int, String>.Enumerator scoreEnumerator = mapScores.GetEnumerator();
-			int scoreCount = 0;
-			while (scoreEnumerator.MoveNext() && scoreCount < 5 )
+
+			List<Score>.Enumerator scoreEnumerator = mapScores.GetEnumerator();
+			if (mapScores.Count < 5)
 			{
-				if (scoreCount < 5)
+				return true;
+			}
+			int scoreCount = 0;
+
+			while (scoreEnumerator.MoveNext() && scoreCount < 5)
+			{
+
+				scoreCount++;
+				if (accuracy > scoreEnumerator.Current.score)
 				{
-					scoreCount++;
-					if (accuracy > scoreEnumerator.Current.Key)
-					{
-						return true;
-					}
-				}
-				else
-				{
-					return false;
+
+					return true;
 				}
 			}
 			return false;
@@ -54,19 +61,24 @@ namespace SnailsPace.Objects
 
 		public Boolean isHighPoints(String map, int points)
 		{
-			SortedDictionary<int, String> mapScores;
-			pointsScores.TryGetValue( map, out mapScores );
+			List<Score> mapScores;
+			pointsScores.TryGetValue(map, out mapScores);
 			if (mapScores == null)
 			{
-				pointsScores.Add( map, new SortedDictionary<int, String>() ); 
+				pointsScores.Add(map, new List<Score>());
 			}
 			pointsScores.TryGetValue(map, out mapScores);
-			SortedDictionary<int, String>.Enumerator scoreEnumerator = mapScores.GetEnumerator();
+
+			List<Score>.Enumerator scoreEnumerator = mapScores.GetEnumerator();
+			if (mapScores.Count < 5)
+			{
+				return true;
+			}
 			int scoreCount = 0;
-			while (scoreEnumerator.MoveNext() )
+			while (scoreEnumerator.MoveNext() && scoreCount < 5)
 			{
 				scoreCount++;
-				if (points > scoreEnumerator.Current.Key)
+				if (points > scoreEnumerator.Current.score)
 				{
 					return true;
 				}
@@ -78,103 +90,75 @@ namespace SnailsPace.Objects
 		{
 			if (isHighPoints(map, points))
 			{
-				SortedDictionary<int, String> mapScores;
+				List<Score> mapScores;
 				pointsScores.TryGetValue(map, out mapScores);
-				mapScores.Add(points, name);
+				if (mapScores == null)
+				{
+					mapScores = new List<Score>();
+					pointsScores.Add(map, mapScores);
+				}
+				mapScores.Add(new Score(points, name));
+				mapScores.Sort();
+				if (mapScores.Count > 5)
+				{
+					List<Score>.Enumerator mapScoreEnumerator = mapScores.GetEnumerator();
+					mapScoreEnumerator.MoveNext();
+					mapScores.Remove(mapScoreEnumerator.Current);
+				}
 			}
 		}
 
 		public void addAccuracyScore(String map, int accuracy, String name)
 		{
-			if (isHighPoints(map, accuracy))
+			if (isHighAccuracy(map, accuracy))
 			{
-				SortedDictionary<int, String> mapScores;
+				List<Score> mapScores;
 				accuracyScores.TryGetValue(map, out mapScores);
-				mapScores.Add(accuracy, name);
+				if (mapScores == null)
+				{
+					mapScores = new List<Score>();
+					accuracyScores.Add(map, mapScores);
+				}
+				mapScores.Add(new Score(accuracy, name));
+				mapScores.Sort();
+				if (mapScores.Count > 5)
+				{
+					List<Score>.Enumerator mapScoreEnumerator = mapScores.GetEnumerator();
+					mapScoreEnumerator.MoveNext();
+					mapScores.Remove(mapScoreEnumerator.Current);
+				}
+
 			}
 		}
-
-		/*public void Save()
-		{
-
-			StorageDevice device = Guide.BeginShowStorageDeviceSelector();
-			// Open a storage container
-			StorageContainer container = device.OpenContainer("TestStorage");
-			// Get the path of the save game
-			string filename = Path.Combine(container.Path, "highscores.xml");
-
-			// Open the file, creating it if necessary
-			FileStream stream = File.Open(filename, FileMode.OpenOrCreate);
-
-			// Convert the object to XML data and put it in the stream
-			XmlSerializer serializer = new XmlSerializer(typeof(HighScoreList));
-			serializer.Serialize(stream, this);
-
-			// Close the file
-			stream.Close();
-		}
-
-		public void Load()
-		{
-
-
-			StorageDevice device = Guide.BeginShowStorageDeviceSelector();
-			// Open a storage container
-			StorageContainer container = device.OpenContainer("TestStorage");
-
-			// Get the path of the save game
-			string filename = Path.Combine(container.Path, "highscores.xml");
-
-			// Check to see if the save exists
-			if (!File.Exists(filename))
-			{
-				return;
-			}
-
-			// Open the file
-			FileStream stream = File.Open(filename, FileMode.OpenOrCreate,
-				FileAccess.Read);
-
-			// Read the data from the file
-			XmlSerializer serializer = new XmlSerializer(typeof(HighScoreList));
-			this = (HighScoreList)serializer.Deserialize(stream);
-
-			// Close the file
-			stream.Close();
-
-			// Dispose the container
-			container.Dispose();
-
-		}*/
-
+#if debug
 		public void debugPrint()
 		{
-			Dictionary<String, SortedDictionary< int, String >>.Enumerator mapEnumerator = pointsScores.GetEnumerator();
-
+			Dictionary<String, List<Score>>.Enumerator mapEnumerator = pointsScores.GetEnumerator();
 			while (mapEnumerator.MoveNext())
 			{
-				Debug.WriteLine("Map: " + mapEnumerator.Current);
-				SortedDictionary<int, String> scores = mapEnumerator.Current.Value;
-				SortedDictionary<int, String>.Enumerator pointsEnumerator = scores.GetEnumerator();
+				Debug.WriteLine("Map: " + mapEnumerator.Current.Key);
+				List<Score> scores = mapEnumerator.Current.Value;
+				scores.Sort();
+				List<Score>.Enumerator pointsEnumerator = scores.GetEnumerator();
 				while (pointsEnumerator.MoveNext())
 				{
-					Debug.WriteLine(pointsEnumerator.Current.Key + " " + pointsEnumerator.Current.Value);
+					Debug.WriteLine(pointsEnumerator.Current.score + " " + pointsEnumerator.Current.score);
 				}
 			}
-			 mapEnumerator = accuracyScores.GetEnumerator();
+			mapEnumerator = accuracyScores.GetEnumerator();
 
 			while (mapEnumerator.MoveNext())
 			{
-				Debug.WriteLine("Map: " + mapEnumerator.Current);
-				SortedDictionary<int, String> scores = mapEnumerator.Current.Value;
-				SortedDictionary<int, String>.Enumerator accuracyEnumerator = scores.GetEnumerator();
+				Debug.WriteLine("Map: " + mapEnumerator.Current.Key);
+				List<Score> scores = mapEnumerator.Current.Value;
+				scores.Sort();
+				List<Score>.Enumerator accuracyEnumerator = scores.GetEnumerator();
 				while (accuracyEnumerator.MoveNext())
 				{
-					Debug.WriteLine(accuracyEnumerator.Current.Key + " " + accuracyEnumerator.Current.Value);
+					Debug.WriteLine(accuracyEnumerator.Current.score + " " + accuracyEnumerator.Current.score);
 				}
 			}
-			Debug.WriteLine(pointsScores);
-			Debug.WriteLine(accuracyScores);
 		}
+#endif
 	}
 }
