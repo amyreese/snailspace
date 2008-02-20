@@ -44,6 +44,9 @@ namespace SnailsPace.Screens
             font = Game.Content.Load<SpriteFont>("Resources/Fonts/LevelOver");
         }
 
+
+		private String nextLevel;
+
         /// <summary>
         /// Checks to see if the user has indicated that they are done reading
         /// If this is the first time through, initialize the screen
@@ -53,14 +56,24 @@ namespace SnailsPace.Screens
         {
             if (initializeScreen)
             {
-                ((Menus.MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = false;
-
                 Core.Engine.sound.stop("music");
                 Core.Engine.sound.stop("alarm");
                 Core.Engine.sound.stop("jetpack");
-
                 pointsString = Core.Engine.player.GetFinalPoints();
                 initializeScreen = false;
+				nextLevel = Core.Engine.player.nextLevel;
+
+				if (nextLevel == null)
+				{
+					nextState = SnailsPace.GameStates.MainMenu;
+					((Menus.MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = false;
+				}
+				else
+				{
+					nextState = SnailsPace.GameStates.GameLoading;
+					((GameScreen)snailsPace.getScreen(SnailsPace.GameStates.Game)).ReloadEngine(nextLevel);
+				}
+
             }
 
             Core.Input input = SnailsPace.inputManager;

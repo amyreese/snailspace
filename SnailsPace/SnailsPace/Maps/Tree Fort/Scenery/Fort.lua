@@ -16,13 +16,15 @@ WorldBuilding.BuildObject( { xOffset=4.2 * woodSprite.image.size.X, yOffset=0, s
 WorldBuilding.BuildObject( { xOffset=4.6 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 
 -- Side walls
-for i=0,wallHeight do
+for i=0,wallHeight - 1 do
 	-- Left
 	WorldBuilding.BuildObject( { xOffset=-2.3 * woodSprite.image.size.X, yOffset=( 0.4 + 0.8 * i ) * woodSprite.image.size.X, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=MathHelper.PiOver2 + newRotation() } )
 
 	-- Right
 	WorldBuilding.BuildObject( { xOffset=4.7 * woodSprite.image.size.X, yOffset=( 0.4 + 0.8 * i ) * woodSprite.image.size.X, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=MathHelper.PiOver2 + newRotation() } )
 end
+-- Right
+WorldBuilding.BuildObject( { xOffset=4.7 * woodSprite.image.size.X, yOffset=( 0.4 + 0.8 * wallHeight ) * woodSprite.image.size.X, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=MathHelper.PiOver2 + newRotation() } )
 
 -- Ceiling
 for i=0,8 do
@@ -38,3 +40,4 @@ Spider(Vector2(xOffset + 1290, yOffset + 564))
 Spider(Vector2(xOffset + 1400, yOffset + 1264))
 
 Hive( Vector2( xOffset - 1.8 * woodSprite.image.size.X, yOffset + ( 0.2 + 0.8 * wallHeight ) * woodSprite.image.size.X ) )
+EndLevel.BuildLevelEnd( - 2.2 * woodSprite.image.size.X, ( 0.4 + 0.8 * wallHeight ) * woodSprite.image.size.X )

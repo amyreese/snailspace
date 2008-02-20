@@ -29,6 +29,7 @@ namespace SnailsPace.Core
 		private int timesHit = 0;
 		private int enemiesKilled = 0;
 		public int deaths = 0;
+		public String nextLevel = null;
 
         public Player()
             : this(new Vector2(0, 0))
@@ -50,13 +51,25 @@ namespace SnailsPace.Core
 		/// <param name="startPosition">Coordinates at which to start the player.</param>
 		/// <param name="weaponName">Name of the player's default weapon.</param>
         public Player(Vector2 startPosition, String weaponName)
-            : base()
+			: this( startPosition, weaponName, null )
         {
-            saveObject = new GameObject();
-            saveObject.affectedByGravity = false;
-            saveObject.collidable = false;
 
-            save(startPosition);
+        }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="startPosition"></param>
+		/// <param name="weaponName"></param>
+		public Player(Vector2 startPosition, String weaponName, String nextLevel)
+			: base()
+		{
+			this.nextLevel = nextLevel;
+			saveObject = new GameObject();
+			saveObject.affectedByGravity = false;
+			saveObject.collidable = false;
+
+			save(startPosition);
 			Weapon[] oldInventory = new Weapon[0];
 			if (helix != null)
 			{
@@ -65,40 +78,40 @@ namespace SnailsPace.Core
 			helix = new Helix(startPosition, weaponName);
 			load();
 
-            // Crosshair creation
-            Sprite crosshairSprite = new Sprite();
-            crosshairSprite.image = new Image();
-            crosshairSprite.image.filename = "Resources/Textures/Crosshair";
-            crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
-            crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
-            crosshairSprite.visible = true;
-            crosshairSprite.effect = "Resources/Effects/effects";
-            crosshair = new GameObject();
-            crosshair.sprites = new Dictionary<string, Sprite>();
-            crosshair.sprites.Add("Crosshair", crosshairSprite);
-            crosshair.position = new Vector2(0.0f, 0.0f);
-            crosshair.layer = 0;
-            crosshair.collidable = false;
+			// Crosshair creation
+			Sprite crosshairSprite = new Sprite();
+			crosshairSprite.image = new Image();
+			crosshairSprite.image.filename = "Resources/Textures/Crosshair";
+			crosshairSprite.image.blocks = new Vector2(1.0f, 1.0f);
+			crosshairSprite.image.size = new Vector2(64.0f, 64.0f);
+			crosshairSprite.visible = true;
+			crosshairSprite.effect = "Resources/Effects/effects";
+			crosshair = new GameObject();
+			crosshair.sprites = new Dictionary<string, Sprite>();
+			crosshair.sprites.Add("Crosshair", crosshairSprite);
+			crosshair.position = new Vector2(0.0f, 0.0f);
+			crosshair.layer = 0;
+			crosshair.collidable = false;
 
-            // Weapon
-            weapon = new GameObject();
-            weapon.sprites = new Dictionary<string, Sprite>();
-            weapon.sprites.Add("Weapon", helix.weapon.sprite);
-            weapon.position = helix.position;
-            weapon.layer = -5;
-            weapon.collidable = false;
+			// Weapon
+			weapon = new GameObject();
+			weapon.sprites = new Dictionary<string, Sprite>();
+			weapon.sprites.Add("Weapon", helix.weapon.sprite);
+			weapon.position = helix.position;
+			weapon.layer = -5;
+			weapon.collidable = false;
 
-            strings = new List<Text>();
-            pointsText = new Text();
-            pointsText.position = new Vector2(400, 0);
-            pointsText.font = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Score");
-            pointsText.color = Color.White;
-            pointsText.scale = Vector2.One;
-            pointsText.content = points.ToString();
-            strings.Add(pointsText);
-            recalculatePoints();
-            Engine.player = this;
-        }
+			strings = new List<Text>();
+			pointsText = new Text();
+			pointsText.position = new Vector2(400, 0);
+			pointsText.font = SnailsPace.getInstance().Content.Load<SpriteFont>("Resources/Fonts/Score");
+			pointsText.color = Color.White;
+			pointsText.scale = Vector2.One;
+			pointsText.content = points.ToString();
+			strings.Add(pointsText);
+			recalculatePoints();
+			Engine.player = this;
+		}
 
 		/// <summary>
 		/// Run player logic. Check for death and update crosshair location.

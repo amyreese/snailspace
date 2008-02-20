@@ -6,7 +6,7 @@ library('WorldBuilding')
 --player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
-player = Player(Vector2(8500, 0))
+player = Player(Vector2(8500, 0), "Tree Fort")
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
