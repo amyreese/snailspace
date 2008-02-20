@@ -9,8 +9,8 @@ library('AI')
 -- Generic ShakerImage object to be reused by all Fire Ants
 ShakerImage = Image()
 ShakerImage.filename = "Resources/Textures/ShakerTable"
-ShakerImage.blocks = Vector2(4, 2)
-ShakerImage.size = Vector2(256, 392)
+ShakerImage.blocks = Vector2(4, 4)
+ShakerImage.size = Vector2(256, 288)
 
 -- Creates a Sprite for a Shaker
 function ShakerSprite(animSt, animEnd, animDelay)
@@ -37,7 +37,7 @@ function Shaker(startPos)
 	shaker.sprites:Add("Walk", walk)
 	shaker.sprites:Add("Stand", stand)
 	shaker.sprites:Add("Die", die)
-	shaker.size = Vector2(ShakerImage.size.X, ShakerImage.size.Y - 64)
+	shaker.size = Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48)
 	shaker.startPosition = startPos
 	shaker.position = startPos
 	shaker.affectedByGravity = true
@@ -59,6 +59,9 @@ end
 
 -- Fire Ant behavior function
 function ShakerThinker( self, gameTime )
-	AI.jump(self)
+	
+	self:ShootAt(Vector2(9000, 500, gameTime))
+
+	end
 	-- TODO: Extend AI for the Fire Ant
 end

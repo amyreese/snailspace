@@ -20,3 +20,19 @@ function Traps.DamageHelix( trigger, damage, character, gameTime )
 		Player.helix:takeDamage( damage )
 	end
 end
+
+function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, plats)
+	trapRotation = trapRotation or 0
+	local trig = Trigger()
+	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
+	trig.bounds = GameObjectBounds( Vector2( trapWidth / 2, trapHeight ), trig.position, trapRotation )
+	trig.state = {}
+	map.triggers:Add(trig)
+
+	function trig.state:trigger( character, gameTime )
+		for x in plats do
+		
+		end
+	end
+	return trig
+end

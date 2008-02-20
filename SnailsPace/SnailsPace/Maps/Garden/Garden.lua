@@ -2,11 +2,11 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-player = Player( Vector2(-1000,0) )
+--player = Player( Vector2(-1000,0) )
 --player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
---player = Player(Vector2(8500, 0))
+player = Player(Vector2(8500, 0))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -30,10 +30,11 @@ include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
 
 -- Set up map platforms
-include("Scenery/Platforms.lua")
 include("Scenery/Pit.lua")
+include("Scenery/Platforms.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
+include("Scenery/BossArea.lua")
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1400, -80))

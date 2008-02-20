@@ -158,14 +158,10 @@ for x=0,1 do
  map.objects:Add(dirtObj)
 end
 
-pourTrap2 = Traps.SaltPile( 1300, ( -6 + yOffset ) * 32, 64, 512, 0, 2 )
-
-
-
 
 
 --Pit Floor SaltPile
-pile1 = GameObject()
+pile1 = Character()
  pile1Sprite = pileSprite:clone()
  pile1Sprite.frame = 0
  pile1.sprites:Add("Pile", pile1Sprite)
@@ -175,17 +171,6 @@ pile1 = GameObject()
  pile1.layer = 0.6
  map.objects:Add(pile1)
  
- -- Set up the saltPile Trigger
---[[pileTrig = Trigger()
-pileTrig.position = Vector2(69*32,-33*32)
-pileTrig.bounds = GameObjectBounds( Vector2( 0,0 ), Vector2( 0,280 ), Vector2(140, 122))
-pileTrig.state = {}
-map.triggers:Add(pileTrig)
-
- saltPile Trigger function
-function pileTrig.state:trigger( character, gameTime )
-	character.takeDamage(1)
-end]]--
 
 --Pit Floor Salt
 xOffset = 45

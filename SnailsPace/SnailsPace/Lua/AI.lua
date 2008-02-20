@@ -125,11 +125,3 @@ function AI.platformPatrol(self)
 	self.horizontalFriction = 3840.0
 	AI.patrol(self, self.startPosition.X + 10, self.startPosition.X - 10)
 end
-
-function AI.jump(self)
-	if(self.position.Y < self.startPosition.Y) then
-		self.direction = Vector2(1,0)
-	else
-		self.direction = Vector2(0,0)
-	end
-end
