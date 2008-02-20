@@ -78,11 +78,14 @@
     <Compile Include="Objects\HighScoreList.cs" />
     <Compile Include="Objects\Image.cs" />
     <Compile Include="Objects\Map.cs" />
+    <Compile Include="Objects\Score.cs" />
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Objects\Text.cs" />
     <Compile Include="Objects\Trigger.cs" />
     <Compile Include="Objects\Weapon.cs" />
+    <Compile Include="Screens\HighScoreScreen.cs" />
     <Compile Include="Screens\LevelOverScreen.cs" />
+    <Compile Include="Screens\Menus\HighScoreMenuScreen.cs" />
     <Compile Include="Screens\Menus\LevelSelectScreen.cs" />
     <Compile Include="Screens\Screen.cs">
       <Name>Screen</Name>
