@@ -111,6 +111,18 @@ namespace SnailsPace.Core
             cues[cue] = soundBank.GetCue(cue);
         }
 
+        // Set a global variable in the AudioEngine
+        public void set(String name, float value)
+        {
+            audioEngine.SetGlobalVariable(name, value);
+        }
+
+        // Get a global variable from the AudioEngine
+        public float get(String name)
+        {
+            return audioEngine.GetGlobalVariable(name);
+        }
+
         // Pass the update call to the AudioEngine
         public void update()
         {

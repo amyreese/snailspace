@@ -214,6 +214,23 @@ Global Settings
         Min = 0.000000;
         Max = 1000000.000000;
     }
+
+    Variable
+    {
+        Name = MusicTrack;
+        Public = 1;
+        Global = 1;
+        Internal = 0;
+        External = 1;
+        Monitored = 1;
+        Reserved = 0;
+        Read Only = 0;
+        Time = 0;
+        Value = 0.000000;
+        Initial Value = 0.000000;
+        Min = 0.000000;
+        Max = 100.000000;
+    }
 }
 
 Wave Bank
@@ -225,8 +242,14 @@ Wave Bank
     Windows Bank Path Edited = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 2100060184;
-    Bank Last Revised High = 29913371;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 271078852;
+    Bank Last Revised High = 29914063;
 
     Wave
     {
@@ -637,8 +660,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 879838526;
-            Last Modified High = 29913369;
+            Last Modified Low = 3345144778;
+            Last Modified High = 29913657;
         }
     }
 
@@ -664,6 +687,29 @@ Wave Bank
             Last Modified High = 29913370;
         }
     }
+
+    Wave
+    {
+        Name = snailofdeath2;
+        File = Music\snailofdeath2.wav;
+        Build Settings Last Modified Low = 3705577398;
+        Build Settings Last Modified High = 29914062;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 1;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 15651072;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1097921148;
+            Last Modified High = 29914062;
+        }
+    }
 }
 
 Sound Bank
@@ -673,6 +719,8 @@ Sound Bank
     Windows File = SnailsPace.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -1550,6 +1598,52 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = snailofdeath2;
+        Volume = -500;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaer Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = SnailsPace;
+                    Bank Index = 0;
+                    Entry Name = snailofdeath2;
+                    Entry Index = 19;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = ding1;
@@ -1800,17 +1894,153 @@ Sound Bank
 
         Variation
         {
-            Variation Type = 2;
-            Variation Table Type = 1;
+            Variation Type = 3;
+            Variation Table Type = 3;
             New Variation on Loop = 0;
+
+            Variable Entry
+            {
+                Name = MusicTrack;
+            }
         }
 
         Sound Entry
         {
             Name = snailofdeath;
             Index = 17;
-            Weight Min = 0;
-            Weight Max = 255;
+            Variable Min = 0.000000;
+            Variable Max = 1.000000;
+            Linger = 1;
+        }
+
+        Sound Entry
+        {
+            Name = snailofdeath2;
+            Index = 19;
+            Variable Min = 1.010000;
+            Variable Max = 2.000000;
+            Linger = 1;
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 0;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 0;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 0;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 2000;
+                Fade Out = 2000;
+                Crossfade Type = 2;
+            }
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 1;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 2000;
+                Fade Out = 2000;
+                Crossfade Type = 1;
+            }
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 0;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+
+        Transition Entry
+        {
+            Source Marker Min = 0;
+            Source Marker Max = 0;
+            Destination Marker Min = 0;
+            Destination Marker Max = 0;
+            Transition Type = 1;
+            Transition Source = 0;
+            Transition Destination = 0;
+
+            Crossfade
+            {
+                Fade In = 2000;
+                Fade Out = 2000;
+                Crossfade Type = 1;
+            }
+        }
+
+        Instance Limit
+        {
+            Max Instances = 1;
+            Behavior = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 2000;
+                Crossfade Type = 2;
+            }
         }
     }
 
