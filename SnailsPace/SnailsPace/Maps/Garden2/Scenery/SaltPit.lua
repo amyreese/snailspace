@@ -13,7 +13,6 @@ function trackChange.state:triggerIn(character, gameTime)
 	end
 end
 map.triggers:Add(trackChange)
-	
 
 spiderAttack = true
 
