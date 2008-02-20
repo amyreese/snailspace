@@ -8,21 +8,6 @@ sprit.image = imge
 sprit.visible = true
 sprit.effect = "Resources/Effects/effects"
 
-saltcanImage = Image()
-saltcanImage.filename = "Resources/Textures/saltcan"
-saltcanImage.blocks = Vector2(1.0, 1.0)
-saltcanImage.size = Vector2(150.0, 345.0)
-
-saltcanSprite = Sprite()
-saltcanSprite.image = saltcanImage
-saltcanSprite.visible = true
-saltcanSprite.effect = "Resources/Effects/effects"
-saltcanSprite.animationStart = 0
-saltcanSprite.animationEnd = 0
-saltcanSprite.frame = 0
-saltcanSprite.animationDelay = 0.0
-saltcanSprite.timer = 0.0
-
 pourImage = Image()
 pourImage.filename = "Resources/Textures/pouringsalt"
 pourImage.blocks = Vector2(4.0, 1.0)
@@ -72,17 +57,21 @@ plat3.layer = 0.5
 map.objects:Add(plat3)
 
 saltcan = GameObject()
-saltcan.sprites:Add("Saltcan", saltcanSprite)
+saltcanSprite1 = saltcanSprite:clone()
+saltcan.sprites:Add("Saltcan", saltcanSprite1)
 saltcan.sprites:Add("Pour", pourSprite)
 saltcan.sprites["Pour"].position = Vector2(-150,-325)
 saltcan.sprites["Pour"].rotation = 1.57
 saltcan.sprites["Pour"].layerOffset = 20
-saltcan.size = Vector2(saltcanImage.size.X - 32, saltcanImage.size.Y - 32)
+saltcan.rotation = MathHelper.PiOver2
+saltcan.size = Vector2(500, 500)
 saltcan.position = Vector2( (35+platOffX + plat3OffsetX)*32, (-11.2 + plat3OffsetY) * 32 + platOffY)
 saltcan.layer = 0.5
-saltcan.rotation = 1.57
-saltcan.collidable = false
+
+saltcan.collidable = true
 map.objects:Add(saltcan)
+
+pourTrap = Traps.SaltPile( (27.7+platOffX + plat3OffsetX)*32, (-20 + plat3OffsetY) * 32 + platOffY, 64, 512, 0, 2 )
 
 plat4 = GameObject()
 plat4Sprite = sprit:clone()

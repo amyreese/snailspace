@@ -26,12 +26,12 @@ include("Scenery/Sprites.lua")
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
---include("Triggers/Traps.lua")
+include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
 
 -- Set up map platforms
-include("Scenery/Pit.lua")
 include("Scenery/Platforms.lua")
+include("Scenery/Pit.lua")
 include("Scenery/Plane1.lua")
 include("Scenery/Plane2.lua")
 

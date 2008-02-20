@@ -53,7 +53,7 @@ namespace SnailsPace.Objects
             Objects.Sprite walk = new Objects.Sprite();
             walk.image = new Objects.Image();
             walk.image.filename = "Resources/Textures/HelixTable";
-            walk.image.blocks = new Vector2(4.0f, 4.0f);
+            walk.image.blocks = new Vector2(4.0f, 5.0f);
             walk.image.size = new Vector2(128.0f, 128.0f);
             walk.visible = true;
             walk.effect = "Resources/Effects/effects";
@@ -91,6 +91,21 @@ namespace SnailsPace.Objects
 			sprites["NoFuel"].frame = 12;
 			sprites["NoFuel"].animationDelay = 1.0f / 4.0f;
 			sprites["NoFuel"].timer = 0f;
+
+			// TODO: Make animations for taking damage
+			sprites.Add("WalkDamage", fly.clone());
+			sprites["WalkDamage"].animationStart = 16;
+			sprites["WalkDamage"].animationEnd = 17;
+			sprites["WalkDamage"].frame = 16;
+			sprites["WalkDamage"].animationDelay = 1.0f / 15.0f;
+			sprites["WalkDamage"].timer = 0f;
+
+			sprites.Add("FlyDamage", fly.clone());
+			sprites["FlyDamage"].animationStart = 18;
+			sprites["FlyDamage"].animationEnd = 19;
+			sprites["FlyDamage"].frame = 18;
+			sprites["FlyDamage"].animationDelay = 1.0f / 15.0f;
+			sprites["FlyDamage"].timer = 0f;
 			
 			maxVelocity = walkingMaxVelocity;
             maxFuel = 30;
@@ -331,6 +346,17 @@ namespace SnailsPace.Objects
             {
                 Engine.sound.stop("jetpack");
             }
+
+			if (lastTookDamage + invincibilityPeriod > Engine.gameTime.TotalRealTime.TotalMilliseconds && flying)
+			{
+				setSprite("FlyDamage");
+				sprites["FlyDamage"].animate(gameTime);
+			}
+			else if(lastTookDamage + invincibilityPeriod > Engine.gameTime.TotalRealTime.TotalMilliseconds)
+			{
+				setSprite("WalkDamage");
+				sprites["WalkDamage"].animate(gameTime);
+			}
 
 			// Acceleration
 			if (flying)

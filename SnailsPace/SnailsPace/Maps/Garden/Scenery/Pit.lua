@@ -61,7 +61,7 @@ dirtSprite.timer = 0.0
 pourImage = Image()
 pourImage.filename = "Resources/Textures/pouringsalt"
 pourImage.blocks = Vector2(4.0, 1.0)
-pourImage.size = Vector2(128.0, 512.0)
+pourImage.size = Vector2(128.0, 900.0)
 
 pourSprite = Sprite()
 pourSprite.image = pourImage
@@ -140,22 +140,27 @@ end
 --Pit Floor Secret Passage
 xOffset = 28
 yOffset = -35.0
+
 for x=0,1 do
  dirtObj = GameObject()
  dirtObj.name = "fallingPlatform"
  if (x == 1) then
 	dirtObj.sprites:Add("Pour", pourSprite)
-	dirtObj.sprites["Pour"].position = Vector2(175, -150)
+	dirtObj.sprites["Pour"].position = Vector2(150, -300)
  end
  dirtObjSprite = dirtSprite:clone()
  dirtObjSprite.frame = 0
  dirtObj.sprites:Add("dirt", dirtObjSprite)
  dirtObj.size = Vector2(dirtImage.size.X - 32, dirtImage.size.Y - 32)
  dirtObj.rotation = 0.0
- dirtObj.position = Vector2( ( x * 8 + xOffset ) * 32, ( -3.5 + yOffset ) * 32 )
+ dirtObj.position = Vector2( ( x * 8.5 + xOffset ) * 32, ( -3.5 + yOffset ) * 32 )
  dirtObj.layer = 0.6
  map.objects:Add(dirtObj)
 end
+
+pourTrap2 = Traps.SaltPile( 1300, ( -6 + yOffset ) * 32, 64, 512, 0, 2 )
+
+
 
 
 
