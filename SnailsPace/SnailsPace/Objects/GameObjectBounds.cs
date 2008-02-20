@@ -7,10 +7,13 @@ namespace SnailsPace.Objects
 {
 	public class GameObjectBounds
 	{
+		#region GameObjectBounds private properties
 		private Vector2 center;
 		private Vector2[] points;
 		private float rotation;
+		#endregion
 
+		#region GameObjectBounds public properties
 		public float Left
 		{
 			get
@@ -55,11 +58,65 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		public float Width
+		{
+			get
+			{
+				return Math.Abs(points[1].X - points[0].X);
+			}
+		}
+
+		public float Height
+		{
+			get
+			{
+				return Math.Abs(points[0].Y - points[2].Y);
+			}
+		}
+
+		public float X
+		{
+			get
+			{
+				return Math.Min(points[0].X, points[2].X) + Width / 2;
+			}
+		}
+
+		public float Y
+		{
+			get
+			{
+				return Math.Max(points[0].Y, points[1].Y) - Height / 2;
+			}
+		}
+
+		/// <summary>
+		/// Get the bounding box as an array of Vector2.
+		/// </summary>
+		public Vector2[] Points
+		{
+			get
+			{
+				return (Vector2[])points.Clone();
+			}
+		}
+		#endregion
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		/// <param name="points">A bounding box specified by any number of points.</param>
 		public GameObjectBounds(Vector2[] points)
 		{
 			this.points = points;
 		}
 
+		/// <summary>
+		/// Construct a GameObjectBounds object from size, position, and rotation.
+		/// </summary>
+		/// <param name="size">The object's size.</param>
+		/// <param name="position">The position of the center of the object.</param>
+		/// <param name="rotation">The rotation of the object.</param>
 		public GameObjectBounds(Vector2 size, Vector2 position, float rotation)
 		{
 			this.center = position;
@@ -72,6 +129,7 @@ namespace SnailsPace.Objects
 			points[2] = new Vector2(size.X / 2.0f, -size.Y / 2.0f);
 			points[3] = new Vector2(-size.X / 2.0f, -size.Y / 2.0f);
 
+			// Rotate and translate each point
 			Matrix transform =
 					Matrix.CreateRotationZ(rotation) *
 					Matrix.CreateTranslation(new Vector3(position, 0.0f));
@@ -82,11 +140,10 @@ namespace SnailsPace.Objects
 			}
 		}
 
-		public Vector2[] GetPoints()
-		{
-			return (Vector2[])points.Clone();
-		}
-
+		/// <summary>
+		/// Move the GameObjectBounds by a specified offset.
+		/// </summary>
+		/// <param name="offset">The amount to move the GameObjectBounds.</param>
 		internal void Move(Vector2 offset)
 		{
 			if (offset.Length() > 0)
@@ -99,6 +156,10 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		/// <summary>
+		/// Rotate the GameObjectBounds by a specified rotation.
+		/// </summary>
+		/// <param name="newRotation">The new rotation for the GameObjectBounds.</param>
 		internal void Rotate(float newRotation)
 		{
 			Matrix transform = Matrix.CreateRotationZ(-rotation) * Matrix.CreateRotationZ(newRotation);
@@ -109,6 +170,13 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		/// <summary>
+		/// Determine if two GameObjectBounds objects will intersect.
+		/// </summary>
+		/// <param name="otherBounds">The other GameObjectBounds object.</param>
+		/// <param name="movementVector">The movement vector of the other GameObjectBounds object.</param>
+		/// <param name="output"></param>
+		/// <returns>If these GameObjectBounds objects will intersect.</returns>
 		internal bool WillIntersect(GameObjectBounds otherBounds, Vector2 movementVector, bool output)
 		{
 			Vector2[] intersectionPoints = new Vector2[points.Length];
@@ -155,9 +223,14 @@ namespace SnailsPace.Objects
 			return containsPoint(center.X, center.Y);
 		}
 
+		/// <summary>
+		/// Determine if a point is contained within these GameObjectBounds.
+		/// </summary>
+		/// <param name="x">The point's X.</param>
+		/// <param name="y">The point's Y.</param>
+		/// <returns>True if the point is contained within these GameObjectBounds.</returns>
 		private bool containsPoint(float x, float y)
 		{
-
 			int hits = 0;
 			int length = points.Length;
 
@@ -184,6 +257,14 @@ namespace SnailsPace.Objects
 			return oddNodes;
 		}
 
+		/// <summary>
+		/// Check for intersection between lines, each defined by two points.
+		/// </summary>
+		/// <param name="a">The first point of the first line.</param>
+		/// <param name="b">The second point of the first line.</param>
+		/// <param name="c">The first point of the second line.</param>
+		/// <param name="d">The second point of the second line.</param>
+		/// <returns>If these lines intersect.</returns>
 		private bool checkForIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
 		{
 			float bxax = b.X - a.X;
@@ -204,38 +285,6 @@ namespace SnailsPace.Objects
 				}
 			}
 			return false;
-		}
-
-		public float Width
-		{
-			get
-			{
-				return Math.Abs(points[1].X - points[0].X);
-			}
-		}
-
-		public float Height
-		{
-			get
-			{
-				return Math.Abs(points[0].Y - points[2].Y);
-			}
-		}
-
-		public float X
-		{
-			get
-			{
-				return Math.Min(points[0].X, points[2].X) + Width / 2;
-			}
-		}
-
-		public float Y
-		{
-			get
-			{
-				return Math.Max(points[0].Y, points[1].Y) - Height / 2;
-			}
 		}
 	}
 }

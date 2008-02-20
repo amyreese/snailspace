@@ -10,8 +10,8 @@ using LuaInterface;
 namespace SnailsPace.Objects
 {
     class Character : GameObject
-    {
-		// Character properties.
+	{
+		#region Character properties
 		public int maxHealth;
         private float _health;
 		public float health {
@@ -28,26 +28,34 @@ namespace SnailsPace.Objects
         public Weapon weapon;
 
 		String thinker = "";
+		#endregion
 
+		/// <summary>
+		/// Create a character with a generic weapon.
+		/// </summary>
         public Character()
             : this("generic")
         {
         }
 
+		/// <summary>
+		/// Create a character with a specific weapon.
+		/// </summary>
+		/// <param name="weaponName">The specific weapon for this character.</param>
         public Character(String weaponName)
             : base()
         {
             weapon = Weapon.load(weaponName);
         }
 
+		/// <summary>
+		/// Shoot at a specifc target.
+		/// </summary>
+		/// <param name="targetPosition"></param>
+		/// <param name="gameTime"></param>
         public void ShootAt(Vector2 targetPosition, GameTime gameTime)
         {
             weapon.ShootAt(this, targetPosition, gameTime);
-        }
-
-        public void ShootFanAt(Vector2 targetPosition, int numBullets, float offset, GameTime gameTime)
-        {
-            //weapon.ShootFanAt(targetPosition, numBullets, offset, gameTime);
         }
                 
 		/// <summary>
@@ -114,6 +122,11 @@ namespace SnailsPace.Objects
             takeDamage(damage, true);
         }
 
+		/// <summary>
+		/// Make this character take a specified amount of damage.
+		/// </summary>
+		/// <param name="damage">The amount of damage.</param>
+		/// <param name="initialHit">True if this is a hit to be counted by statistics, false if not (for multi-hit weapons).</param>
         public virtual void takeDamage(float damage, bool initialHit)
         {
             if (this is Helix)

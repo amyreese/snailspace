@@ -7,16 +7,18 @@ using Microsoft.Xna.Framework;
 namespace SnailsPace.Objects
 {
     class Bullet : GameObject
-    {
-        // Bullet characteristics.
-        public float damage;
+	{
+		#region Bullet properties
+		public float damage;
         public Explosion explosion;
         public bool destroy = true;
         public int hits = 0;
         public Vector2 createPosition;
         public float range = 1000;
 
+		// Was this bullet shot by a Player Character?
 		public bool isPCBullet = false;
+		#endregion
 
 		/// <summary>
 		/// Create a new bullet.
@@ -41,6 +43,7 @@ namespace SnailsPace.Objects
 			}
 			else if (otherObject is Helix)
 			{
+				// Helix's own bullets can't hurt him.
 				if (isPCBullet)
 				{
 					return false;
@@ -48,6 +51,7 @@ namespace SnailsPace.Objects
 			}
 			else if (otherObject is Character)
 			{
+				// Enemies' own bullets can't hurt other enemies.
 				if (!isPCBullet)
 				{
 					return false;
@@ -55,8 +59,10 @@ namespace SnailsPace.Objects
 			}
 			else if (otherObject is Objects.Bullet)
 			{
+				// Bullets can't collide with each other.
 				return false;
 			}
+
 			return base.canCollideWith(otherObject);
 		}
 
@@ -69,6 +75,7 @@ namespace SnailsPace.Objects
 			// Assumes canCollideWith
             if (otherObject is Character)
 			{
+				// Play the correct sound effect.
                 if (isPCBullet)
                 {
                     Engine.sound.play("squash");
@@ -90,6 +97,9 @@ namespace SnailsPace.Objects
 			}
 			else if (otherObject is GameObject && otherObject.name == "fallingPlatform")
 			{
+				// Special case for falling platforms in Garden.lua.
+				// Make platforms drop when shot.
+
 				((GameObject)otherObject).affectedByGravity = true;
 				if (((GameObject)otherObject).sprites.ContainsKey("Pour"))
 				{

@@ -7,15 +7,21 @@ using SnailsPace.Core;
 namespace SnailsPace.Objects
 {
     class Helix : Character
-    {
-        // Jetpack fuel
+	{
+		#region Helix properties
+		// Health is managed by the Character superclass
+
+		// Jetpack fuel
         public float fuel;
 		public float maxFuel;
+
+		// State flags
 		public bool flying;
 		public bool boosting;
 		public bool thrust;
         public bool thrustable;
-		public bool repelling;
+
+		// Movement speeds
 		public const float flyingHorizontalFriction = 640.0f;
 		public const float walkingHorizontalFriction = 2560.0f;
 		public const float flyingAcceleration = 2560.0f;
@@ -23,18 +29,29 @@ namespace SnailsPace.Objects
 		public const float flyingMaxVelocity = 640.0f;
 		public const float walkingMaxVelocity = 384.0f;
 
+		// Timers
 		public double lastTookDamage;
 		public double invincibilityPeriod = 100;
 		public double boostPeriod = 0;
-		public double repelPeriod = 0;
 
+		// Available weapons
         public Weapon[] inventory;
+		#endregion
 
-        public Helix( Vector2 position )
+		/// <summary>
+		/// Create Helix at the specified position with the generic gun.
+		/// </summary>
+		/// <param name="position">Helix's starting position.</param>
+		public Helix( Vector2 position )
             : this(position, "generic")
         {
         }
 
+		/// <summary>
+		/// Create Helix at the specified position with a specific gun.
+		/// </summary>
+		/// <param name="position">Helix's starting position.</param>
+		/// <param name="weaponName">Helix's starting weapon.</param>
         public Helix( Vector2 position, String weaponName)
             : base(weaponName)
         {
@@ -133,12 +150,19 @@ namespace SnailsPace.Objects
 			AddWeapon(wep);
 		}
 
+		/// <summary>
+		/// Add a weapon to Helix's inventory, and make it his current weapon.
+		/// </summary>
+		/// <param name="gun">The new weapon.</param>
 		public void AddWeapon(Weapon gun)
 		{
 			inventory[gun.slot] = gun;
 			weapon = gun;
 		}
 
+		/// <summary>
+		/// Switch Helix's weapon to the next available weapon in his inventory.
+		/// </summary>
         public void NextWeapon()
         {
             int i = 0, s = weapon.slot;
@@ -158,6 +182,10 @@ namespace SnailsPace.Objects
             }
         }
 
+		/// <summary>
+		/// Make the specified sprites visible.
+		/// </summary>
+		/// <param name="spriteNames">The sprites to display.</param>
 		public void setSprite(params String[] spriteNames)
 		{
 			Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
@@ -173,6 +201,10 @@ namespace SnailsPace.Objects
             }
 		}
 
+		/// <summary>
+		/// Update Helix with regards to input, health, fuel, etc.
+		/// </summary>
+		/// <param name="gameTime">The current time.</param>
         public override void think(GameTime gameTime)
         {
 			if (fuel > maxFuel)
@@ -391,26 +423,6 @@ namespace SnailsPace.Objects
                 }
             }
 
-			if (repelling)
-			{
-				repelPeriod -= gameTime.ElapsedRealTime.TotalSeconds;
-
-				// TODO: Make helix bounce away from the enemy.
-				if (repelPeriod > 0)
-				{
-
-				}
-				if (repelPeriod < -0.5)
-				{
-
-				}
-				else
-				{
-
-				}
-
-			}
-
             GameObject crosshair = Player.crosshair;
             if (input.inputDown("Fire"))
             {
@@ -423,6 +435,11 @@ namespace SnailsPace.Objects
             }
         }
 
+		/// <summary>
+		/// Decide if a collision can occur between Helix and another object.
+		/// </summary>
+		/// <param name="otherObject">The object that Helix collided with.</param>
+		/// <returns>Whether or not a collision should occur.</returns>
 		public override bool canCollideWith(GameObject otherObject)
 		{
 			if ((otherObject is Objects.Bullet) && (((Bullet)otherObject).isPCBullet))
@@ -431,13 +448,15 @@ namespace SnailsPace.Objects
 			return base.canCollideWith(otherObject);
 		}
 
+		/// <summary>
+		/// Action performed when Helix collides with another GameObject.
+		/// </summary>
+		/// <param name="otherObject">The GameObject that Helix collided with.</param>
 		public override void collidedWith(GameObject otherObject)
 		{
 			if (otherObject is Objects.Character)
 			{
 				base.takeDamage();
-				repelling = true;
-				repelPeriod = 0.5;
 			}
 			else
 			{
@@ -445,6 +464,10 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		/// <summary>
+		/// Make Helix take a specified amount damage, accounting for a small period of temporary invincibility.
+		/// </summary>
+		/// <param name="damage">The amount of damage to take.</param>
 		public override void takeDamage(float damage)
 		{
 			if (lastTookDamage + invincibilityPeriod < Engine.gameTime.TotalRealTime.TotalMilliseconds)

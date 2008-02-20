@@ -233,7 +233,7 @@ namespace SnailsPace.Core
                     if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
                     {
                         Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
-                        Vector2[] boxVertices = boundingBox.GetPoints();
+						Vector2[] boxVertices = boundingBox.Points;
                         VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
                         visualBoxVertices[0].Color = boundingBoxCenterColor;
                         visualBoxVertices[0].Position = new Vector3(objectEnumerator.Current.position, 1);
@@ -258,7 +258,7 @@ namespace SnailsPace.Core
                     while (triggers.MoveNext())
                     {
                         Objects.GameObjectBounds boundingBox = triggers.Current.bounds;
-                        Vector2[] boxVertices = boundingBox.GetPoints();
+						Vector2[] boxVertices = boundingBox.Points;
                         VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
                         visualBoxVertices[0].Color = triggerBoxCenterColor;
                         visualBoxVertices[0].Position = new Vector3(triggers.Current.position, 1);

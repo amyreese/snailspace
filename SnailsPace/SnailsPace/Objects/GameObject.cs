@@ -7,8 +7,9 @@ using LuaInterface;
 namespace SnailsPace.Objects
 {
     class GameObject
-    {
-        // The game object's position and velocity.
+	{
+		#region GameObject properties
+		// The game object's position and velocity.
 		private Vector2 _position;
 		public Vector2 position
 		{
@@ -92,16 +93,21 @@ namespace SnailsPace.Objects
         public float layer;       // 0: background ... 5: foreground
         
         // Sprites that make up the game object.
-        public Dictionary<String, Sprite> sprites;     
-   
-        /**
-         * Initialize object's sprite dictionary.
-         */
+        public Dictionary<String, Sprite> sprites;
+		#endregion
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
         public GameObject()
         {
             sprites = new Dictionary<string,Sprite>();
         }
 
+		/// <summary>
+		/// Set the GameObject's visible sprite.
+		/// </summary>
+		/// <param name="sprtName">The name of the visible sprite.</param>
         public void setSprite(String sprtName)
         {
             Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
@@ -115,6 +121,11 @@ namespace SnailsPace.Objects
             }
         }
 
+		/// <summary>
+		/// Set the GameObject's visible sprites.
+		/// </summary>
+		/// <param name="sprtName">The name of the first visible sprite.</param>
+		/// <param name="sprtName2">The name of the second visible sprite.</param>
         public void setSprites(String sprtName, String sprtName2)
         {
             Dictionary<string, Objects.Sprite>.ValueCollection.Enumerator sprtEnumerator = sprites.Values.GetEnumerator();
@@ -132,19 +143,34 @@ namespace SnailsPace.Objects
             }
         }
 
+		/// <summary>
+		/// Determine if this GameObject can collide with another GameObject.
+		/// </summary>
+		/// <param name="otherObject">The other GameObject.</param>
+		/// <returns>If these objects can collide with each other.</returns>
 		public virtual bool canCollideWith(GameObject otherObject)
 		{
 			return true;
 		}
 
+		/// <summary>
+		/// Function called when this GameObject collides with another GameObject.
+		/// </summary>
+		/// <param name="otherObject">The other GameObject.</param>
 		public virtual void collidedWith(GameObject otherObject)
 		{
 			// Do nothing?
-
 		}
 
+		/// <summary>
+		/// Determines whether another GameObject will collide with this GameObject if it follows a specified movement vector.
+		/// </summary>
+		/// <param name="movementVector">The movement vector of the other GameObject.</param>
+		/// <param name="otherObject">The other GameObject.</param>
+		/// <returns>True if these GameObjects will intersect.</returns>
 		public bool willIntersect(Vector2 movementVector, GameObject otherObject)
-		{		
+		{	
+			// Check for obvious intersections in each direction.
             float left = position.X - size.X / 2;
             left = Math.Min(left, left + movementVector.X);
             if (left > otherObject.bounds.Right)
@@ -173,9 +199,14 @@ namespace SnailsPace.Objects
                 return false;
             }
 
+			// If no obvious intersections were found, check point by point using the GameObjectBounds.
 			return bounds.WillIntersect(otherObject.bounds, movementVector, this is Bullet);
 		}
 
+		/// <summary>
+		/// Get a rectangle object that surrounds this GameObject.
+		/// </summary>
+		/// <returns>A bounding rectangle for this GameObject.</returns>
 		public Rectangle getRectangle()
 		{
 			return new Rectangle((int)(position.X - (size.X / 2)), (int)(position.Y + (size.Y / 2)), (int)(size.X), (int)(size.Y));
