@@ -34,7 +34,7 @@ function Shaker(startPos)
 	fly = ShakerSprite(0, 0, 0.07)
 	die = ShakerSprite(0, 0, .17)
 	
-	shaker = Character("flamethrower")
+	shaker = Character("generic")
 	shaker.sprites:Add("Walk", walk)
 	shaker.sprites:Add("Stand", stand)
 	shaker.sprites:Add("Die", die)
@@ -47,7 +47,7 @@ function Shaker(startPos)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
 	shaker.health = 100
-	shaker.weapon.cooldown = 800
+	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
 	shaker:setSprite("Stand")
 	shaker.state = {}
@@ -65,33 +65,35 @@ function ShakerThinker( self, gameTime )
 	self:ShootAt(helix.position, gameTime)
 	
 	if(keystone.affectedByGravity) then
-		if(self.health < 25) then
-		
-		elseif(self.health < 50) then
-			--[[--Go Right
-			if(not self.state.movingLeft) then
-				if(self.position <= 9100) then
-					self.direction = Vector2(1, 0)
-				else
-					self.state.movingLeft = true
-				end
-			elseif(self.state.goingUp) then
-				if(self.position.Y < 800) then
-					--Go UpLeft
-					AI.diagonalPatrol(self, Vector2( self.startPosition.X - 700, self.startPosition.Y + 700), Vector2( self.startPosition.X, self.startPosition.Y))
-				else
-					self.state.goingUp = false
-			else
-				if(self.position.Y > 800) then
-				
-				--Go DownLeft
-				AI.diagonalPatrol(self, Vector2( self.startPosition.X - 700, self.startPosition.Y + 700), Vector2( self.startPosition.X, self.startPosition.Y))
-			end]]--
-		elseif(self.health < 75) then
+		if(self.health <= 25) then
+			AI.diagonalPatrol(self, Vector2( self.startPosition.X, self.startPosition.Y+450), Vector2( self.startPosition.X-700, self.startPosition.Y+450))
+		elseif(self.health <= 50) then
+			AI.diagonalPatrol(self, Vector2( self.startPosition.X, self.startPosition.Y + 600), Vector2( self.startPosition.X, self.startPosition.Y+100))		
+		elseif(self.health <= 75) then
 			AI.jumpPatrol(self)
 		elseif(self.health <= 100) then
 			AI.slowJumpPatrol(self)
 		end
+	end
+	
+	if(self.health == 25) then
+		self.weapon = Weapon.load("minigun")
+		shaker.weapon.cooldown = 200
+		self.rotation = 3.14
+		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
+	end
+	
+	if(self.health == 50) then
+		self.weapon = Weapon.load("grenadelauncher")
+		shaker.weapon.cooldown = 800
+		self.affectedByGravity = false
+		self.rotation = 1.57
+		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
+	end
+	
+	if (self.health == 75) then
+		self.weapon = Weapon.load("flamethrower")
+		shaker.weapon.cooldown = 1700
 	end
 	
 		
