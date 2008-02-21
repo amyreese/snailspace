@@ -1,3 +1,19 @@
+exitPortalImage = Image()
+exitPortalImage.filename = "Resources/Textures/ExitPortal"
+exitPortalImage.blocks = Vector2(4.0, 4.0)
+exitPortalImage.size = Vector2(256.0, 256.0)
+
+exitPortalSprite = Sprite()
+exitPortalSprite.image = exitPortalImage
+exitPortalSprite.visible = true
+exitPortalSprite.effect = "Resources/Effects/effects"
+exitPortalSprite.animationStart = 0
+exitPortalSprite.animationEnd = 7
+exitPortalSprite.frame = 0
+exitPortalSprite.animationDelay = 0.2
+exitPortalSprite.timer = 0.0
+
+
 grassImage = Image()
 grassImage.filename = "Resources/Textures/Grass"
 grassImage.blocks = Vector2(1.0, 1.0)

@@ -130,7 +130,7 @@ minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
 --Princess Boss
 thePrincess = Queen(Vector2(7856, -4856))
 
-saltShaker = Shaker(Vector2(9800, 500))
+saltShaker = Shaker(Vector2(9800, 425))
 
 
 

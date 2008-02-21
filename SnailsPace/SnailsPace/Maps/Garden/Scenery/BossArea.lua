@@ -32,7 +32,7 @@ for x=0,15 do
  dirtObj.sprites:Add("dirt", dirtObjSprite)
  dirtObj.size = Vector2(dirtImageS.size.X - 32, dirtImageS.size.Y - 32)
  dirtObj.rotation = 0.0
- dirtObj.position = Vector2(8750 + (x*75), ((x+10) * 97) + 500)
+ dirtObj.position = Vector2(8750 + (x*74), ((x+10) * 97) + 500)
  dirtObj.layer = 0.6
  dirtObj.affectedByGravity = true
  map.objects:Add(dirtObj)

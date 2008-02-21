@@ -16,13 +16,12 @@ end
 
 function EndLevel.BuildBossEnd( endLevelX, endLevelY )
 	local trig = Trigger()
-	trig.position = Vector2( endLevelX, endLevelY )
-	trig.bounds = GameObjectBounds( Vector2( 256, 256 ), trig.position, 0 )
+	trig.position = Vector2( endLevelX + xOffset, endLevelY  + yOffset)
+	trig.bounds = GameObjectBounds( Vector2( 128, 128 ), trig.position, 0 )
 	trig.state = { used=false }
 	map.triggers:Add(trig)
 	
-	local portalObj = WorldBuilding.BuildObject( { xOffset=endLevelX, yOffset=endLevelY, sprite=fuelSprite, layer=0, collidable=false } )
-	portalObj:setSprite("")
+	portalObj = WorldBuilding.BuildObject( { xOffset=endLevelX, yOffset=endLevelY, sprite=exitPortalSprite, layer=0, collidable=false } )
 	
 	function trig.state:triggerIn( character, gameTime )
 		if not used then

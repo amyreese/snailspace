@@ -125,3 +125,59 @@ function AI.platformPatrol(self)
 	self.horizontalFriction = 3840.0
 	AI.patrol(self, self.startPosition.X + 10, self.startPosition.X - 10)
 end
+
+--[[Have the AI jump along his patrol route]]--
+function AI.jumpPatrol(self)
+	--Jump Left
+	if(self.state.movingLeft) then
+		if(self.position.X > self.startPosition.X - 800) then
+			--Jump till too high
+			if(self.position.Y <= 425) then
+				self.direction = Vector2(-1, 1)
+			elseif (self.position.Y >= 500) then
+				self.direction = Vector2(0, -1)
+			end
+		else
+			self.state.movingLeft = false
+		end
+	else--Jump Right
+		if(self.position.X < self.startPosition.X) then
+			--Jump til too high
+			if(self.position.Y <= 425) then
+				self.direction = Vector2(1, 1)
+			elseif (self.position.Y >= 500) then
+				self.direction = Vector2(0, -1)
+			end
+		else
+			self.state.movingLeft = true
+		end
+	end
+end
+
+--[[Have the AI Jump slowly on his Patrol Route]]--
+function AI.slowJumpPatrol(self)
+	--Jump Left
+	if(self.state.movingLeft) then
+		if(self.position.X > self.startPosition.X - 800) then
+			--Jump till too high
+			if(self.position.Y <= 425) then
+				self.direction = Vector2(-1, 1)
+			elseif (self.position.Y >= 500) then
+				self.direction = Vector2(0, 0)
+			end
+		else
+			self.state.movingLeft = false
+		end
+	else--Jump Right
+		if(self.position.X < self.startPosition.X) then
+			--Jump til too high
+			if(self.position.Y <= 425) then
+				self.direction = Vector2(1, 1)
+			elseif (self.position.Y >= 500) then
+				self.direction = Vector2(0, 0)
+			end
+		else
+			self.state.movingLeft = true
+		end
+	end
+end
