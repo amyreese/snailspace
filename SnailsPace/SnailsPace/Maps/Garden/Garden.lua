@@ -2,11 +2,12 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---player = Player( Vector2(-1000,0), "Tree Fort" )
---player = Player(Vector2(7956, -4500), "Tree Fort")
---player = Player(Vector2(800, -800), "Tree Fort")
---player = Player(Vector2(5456, -4500), "Tree Fort")
-player = Player(Vector2(8500, 0))
+--0player = Player( Vector2(-1000,0))
+--player = Player(Vector2(7956, -4500))
+--player = Player(Vector2(800, -800))
+--player = Player(Vector2(5456, -4500))
+--player = Player(Vector2(8500, 0))
+player = Player(Vector2(6200, 200))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -15,6 +16,7 @@ include("Enemies/BlackAnt.lua")
 include("Enemies/Spider.lua")
 include("Enemies/Queen.lua")
 include("Enemies/Shaker.lua")
+include("Enemies/Hive.lua")
 
 -- Set up the background
 include("Scenery/Background.lua")
@@ -28,7 +30,6 @@ include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
 include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
-include("Triggers/Message.lua")
 
 -- Set up map platforms
 include("Scenery/Pit.lua")
@@ -76,15 +77,16 @@ spider14 = Spider(Vector2(2520, -100))
 spider15 = Spider(Vector2(3160, 375))
 spider16 = Spider(Vector2(3610, -250))
 
+--****Plane 1****
 --Plane1 Bees
-bee1 = Bee(Vector2(0,50))
-bee2 = Bee(Vector2(50,50))
-bee3 = Bee(Vector2(100,50))
-bee4 = Bee(Vector2(150,50))
-bee5 = Bee(Vector2(200,50))
-bee6 = Bee(Vector2(250,50))
-bee7 = Bee(Vector2(300,50))
-bee8 = Bee(Vector2(350,50))
+bee1 = Bee(Vector2(0,150), "swarmHelixA")
+bee2 = Bee(Vector2(50,150), "swarmHelixA")
+bee3 = Bee(Vector2(100,150), "flyUp")
+bee4 = Bee(Vector2(150,150), "flyUp")
+bee5 = Bee(Vector2(200,150), "flyUp")
+bee6 = Bee(Vector2(250,150), "flyUp")
+bee7 = Bee(Vector2(300,150), "flyUp")
+bee8 = Bee(Vector2(350,150), "flyUp")
 bee1.state.attacking = true
 bee2.state.attacking = true
 bee3.state.attacking = true
@@ -93,6 +95,13 @@ bee5.state.attacking = true
 bee6.state.attacking = true
 bee7.state.attacking = true
 bee8.state.attacking = true
+
+--Plane1 Black Ants
+blackant1 = BlackAnt(Vector2(0, 50), "attack")
+blackant2 = BlackAnt(Vector2(128, 50), "attack")
+blackant3 = BlackAnt(Vector2(256, 50), "attack")
+blackant4 = BlackAnt(Vector2(384, 50), "attack")
+
 
 --Pit Ramp Spiders
 spider1 = Spider(Vector2(2060, -1950), true)
@@ -103,6 +112,9 @@ spider5 = Spider(Vector2(2860, -2800), true)
 spider6 = Spider(Vector2(3060, -3000), true)
 spider7 = Spider(Vector2(3260, -3200), true)
 spider8 = Spider(Vector2(3460, -3400), true)
+
+--High Secret Hive
+hive1 = Hive(Vector2(6200, 35))
 
 --Escape Boosts
 boost1 = Powerups.BuildBoostPowerup(7956, -4500)
@@ -124,8 +136,9 @@ SavePoints.BuildSavePoint( 7500, 2575, savepointSprite )
 health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 
 --Weapons
-stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 10)
-minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 500)
+stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 50, 0.25)
+minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 200, 4)
+flamethrower1 = Powerups.BuildWeaponPowerup( 9000, 2500, "flamethrower", 20, 5)
 
 --Princess Boss
 thePrincess = Queen(Vector2(7856, -4856))

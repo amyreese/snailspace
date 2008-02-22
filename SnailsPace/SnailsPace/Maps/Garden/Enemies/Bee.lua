@@ -67,6 +67,10 @@ function BeeThinker( self, gameTime )
 		AI.diagonalPatrol(self, Vector2( self.startPosition.X + 75, self.startPosition.Y + 50), Vector2( self.startPosition.X, self.startPosition.Y - 100 ))
 	elseif (self.behavior == "flyDownLeft") then
 		AI.diagonalPatrol(self, Vector2( self.startPosition.X - 75, self.startPosition.Y + 50), Vector2( self.startPosition.X, self.startPosition.Y - 100 ))
+	elseif (self.behavior == "swarmHelixA") then
+		AI.diagonalPatrol(self, Vector2( Player.helix.position.X - 75, Player.helix.position.Y + 196), Vector2( Player.helix.position.X + 75, Player.helix.position.Y + 128 ))
+	elseif (self.behavior == "swarmHelixB") then
+		AI.diagonalPatrol(self, Vector2( Player.helix.position.X + 75, Player.helix.position.Y + 196), Vector2( Player.helix.position.X - 75, Player.helix.position.Y + 128 ))
 	end	
 	if self.state.attacking then
 		if AI.canSeeHelix( self, 600 ) then

@@ -67,6 +67,8 @@ function BlackAntThinker( self, gameTime )
 		AI.platformPatrol(self)
 	elseif (self.behavior == "patrol") then
 		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
+	elseif (self.behavior == "attack") then
+		AI.moveToHelix(self, nil, nil, nil, false)
 	end
 	-- TODO: Extend AI for the Black Ant
 end

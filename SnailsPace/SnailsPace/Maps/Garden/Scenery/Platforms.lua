@@ -60,14 +60,14 @@ saltcan = GameObject()
 saltcanSprite1 = saltcanSprite:clone()
 saltcan.sprites:Add("Saltcan", saltcanSprite1)
 saltcan.sprites:Add("Pour", pourSprite)
+saltcan.collidable = false
+saltcan.rotation = 1.57
+saltcan.size = Vector2(saltcanImage.size.Y, saltcanImage.size.X)
+saltcan.position = Vector2( (35+platOffX + plat3OffsetX)*32, (-11.2 + plat3OffsetY) * 32 + platOffY)
 saltcan.sprites["Pour"].position = Vector2(-150,-325)
 saltcan.sprites["Pour"].rotation = 1.57
 saltcan.sprites["Pour"].layerOffset = 20
-saltcan.rotation = MathHelper.PiOver2
-saltcan.size = Vector2(500, 500)
-saltcan.position = Vector2( (35+platOffX + plat3OffsetX)*32, (-11.2 + plat3OffsetY) * 32 + platOffY)
 saltcan.layer = 0.5
-saltcan.collidable = true
 map.objects:Add(saltcan)
 
 pourTrap = Traps.SaltPile((27.7+platOffX + plat3OffsetX)*32, (-20 + plat3OffsetY) * 32 + platOffY, 64, 512, 0, 2 )
