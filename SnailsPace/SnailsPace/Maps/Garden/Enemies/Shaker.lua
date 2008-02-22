@@ -62,7 +62,7 @@ function ShakerThinker( self, gameTime )
 		EndLevel.BuildBossEnd( self.position.X - xOffset, self.position.Y - yOffset )
 	end
 	
-	self:ShootAt(helix.position, gameTime)
+	
 	
 	if(keystone.affectedByGravity) then
 		if(self.health <= 100) then
@@ -78,7 +78,7 @@ function ShakerThinker( self, gameTime )
 	
 	if(self.health <= 110 and self.health > 90) then
 		self.weapon = Weapon.load("fanshot")
-		shaker.weapon.cooldown = 200
+		shaker.weapon.cooldown = 100
 		self.rotation = 3.14
 		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 	end
@@ -95,6 +95,8 @@ function ShakerThinker( self, gameTime )
 		self.weapon = Weapon.load("flamethrower")
 		shaker.weapon.cooldown = 800
 	end
+	
+	self:ShootAt(helix.position, gameTime)
 	
 		
 end
