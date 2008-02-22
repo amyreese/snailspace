@@ -2,12 +2,12 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---0player = Player( Vector2(-1000,0))
+--player = Player( Vector2(-1000,0))
 --player = Player(Vector2(7956, -4500))
 --player = Player(Vector2(800, -800))
 --player = Player(Vector2(5456, -4500))
 --player = Player(Vector2(8500, 0))
-player = Player(Vector2(6200, 200))
+player = Player(Vector2(5500, 800))
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -137,7 +137,7 @@ health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 
 --Weapons
 stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 50, 0.25)
-minigun1 = Powerups.BuildWeaponPowerup( 6000, -2200, "minigun", 200, 4)
+minigun1 = Powerups.BuildWeaponPowerup( 6000, 400, "minigun", 200, 4)
 flamethrower1 = Powerups.BuildWeaponPowerup( 9000, 2500, "flamethrower", 20, 5)
 
 --Princess Boss

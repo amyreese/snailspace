@@ -41,7 +41,7 @@ function Hive(startPos)
 	Hive.affectedByGravity = false
 	Hive.direction = Vector2(0,0)
 	Hive.maxVelocity = 0
-	Hive.health = 50
+	Hive.health = 25
 	Hive.weapon.ammunition = 0
 	Hive.name = "Hive"
 	Hive:setSprite("Stand")

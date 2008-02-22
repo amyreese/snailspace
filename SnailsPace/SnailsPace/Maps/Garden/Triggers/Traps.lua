@@ -27,10 +27,15 @@ function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, ke
 	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
 	trig.bounds = GameObjectBounds( Vector2( trapWidth / 2, trapHeight ), trig.position, trapRotation )
 	trig.state = {}
+	trig.state.unused = true
 	map.triggers:Add(trig)
 
 	function trig.state:trigger( character, gameTime )
-		keystone.affectedByGravity = true
+		if(trig.state.unused) then
+			keystone.affectedByGravity = true
+			trig.state.unused = false
+			--TODO: Zoom Out to Show entire boss battle
+		end
 	end
 	return trig
 end
