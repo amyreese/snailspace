@@ -6,8 +6,8 @@ startPosition = Vector2( -1000, 0 )
 --startPosition = Vector2(7956, -4500)
 --startPosition = Vector2(800, -800)
 --startPosition = Vector2(5456, -4500)
---startPosition = Vector2(8500, 0)
 --startPosition = Vector2(5500, 800)
+startPosition = Vector2(8500, 0)
 player = Player( startPosition, "generic", "Tree Fort" ) 
 
 

@@ -55,6 +55,7 @@ Map = import('SnailsPace.Objects.Map');
 Player = import('SnailsPace.Core.Player');
 Engine = import('SnailsPace.Core.Engine');
 Engine = Engine.GetInstance()
+Renderer = import('SnailsPace.Core.Renderer');
             
             ";
 

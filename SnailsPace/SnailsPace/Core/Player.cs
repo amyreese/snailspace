@@ -121,6 +121,7 @@ namespace SnailsPace.Core
 			strings.Add(pointsText);
 			recalculatePoints();
 			Engine.player = this;
+			Renderer.cameraTarget = helix;
 		}
 
 		/// <summary>
@@ -172,8 +173,10 @@ namespace SnailsPace.Core
                     }
                     else if (deathTimer > 2000)
                     {
-                        Renderer.cameraTarget = saveObject;
-                        Renderer.cameraTargetOffset = new Vector3();
+						if (Renderer.cameraTarget == helix)
+						{
+							Renderer.cameraTarget = saveObject;
+						}
                     }
                     else if (deathTimer > 1500)
                     {
@@ -320,9 +323,10 @@ namespace SnailsPace.Core
             showgun = true;
 
             Engine.sound.play("ready");
-
-            Renderer.cameraTarget = helix;
-            Renderer.cameraTargetOffset = new Vector3();
-        }
+			if (Renderer.cameraTarget == saveObject)
+			{
+				Renderer.cameraTarget = helix;
+			}
+		}
     }
 }

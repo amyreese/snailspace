@@ -21,7 +21,7 @@ function Traps.DamageHelix( trigger, damage, character, gameTime )
 	end
 end
 
-function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, keystone)
+function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, keystone, cameraTarget)
 	trapRotation = trapRotation or 0
 	local trig = Trigger()
 	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
@@ -33,6 +33,7 @@ function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, ke
 	function trig.state:trigger( character, gameTime )
 		if(trig.state.unused) then
 			keystone.affectedByGravity = true
+			Renderer.cameraTarget = cameraTarget
 			trig.state.unused = false
 			--TODO: Zoom Out to Show entire boss battle
 		end
