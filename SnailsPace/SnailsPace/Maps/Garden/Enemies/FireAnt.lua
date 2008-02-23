@@ -60,18 +60,29 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	if(AI.canSeeHelix(self, 300)) then
-		AI.shootDirectlyAtHelix(self, gameTime)
-	end
-	
-	
 	if (self.behavior == "platPatrol") then
 		AI.platformPatrol(self)
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
 	elseif (self.behavior == "patrol") then
 		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
 	elseif (self.behavior == "attack") then
 		AI.moveToHelix(self, nil, nil, nil, false)
 		self:setSprite("Walk")
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
+	elseif (self.behavior == "blockWatch") then
+		for x=0,5 do
+			if(queenBlocks[x].affectedByGravity) then
+				queenBlocksTriggers[x].position = Vector2( queenBlocks[x].position.X, queenBlocks[x].position.Y - 4 )
+				queenBlocksTriggers[x].bounds = GameObjectBounds(queenBlocks[x].size, queenBlocksTriggers[x].position, queenBlocks[x].rotation)
+			end
+		end
 	end
 	-- TODO: Extend AI for the Fire Ant
 end

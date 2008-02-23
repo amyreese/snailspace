@@ -2,13 +2,13 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-startPosition = Vector2( -1000, 0 )
---startPosition = Vector2(7956, -4500)
+--startPosition = Vector2( -1000, 0 )
+startPosition = Vector2(7956, -4600)
 --startPosition = Vector2(800, -800)
 --startPosition = Vector2(5456, -4500)
 --startPosition = Vector2(5500, 800)
-startPosition = Vector2(8500, 0)
-player = Player( startPosition, "generic", "Tree Fort" ) 
+--startPosition = Vector2(8500, 0)
+player = Player( startPosition, "minigun", "Tree Fort" ) 
 
 
 -- Enemy Character Definitions
@@ -51,8 +51,8 @@ map.bounds:Add(Vector2(4000, -5100))
 
 --****Plane 1****
 --Plane1 Bees
-bee1 = Bee(Vector2(0,150), "swarmHelixA")
-bee2 = Bee(Vector2(50,150), "swarmHelixA")
+bee1 = Bee(Vector2(0,150), "flyUp")
+bee2 = Bee(Vector2(50,150), "flyUp")
 bee3 = Bee(Vector2(100,150), "flyUp")
 bee4 = Bee(Vector2(150,150), "flyUp")
 bee5 = Bee(Vector2(200,150), "flyUp")
@@ -69,16 +69,16 @@ bee7.state.attacking = true
 bee8.state.attacking = true
 
 --Plane1 Black Ants
-blackant1 = BlackAnt(Vector2(0, 50), "attack")
-blackant2 = BlackAnt(Vector2(128, 50), "attack")
-blackant3 = BlackAnt(Vector2(256, 50), "attack")
-blackant4 = BlackAnt(Vector2(384, 50), "attack")
+blackant1 = BlackAnt(Vector2(0, 0), "attack")
+blackant2 = BlackAnt(Vector2(128, 0), "attack")
+blackant3 = BlackAnt(Vector2(256, 0), "attack")
+blackant4 = BlackAnt(Vector2(384, 0), "attack")
 
 --****Platforms****
 --Platform Black Ants
 blackant1 = BlackAnt(Vector2(1080, 0), "platPatrol")
-blackant2 = BlackAnt(Vector2(1560, -160), "attack")
-blackant3 = BlackAnt(Vector2(2310, -510), "attack")
+blackant2 = BlackAnt(Vector2(1560, -160), "platPatrol")
+blackant3 = BlackAnt(Vector2(2310, -510), "platPatrol")
 blackant4 = BlackAnt(Vector2(3160, -480), "platPatrol")
 blackant5 = BlackAnt(Vector2(1720, 260), "platPatrol")
 blackant6 = BlackAnt(Vector2(2520, 100), "platPatrol")
@@ -174,6 +174,7 @@ flamethrower1 = Powerups.BuildWeaponPowerup( 9000, 2500, "flamethrower", 20, 5)
 --Princess Boss
 thePrincess = Queen(Vector2(7856, -4856))
 
+--The Salt Shaker boss
 saltShaker = Shaker(Vector2(9800, 425))
 
 

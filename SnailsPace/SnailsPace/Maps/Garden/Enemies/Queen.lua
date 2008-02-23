@@ -69,10 +69,10 @@ function Queen(startPos)
 	queen.weapon.cooldown = 800
 	queen.name = "Queen"
 	queen:setSprite("Stand")
-	queen.state = {
-		tracking = false,
-		mad = false,
-	}
+	queen.state = {}
+	function queen.state:die(gameTime)
+		Traps.MiniBossEscape( 8000, -4700, 2000, 500, 0, queenBlocks)
+	end
 	map.characters:Add(queen)
 	
 	return queen
@@ -81,10 +81,6 @@ end
 -- Fire Ant behavior function
 function QueenThinker( self, gameTime )
 	self:setSprite("Walk")
-	
-	if(self.health == 1) then
-		Traps.MiniBossEscape( 8000, -4700, 2000, 500, 0, queenBlocks)
-	end
 	
 	AI.moveToHelix(self, nil, nil, nil, false)
 	AI.shootDirectlyAtHelix(self, gameTime)

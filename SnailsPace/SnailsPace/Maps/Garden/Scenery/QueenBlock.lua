@@ -1,4 +1,5 @@
 queenBlocks = {}
+queenBlocksTriggers = {}
 
 --Cave Block
 xOffset = 245
@@ -15,3 +16,12 @@ for x=0,6 do
  map.objects:Add(dirtObj)
  queenBlocks[x] = dirtObj
 end
+
+for x=0,5 do
+	local trig = Traps.SaltPile( 10000, -4200, queenBlocks[x].size.X, queenBlocks[x].size.Y, 0, 40)
+	queenBlocksTriggers[x] = trig
+end
+
+
+blockwatcher = FireAnt(Vector2(8608, -4368), "blockWatch")
+blockwatcher.sprites["Stand"].visible = false

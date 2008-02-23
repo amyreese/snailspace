@@ -58,16 +58,24 @@ end
 
 -- Black Ant behavior function
 function BlackAntThinker( self, gameTime )
-	if(AI.canSeeHelix(self, 300)) then
-		AI.shootDirectlyAtHelix(self, gameTime)
-	end
-	
-	
 	if (self.behavior == "platPatrol") then
 		AI.platformPatrol(self)
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
 	elseif (self.behavior == "patrol") then
 		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
 	elseif (self.behavior == "attack") then
+		self:setSprite("Walk")
+		self.maxVelocity = 200
 		AI.moveToHelix(self, nil, nil, nil, false)
+	elseif(self.behavior == "attackAndShoot") then
+		self:setSprite("Walk")
+		if(AI.canSeeHelix(self, 300)) then
+			AI.shootDirectlyAtHelix(self, gameTime)
+		end
 	end
 end
