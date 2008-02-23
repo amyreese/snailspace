@@ -39,6 +39,6 @@ LoadArea("Fort")
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-1536, -80))
-map.bounds:Add(Vector2(-1536, 6000))
-map.bounds:Add(Vector2(2560, 6000))
+map.bounds:Add(Vector2(-1536, 5200))
+map.bounds:Add(Vector2(2560, 5200))
 map.bounds:Add(Vector2(2560, -80))

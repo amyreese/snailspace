@@ -175,3 +175,18 @@ beehiveSprite.animationEnd = 0
 beehiveSprite.frame = 0
 beehiveSprite.animationDelay = 0.0
 beehiveSprite.timer = 0.0
+
+treetrunkImage = Image()
+treetrunkImage.filename = "Resources/Textures/treetrunk"
+treetrunkImage.blocks = Vector2(1.0, 1.0)
+treetrunkImage.size = Vector2(3072.0, 6144.0)
+
+treetrunkSprite = Sprite()
+treetrunkSprite.image = treetrunkImage
+treetrunkSprite.visible = true
+treetrunkSprite.effect = "Resources/Effects/effects"
+treetrunkSprite.animationStart = 0
+treetrunkSprite.animationEnd = 0
+treetrunkSprite.frame = 0
+treetrunkSprite.animationDelay = 0.0
+treetrunkSprite.timer = 0.0
