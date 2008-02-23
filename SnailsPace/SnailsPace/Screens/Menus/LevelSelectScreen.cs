@@ -84,7 +84,7 @@ namespace SnailsPace.Screens.Menus
 
 			if (input.inputPressed("MenuSelect"))
             {
-				if (menuItemIndex == levels.Length)
+				if (menuItemIndex == menuItems.Length - 1)
 				{
 					snailsPace.changeState(SnailsPace.GameStates.MainMenu);
 				}
