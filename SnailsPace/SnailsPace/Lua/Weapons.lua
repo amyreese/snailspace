@@ -111,9 +111,11 @@ function Weapons:grenadelauncher( weapon )
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
-		bullet.explosion = Explosion()
-		bullet.explosion.damage = 10
-		bullet.explosion.collidable = true
+		explosion = Explosion()
+		explosion.scale = Vector2(2,2)
+		explosion.damage = 2
+		explosion.cue = "explode"
+		bullet.explosion = explosion
 		
 		bullet.sprites:Add("Bullet", Weapons.bulletSprite(8))
 		bullet.size = Weapons.bulletImage.size

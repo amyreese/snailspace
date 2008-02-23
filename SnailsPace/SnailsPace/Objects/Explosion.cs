@@ -9,6 +9,8 @@ namespace SnailsPace.Objects
 	class Explosion : GameObject
     {
         public float damage = 0;
+        public List<Character> damaged;
+        public string cue = "";
 
 		/// <summary>
 		/// Create a new explosion.
@@ -29,7 +31,8 @@ namespace SnailsPace.Objects
 			sprite.animationDelay = 0.035f;
 			sprite.timer = 0;
 			sprites.Add("explosion", sprite);
-			collidable = false;
+            collidable = false;
+            damaged = new List<Character>();
 		}
 
 		/// <summary>

@@ -745,10 +745,6 @@ namespace SnailsPace.Core
                     // The object didn't collide, move all the way
                     resultingMovement = objectMovement;
                 }
-                else if (movingObject is Character && collidedObject is Explosion)
-                {
-                    ((Character)movingObject).takeDamage(((Explosion)collidedObject).damage);
-                }
                 else if (movingObject is Bullet)
                 {
                     // If the object collides with a wall and is bounceable, then bounce!
@@ -789,6 +785,10 @@ namespace SnailsPace.Core
                         Explosion explosion = b.explosion;
                         explosion.position = b.position;
                         explosions.Add(explosion);
+                        if (explosion.cue != "")
+                        {
+                            Engine.sound.play(explosion.cue);
+                        }
                         #endregion
                     }
                 }
@@ -929,6 +929,10 @@ namespace SnailsPace.Core
                             Explosion explosion = b.explosion;
                             explosion.position = b.position;
                             explosions.Add(explosion);
+                            if (explosion.cue != "")
+                            {
+                                Engine.sound.play(explosion.cue);
+                            }
                             #endregion
                         }
                     }
@@ -1009,12 +1013,44 @@ namespace SnailsPace.Core
                 #endregion
 
                 #region Move everything, checking for collisions
-                    List<GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
-                    while (collideableObjectEnum.MoveNext())
+                List<GameObject>.Enumerator collideableObjectEnum = collidableObjects.GetEnumerator();
+                while (collideableObjectEnum.MoveNext())
+                {
+                    MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, activityBoundsSize, boundsCenter);
+                }
+                #endregion
+            }
+            #endregion
+
+            #region Check explosions against characters
+            {
+                List<Character> characterList = new List<Character>(map.characters);
+                characterList.Add(Player.helix);
+
+                List<Explosion>.Enumerator explosionEnumerator = new List<Explosion>(explosions).GetEnumerator();
+                while (explosionEnumerator.MoveNext())
+                {
+                    Explosion explosion = explosionEnumerator.Current;
+                    if (explosion.damage <= 0)
+                        continue;
+
+                    List<Character>.Enumerator characterEnumerator = characterList.GetEnumerator();
+                    while (characterEnumerator.MoveNext())
                     {
-                        MoveOrCollide(collideableObjectEnum.Current, collidableObjects, elapsedTime, activityBoundsSize, boundsCenter);
+                        Character character = characterEnumerator.Current;
+
+                        if (character.bounds.WillIntersect(explosion.bounds, Vector2.Zero, false))
+                        {
+                            if (!explosion.damaged.Contains(character))
+                            {
+                                character.takeDamage(explosion.damage);
+                                explosion.damaged.Add(character);
+                            }
+                        }
                     }
-                    #endregion
+                    characterEnumerator.Dispose();
+                }
+                explosionEnumerator.Dispose();
             }
             #endregion
 

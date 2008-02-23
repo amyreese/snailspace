@@ -475,6 +475,7 @@ namespace SnailsPace.Objects
 				base.takeDamage(damage);
 				lastTookDamage = Engine.gameTime.TotalRealTime.TotalMilliseconds;
 			}
+            Engine.sound.play("ping");
 		}
 
     }

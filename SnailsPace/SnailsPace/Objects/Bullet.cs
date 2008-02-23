@@ -75,17 +75,7 @@ namespace SnailsPace.Objects
 			// Assumes canCollideWith
             if (otherObject is Character)
 			{
-				// Play the correct sound effect.
-                if (isPCBullet)
-                {
-                    Engine.sound.play("squash");
-                }
-                else
-                {
-                    Engine.sound.play("ping");
-                }
-
-                hits++;
+				hits++;
                 if (hits == 1)
                 {
                     ((Character)otherObject).takeDamage(damage);

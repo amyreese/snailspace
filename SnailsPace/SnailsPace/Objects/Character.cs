@@ -120,6 +120,10 @@ namespace SnailsPace.Objects
         public virtual void takeDamage(float damage)
         {
             takeDamage(damage, true);
+            if (!(this is Helix))
+            {
+                Engine.sound.play("squash");
+            }
         }
 
 		/// <summary>
