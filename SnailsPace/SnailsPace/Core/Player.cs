@@ -86,6 +86,22 @@ namespace SnailsPace.Core
 				oldInventory = helix.inventory;
 			}
 			helix = new Helix(startPosition, weaponName);
+			if (SnailsPace.cheatAllWeapons)
+			{
+				helix.AddWeapon(Weapon.load("stinger"));
+				helix.weapon.ammunition = 50;
+				helix.weapon.cooldown *= 0.25;
+				helix.AddWeapon(Weapon.load("grenadelauncher"));
+				helix.weapon.ammunition = 20;
+				helix.weapon.cooldown *= 1;
+				helix.AddWeapon(Weapon.load("minigun"));
+				helix.weapon.ammunition = 200;
+				helix.weapon.cooldown *= 4;
+				helix.AddWeapon(Weapon.load("flamethrower"));
+				helix.weapon.ammunition = 20;
+				helix.weapon.cooldown *= 1;
+				helix.AddWeapon(Weapon.load("generic"));
+			}
 			load();
 
 			// Crosshair creation
@@ -130,6 +146,13 @@ namespace SnailsPace.Core
 		/// <param name="gameTime">The current time.</param>
         public void think(GameTime gameTime)
         {
+			// Handle cheats.
+			if (SnailsPace.cheatInfiniteHealth)
+				helix.health = helix.maxHealth;
+
+			if (SnailsPace.cheatInfiniteFuel)
+				helix.fuel = helix.maxFuel;
+
             // Update things that depend on mouse position
 			crosshair.position = Engine.mouseToGame(SnailsPace.inputManager.mousePosition);
 

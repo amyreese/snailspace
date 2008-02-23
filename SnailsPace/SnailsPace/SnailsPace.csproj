@@ -85,6 +85,7 @@
     <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Screens\HighScoreScreen.cs" />
     <Compile Include="Screens\LevelOverScreen.cs" />
+    <Compile Include="Screens\Menus\CheatMenuScreen.cs" />
     <Compile Include="Screens\Menus\HighScoreMenuScreen.cs" />
     <Compile Include="Screens\Menus\LevelSelectScreen.cs" />
     <Compile Include="Screens\Screen.cs">

@@ -40,8 +40,15 @@ namespace SnailsPace
 #endif
         #endregion
 
-        #region Managers for input, sound, and configrations
-        internal static Input inputManager;
+		#region Cheat Flags
+		public static bool cheatInfiniteHealth = false;
+		public static bool cheatInfiniteFuel = false;
+		public static bool cheatInfiniteAmmo = false;
+		public static bool cheatAllWeapons = false;
+		#endregion
+
+		#region Managers for input, sound, and configrations
+		internal static Input inputManager;
         internal static Sound soundManager;
         internal static GameConfig gameConfig;
         internal static VideoConfig videoConfig;
@@ -104,7 +111,8 @@ namespace SnailsPace
             Game,
             LevelOver,
 			HighScoreListMenu,
-			HighScores
+			HighScores,
+			CheatMenu
         }
 
 		private GameStates currentGameState = GameStates.MainMenu;
@@ -146,6 +154,7 @@ namespace SnailsPace
             screens.Add(GameStates.LevelOver, new Screens.LevelOverScreen(this));
 			screens.Add(GameStates.HighScoreListMenu, new Screens.Menus.HighScoreMenuScreen(this));
 			screens.Add(GameStates.HighScores, new Screens.HighScoreScreen(this, "Test"));
+			screens.Add(GameStates.CheatMenu, new Screens.Menus.CheatMenuScreen(this));
 
             Dictionary<GameStates, Screen>.Enumerator screenEnumerator = screens.GetEnumerator();
             while (screenEnumerator.MoveNext())

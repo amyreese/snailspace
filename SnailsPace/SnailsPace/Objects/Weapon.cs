@@ -68,7 +68,7 @@ namespace SnailsPace.Objects
                 lastFired = gameTime.TotalRealTime.TotalMilliseconds;
 
                 Engine.lua.CallOn(state, "ShootAt", shooter, targetPosition, gameTime);
-                if (ammunition > 0) ammunition--;
+                if ((ammunition > 0) && (!SnailsPace.cheatInfiniteAmmo)) ammunition--;
 
                 if (shooter is Helix)
                 {

@@ -40,15 +40,17 @@ namespace SnailsPace.Screens.Menus
         {
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
-            menuItems = new MenuItem[7];
+            menuItems = new MenuItem[9];
 			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
-			menuItems[1] = new MenuItem("Key Bindings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-			menuItems[2] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+			menuItems[1] = new MenuItem("View Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
+			menuItems[2] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+			menuItems[3] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
 
-			menuItems[3] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
-			menuItems[4] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-            menuItems[5] = new MenuItem("Key Bindings", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
-			menuItems[6] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
+			menuItems[4] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
+			menuItems[5] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
+            menuItems[6] = new MenuItem("View Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+			menuItems[7] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
+			menuItems[8] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
 
 			menuItemIndex = 0;
             ready = true;
@@ -65,18 +67,20 @@ namespace SnailsPace.Screens.Menus
 			menuItems[0].Visible = !gameStarted;
 			menuItems[1].Visible = !gameStarted;
 			menuItems[2].Visible = !gameStarted;
+			menuItems[3].Visible = !gameStarted;
 
-			menuItems[3].Visible = gameStarted;
 			menuItems[4].Visible = gameStarted;
 			menuItems[5].Visible = gameStarted;
 			menuItems[6].Visible = gameStarted;
+			menuItems[7].Visible = gameStarted;
+			menuItems[8].Visible = gameStarted;
 
 			if (!menuItems[menuItemIndex].Visible)
 			{
 				menuItems[menuItemIndex].Selected = false;
 				if (gameStarted)
 				{
-					menuItemIndex = 3;
+					menuItemIndex = 4;
 				}
 				else
 				{
@@ -99,19 +103,23 @@ namespace SnailsPace.Screens.Menus
 					case 0:
 						snailsPace.changeState(SnailsPace.GameStates.LevelSelectMenu);
 						break;
-					case 3:
+					case 4:
 							snailsPace.changeState(SnailsPace.GameStates.GameLoading);
 							break;
 					case 1:
-					case 5:
+					case 6:
 						snailsPace.changeState(SnailsPace.GameStates.KeyBindingsMenu);
                         break;
-					case 2:
-					case 6:
+					case 3:
+					case 8:
 						snailsPace.exitGame(gameTime);
                         break;
-					case 4:
+					case 5:
 						gameStarted = false;
+						break;
+					case 2:
+					case 7:
+						snailsPace.changeState(SnailsPace.GameStates.CheatMenu);
 						break;
 				}
             }
