@@ -532,7 +532,6 @@ end
 --Cave Escape Right 1
 xOffset = 258
 yOffset = -80.0
-gravelLength = 40
 for x=0,22 do
  gravelObj = GameObject()
  gravelObjSprite = gravelSprite:clone()
@@ -544,6 +543,7 @@ for x=0,22 do
  gravelObj.layer = 0.5
  map.objects:Add(gravelObj)
 end
+
 
 --Cave Escape Right 1 Fill 1
 xOffset = 263

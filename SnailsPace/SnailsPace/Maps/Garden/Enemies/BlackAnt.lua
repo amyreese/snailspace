@@ -70,5 +70,4 @@ function BlackAntThinker( self, gameTime )
 	elseif (self.behavior == "attack") then
 		AI.moveToHelix(self, nil, nil, nil, false)
 	end
-	-- TODO: Extend AI for the Black Ant
 end

@@ -65,7 +65,7 @@ function Queen(startPos)
 	queen.direction = Vector2(1,0)
 	queen.maxVelocity = 400
 	queen.thinker = "QueenThinker"
-	queen.health = 10
+	queen.health = 50
 	queen.weapon.cooldown = 800
 	queen.name = "Queen"
 	queen:setSprite("Stand")
@@ -81,6 +81,10 @@ end
 -- Fire Ant behavior function
 function QueenThinker( self, gameTime )
 	self:setSprite("Walk")
+	
+	if(self.health == 1) then
+		Traps.MiniBossEscape( 8000, -4700, 2000, 500, 0, queenBlocks)
+	end
 	
 	AI.moveToHelix(self, nil, nil, nil, false)
 	AI.shootDirectlyAtHelix(self, gameTime)

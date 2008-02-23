@@ -28,7 +28,7 @@ function FASprite(animSt, animEnd, animDelay)
 end
 
 -- Creates a FireAnt object
-function FireAnt(startPos)
+function FireAnt(startPos, behav)
 	walk = FASprite(0, 3, 0.07)
 	stand = FASprite(0, 0, 0.07)
 	die = FASprite(8, 11, .17)
@@ -47,6 +47,7 @@ function FireAnt(startPos)
 	fireant.health = 3
 	fireant.weapon.cooldown = 800
 	fireant.name = "FireAnt"
+	fireant.behavior = behav
 	fireant:setSprite("Stand")
 	fireant.state = {
 		tracking = false,
@@ -59,8 +60,18 @@ end
 
 -- Fire Ant behavior function
 function FireAntThinker( self, gameTime )
-	self:setSprite("Walk")
-	AI.moveToHelix(self, nil, nil, nil, false)
-	AI.shootDirectlyAtHelix(self, gameTime)
+	if(AI.canSeeHelix(self, 300)) then
+		AI.shootDirectlyAtHelix(self, gameTime)
+	end
+	
+	
+	if (self.behavior == "platPatrol") then
+		AI.platformPatrol(self)
+	elseif (self.behavior == "patrol") then
+		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
+	elseif (self.behavior == "attack") then
+		AI.moveToHelix(self, nil, nil, nil, false)
+		self.setSprite("Walk")
+	end
 	-- TODO: Extend AI for the Fire Ant
 end

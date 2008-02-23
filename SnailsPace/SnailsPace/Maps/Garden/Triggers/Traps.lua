@@ -39,3 +39,22 @@ function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, ke
 	end
 	return trig
 end
+
+function Traps.MiniBossEscape( trapX, trapY, trapWidth, trapHeight, trapRotation, blockStones)
+	trapRotation = trapRotation or 0
+	local trig = Trigger()
+	trig.position = Vector2( trapX + xOffset, trapY + yOffset )
+	trig.bounds = GameObjectBounds( Vector2( trapWidth / 2, trapHeight ), trig.position, trapRotation )
+	trig.state = {}
+	trig.state.unused = true
+	map.triggers:Add(trig)
+
+	function trig.state:trigger( character, gameTime )
+		if(trig.state.unused) then
+			for x=0,6 do
+				blockStones[x].name = "fallingPlatform"
+			end
+		end
+	end
+	return trig
+end

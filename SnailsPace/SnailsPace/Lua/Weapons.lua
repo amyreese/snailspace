@@ -150,6 +150,31 @@ function Weapons:flamethrower( weapon )
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
 end
+
+--[[ Flamethrower!!! Rawr. ]]--
+function Weapons:saltthrower( weapon )
+	weapon.name = "Saltthrower"
+	weapon.slot = 3
+	weapon.cooldown = 150
+	weapon.cue = "saltthrower"
+	weapon.state = { velocity = 100 }
+	weapon.sprite = Weapons.weaponSprite(2)
+	weapon.ammunition = 50
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+		bullet.destroy = false;
+		
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(24,29,0.1))
+		bullet.size = Weapons.bulletImage.size
+		bullet.scale = Vector2(2.8,1.8)
+		bullet.damage = 5
+		bullet.range = 600;
+		
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+end
 	
 
 --[[ Basic weapon, single shot ]]--
