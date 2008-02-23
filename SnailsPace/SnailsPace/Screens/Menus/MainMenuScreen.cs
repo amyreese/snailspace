@@ -42,13 +42,13 @@ namespace SnailsPace.Screens.Menus
             float itemX = 25.0f;
             menuItems = new MenuItem[9];
 			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
-			menuItems[1] = new MenuItem("View Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
+			menuItems[1] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
 			menuItems[2] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
 			menuItems[3] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
 
 			menuItems[4] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
 			menuItems[5] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-            menuItems[6] = new MenuItem("View Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+            menuItems[6] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
 			menuItems[7] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
 			menuItems[8] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
 
