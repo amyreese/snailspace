@@ -10,7 +10,7 @@ library('AI')
 HiveImage = Image()
 HiveImage.filename = "Resources/Textures/beehive"
 HiveImage.blocks = Vector2(1, 1)
-HiveImage.size = Vector2(512, 512)
+HiveImage.size = Vector2(256, 256)
 
 -- Creates a Sprite for a Hive
 function HiveSprite(animSt, animEnd, animDelay)

@@ -2,11 +2,11 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---startPosition = Vector2( -1000, 0 )
+startPosition = Vector2( -1000, 0 )
 --startPosition = Vector2(7956, -4500)
 --startPosition = Vector2(800, -800)
 --startPosition = Vector2(5456, -4500)
-startPosition = Vector2(8500, 0)
+--startPosition = Vector2(8500, 0)
 --startPosition = Vector2(5500, 800)
 player = Player( startPosition, "generic", "Tree Fort" ) 
 
@@ -144,7 +144,7 @@ spider7 = Spider(Vector2(3260, -3200), true)
 spider8 = Spider(Vector2(3460, -3400), true)
 
 --High Secret Hive
-hive1 = Hive(Vector2(6200, 35))
+hive1 = Hive(Vector2(6100, 35))
 
 --Secret Boosts
 boost5 = Powerups.BuildBoostPowerup(6950, 1000)

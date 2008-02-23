@@ -50,9 +50,11 @@ function Shaker(startPos)
 	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
 	shaker:setSprite("Stand")
-	shaker.state = {}
+	shaker.state = {
+		shaker = shaker
+	}
 	function shaker.state:die(gameTime)
-		EndLevel.BuildBossEnd( self.position.X - xOffset, self.position.Y - yOffset )
+		EndLevel.BuildBossEnd( self.shaker.position.X - xOffset, self.shaker.position.Y - yOffset )
 	end
 	map.characters:Add(shaker)
 	
@@ -66,7 +68,7 @@ function ShakerThinker( self, gameTime )
 	--Set movement and target at different health phases
 	if(keystone.affectedByGravity) then
 		if(self.health <= 50) then
-			AI.diagonalPatrol(self, Vector2( self.startPosition.X, self.startPosition.Y+450), Vector2( self.startPosition.X-700, self.startPosition.Y+450))
+			AI.diagonalPatrol(self, Vector2( self.startPosition.X-700, self.startPosition.Y + 450), Vector2( self.startPosition.X, self.startPosition.Y+450))
 		elseif(self.health <= 100) then
 			AI.diagonalPatrol(self, Vector2( self.startPosition.X, self.startPosition.Y + 600), Vector2( self.startPosition.X, self.startPosition.Y+100))
 		elseif(self.health <= 150) then
@@ -80,27 +82,27 @@ function ShakerThinker( self, gameTime )
 	if(self.health <= 52 and self.health > 49) then
 		if(self.weapon.name ~= "Fanshot") then
 			self.weapon = Weapon.load("fanshot")
+			self.weapon.cooldown = 800
+			self.rotation = 3.14
+			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 		end
-		self.weapon.cooldown = 800
-		self.rotation = 3.14
-		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 	end
 	
 	if(self.health <= 102 and self.health > 99) then
 		if(self.weapon.name ~= "Grenade Launcher") then
 			self.weapon = Weapon.load("grenadelauncher")
+			self.weapon.cooldown = 1600
+			self.affectedByGravity = false
+			self.rotation = 1.57
+			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 		end
-		self.weapon.cooldown = 1600
-		self.affectedByGravity = false
-		self.rotation = 1.57
-		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 	end
 	
 	if (self.health <= 152 and self.health > 149) then
 		if(self.weapon.name ~= "Saltthrower") then
 			self.weapon = Weapon.load("saltthrower")
+			self.weapon.cooldown = 800
 		end
-		self.weapon.cooldown = 800
 	end
 	
 	
