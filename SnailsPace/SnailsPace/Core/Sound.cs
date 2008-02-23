@@ -7,7 +7,7 @@ namespace SnailsPace.Core
 {
     class Sound
     {
-        // XACT crap
+        // XACT components.
         AudioEngine audioEngine;
         SoundBank soundBank;
         WaveBank waveBank;
@@ -15,7 +15,9 @@ namespace SnailsPace.Core
         Dictionary<String, Cue> cues;
         Dictionary<String, bool> repeat;
 
-        // Create the appropriate XACT crap.
+		/// <summary>
+		/// Create the appropriate XACT components.
+		/// </summary>
         public Sound()
         {
             audioEngine = new AudioEngine("Resources/Audio/SnailsPace.xgs");
@@ -26,7 +28,10 @@ namespace SnailsPace.Core
             repeat = new Dictionary<string,bool>();
         }
 
-        // Fire-and-forget sound
+        /// <summary>
+		/// Fire-and-forget sound.
+        /// </summary>
+        /// <param name="cue"></param>
         public void play(String cue) { play(cue, true); }
         public void play(String cue, bool overlap)
         {
@@ -46,7 +51,10 @@ namespace SnailsPace.Core
             }
         }
 
-        // Start a repeating sound
+        /// <summary>
+		/// Start a repeating sound.
+        /// </summary>
+        /// <param name="cue"></param>
         public void playRepeat(String cue)
         {
             cache(cue);
@@ -63,6 +71,10 @@ namespace SnailsPace.Core
             }
         }
 
+		/// <summary>
+		/// Pause a playing sound.
+		/// </summary>
+		/// <param name="cue"></param>
         public void pause(String cue)
         {
             cache(cue);
@@ -72,7 +84,10 @@ namespace SnailsPace.Core
             }
         }
 
-        // Stop a sound
+        /// <summary>
+		/// Stop a sound.
+        /// </summary>
+        /// <param name="cue"></param>
         public void stop(String cue)
         {
             cache(cue);
@@ -83,7 +98,9 @@ namespace SnailsPace.Core
             repeat[cue] = false;
         }
 
-        // Stop all types of a sound.
+        /// <summary>
+		/// Stop all sounds.
+        /// </summary>
         public void stopAll()
         {
             List<Cue>.Enumerator allCues = new List<Cue>(cues.Values).GetEnumerator();
@@ -95,7 +112,10 @@ namespace SnailsPace.Core
             allCues.Dispose();
         }
 
-        // Cache the Cue object and whether it should be repeating
+        /// <summary>
+		/// Cache the Cue object and whether it should be repeating.
+        /// </summary>
+        /// <param name="cue"></param>
         private void cache(String cue)
         {
             if (!cues.ContainsKey(cue))
@@ -105,25 +125,38 @@ namespace SnailsPace.Core
             }
         }
 
-        // Recache a new version of a cue
+        /// <summary>
+		/// Recache a new version of a cue.
+        /// </summary>
+        /// <param name="cue"></param>
         private void recache(String cue)
         {
             cues[cue] = soundBank.GetCue(cue);
         }
 
-        // Set a global variable in the AudioEngine
+        /// <summary>
+		/// Set a global variable in the AudioEngine.
+        /// </summary>
+        /// <param name="name">The name of the variable.</param>
+        /// <param name="value">The value of the variable.</param>
         public void set(String name, float value)
         {
             audioEngine.SetGlobalVariable(name, value);
         }
 
-        // Get a global variable from the AudioEngine
+        /// <summary>
+		/// Get a global variable from the AudioEngine.
+        /// </summary>
+        /// <param name="name">The name of the variable.</param>
+        /// <returns>The value of the variable.</returns>
         public float get(String name)
         {
             return audioEngine.GetGlobalVariable(name);
         }
 
-        // Pass the update call to the AudioEngine
+        /// <summary>
+		/// Pass the update call to the AudioEngine.
+        /// </summary>
         public void update()
         {
             List<String> allCues = new List<string>(cues.Keys);

@@ -28,7 +28,10 @@ namespace SnailsPace.Objects
         public Vector2 position;
 		public float rotation;
         
-        // Animate the sprite.
+        /// <summary>
+        /// Animate the sprite.
+        /// </summary>
+        /// <param name="gameTime">The current time.</param>
         public void animate(GameTime gameTime)
         {
 			timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -46,14 +49,16 @@ namespace SnailsPace.Objects
 			}
         }
 
-        // Reset the sprite.
+        /// <summary>
+        /// Reset the sprite to the first frame of animation.
+        /// </summary>
         public void reset()
         {
             frame = animationStart;
         }
 
 		/// <summary>
-		/// Performs a deep clone of the sprite
+		/// Perform a deep clone of the sprite.
 		/// </summary>
 		public Sprite clone()
 		{

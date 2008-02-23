@@ -18,21 +18,37 @@ namespace SnailsPace.Objects
         public LuaTable state;
         public bool inside = false;
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
         public Trigger()
         {
             //Engine.map.triggers.Add(this);
         }
 
-        // Trigger the trigger
+        /// <summary>
+        /// Trigger the trigger.
+        /// </summary>
+        /// <param name="character">The character that triggered the trigger.</param>
         public void trigger(Character character)
         {
             Engine.lua.CallOn(state, "trigger", character, Engine.gameTime);
         }
+
+		/// <summary>
+		/// Called when a character is inside of a trigger.
+		/// </summary>
+		/// <param name="character">The character inside the trigger.</param>
         public void triggerIn(Character character)
         {
             inside = true;
             Engine.lua.CallOn(state, "triggerIn", character, Engine.gameTime);
         }
+
+		/// <summary>
+		/// Called when a characer exits a trigger.
+		/// </summary>
+		/// <param name="character"></param>
         public void triggerOut(Character character)
         {
             inside = false;

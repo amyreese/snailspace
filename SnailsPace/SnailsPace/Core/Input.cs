@@ -18,9 +18,9 @@ namespace SnailsPace.Core
 
         public Vector2 mousePosition;
 
-        /**
-         * Initialize the InputManager object and configuration.
-         */
+		/// <summary>
+		/// Initialize the InputManager object and configuration.
+		/// </summary>
         public Input()
         {
             inputKeys = new Dictionary<String, String>();
@@ -64,9 +64,11 @@ namespace SnailsPace.Core
             this.reset();
         }
 
-        /**
-         * Check the state of an input action.
-         */
+        /// <summary>
+		/// Check the state of an input action.
+        /// </summary>
+        /// <param name="action">The input action.</param>
+        /// <returns>Whether or not the key that performs this action is down.</returns>
         public Boolean inputDown(String action)
         {
             if (inputKeys.ContainsKey(action))
@@ -79,10 +81,12 @@ namespace SnailsPace.Core
             }
         }
 
-        /**
-         * Check if the action's input has been pressed.  
-         * Distinct from inputState() in that it only returns True once for each time the key goes down.
-         */
+        /// <summary>
+        /// Check if the action's input has been pressed.  
+        /// Distinct from inputState() in that it only returns True once for each time the key goes down.
+        /// </summary>
+		/// <param name="action">The input action.</param>
+		/// <returns>Whether or not the key that performs this action is pressed.</returns>
         public Boolean inputPressed(String action)
         {
             if (inputKeys.ContainsKey(action))
@@ -97,9 +101,9 @@ namespace SnailsPace.Core
             }
         }
         
-        /**
-         * Update the input states.
-         */
+        /// <summary>
+		/// Update the input states.
+        /// </summary>
         public void update()
         {
             // Shift keyStates to keyStatesOld
@@ -192,9 +196,9 @@ namespace SnailsPace.Core
 			keyValueEnumerator.Dispose();
         }
 
-        /**
-         * Reset keyStates and keyPresses.
-         */
+        /// <summary>
+		/// Reset keyStates and keyPresses.
+        /// </summary>
         public void reset()
         {
             // Reset input dictionaries
@@ -216,18 +220,19 @@ namespace SnailsPace.Core
 			keyValueEnumerator.Dispose();
         }
 		
-		/**
-		 * Get the key binding that corresponds to the given action.
-		 */
-
+		/// <summary>
+		/// Get the key binding that corresponds to the given action.
+		/// </summary>
+		/// <param name="action">An action.</param>
+		/// <returns>The key binding.</returns>
 		public String getKeyBinding(String action)
 		{
 			return inputKeys[action];
 		}
 
-        /**
-         * Write the new user config.
-         */
+        /// <summary>
+		/// Write the new user config.
+        /// </summary>
         public void saveConfig()
         {
             inputConfig.writeFile(inputConfigFile);

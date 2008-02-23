@@ -31,6 +31,9 @@ namespace SnailsPace.Core
 		public int deaths = 0;
 		public String nextLevel = null;
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
         public Player()
             : this(new Vector2(0, 0))
         {

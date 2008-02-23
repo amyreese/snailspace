@@ -9,13 +9,17 @@ namespace SnailsPace.Objects
 {
     class Weapon
     {
+		// Name of this weapon.
         public String name;
+
+		// Inventory slot this weapon occupies.
         public int slot = 0;
 
         public Sprite sprite; // Only used when rendering Helix
         public Sprite bulletSprite;
         public Sprite hudSprite;
 
+		// Gun properties
 		public double lastFired = 0;
         public double cooldown = 100;
         public int ammunition = -1;
@@ -25,10 +29,18 @@ namespace SnailsPace.Objects
 
         public LuaTable state;
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
         public Weapon()
         {
         }
 
+		/// <summary>
+		/// Load a weapon from Lua with the specified name.
+		/// </summary>
+		/// <param name="name">The name of the weapon.</param>
+		/// <returns>The weapon object.</returns>
         public static Weapon load(String name)
         {
             try

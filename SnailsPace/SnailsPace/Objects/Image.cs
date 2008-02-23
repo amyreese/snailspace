@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace SnailsPace.Objects
 {
+	/// <summary>
+	/// Store information about an image, such as size, animation block size, and filename.
+	/// </summary>
     class Image
     {
         // Image filename.

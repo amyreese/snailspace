@@ -20,10 +20,11 @@ namespace SnailsPace.Objects
 
 		// Map bounds
 		public List<Vector2> bounds;
-
-        /**
-         * Initialize the map, its interpreter, etc
-         */
+		
+		/// <summary>
+		/// Initialize the map, its Lua interpreter, etc.
+		/// </summary>
+		/// <param name="mapName">The name of the map lua file.</param>
         public Map(String mapName)
         {
             name = mapName;
