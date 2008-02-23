@@ -2,13 +2,14 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-startPosition = Vector2( -1000, 0 )
+--startPosition = Vector2( -1000, 0 )
 --startPosition = Vector2(7956, -4500)
 --startPosition = Vector2(800, -800)
 --startPosition = Vector2(5456, -4500)
---startPosition = Vector2(8500, 0)
-startPosition = Vector2(5500, 800)
+startPosition = Vector2(8500, 0)
+--startPosition = Vector2(5500, 800)
 player = Player( startPosition, "generic", "Tree Fort" ) 
+
 
 -- Enemy Character Definitions
 include("Enemies/Bee.lua")
@@ -106,7 +107,7 @@ fireant2 = FireAnt(Vector2(5456, fireAntY), "attack")
 fireant3 = FireAnt(Vector2(5856, fireAntY), "attack")
 
 --Cave Drop Bees
-bee9 = Bee(Vector2(5156,-200), "flyLeftRight")
+bee9 = Bee(Vector2(5456,-200), "flyLeftRight")
 bee10 = Bee(Vector2(4856,-1100), "flyLeftRight")
 bee11 = Bee(Vector2(4856,-1300), "flyLeftRight")
 bee12 = Bee(Vector2(4856,-2000), "flyLeftRight")

@@ -132,9 +132,9 @@ function AI.jumpPatrol(self)
 	if(self.state.movingLeft) then
 		if(self.position.X > self.startPosition.X - 800) then
 			--Jump till too high
-			if(self.position.Y <= 425) then
+			if(self.position.Y <= self.startPosition.Y) then
 				self.direction = Vector2(-1, 1)
-			elseif (self.position.Y >= 500) then
+			elseif (self.position.Y >= self.startPosition.Y + 75) then
 				self.direction = Vector2(0, -1)
 			end
 		else
@@ -143,9 +143,9 @@ function AI.jumpPatrol(self)
 	else--Jump Right
 		if(self.position.X < self.startPosition.X) then
 			--Jump til too high
-			if(self.position.Y <= 425) then
+			if(self.position.Y <= self.startPosition.Y) then
 				self.direction = Vector2(1, 1)
-			elseif (self.position.Y >= 500) then
+			elseif (self.position.Y >= self.startPosition.Y + 75) then
 				self.direction = Vector2(0, -1)
 			end
 		else

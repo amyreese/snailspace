@@ -71,7 +71,7 @@ function FireAntThinker( self, gameTime )
 		AI.patrol(self, self.startPosition.X + 300, self.startPosition.X - 300)
 	elseif (self.behavior == "attack") then
 		AI.moveToHelix(self, nil, nil, nil, false)
-		self.setSprite("Walk")
+		self:setSprite("Walk")
 	end
 	-- TODO: Extend AI for the Fire Ant
 end

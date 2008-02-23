@@ -166,7 +166,7 @@ function Weapons:saltthrower( weapon )
 		bullet.explosion = Explosion()
 		bullet.destroy = false;
 		
-		bullet.sprites:Add("Bullet", Weapons.bulletSprite(24,29,0.1))
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(24,28,0.1))
 		bullet.size = Weapons.bulletImage.size
 		bullet.scale = Vector2(2.8,1.8)
 		bullet.damage = 5

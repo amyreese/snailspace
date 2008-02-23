@@ -46,21 +46,21 @@ function Shaker(startPos)
 	shaker.direction = Vector2(0,0)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
-	shaker.health = 200
+	shaker.health = 10
 	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
 	shaker:setSprite("Stand")
 	shaker.state = {}
+	function shaker.state:die(gameTime)
+		EndLevel.BuildBossEnd( self.position.X - xOffset, self.position.Y - yOffset )
+	end
 	map.characters:Add(shaker)
 	
 	return shaker
 end
 
--- Fire Ant behavior function
+-- Shaker behavior function
 function ShakerThinker( self, gameTime )
-	if(self.health == 1) then
-		EndLevel.BuildBossEnd( self.position.X - xOffset, self.position.Y - yOffset )
-	end
 	
 	AI.shootDirectlyAtHelix(self, gameTime)
 	--Set movement and target at different health phases
@@ -78,23 +78,29 @@ function ShakerThinker( self, gameTime )
 	
 	--Set weapon and rotation at different health phases
 	if(self.health <= 52 and self.health > 49) then
-		self.weapon = Weapon.load("fanshot")
-		shaker.weapon.cooldown = 200
+		if(self.weapon.name ~= "Fanshot") then
+			self.weapon = Weapon.load("fanshot")
+		end
+		self.weapon.cooldown = 800
 		self.rotation = 3.14
 		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 	end
 	
 	if(self.health <= 102 and self.health > 99) then
-		self.weapon = Weapon.load("grenadelauncher")
-		shaker.weapon.cooldown = 1600
+		if(self.weapon.name ~= "Grenade Launcher") then
+			self.weapon = Weapon.load("grenadelauncher")
+		end
+		self.weapon.cooldown = 1600
 		self.affectedByGravity = false
 		self.rotation = 1.57
 		self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 	end
 	
 	if (self.health <= 152 and self.health > 149) then
-		self.weapon = Weapon.load("saltthrower")
-		shaker.weapon.cooldown = 800
+		if(self.weapon.name ~= "Saltthrower") then
+			self.weapon = Weapon.load("saltthrower")
+		end
+		self.weapon.cooldown = 800
 	end
 	
 	
