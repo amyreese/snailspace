@@ -10,7 +10,7 @@ namespace SnailsPace.Core
     class Player
     {
         private int points = 0;
-
+		public static bool allowLevelProgression = false;
         public static Helix helix;
         public static GameObject crosshair;
         public static GameObject weapon;
@@ -64,7 +64,14 @@ namespace SnailsPace.Core
 		public Player(Vector2 startPosition, String weaponName, String nextLevel)
 			: base()
 		{
-			this.nextLevel = nextLevel;
+			if (allowLevelProgression)
+			{
+				this.nextLevel = nextLevel;
+			}
+			else
+			{
+				this.nextLevel = null;
+			}
 			saveObject = new GameObject();
 			saveObject.affectedByGravity = false;
 			saveObject.collidable = false;

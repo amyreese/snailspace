@@ -58,12 +58,13 @@ namespace SnailsPace.Screens.Menus
         {
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
-			menuItems = new MenuItem[levels.Length + 1];
-			for (int index = 0; index < levels.Length; index++)
+			menuItems = new MenuItem[levels.Length + 2];
+			menuItems[0] = new MenuItem( "Play All Levels", this, new Vector2( itemX, itemY ) );
+			for (int index = 1; index <= levels.Length; index++)
 			{
-				menuItems[index] = new MenuItem( levels[index].name, this, new Vector2( itemX, itemY + spriteFont.LineSpacing * ( index * 2 ) ) );
+				menuItems[index] = new MenuItem( levels[index - 1].name, this, new Vector2( itemX, itemY + spriteFont.LineSpacing * ( index * 2 ) ) );
 			}
-			menuItems[menuItems.Length - 1] = new MenuItem( "Back", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * levels.Length * 2 ) );
+			menuItems[menuItems.Length - 1] = new MenuItem( "Back", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * ( levels.Length + 1 ) * 2 ) );
 			menuItemIndex = 0;
             ready = true;
         }
@@ -87,9 +88,17 @@ namespace SnailsPace.Screens.Menus
 				{
 					snailsPace.changeState(SnailsPace.GameStates.MainMenu);
 				}
+				else if (menuItemIndex == 0)
+				{
+					Player.allowLevelProgression = true;
+					((GameScreen)snailsPace.getScreen(SnailsPace.GameStates.Game)).ReloadEngine(levels[0].file);
+					((MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = true;
+					snailsPace.changeState(SnailsPace.GameStates.GameLoading);
+				}
 				else
 				{
-					((GameScreen)snailsPace.getScreen(SnailsPace.GameStates.Game)).ReloadEngine(levels[menuItemIndex].file);
+					Player.allowLevelProgression = false;
+					((GameScreen)snailsPace.getScreen(SnailsPace.GameStates.Game)).ReloadEngine(levels[menuItemIndex - 1].file);
 					((MainMenuScreen)snailsPace.getScreen(SnailsPace.GameStates.MainMenu)).gameStarted = true;
 					snailsPace.changeState(SnailsPace.GameStates.GameLoading);
 				}
