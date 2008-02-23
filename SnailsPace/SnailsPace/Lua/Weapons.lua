@@ -106,13 +106,14 @@ function Weapons:grenadelauncher( weapon )
 	weapon.slot = 4
 	weapon.cooldown = 400
 	weapon.state = {}
-	weapon.sprite = Weapons.weaponSprite(3)
+	weapon.sprite = Weapons.weaponSprite(4)
 	weapon.ammunition = -1
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
 		bullet = Bullet()
 		explosion = Explosion()
 		explosion.scale = Vector2(2,2)
+		explosion.size = Vector2(100,100)
 		explosion.damage = 2
 		explosion.cue = "explode"
 		bullet.explosion = explosion
