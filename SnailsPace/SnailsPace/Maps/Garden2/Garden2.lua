@@ -18,8 +18,8 @@ include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
 
 -- Player creation and starting position
---startPosition = Vector2(1536 + 352,fencePostImage.size.Y - 512)
-startPosition = Vector2(0,0)
+startPosition = Vector2(1536 + 352,fencePostImage.size.Y - 512)
+--startPosition = Vector2(0,0)
 --startPosition = Vector2(800, -2500) -- Salt Pit Middle Left
 --startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
 --startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
