@@ -346,16 +346,17 @@ namespace SnailsPace.Core
                 //Is a character dead? Kill it!
                 if (charEnum.Current.health <= 0)
                 {
-                    if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
-                    {
-                        map.characters.Remove(charEnum.Current);
-                    }
-                    else if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
+                    if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
                     {
                         Engine.lua.CallOn(charEnum.Current.state, "die", gameTime);
                         player.killedEnemy();
                         Engine.sound.play("kill");
+                    } 
+                    if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
+                    {
+                        map.characters.Remove(charEnum.Current);
                     }
+                    
                     charEnum.Current.collidable = false;
                     charEnum.Current.setSprite("Die");
                 }
@@ -744,6 +745,10 @@ namespace SnailsPace.Core
                     // The object didn't collide, move all the way
                     resultingMovement = objectMovement;
                 }
+                else if (movingObject is Character && collidedObject is Explosion)
+                {
+                    ((Character)movingObject).takeDamage(((Explosion)collidedObject).damage);
+                }
                 else if (movingObject is Bullet)
                 {
                     // If the object collides with a wall and is bounceable, then bounce!
@@ -770,7 +775,7 @@ namespace SnailsPace.Core
                             xmod = (1 - collisionLine.X) * -mod;
                             ymod = collisionLine.Y * mod;
                         }
-                        
+
                         resultingMovement = new Vector2(objectMovement.X * xmod, objectMovement.Y * ymod);
                         objectVelocity = new Vector2(objectVelocity.X * xmod, objectVelocity.Y * ymod);
                     }

@@ -8,6 +8,8 @@ namespace SnailsPace.Objects
 {
 	class Explosion : GameObject
     {
+        public float damage = 0;
+
 		/// <summary>
 		/// Create a new explosion.
 		/// </summary>
