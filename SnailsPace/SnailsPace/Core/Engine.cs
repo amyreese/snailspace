@@ -352,6 +352,7 @@ namespace SnailsPace.Core
                     }
                     else if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
                     {
+                        Engine.lua.CallOn(charEnum.Current.state, "die", gameTime);
                         player.killedEnemy();
                         Engine.sound.play("kill");
                     }
@@ -769,7 +770,6 @@ namespace SnailsPace.Core
                             xmod = (1 - collisionLine.X) * -mod;
                             ymod = collisionLine.Y * mod;
                         }
-                        SnailsPace.debug(diff.ToString() + ", " + xmod.ToString() + ", " + ymod.ToString());
                         
                         resultingMovement = new Vector2(objectMovement.X * xmod, objectMovement.Y * ymod);
                         objectVelocity = new Vector2(objectVelocity.X * xmod, objectVelocity.Y * ymod);
