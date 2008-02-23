@@ -179,7 +179,7 @@ beehiveSprite.timer = 0.0
 treetrunkImage = Image()
 treetrunkImage.filename = "Resources/Textures/treetrunk"
 treetrunkImage.blocks = Vector2(1.0, 1.0)
-treetrunkImage.size = Vector2(3072.0, 6144.0)
+treetrunkImage.size = Vector2(2072.0, 5644.0)
 
 treetrunkSprite = Sprite()
 treetrunkSprite.image = treetrunkImage
@@ -190,3 +190,18 @@ treetrunkSprite.animationEnd = 0
 treetrunkSprite.frame = 0
 treetrunkSprite.animationDelay = 0.0
 treetrunkSprite.timer = 0.0
+
+plywoodImage = Image()
+plywoodImage.filename = "Resources/Textures/plywood"
+plywoodImage.blocks = Vector2(1.0, 1.0)
+plywoodImage.size = Vector2(256.0, 256.0)
+
+plywoodSprite = Sprite()
+plywoodSprite.image = plywoodImage
+plywoodSprite.visible = true
+plywoodSprite.effect = "Resources/Effects/effects"
+plywoodSprite.animationStart = 0
+plywoodSprite.animationEnd = 0
+plywoodSprite.frame = 0
+plywoodSprite.animationDelay = 0.0
+plywoodSprite.timer = 0.0
