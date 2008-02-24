@@ -54,6 +54,25 @@ namespace SnailsPace.Screens
         protected void loadEngine()
         {
             engine = new Engine(map);
+            Core.Player.time = 0;
+            switch (map)
+            {
+                case "Tree Fort":
+                    Core.Player.timeLimit = 100;
+                    break;
+                case "Garden":
+                    Core.Player.timeLimit = 360;
+                    break;
+                case "Garden2":
+                    Core.Player.timeLimit = 300;
+                    break;
+                case "Credits":
+                    Core.Player.timeLimit = 0;
+                    break;
+                default:
+                    Core.Player.timeLimit = 500;
+                    break;
+            }
             ready = true;
         }
         #endregion

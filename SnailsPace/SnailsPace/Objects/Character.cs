@@ -12,6 +12,7 @@ namespace SnailsPace.Objects
     class Character : GameObject
 	{
 		#region Character properties
+        public bool wasLivingLastFrame = true;
 		public int maxHealth;
         private float _health;
 		public float health {

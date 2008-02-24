@@ -355,12 +355,14 @@ namespace SnailsPace.Core
                 //Is a character dead? Kill it!
                 if (charEnum.Current.health <= 0)
                 {
-                    //if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
-                    //{
+                    if (charEnum.Current.wasLivingLastFrame )
+                    {
+                        charEnum.Current.sprites["Die"].frame = charEnum.Current.sprites["Die"].animationStart;
                         Engine.lua.CallOn(charEnum.Current.state, "die", gameTime);
                         player.killedEnemy();
                         Engine.sound.play("kill");
-                    //} 
+                    }
+                    charEnum.Current.wasLivingLastFrame = false;
                     if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
                     {
                         map.characters.Remove(charEnum.Current);
@@ -372,6 +374,7 @@ namespace SnailsPace.Core
                 //If not, let it think (as long as it is close enough to Helix).
                 else
                 {
+                    charEnum.Current.wasLivingLastFrame = true;
                     if (IsWithinBounds(charEnum.Current, Player.helix.position, activityBoundsSize))
                     {
                         charEnum.Current.think(gameTime);

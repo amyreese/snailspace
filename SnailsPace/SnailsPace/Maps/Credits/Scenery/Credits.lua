@@ -1,7 +1,7 @@
 xOffset = 0
 yOffset = 0
 
-WorldBuilding.BuildSection( { width=40, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
+WorldBuilding.BuildSection( { width=44, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
 WorldBuilding.BuildObject( { xOffset=0.1 * treetrunkImage.size.X + 2000, yOffset=0.40 * treetrunkImage.size.Y, sprite=treetrunkSprite, collidable=false, layerOffset=10 } )
 
 sign = GameObject()
@@ -74,12 +74,12 @@ for i=1,#possibleNames * nameCnt do
 end
 
 for i,v in ipairs( names ) do
-	name = Name( Vector2( xOffset + i * 420, yOffset + 256 + 96 * i ), v )
+	name = Name( Vector2( xOffset + i * 400, yOffset + 256 + 96 * i ), v )
 end
 
---[[
+
 yMod = -64
-for i=0,creditsImage.blocks.X-1 do
+for i=0,creditsImage.blocks.X * creditsImage.blocks.Y - 1 do
 	rot = math.random() / 8 + 0.2
 	csprite = creditsSprite:clone()
 	csprite.frame = i
@@ -96,4 +96,3 @@ EndLevel.BuildLevelEnd( endLevelX, endLevelY )
 
 WorldBuilding.BuildObject( { xOffset=endLevelX, yOffset=128, sprite=exitPortalSprite, layer=0, collidable=false } )
 EndLevel.BuildLevelEnd( endLevelX, 128 )
-]]--

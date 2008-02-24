@@ -53,9 +53,9 @@ LoadArea("Credits")
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-512, -196))
-map.bounds:Add(Vector2(-512, 2200))
-map.bounds:Add(Vector2(6000, 2200))
-map.bounds:Add(Vector2(6000, -196))
+map.bounds:Add(Vector2(-512, 2800))
+map.bounds:Add(Vector2(9400, 2800))
+map.bounds:Add(Vector2(9400, -196))
 map.bounds:Add(Vector2(-512, -196))
 
-EndLevel.BuildLevelEnd( 5800, 0 )
+--EndLevel.BuildLevelEnd( 5800, 0 )
