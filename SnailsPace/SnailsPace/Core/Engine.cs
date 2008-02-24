@@ -29,6 +29,8 @@ namespace SnailsPace.Core
         public static Texture2D healthIcon;
         public static Texture2D fuelBar;
         public static Texture2D fuelIcon;
+		public static Texture2D bossHealthBar;
+		public static Texture2D bossHealthShadow;
 
         // Fonts
         public SpriteFont gameFont;
@@ -49,6 +51,9 @@ namespace SnailsPace.Core
 
         // Player
         public static Core.Player player;
+
+		// The level's boss (null when not fighting)
+		public static Character boss;
 
         // Used to allow the most-recent frame's game time to be known by more things
         public static GameTime gameTime;
@@ -102,6 +107,7 @@ namespace SnailsPace.Core
                 lua = null;
                 sound = null;
                 player = null;
+				boss = null;
                 System.GC.Collect();
                 #endregion
             }
@@ -218,6 +224,8 @@ namespace SnailsPace.Core
             healthIcon = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/HealthIcon");
             fuelBar = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/FuelBar");
             fuelIcon = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/FuelIcon");
+			bossHealthBar = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/SaltBar");
+			bossHealthShadow = SnailsPace.getInstance().Content.Load<Texture2D>("Resources/Textures/BossHealthShadow");
         }
 
         /// <summary>

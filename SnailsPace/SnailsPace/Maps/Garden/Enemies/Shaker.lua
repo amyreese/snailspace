@@ -49,6 +49,7 @@ function Shaker(startPos)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
 	shaker.health = 200
+	shaker.maxHealth = 200;
 	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
 	shaker:setSprite("Walk")
@@ -57,6 +58,7 @@ function Shaker(startPos)
 	}
 	function shaker.state:die(gameTime)
 		EndLevel.BuildBossEnd( self.shaker.position.X - xOffset, self.shaker.position.Y - yOffset )
+		Engine.boss = nil;
 	end
 	map.characters:Add(shaker)
 	
@@ -65,6 +67,10 @@ end
 
 -- Shaker behavior function
 function ShakerThinker( self, gameTime )
+	
+	if((Engine.boss == nil) and AI.canSeeHelix(self, 900)) then
+		Engine.boss = self
+	end
 	
 	AI.shootDirectlyAtHelix(self, gameTime)
 	--Set movement and target at different health phases

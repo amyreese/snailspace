@@ -313,6 +313,12 @@ namespace SnailsPace.Core
                 batch.Draw(Engine.healthBar, new Rectangle(32, 8, (int)((Player.helix.health / (float)Player.helix.maxHealth) * 300), 16), Color.White);
                 batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
                 batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
+
+				if (Engine.boss != null)
+				{
+					batch.Draw(Engine.bossHealthShadow, new Rectangle(100, 526, 600, 60), Color.White);
+					batch.Draw(Engine.bossHealthBar, new Rectangle(118, 545, (int)((Engine.boss.health / (float)Engine.boss.maxHealth) * 566), 20), Color.White);
+				}
             }
 
             // Draw the Inventory

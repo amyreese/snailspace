@@ -12,7 +12,7 @@
  map.objects:Add(keystone)
  
  cameraTarget = GameObject()
- cameraTarget.position = Vector2(9400, 700)
+ cameraTarget.position = Vector2(9400, 600)
  cameraTarget.collidable = false
  map.objects:Add(cameraTarget)
  
