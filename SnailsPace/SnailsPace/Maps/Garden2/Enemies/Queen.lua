@@ -72,6 +72,7 @@ function Queen(startPos)
 	queen.maxVelocity = 400
 	queen.thinker = "QueenThinker"
 	queen.health = 150
+	queen.maxHealth = 150
 	queen.weapon.cooldown = 2000
 	queen.name = "Queen"
 	queen:setSprites("Stand","Sack")
@@ -80,6 +81,9 @@ function Queen(startPos)
 		mad = false,
 		lastSpawned = 0,
 	}
+	function queen.state:die(gameTime)
+		Engine.boss = nil;
+	end
 	map.characters:Add(queen)
 	
 	return queen
@@ -87,6 +91,14 @@ end
 
 -- Fire Ant behavior function
 function QueenThinker( self, gameTime )
+	if AI.canSeeHelix(self, 1000) then
+		if Engine.boss == nil then
+			Engine.boss = self
+		end
+	else
+		Engine.boss = nil
+	end
+	
 	if AI.canSeeHelix( self, 800 ) then
 		AI.shootDirectlyAtHelix(self, gameTime)
 	end
