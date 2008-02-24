@@ -211,7 +211,7 @@ healthSprite.timer = 0.0
 
 savepointImage = Image()
 savepointImage.filename = "Resources/Textures/Checkpoint"
-savepointImage.blocks = Vector2(2.0, 1.0)
+savepointImage.blocks = Vector2(2.0, 2.0)
 savepointImage.size = Vector2(128.0, 128.0)
 
 savepointSprite = Sprite()

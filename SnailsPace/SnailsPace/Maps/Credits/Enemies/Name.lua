@@ -101,9 +101,4 @@ function NameThinker( self, gameTime )
 	else
 		AI.diagonalPatrol(self, Vector2( Player.helix.position.X - 256, Player.helix.position.Y + 408), Vector2( Player.helix.position.X + 256, Player.helix.position.Y + 400 ))
 	end
-	if self.state.attacking then
-		if AI.canSeeHelix( self, 600 ) then
-			AI.shootDirectlyAtHelix( self, gameTime )
-		end
-	end
 end
