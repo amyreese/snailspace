@@ -3,6 +3,7 @@ library('WorldBuilding')
 
 -- Player creation and starting position
 startPosition = Vector2(0,0)
+startPosition = Vector2(8600,0)
 player = Player( startPosition, "generic" )
 
 rotmod = 5

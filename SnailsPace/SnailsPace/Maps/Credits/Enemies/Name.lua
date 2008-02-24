@@ -6,41 +6,42 @@
 
 library('AI')
 
+imageSize = Vector2( 256, 256 )
 -- Joe's Name
 JoeImage = Image()
 JoeImage.filename = "Resources/Textures/names/JoeTable"
 JoeImage.blocks = Vector2(4, 2)
-JoeImage.size = Vector2(128, 128)
+JoeImage.size = imageSize
 
 -- Josh's Name
 JoshImage = Image()
 JoshImage.filename = "Resources/Textures/names/JoshTable"
 JoshImage.blocks = Vector2(4, 2)
-JoshImage.size = Vector2(128, 128)
+JoshImage.size = imageSize
 
 -- Pat's Name
 PatImage = Image()
 PatImage.filename = "Resources/Textures/names/PatTable"
 PatImage.blocks = Vector2(4, 2)
-PatImage.size = Vector2(128, 128)
+PatImage.size = imageSize
 
 -- John's Name
 JohnImage = Image()
 JohnImage.filename = "Resources/Textures/names/JohnTable"
 JohnImage.blocks = Vector2(4, 2)
-JohnImage.size = Vector2(128, 128)
+JohnImage.size = imageSize
 
 -- Brian's Name
 BrianImage = Image()
 BrianImage.filename = "Resources/Textures/names/BrianTable"
 BrianImage.blocks = Vector2(4, 2)
-BrianImage.size = Vector2(128, 128)
+BrianImage.size = imageSize
 
 -- Simon's Name
 SimonImage = Image()
 SimonImage.filename = "Resources/Textures/names/JohnTable"
 SimonImage.blocks = Vector2(4, 2)
-SimonImage.size = Vector2(128, 128)
+SimonImage.size = imageSize
 
 -- Creates a Sprite for a Bee
 function NameSprite(name, animSt, animEnd, animDelay)
