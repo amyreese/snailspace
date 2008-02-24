@@ -39,7 +39,7 @@ BrianImage.size = imageSize
 
 -- Simon's Name
 SimonImage = Image()
-SimonImage.filename = "Resources/Textures/names/JohnTable"
+SimonImage.filename = "Resources/Textures/names/SimonTable"
 SimonImage.blocks = Vector2(4, 2)
 SimonImage.size = imageSize
 
