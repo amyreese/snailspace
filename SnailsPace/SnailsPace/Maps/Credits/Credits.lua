@@ -3,24 +3,17 @@ library('WorldBuilding')
 
 -- Player creation and starting position
 startPosition = Vector2(0,0)
+--startPosition = Vector2(8600,0)
 player = Player( startPosition, "generic" )
 player.helix:AddWeapon(Weapon.load("stinger"))
 player.helix:AddWeapon(Weapon.load("minigun"))
 player.helix:AddWeapon(Weapon.load("flamethrower"))
 player.helix:AddWeapon(Weapon.load("grenadelauncher"))
 
-rotmod = 5
-function newRotation()
-	return ( math.random() - 0.5 ) / rotmod;
-end
-
 -- Enemy Character Definitions
 include("Enemies/Name.lua")
 
 -- Trigger Definitions
-include("Triggers/SavePoints.lua")
-include("Triggers/Powerups.lua")
-include("Triggers/Traps.lua")
 include("Triggers/EndLevel.lua")
 
 -- Scenery Sprite Definitions
@@ -63,7 +56,7 @@ rock.bounds = rbounds:BuildBounds()
 rock.position = Vector2( 760, 0 )
 rock.size = rsprite.image.size
 rock.affectedByGravity = false
-rock.collidable = true	
+rock.collidable = true
 
 map.objects:Add(rock)
 
@@ -73,5 +66,3 @@ map.bounds:Add(Vector2(-512, 5200))
 map.bounds:Add(Vector2(10000, 5200))
 map.bounds:Add(Vector2(10000, -196))
 map.bounds:Add(Vector2(-512, -196))
-
-EndLevel.BuildLevelEnd( 9856, 0 )

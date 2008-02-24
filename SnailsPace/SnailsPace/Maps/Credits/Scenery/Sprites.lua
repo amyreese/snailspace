@@ -205,3 +205,34 @@ plywoodSprite.animationEnd = 0
 plywoodSprite.frame = 0
 plywoodSprite.animationDelay = 0.0
 plywoodSprite.timer = 0.0
+
+
+creditsImage = Image()
+creditsImage.filename = "Resources/Textures/names/AdditionalCreditDetailsTable"
+creditsImage.blocks = Vector2(16.0 , 1.0)
+creditsImage.size = Vector2( 512.0, 128.0 )
+
+creditsSprite = Sprite()
+creditsSprite.image = creditsImage
+creditsSprite.visible = true
+creditsSprite.effect = "Resources/Effects/effects"
+creditsSprite.animationStart = 0
+creditsSprite.animationEnd = 0
+creditsSprite.frame = 0
+creditsSprite.animationDelay = 0.0
+creditsSprite.timer = 0.0
+
+exitPortalImage = Image()
+exitPortalImage.filename = "Resources/Textures/ExitPortal"
+exitPortalImage.blocks = Vector2(4.0, 4.0)
+exitPortalImage.size = Vector2(256.0, 256.0)
+
+exitPortalSprite = Sprite()
+exitPortalSprite.image = exitPortalImage
+exitPortalSprite.visible = true
+exitPortalSprite.effect = "Resources/Effects/effects"
+exitPortalSprite.animationStart = 0
+exitPortalSprite.animationEnd = 7
+exitPortalSprite.frame = 0
+exitPortalSprite.animationDelay = 0.2
+exitPortalSprite.timer = 0.0

@@ -458,6 +458,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Textures\names\AdditionalCreditDetailsTable.png">
+      <Name>AdditionalCreditDetailsTable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Resources\Textures\Rock.png">
       <Name>Rock</Name>
       <Importer>TextureImporter</Importer>
