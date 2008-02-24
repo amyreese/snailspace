@@ -51,22 +51,15 @@ map.bounds:Add(Vector2(4000, -5100))
 
 --****Plane 1****
 --Plane1 Bees
-bee1 = Bee(Vector2(0,150), "flyUp")
-bee2 = Bee(Vector2(50,150), "flyUp")
-bee3 = Bee(Vector2(100,150), "flyUp")
-bee4 = Bee(Vector2(150,150), "flyUp")
-bee5 = Bee(Vector2(200,150), "flyUp")
-bee6 = Bee(Vector2(250,150), "flyUp")
-bee7 = Bee(Vector2(300,150), "flyUp")
-bee8 = Bee(Vector2(350,150), "flyUp")
-bee1.state.attacking = true
-bee2.state.attacking = true
-bee3.state.attacking = true
-bee4.state.attacking = true
-bee5.state.attacking = true
-bee6.state.attacking = true
-bee7.state.attacking = true
-bee8.state.attacking = true
+bee1 = Bee(Vector2(100,150), "flyUp")
+bee3 = Bee(Vector2(200,150), "flyUp")
+bee5 = Bee(Vector2(300,150), "flyUp")
+bee7 = Bee(Vector2(400,150), "flyUp")
+--bee1.state.attacking = true
+--bee3.state.attacking = true
+--bee5.state.attacking = true
+--bee7.state.attacking = true
+
 
 --Plane1 Black Ants
 blackant1 = BlackAnt(Vector2(0, 0), "attack")
@@ -100,6 +93,17 @@ spider16 = Spider(Vector2(3610, -250))
 bee21 = Bee(Vector2(4000,150), "flyUp")
 bee22 = Bee(Vector2(4050,150), "flyUp")
 bee23 = Bee(Vector2(4100,150), "flyUp")
+bee2 = Bee(Vector2(4150,150), "flyUp")
+bee4 = Bee(Vector2(4200,150), "flyUp")
+bee6 = Bee(Vector2(4250,150), "flyUp")
+bee8 = Bee(Vector2(4300,150), "flyUp")
+bee21.state.attacking = true
+bee22.state.attacking = true
+bee23.state.attacking = true
+bee2.state.attacking = true
+bee4.state.attacking = true
+bee6.state.attacking = true
+bee8.state.attacking = true
 
 --****Cave Drop****
 -- Cave Drop Fire Ants
