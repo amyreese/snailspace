@@ -36,6 +36,12 @@ BrianImage.filename = "Resources/Textures/names/BrianTable"
 BrianImage.blocks = Vector2(4, 2)
 BrianImage.size = Vector2(128, 128)
 
+-- Simon's Name
+SimonImage = Image()
+SimonImage.filename = "Resources/Textures/names/JohnTable"
+SimonImage.blocks = Vector2(4, 2)
+SimonImage.size = Vector2(128, 128)
+
 -- Creates a Sprite for a Bee
 function NameSprite(name, animSt, animEnd, animDelay)
 	sprt = Sprite()
@@ -49,6 +55,8 @@ function NameSprite(name, animSt, animEnd, animDelay)
 		sprt.image = JohnImage
 	elseif name == "brian" then
 		sprt.image = BrianImage
+	elseif name == "simon" then
+		sprt.image = SimonImage
 	end
 	sprt.effect = "Resources/Effects/effects"
 	sprt.visible = true

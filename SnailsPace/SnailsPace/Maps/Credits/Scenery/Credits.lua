@@ -3,7 +3,7 @@ yOffset = 0
 
 WorldBuilding.BuildSection( { width=100, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
 
-possibleNames = { "joe", "josh", "pat", "brian", "john", "john"  }
+possibleNames = { "joe", "josh", "pat", "brian", "john", "simon"  }
 nameCounts = { 0,0,0,0,0,0 }
 names = {}
 nameCnt = 3
