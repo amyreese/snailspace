@@ -225,8 +225,8 @@ end
 function Weapons:fanshot( weapon, n, o, v )
 	weapon.sprite = Weapons.weaponSprite(0)
 	weapon.ammunition = 50
-	weapon.cooldown = 100
-	weapon.state = { velocity=v or 128, number=n or 8, offset=o or 0.3 }
+	weapon.cooldown = 150
+	weapon.state = { velocity=v or 96, number=n or 4, offset=o or 0.5 }
 	
 	function weapon.state:ShootAt(shooter, targetPosition, gameTime)     
 		transform = Matrix.Multiply(Matrix.Multiply(Matrix.CreateTranslation(Vector3(-shooter.position.X, -shooter.position.Y, 0)), Matrix.CreateRotationZ(-self.offset * ((self.number - 1) / 2))), Matrix.CreateTranslation(Vector3(shooter.position, 0)))
@@ -247,26 +247,6 @@ function Weapons:fanshot( weapon, n, o, v )
 			
 			targetPosition = Vector2.Transform(targetPosition, transform)
 		end
-		
-		bullet = Bullet()
-		bullet.explosion = Explosion()
-                
-		bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
-		bullet.size = Weapons.bulletImage.size		
-		bullet.damage = 1
-        
-        targetPosition = Vector2(shooter.position.X - 100, shooter.position.Y)
-		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
-		
-		bullet = Bullet()
-		bullet.explosion = Explosion()
-                
-		bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
-		bullet.size = Weapons.bulletImage.size		
-		bullet.damage = 1
-        
-        targetPosition = Vector2(shooter.position.X + 100, shooter.position.Y)
-		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
 	end
 end
 

@@ -117,7 +117,7 @@ function AI.shootDirectlyAtHelix(self, gameTime)
 end
 
 function AI.shootSpiderPattern(self, gameTime)
-	self:ShootAt(Vector2(self.position.X, self.position.Y-1), gameTime)
+	self:ShootAt(helix.position, gameTime)
 end
 
 --[[Patrol on a platform]]--
