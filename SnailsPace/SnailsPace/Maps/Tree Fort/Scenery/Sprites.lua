@@ -179,7 +179,7 @@ beehiveSprite.timer = 0.0
 treetrunkImage = Image()
 treetrunkImage.filename = "Resources/Textures/treetrunk"
 treetrunkImage.blocks = Vector2(1.0, 1.0)
-treetrunkImage.size = Vector2(2072.0, 5644.0)
+treetrunkImage.size = Vector2(2228.0, 3584.0)
 
 treetrunkSprite = Sprite()
 treetrunkSprite.image = treetrunkImage
