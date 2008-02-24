@@ -24,7 +24,7 @@ startPosition = Vector2(1536 + 352,fencePostImage.size.Y - 512)
 --startPosition = Vector2(1400, -2500) -- Salt Pit Middle Right
 --startPosition = Vector2(3900, -7620) -- Salt Ramp Bottom
 --startPosition = Vector2(6148, -8104) -- Queen's Den Entrance
-player = Player( startPosition, "flamethrower" )
+player = Player( startPosition, "flamethrower", "Credits" )
 
 -- Set up the background
 include("Scenery/Background.lua")

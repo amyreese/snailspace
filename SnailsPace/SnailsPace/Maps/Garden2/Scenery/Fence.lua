@@ -10,74 +10,12 @@ WorldBuilding.BuildRamp( {length=3, xOffset=-24, yOffset=-400, sprite=dirtSprite
 WorldBuilding.BuildRamp( {length=6, xOffset=144, yOffset=-640, sprite=dirtSpriteS, overlap=10, rotation=-0.15, layerOffset=2 } )
 WorldBuilding.BuildRamp( {length=12, xOffset=840, yOffset=-728, sprite=dirtSpriteS, overlap=10, rotation=0.05, layerOffset=2 } )
 WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y / 2 - 384, sprite=fencePostSprite, xSizeMod=-16, ySizeMod=0, rotation=0 } )
+WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y - 512 - 128, sprite=woodSprite, xSizeMod=-16, ySizeMod=0, rotation=0.4 } )
 Powerups.BuildWeaponPowerup( 352, 128, "stinger", 100, 0.3 )
 
-for i=0,9 do
+for i=0,8 do
 	bee = Bee( Vector2( xOffset + 128, yOffset + 222 + i * 276 ), "swarmHelixA" )
 	bee.state.attacking = true
 	bee = Bee( Vector2( xOffset + 128, yOffset + 360 + i * 276 ), "swarmHelixB" )
 	bee.state.attacking = true
 end
---[[
-WorldBuilding.BuildObject( { xOffset=352, yOffset=1960, sprite=beehiveSprite, xSizeMod=-50, layerOffset=-3, rotation=-0.35 } )
-bee = Bee( Vector2( xOffset + 128, yOffset + 222 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 360 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 498 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 636 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 774 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 912 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1050 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1188 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1326 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1464 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1602 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + 128, yOffset + 1740 ), "flyDownLeft" )
-bee.state.attacking = true
-
-bee = Bee( Vector2( xOffset + -64, yOffset + 498 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 636 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 774 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 912 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1050 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1188 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1326 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1464 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1602 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1740 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -64, yOffset + 1878 ), "flyDownLeft" )
-bee.state.attacking = true
-
-bee = Bee( Vector2( xOffset + -260, yOffset + 1188 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -260, yOffset + 1326 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -260, yOffset + 1464 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -260, yOffset + 1602 ), "flyDownRight" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -260, yOffset + 1740 ), "flyDownLeft" )
-bee.state.attacking = true
-bee = Bee( Vector2( xOffset + -260, yOffset + 1878 ), "flyDownRight" )
-bee.state.attacking = true
-]]--
