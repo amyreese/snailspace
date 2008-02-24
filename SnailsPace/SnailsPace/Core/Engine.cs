@@ -346,12 +346,12 @@ namespace SnailsPace.Core
                 //Is a character dead? Kill it!
                 if (charEnum.Current.health <= 0)
                 {
-                    if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
-                    {
+                    //if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationStart)
+                    //{
                         Engine.lua.CallOn(charEnum.Current.state, "die", gameTime);
                         player.killedEnemy();
                         Engine.sound.play("kill");
-                    } 
+                    //} 
                     if (charEnum.Current.sprites["Die"].frame == charEnum.Current.sprites["Die"].animationEnd)
                     {
                         map.characters.Remove(charEnum.Current);

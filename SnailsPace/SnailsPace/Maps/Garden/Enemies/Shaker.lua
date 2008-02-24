@@ -30,15 +30,17 @@ end
 -- Creates a Shaker object
 function Shaker(startPos)
 	walk = ShakerSprite(0, 0, 0.07)
-	stand = ShakerSprite(0, 0, 0.07)
-	fly = ShakerSprite(0, 0, 0.07)
-	die = ShakerSprite(0, 0, .17)
+	stand = ShakerSprite(1, 1, 0.07)
+	fly = ShakerSprite(2, 2, 0.07)
+	fly2 = ShakerSprite(2, 2, 0.07)
+	die = ShakerSprite(4, 14, .17)
 	
 	shaker = Character("generic")
 	shaker.sprites:Add("Walk", walk)
 	shaker.sprites:Add("Stand", stand)
 	shaker.sprites:Add("Die", die)
 	shaker.sprites:Add("Fly", fly)
+	shaker.sprites:Add("Fly2", fly2)
 	shaker.size = Vector2(ShakerImage.size.X - 72, ShakerImage.size.Y - 48)
 	shaker.startPosition = startPos
 	shaker.position = startPos
@@ -46,10 +48,10 @@ function Shaker(startPos)
 	shaker.direction = Vector2(0,0)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
-	shaker.health = 200
+	shaker.health = 1
 	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
-	shaker:setSprite("Stand")
+	shaker:setSprite("Walk")
 	shaker.state = {
 		shaker = shaker
 	}
@@ -85,6 +87,7 @@ function ShakerThinker( self, gameTime )
 			self.weapon.cooldown = 800
 			self.rotation = 3.14
 			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
+			self:setSprite("Fly2")
 		end
 	end
 	
@@ -95,6 +98,7 @@ function ShakerThinker( self, gameTime )
 			self.affectedByGravity = false
 			self.rotation = 1.57
 			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
+			self:setSprite("Fly")
 		end
 	end
 	
@@ -102,6 +106,7 @@ function ShakerThinker( self, gameTime )
 		if(self.weapon.name ~= "Saltthrower") then
 			self.weapon = Weapon.load("saltthrower")
 			self.weapon.cooldown = 800
+			self:setSprite("Stand")
 		end
 	end
 	
