@@ -59,7 +59,7 @@ namespace SnailsPace.Screens
                 Core.Engine.sound.stop("music");
                 Core.Engine.sound.stop("alarm");
                 Core.Engine.sound.stop("jetpack");
-                pointsString = Core.Engine.player.GetFinalPoints();
+                pointsString = Core.Engine.player.GetFinalPoints(gameTime);
                 initializeScreen = false;
 				nextLevel = Core.Engine.player.nextLevel;
 
@@ -72,6 +72,25 @@ namespace SnailsPace.Screens
 				{
 					nextState = SnailsPace.GameStates.GameLoading;
 					((GameScreen)snailsPace.getScreen(SnailsPace.GameStates.Game)).ReloadEngine(nextLevel);
+					Core.Player.time = 0;
+					switch (nextLevel)
+					{
+						case "Tree Fort":
+							Core.Player.timeLimit = 100;
+							break;
+						case "Garden":
+							Core.Player.timeLimit = 360;
+							break;
+						case "Garden2":
+							Core.Player.timeLimit = 300;
+							break;
+						case "Credits":
+							Core.Player.timeLimit = 0;
+							break;
+						default:
+							Core.Player.timeLimit = 500;
+							break;
+					}
 				}
 
             }

@@ -41,7 +41,7 @@ function Hive(startPos)
 	Hive.affectedByGravity = false
 	Hive.direction = Vector2(0,0)
 	Hive.maxVelocity = 0
-	Hive.health = 25
+	Hive.health = 50
 	Hive.weapon.ammunition = 0
 	Hive.name = "Hive"
 	Hive:setSprite("Stand")
@@ -60,7 +60,7 @@ function HiveThinker( self, gameTime )
 		Powerups.BuildHealthPowerup( self.position.X - 64, self.position.Y )
 	end
 	if AI.canSeeHelix( self, 800) then
-		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 2.5 then
+		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 1.0 then
 			self.state.lastSpawned = gameTime.TotalRealTime.TotalSeconds
 			behav = "swarmHelix"
 			if math.random() > 0.5 then

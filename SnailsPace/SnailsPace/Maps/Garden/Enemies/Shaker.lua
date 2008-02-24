@@ -107,7 +107,7 @@ function ShakerThinker( self, gameTime )
 	if (self.health <= 155 and self.health > 145) then
 		if(self.weapon.name ~= "Saltthrower") then
 			self.weapon = Weapon.load("saltthrower")
-			self.weapon.cooldown = 600
+			self.weapon.cooldown = 500
 			self:setSprite("Stand")
 			self.health = 150
 		end

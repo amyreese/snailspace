@@ -35,7 +35,7 @@ function Traps.BossBounds( trapX, trapY, trapWidth, trapHeight, trapRotation, ke
 			keystone.affectedByGravity = true
 			Renderer.cameraTarget = cameraTarget
 			trig.state.unused = false
-			--TODO: Zoom Out to Show entire boss battle
+			
 		end
 	end
 	return trig

@@ -85,18 +85,18 @@ spider11 = Spider(Vector2(2310, -930))
 spider12 = Spider(Vector2(3160, -680))
 spider13 = Spider(Vector2(1720, 60))
 spider14 = Spider(Vector2(2520, -100))
-spider15 = Spider(Vector2(3160, 200))
+spider15 = Spider(Vector2(3160, 150))
 spider16 = Spider(Vector2(3610, -250))
 
 --****Plane 2****
 --Plane 2 Bees
-bee21 = Bee(Vector2(4000,150), "flyUp")
-bee22 = Bee(Vector2(4050,150), "flyUp")
-bee23 = Bee(Vector2(4100,150), "flyUp")
-bee2 = Bee(Vector2(4150,150), "flyUp")
-bee4 = Bee(Vector2(4200,150), "flyUp")
-bee6 = Bee(Vector2(4250,150), "flyUp")
-bee8 = Bee(Vector2(4300,150), "flyUp")
+bee21 = Bee(Vector2(4200,150), "flyUp")
+bee22 = Bee(Vector2(4300,150), "flyUp")
+bee23 = Bee(Vector2(4400,150), "flyUp")
+bee2 = Bee(Vector2(4500,150), "flyUp")
+bee4 = Bee(Vector2(4600,150), "flyUp")
+bee6 = Bee(Vector2(4700,150), "flyUp")
+bee8 = Bee(Vector2(4800,150), "flyUp")
 bee21.state.attacking = true
 bee22.state.attacking = true
 bee23.state.attacking = true
@@ -126,9 +126,9 @@ bee14 = Bee(Vector2(4856,-2400), "flyLeftRight")
 bee15 = Bee(Vector2(5456,-2950), "flyLeftRight")
 bee16 = Bee(Vector2(5456,-3150), "flyLeftRight")
 bee17 = Bee(Vector2(5456,-3350), "flyLeftRight")
-bee18 = Bee(Vector2(5456,-4050), "flyLeftRight")
-bee19 = Bee(Vector2(5456,-4250), "flyLeftRight")
-bee20 = Bee(Vector2(5456,-4450), "flyLeftRight")
+bee18 = Bee(Vector2(5356,-4050), "flyLeftRight")
+bee19 = Bee(Vector2(5356,-4250), "flyLeftRight")
+bee20 = Bee(Vector2(5356,-4450), "flyLeftRight")
 bee9.state.attacking = true
 bee10.state.attacking = true
 bee11.state.attacking = true
@@ -176,10 +176,15 @@ SavePoints.BuildSavePoint( 7500, 2575, savepointSprite )
 health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 health2 = Powerups.BuildHealthPowerup( 4956, -2750 )
 
+-- Fuel
+Powerups.BuildFuelPowerup( 2660, -2900 )
+
 --Weapons
-stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 100, 0.25)
-flamethrower1 = Powerups.BuildWeaponPowerup( 6000, 400, "flamethrower", 60, 4)
-minigun1 = Powerups.BuildWeaponPowerup( 9000, 2500, "minigun", 200, 5)
+stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 200, 0.25)
+flamethrower1 = Powerups.BuildWeaponPowerup( 6000, 400, "flamethrower", 40, 1)
+minigun1 = Powerups.BuildWeaponPowerup( 9000, 2500, "minigun", 200, 3)
+minigun2 = Powerups.BuildWeaponPowerup( 2100, -750, "minigun", 100, 3)
+minigun3 = Powerups.BuildWeaponPowerup( 5156, 200, "minigun", 200, 3)
 grenadelauncher1 = Powerups.BuildWeaponPowerup( 6200, -2100, "grenadelauncher", 20, 5)
 
 --Princess Boss

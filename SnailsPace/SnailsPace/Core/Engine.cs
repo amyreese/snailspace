@@ -336,6 +336,7 @@ namespace SnailsPace.Core
             else
             {
                 sound.play("music", false);
+				Player.time += gameTime.ElapsedGameTime.Milliseconds;
             }
             #endregion
 

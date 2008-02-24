@@ -10,6 +10,8 @@ namespace SnailsPace.Core
     class Player
     {
         private int points = 0;
+		public static double time = 0;
+		public static double timeLimit = 500;
 		public static bool allowLevelProgression = false;
         public static Helix helix;
         public static GameObject crosshair;
@@ -299,16 +301,21 @@ namespace SnailsPace.Core
 		/// Generate the player's final score.
 		/// </summary>
 		/// <returns>The player's final score.</returns>
-        public String GetFinalPoints()
+        public String GetFinalPoints(GameTime gameTime)
         {
-            recalculatePoints();
+			recalculatePoints();
             float accuracy = 0;
             if (shotsFired > 0)
             {
                 accuracy = enemiesHit / (float)shotsFired;
             }
             float accuracyBonus = (float)Math.Floor( (0.5f + accuracy) * 100.0f ) / 100.0f;
-            float deathPenalty = 0;
+			double timeBonus = 0;
+			if((time / 1000) < timeLimit)
+			{
+				timeBonus = (timeLimit - time / 1000) * 50;
+			}
+			float deathPenalty = 0;
             if (deaths > 0)
             {
                 deathPenalty = deaths * 500;
@@ -316,8 +323,10 @@ namespace SnailsPace.Core
             String pointsString = "Base points: " + points;
             pointsString +=     "\n   Accuracy: " + Math.Floor(accuracy * 100) + "% (x " + accuracyBonus + ")";
             pointsString +=     "\n     Deaths: " + deaths + " (- " + deathPenalty + ")";
+			pointsString +=		"\n       Time: " + Math.Floor(time / 1000);
+			pointsString +=		"\n Time Bonus: " + Math.Floor(timeBonus);
             pointsString +=     "\n  -------------------------";
-            pointsString +=     "\n       Total: " + Math.Ceiling(points * accuracyBonus - deathPenalty);
+            pointsString +=     "\n       Total: " + Math.Ceiling(points * accuracyBonus - deathPenalty + timeBonus);
             return pointsString;
         }
 
