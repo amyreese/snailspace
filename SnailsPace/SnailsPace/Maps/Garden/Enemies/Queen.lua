@@ -51,7 +51,7 @@ end
 function Queen(startPos)
 	walk = QueenSprite(0, 1, 0.07)
 	stand = QueenSprite(0, 0, 0.07)
-	die = QueenSprite(2, 2, .17)
+	die = QueenSprite(2, 7, .17)
 	
 	
 	queen = Character("flamethrower")
@@ -63,7 +63,7 @@ function Queen(startPos)
 	queen.position = startPos
 	queen.affectedByGravity = true
 	queen.direction = Vector2(1,0)
-	queen.maxVelocity = 400
+	queen.maxVelocity = 200
 	queen.thinker = "QueenThinker"
 	queen.health = 50
 	queen.weapon.cooldown = 800

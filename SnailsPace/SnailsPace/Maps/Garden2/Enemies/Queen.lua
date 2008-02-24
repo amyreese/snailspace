@@ -54,7 +54,7 @@ end
 function Queen(startPos)
 	walk = QueenSprite(0, 1, 0.07)
 	stand = QueenSprite(0, 0, 0.07)
-	die = QueenSprite(2, 2, .17)
+	die = QueenSprite(2, 7, .17)
 	sack = SackSprite(0, 3, 0.07)
 
 	queen = Character("flamethrower")

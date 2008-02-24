@@ -48,7 +48,7 @@ function Shaker(startPos)
 	shaker.direction = Vector2(0,0)
 	shaker.maxVelocity = 400
 	shaker.thinker = "ShakerThinker"
-	shaker.health = 1
+	shaker.health = 200
 	shaker.weapon.cooldown = 200
 	shaker.name = "Shaker"
 	shaker:setSprite("Walk")
