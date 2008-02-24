@@ -156,7 +156,7 @@ function Weapons:flamethrower( weapon )
 	end
 end
 
---[[ Flamethrower!!! Rawr. ]]--
+--[[ Saltthrower!!! Rawr. ]]--
 function Weapons:saltthrower( weapon )
 	weapon.name = "Saltthrower"
 	weapon.slot = 3
@@ -196,6 +196,25 @@ function Weapons:generic( weapon, v )
         bullet.sprites:Add("Bullet", Weapons.bulletSprite(0))
         bullet.size = Weapons.bulletImage.size
         bullet.scale = Vector2(0.25, 0.25)
+        bullet.damage = 1
+            
+        Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+end
+
+--[[ Salt weapon, single shot ]]--
+function Weapons:saltneric( weapon, v )
+	weapon.name = "SaltGun"
+	weapon.cooldown = 100
+	weapon.state = { velocity=v or 250 }
+	weapon.sprite = Weapons.weaponSprite(0)
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+        bullet.sprites:Add("Bullet", Weapons.bulletSprite(6))
+        bullet.size = Weapons.bulletImage.size
         bullet.damage = 1
             
         Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
@@ -245,6 +264,56 @@ function Weapons:fanshot( weapon, n, o, v )
 		bullet.sprites:Add("Bullet", Weapons.bulletSprite(5))
 		bullet.size = Weapons.bulletImage.size		
 		bullet.damage = 1
+        
+        targetPosition = Vector2(shooter.position.X + 100, shooter.position.Y)
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+	end
+end
+
+--[[ Fanned shot weapon, multiple shot ]]--
+function Weapons:saltfan( weapon, n, o, v )
+	weapon.sprite = Weapons.weaponSprite(0)
+	weapon.ammunition = 50
+	weapon.cooldown = 100
+	weapon.name = "Saltfan"
+	weapon.state = { velocity=v or 128, number=n or 3, offset=o or 0.3 }
+	
+	function weapon.state:ShootAt(shooter, targetPosition, gameTime)     
+		transform = Matrix.Multiply(Matrix.Multiply(Matrix.CreateTranslation(Vector3(-shooter.position.X, -shooter.position.Y, 0)), Matrix.CreateRotationZ(-self.offset * ((self.number - 1) / 2))), Matrix.CreateTranslation(Vector3(shooter.position, 0)))
+
+		targetPosition = Vector2.Transform(targetPosition, transform)
+		
+		transform = Matrix.Multiply(Matrix.Multiply(Matrix.CreateTranslation(Vector3(-shooter.position.X, -shooter.position.Y, 0)), Matrix.CreateRotationZ(self.offset)), Matrix.CreateTranslation(Vector3(shooter.position, 0)))
+        
+        for i = 1, self.number, 1 do
+			bullet = Bullet()
+			bullet.explosion = Explosion()
+	                
+			bullet.sprites:Add("Bullet", Weapons.bulletSprite(4))
+			bullet.size = Weapons.bulletImage.size		
+			bullet.damage = 4
+	        
+			Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+			
+			targetPosition = Vector2.Transform(targetPosition, transform)
+		end
+		
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(6))
+		bullet.size = Weapons.bulletImage.size		
+		bullet.damage = 6
+        
+        targetPosition = Vector2(shooter.position.X - 100, shooter.position.Y)
+		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)
+		
+		bullet = Bullet()
+		bullet.explosion = Explosion()
+                
+		bullet.sprites:Add("Bullet", Weapons.bulletSprite(6))
+		bullet.size = Weapons.bulletImage.size		
+		bullet.damage = 6
         
         targetPosition = Vector2(shooter.position.X + 100, shooter.position.Y)
 		Weapons.shootSingleBullet(bullet, self.velocity, shooter, targetPosition)

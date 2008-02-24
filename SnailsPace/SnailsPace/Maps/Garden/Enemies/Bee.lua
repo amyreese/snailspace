@@ -44,7 +44,9 @@ function Bee(startPos, behav)
 	bee.position = startPos
 	bee.maxVelocity = 768
 	bee.thinker = "BeeThinker"
-	bee.state = {}
+	bee.state = {
+		attacking = true
+	}
 	bee.name = "Bee"
 	bee.health = 3
 	bee.affectedByGravity = true

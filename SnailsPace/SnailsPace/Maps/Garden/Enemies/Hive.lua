@@ -59,8 +59,8 @@ function HiveThinker( self, gameTime )
 		Powerups.BuildFuelPowerup( self.position.X, self.position.Y )
 		Powerups.BuildHealthPowerup( self.position.X - 64, self.position.Y )
 	end
-	if AI.canSeeHelix( self, 1200 ) then
-		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 1.5 then
+	if AI.canSeeHelix( self, 800) then
+		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 2.5 then
 			self.state.lastSpawned = gameTime.TotalRealTime.TotalSeconds
 			behav = "swarmHelix"
 			if math.random() > 0.5 then

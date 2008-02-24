@@ -130,7 +130,7 @@ end
 function AI.jumpPatrol(self)
 	--Jump Left
 	if(self.state.movingLeft) then
-		if(self.position.X > self.startPosition.X - 800) then
+		if(self.position.X > self.startPosition.X - 650) then
 			--Jump till too high
 			if(self.position.Y <= self.startPosition.Y) then
 				self.direction = Vector2(-1, 1)
@@ -158,7 +158,7 @@ end
 function AI.slowJumpPatrol(self)
 	--Jump Left
 	if(self.state.movingLeft) then
-		if(self.position.X > self.startPosition.X - 800) then
+		if(self.position.X > self.startPosition.X - 650) then
 			--Jump till too high
 			if(self.position.Y <= 425) then
 				self.direction = Vector2(-1, 1)

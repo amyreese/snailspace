@@ -2,8 +2,8 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
---startPosition = Vector2( -1000, 0 )
-startPosition = Vector2(7956, -4600)
+startPosition = Vector2( -1000, 0 )
+--startPosition = Vector2(7956, -4600)
 --startPosition = Vector2(800, -800)
 --startPosition = Vector2(5456, -4500)
 --startPosition = Vector2(5500, 800)
@@ -82,7 +82,7 @@ blackant3 = BlackAnt(Vector2(2310, -510), "platPatrol")
 blackant4 = BlackAnt(Vector2(3160, -480), "platPatrol")
 blackant5 = BlackAnt(Vector2(1720, 260), "platPatrol")
 blackant6 = BlackAnt(Vector2(2520, 100), "platPatrol")
-blackant7 = BlackAnt(Vector2(3160, 575), "platPatrol")
+blackant7 = BlackAnt(Vector2(3160, 500), "platPatrol")
 blackant8 = BlackAnt(Vector2(3460, 50), "platPatrol")
 
 --Platform Spiders
@@ -92,8 +92,14 @@ spider11 = Spider(Vector2(2310, -930))
 spider12 = Spider(Vector2(3160, -680))
 spider13 = Spider(Vector2(1720, 60))
 spider14 = Spider(Vector2(2520, -100))
-spider15 = Spider(Vector2(3160, 375))
+spider15 = Spider(Vector2(3160, 200))
 spider16 = Spider(Vector2(3610, -250))
+
+--****Plane 2****
+--Plane 2 Bees
+bee21 = Bee(Vector2(4000,150), "flyUp")
+bee22 = Bee(Vector2(4050,150), "flyUp")
+bee23 = Bee(Vector2(4100,150), "flyUp")
 
 --****Cave Drop****
 -- Cave Drop Fire Ants
@@ -167,9 +173,10 @@ health1 = Powerups.BuildHealthPowerup( 650, -1400 )
 health2 = Powerups.BuildHealthPowerup( 4956, -2750 )
 
 --Weapons
-stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 50, 0.25)
-minigun1 = Powerups.BuildWeaponPowerup( 6000, 400, "minigun", 200, 4)
-flamethrower1 = Powerups.BuildWeaponPowerup( 9000, 2500, "flamethrower", 20, 5)
+stinger1 = Powerups.BuildWeaponPowerup( 850, -1400, "stinger", 100, 0.25)
+flamethrower1 = Powerups.BuildWeaponPowerup( 6000, 400, "flamethrower", 60, 4)
+minigun1 = Powerups.BuildWeaponPowerup( 9000, 2500, "minigun", 200, 5)
+grenadelauncher1 = Powerups.BuildWeaponPowerup( 6200, -2100, "grenadelauncher", 20, 5)
 
 --Princess Boss
 thePrincess = Queen(Vector2(7856, -4856))

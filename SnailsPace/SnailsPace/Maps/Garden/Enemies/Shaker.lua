@@ -35,7 +35,7 @@ function Shaker(startPos)
 	fly2 = ShakerSprite(2, 2, 0.07)
 	die = ShakerSprite(4, 14, .17)
 	
-	shaker = Character("generic")
+	shaker = Character("saltneric")
 	shaker.sprites:Add("Walk", walk)
 	shaker.sprites:Add("Stand", stand)
 	shaker.sprites:Add("Die", die)
@@ -81,17 +81,18 @@ function ShakerThinker( self, gameTime )
 	end
 	
 	--Set weapon and rotation at different health phases
-	if(self.health <= 52 and self.health > 49) then
-		if(self.weapon.name ~= "Fanshot") then
-			self.weapon = Weapon.load("fanshot")
-			self.weapon.cooldown = 800
+	if(self.health <= 55 and self.health > 45) then
+		if(self.weapon.name ~= "Saltfan") then
+			self.weapon = Weapon.load("saltfan")
+			self.weapon.cooldown = 600
 			self.rotation = 3.14
 			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 			self:setSprite("Fly2")
+			self.health = 50
 		end
 	end
 	
-	if(self.health <= 102 and self.health > 99) then
+	if(self.health <= 105 and self.health > 95) then
 		if(self.weapon.name ~= "Grenade Launcher") then
 			self.weapon = Weapon.load("grenadelauncher")
 			self.weapon.cooldown = 1600
@@ -99,14 +100,16 @@ function ShakerThinker( self, gameTime )
 			self.rotation = 1.57
 			self.bounds = GameObjectBounds(Vector2.Multiply(Vector2(ShakerImage.size.X - 48, ShakerImage.size.Y - 48), self.scale), self.position, self.rotation);
 			self:setSprite("Fly")
+			self.health = 100
 		end
 	end
 	
-	if (self.health <= 152 and self.health > 149) then
+	if (self.health <= 155 and self.health > 145) then
 		if(self.weapon.name ~= "Saltthrower") then
 			self.weapon = Weapon.load("saltthrower")
-			self.weapon.cooldown = 800
+			self.weapon.cooldown = 600
 			self:setSprite("Stand")
+			self.health = 150
 		end
 	end
 	

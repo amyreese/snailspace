@@ -104,7 +104,7 @@ plat7Sprite = sprit:clone()
 plat7Sprite.frame = 0
 plat7.sprites:Add("Grass", plat7Sprite)
 plat7.size = Vector2(imge.size.X - 16, imge.size.Y - 16)
-plat7.position = Vector2( (65+platOffX)*32, 25*32 + platOffY )
+plat7.position = Vector2( (65+platOffX)*32, 20*32 + platOffY )
 plat7.layer = 0.5
 map.objects:Add(plat7)
 
