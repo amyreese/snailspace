@@ -497,6 +497,14 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Audio\Sound\11116101.wav">
+      <Name>11116101</Name>
+    </None>
+    <None Include="Resources\Audio\Sound\Boing - Rubber band 6.wav">
+      <Name>Boing - Rubber band 6</Name>
+    </None>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

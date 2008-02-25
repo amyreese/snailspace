@@ -105,6 +105,7 @@ function Weapons:grenadelauncher( weapon )
 	weapon.name = "Grenade Launcher"
 	weapon.slot = 4
 	weapon.cooldown = 400
+	weapon.cue = "launch"
 	weapon.state = {}
 	weapon.sprite = Weapons.weaponSprite(4)
 	weapon.ammunition = -1

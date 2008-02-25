@@ -788,6 +788,13 @@ namespace SnailsPace.Core
 
                         resultingMovement = new Vector2(objectMovement.X * xmod, objectMovement.Y * ymod);
                         objectVelocity = new Vector2(objectVelocity.X * xmod, objectVelocity.Y * ymod);
+
+                        // Bounce sound!
+                        if (movingObject.lastbounce > 500)
+                        {
+                            Engine.sound.play("bounce");
+                            movingObject.lastbounce = 0;
+                        }
                     }
                     // The object collided, and was a bullet (damage taken care of below)
                     // If it hit a non-character, or if the bullet is not supposed to move through things, explode
@@ -935,6 +942,7 @@ namespace SnailsPace.Core
                     if (movingObject.bounceable)
                     {
                         movingObject.bounceTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                        movingObject.lastbounce += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (movingObject.bounceTime < 0)
                         {
                             #region Make the bullet explode!

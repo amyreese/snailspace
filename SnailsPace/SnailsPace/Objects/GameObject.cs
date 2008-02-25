@@ -68,6 +68,7 @@ namespace SnailsPace.Objects
 
         public bool bounceable = false;
         public double bounceTime = 0;
+        public double lastbounce = 0;
 
 		private GameObjectBounds _bounds;
 		public GameObjectBounds bounds
