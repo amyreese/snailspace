@@ -2,7 +2,7 @@ xOffset = 0
 yOffset = 0
 
 WorldBuilding.BuildSection( { width=44, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
-WorldBuilding.BuildObject( { xOffset=0.1 * treetrunkImage.size.X + 2000, yOffset=0.40 * treetrunkImage.size.Y, sprite=treetrunkSprite, collidable=false, layerOffset=10 } )
+WorldBuilding.BuildObject( { xOffset=0.1 * treetrunkImage.size.X + 3500, yOffset=0.40 * treetrunkImage.size.Y, sprite=treetrunkSprite, collidable=false, layerOffset=10 } )
 
 sign = GameObject()
 
@@ -19,7 +19,7 @@ asprite.animationEnd = 3
 sign.sprites:Add("arrow", asprite)
 
 sign.collidable = false
-sign.position = Vector2(200,0)
+sign.position = Vector2(320,230)
 map.objects:Add(sign)
 
 rock = GameObject()
@@ -46,7 +46,7 @@ rbounds:AddPoint(Vector2(0,-80))
 rbounds:AddPoint(Vector2(-170,-60))
 rock.bounds = rbounds:BuildBounds()
 
-rock.position = Vector2( 760, 0 )
+rock.position = Vector2( 300, 0 )
 rock.size = rsprite.image.size
 rock.affectedByGravity = false
 rock.collidable = true	
@@ -54,6 +54,9 @@ rock.collidable = true
 map.objects:Add(rock)
 
 
+
+
+--[[
 nameCnt = 4
 names = {}
 possibleNames = { "joe", "josh", "pat", "brian", "john", "simon"  }
@@ -77,7 +80,6 @@ for i,v in ipairs( names ) do
 	name = Name( Vector2( xOffset + i * 400, yOffset + 256 + 96 * i ), v )
 end
 
-
 yMod = -64
 for i=0,creditsImage.blocks.X * creditsImage.blocks.Y - 1 do
 	rot = math.random() / 8 + 0.2
@@ -96,3 +98,4 @@ EndLevel.BuildLevelEnd( endLevelX, endLevelY )
 
 WorldBuilding.BuildObject( { xOffset=endLevelX, yOffset=128, sprite=exitPortalSprite, layer=0, collidable=false } )
 EndLevel.BuildLevelEnd( endLevelX, 128 )
+]]--

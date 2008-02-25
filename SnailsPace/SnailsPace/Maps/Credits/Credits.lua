@@ -2,7 +2,7 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-startPosition = Vector2(-200,0)
+startPosition = Vector2(-300,0)
 player = Player( startPosition, "generic" )
 
 weapon = Weapon.load("stinger")
@@ -32,6 +32,13 @@ end
 -- Enemy Character Definitions
 include("Enemies/Name.lua")
 
+include("Enemies/Bee.lua")
+include("Enemies/BlackAnt.lua")
+include("Enemies/FireAnt.lua")
+include("Enemies/Queen.lua")
+include("Enemies/Shaker.lua")
+include("Enemies/Spider.lua")
+
 -- Trigger Definitions
 include("Triggers/SavePoints.lua")
 include("Triggers/Powerups.lua")
@@ -50,6 +57,8 @@ function LoadArea( name )
 end
 
 LoadArea("Credits")
+LoadArea("Devs")
+LoadArea("Gallery")
 
 -- Set the bounds for this map
 map.bounds:Add(Vector2(-512, -196))

@@ -1,0 +1,58 @@
+
+--[[ 
+	Spider.lua
+	Define the Spider's properties and behaviors.
+]]--
+
+library('AI')
+
+-- Generic SpiderImage object to be reused by all Fire Ants
+SpiderImage = Image()
+SpiderImage.filename = "Resources/Textures/SpiderTable"
+SpiderImage.blocks = Vector2(4, 4)
+SpiderImage.size = Vector2(128, 128)
+
+-- Creates a Sprite for a Spider
+function SpiderSprite(animSt, animEnd, animDelay)
+	sprt = Sprite()
+	sprt.image = SpiderImage
+	sprt.effect = "Resources/Effects/effects"
+	sprt.visible = true
+	sprt.animationStart = animSt
+	sprt.animationEnd = animEnd
+	sprt.animationDelay = animDelay
+	sprt.frame = 0
+	sprt.timer = 0
+	
+	return sprt
+end
+
+-- Creates a Spider object
+function Spider(startPos, attack)
+	walk = SpiderSprite(2, 3, 0.07)
+	stand = SpiderSprite(0, 0, 0.07)
+	die = SpiderSprite(8, 11, .08)
+	
+	spider = Character("fanshot")
+	spider.sprites:Add("Walk", walk)
+	spider.sprites:Add("Stand", stand)
+	spider.sprites:Add("Die", die)
+	spider.size = Vector2(SpiderImage.size.X - 64, SpiderImage.size.Y - 64)
+	spider.startPosition = startPos
+	spider.position = startPos
+	spider.direction = Vector2(0,0)
+	spider.maxVelocity = 640
+	spider.health = 6
+	spider.name = "Spider"
+	spider.weapon.cooldown = 500
+	spider.affectedByGravity = true
+	spider:setSprite("Stand")
+	spider.state = {
+		tracking = false,
+		mad = false,
+		attacking = attack,
+	}
+	map.characters:Add(spider)
+	
+	return spider
+end

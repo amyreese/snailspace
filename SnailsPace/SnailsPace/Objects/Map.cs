@@ -17,7 +17,7 @@ namespace SnailsPace.Objects
         // Characters and triggers.
         public List<Character> characters;
         public List<Trigger> triggers;
-
+        
 		// Map bounds
 		public List<Vector2> bounds;
 		
@@ -32,7 +32,7 @@ namespace SnailsPace.Objects
             objects = new List<GameObject>();
             characters = new List<Character>();
             triggers = new List<Trigger>();
-			bounds = new List<Vector2>();
+            bounds = new List<Vector2>();
 
             try
             {

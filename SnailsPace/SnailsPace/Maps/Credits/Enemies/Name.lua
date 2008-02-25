@@ -97,8 +97,8 @@ end
 -- Bee behavior function
 function NameThinker( self, gameTime )
 	if math.random() > 0.5 then
-		AI.diagonalPatrol(self, Vector2( Player.helix.position.X - 256, Player.helix.position.Y + 400), Vector2( Player.helix.position.X + 256, Player.helix.position.Y + 408 ))
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X - 50, self.startPosition.Y + 50), Vector2( self.startPosition.X + 50, self.startPosition.Y + 50 ))
 	else
-		AI.diagonalPatrol(self, Vector2( Player.helix.position.X - 256, Player.helix.position.Y + 408), Vector2( Player.helix.position.X + 256, Player.helix.position.Y + 400 ))
+		AI.diagonalPatrol(self, Vector2( self.startPosition.X - 50, self.startPosition.Y + 50), Vector2( self.startPosition.X + 50, self.startPosition.Y + 50 ))
 	end
 end

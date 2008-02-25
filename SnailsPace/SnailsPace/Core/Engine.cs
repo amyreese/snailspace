@@ -33,9 +33,9 @@ namespace SnailsPace.Core
 		public static Texture2D bossHealthShadow;
 
         // Fonts
-        public SpriteFont gameFont;
+        public static SpriteFont gameFont;
 #if DEBUG
-        public SpriteFont debugFont;
+        public static SpriteFont debugFont;
 #endif
         #endregion
 
@@ -113,7 +113,10 @@ namespace SnailsPace.Core
             }
             instance = this;
             sound = SnailsPace.soundManager;
-
+            
+            // Stuff needed by maps
+            loadFonts();
+            
             // Initialize Lua, the Player, and the Map
             lua = new GameLua(mapName);
             map = new Map(mapName);
@@ -124,7 +127,6 @@ namespace SnailsPace.Core
             collidingObjects = new List<GameObject>();
 
             // Load the Fonts, Sprites, and some helper Game Objects that will be needed.
-            loadFonts();
             loadHUD();
             setupPauseOverlay();
             setupMapBounds();
