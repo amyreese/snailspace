@@ -40,6 +40,9 @@ namespace SnailsPace.Core
 		private Dictionary<String, Texture2D> textures;
 		private Dictionary<String, Effect> effects;
 
+		/// <summary>
+		/// Create the renderer, initialize the camera.
+		/// </summary>
 		public Renderer()
 		{
 			cameraPosition = new Vector3(-10, 20, normalCameraDistance);
@@ -51,11 +54,17 @@ namespace SnailsPace.Core
 			effects = new Dictionary<string, Effect>();
 		}
 
+		/// <summary>
+		/// Iterate over a collection and load the textures and effects used within.
+		/// </summary>
+		/// <param name="objects">A list of all GameObjects.</param>
 		public void createTexturesAndEffects(List<Objects.GameObject> objects)
 		{
+			// Iterate through list of objects
 			List<Objects.GameObject>.Enumerator objectEnumerator = objects.GetEnumerator();
 			while (objectEnumerator.MoveNext())
 			{
+				// Iterate through sprites used by this object
 				Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = objectEnumerator.Current.sprites.Values.GetEnumerator();
 				while (spriteEnumerator.MoveNext())
 				{
@@ -66,10 +75,24 @@ namespace SnailsPace.Core
 			}
 			objectEnumerator.Dispose();
 		}
+
+		/// <summary>
+		/// If a texture has already been loaded, return it. If a texture has not already been loaded,
+		/// load it and add it to the textures collection.
+		/// </summary>
+		/// <param name="sprite">The Sprite object.</param>
+		/// <returns>A Texture2D object that corresponds to the Sprite object.</returns>
 		private Texture2D getOrCreateTexture(Objects.Sprite sprite)
 		{
 			return getOrCreateTexture(sprite.image.filename);
 		}
+
+		/// <summary>
+		/// If a texture has already been loaded, return it. If a texture has not already been loaded,
+		/// load it and add it to the textures collection.
+		/// </summary>
+		/// <param name="texture">The name of the texture.</param>
+		/// <returns>A Texture2D object that corresponds to the texture name.</returns>
 		private Texture2D getOrCreateTexture(String texture)
 		{
 			if (!textures.ContainsKey(texture))
@@ -89,10 +112,24 @@ namespace SnailsPace.Core
 				return textures[texture];
 			}
 		}
+
+		/// <summary>
+		/// If an effect has already been loaded, return it. If an effect has not already been loaded,
+		/// load it and add it to the effects collection.
+		/// </summary>
+		/// <param name="sprite">The Sprite object.</param>
+		/// <returns>An Effect object that corresponds to the Sprite object.</returns>
 		private Effect getOrCreateEffect(Objects.Sprite sprite)
 		{
 			return getOrCreateEffect(sprite.effect);
 		}
+
+		/// <summary>
+		/// If an effect has already been loaded, return it. If an effect has not already been loaded,
+		/// load it and add it to the effects collection.
+		/// </summary>
+		/// <param name="texture">The name of the effect.</param>
+		/// <returns>A Effect object that corresponds to the effect name.</returns>
 		private Effect getOrCreateEffect(String effect)
 		{
 			if (!effects.ContainsKey(effect))
@@ -113,6 +150,12 @@ namespace SnailsPace.Core
 			}
 		}
 
+		/// <summary>
+		/// Calculate how far the camera must move given an amount of elapsed time.
+		/// </summary>
+		/// <param name="distance">A single component of distance (X, Y, or Z).</param>
+		/// <param name="elapsedTime">The elapsed time.</param>
+		/// <returns>How far the camera should move in this direction.</returns>
 		private float calculateCameraMovement(float distance, float elapsedTime)
 		{
 			if (float.IsNaN(distance))
@@ -131,6 +174,10 @@ namespace SnailsPace.Core
 			}
 		}
 
+		/// <summary>
+		/// Return the target position that the camera is moving to.
+		/// </summary>
+		/// <returns>The camera's target position.</returns>
 		public Vector3 getCameraTargetPosition()
 		{
 			Vector3 targetPosition = cameraTarget == null ? Vector3.Zero : new Vector3(cameraTarget.position, 0);
@@ -166,6 +213,12 @@ namespace SnailsPace.Core
 			return targetPosition + cameraTargetOffset;
 		}
 
+		/// <summary>
+		/// Render the scene.
+		/// </summary>
+		/// <param name="objects">All GameObjects to be rendered.</param>
+		/// <param name="strings">Strings of text to render.</param>
+		/// <param name="gameTime">The current time.</param>
 		public void render(List<Objects.GameObject> objects, List<Objects.Text> strings, GameTime gameTime)
         {
             SnailsPace.getInstance().GraphicsDevice.RenderState.CullMode = CullMode.None;
@@ -176,6 +229,7 @@ namespace SnailsPace.Core
             cameraTargetPosition.Z = cameraTargetPosition.Z * debugZoom;
             if (!cameraPosition.Equals(cameraTargetPosition))
             {
+				// If the camera is not at it's target position, move the camera toward the target.
                 float elapsedTime = (float)Math.Min(gameTime.ElapsedRealTime.TotalSeconds, 1);
                 Vector3 cameraDifference = cameraTargetPosition - cameraPosition;
                 Vector3 cameraPositionMovement = Vector3.Zero;
@@ -184,12 +238,14 @@ namespace SnailsPace.Core
                 cameraPositionMovement.Z = calculateCameraMovement(cameraDifference.Z, elapsedTime);
                 cameraPosition = cameraPosition + cameraPositionMovement;
 
+				// Keep the camera inside the level's specified bounds.
                 float cameraStopXDistance = (float)(1000 * Math.Tan(45 / 2.0));
                 float cameraStopYDistance = (float)(1000 * Math.Tan(MathHelper.PiOver4 / 2.0));
                 for (int i = 1; i < cameraBounds.Length; i++)
                 {
                     if (cameraBounds[i].X == cameraBounds[i - 1].X)
                     {
+						// This is a vertical bounding line, check the camera position to the left and right.
                         if ((cameraBounds[i].X < 0) && (cameraPosition.X - cameraStopXDistance < cameraBounds[i].X))
                             cameraPosition.X = cameraBounds[i].X + cameraStopXDistance;
                         else if ((cameraBounds[i].X > 0) && (cameraPosition.X + cameraStopXDistance > cameraBounds[i].X))
@@ -197,6 +253,7 @@ namespace SnailsPace.Core
                     }
                     else if (cameraBounds[i].Y == cameraBounds[i - 1].Y)
                     {
+						// This is a horizontal bounding line, check the camera position on top and bottom.
 						if ((cameraBounds[i].Y > 0) && (cameraPosition.Y + cameraStopYDistance > cameraBounds[i].Y))
 							cameraPosition.Y = cameraBounds[i].Y - cameraStopYDistance;
 						else if ((cameraBounds[i].Y < 0) && (cameraPosition.Y - cameraStopYDistance < cameraBounds[i].Y))
@@ -212,6 +269,7 @@ namespace SnailsPace.Core
             BoundingFrustum viewFrustum = new BoundingFrustum(cameraView * cameraProjection);
 
 #if DEBUG
+			// If debugging bounding boxes, make sure the list exists.
 			if (boundingBoxVertices == null)
 			{
 				boundingBoxVertices = new List<VertexPositionColorTexture[]>();
@@ -228,10 +286,12 @@ namespace SnailsPace.Core
                 SnailsPace.getInstance().GraphicsDevice.VertexDeclaration = new VertexDeclaration(SnailsPace.getInstance().GraphicsDevice, VertexPositionColorTexture.VertexElements);
                 while (objectEnumerator.MoveNext())
                 {
+					// Iterate over each GameObject and draw it.
                     drawObject(objectEnumerator.Current, viewFrustum);
 #if DEBUG
                     if (SnailsPace.debugBoundingBoxes && objectEnumerator.Current.collidable)
                     {
+						// Draw a bounding box if we are debugging bounding boxes and this object has one.
                         Objects.GameObjectBounds boundingBox = objectEnumerator.Current.bounds;
 						Vector2[] boxVertices = boundingBox.Points;
                         VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
@@ -252,11 +312,12 @@ namespace SnailsPace.Core
 #if DEBUG
                 if (SnailsPace.debugTriggers)
                 {
-
-
+					// Draw a trigger box if we are debugging triggers.
                     List<Objects.Trigger>.Enumerator triggers = Engine.map.triggers.GetEnumerator();
+
                     while (triggers.MoveNext())
                     {
+						// For each trigger, draw a box and add it to the list with the bounding boxes.
                         Objects.GameObjectBounds boundingBox = triggers.Current.bounds;
 						Vector2[] boxVertices = boundingBox.Points;
                         VertexPositionColorTexture[] visualBoxVertices = new VertexPositionColorTexture[boxVertices.Length + 2];
@@ -271,9 +332,10 @@ namespace SnailsPace.Core
                         }
                         boundingBoxVertices.Add(visualBoxVertices);
                     }
+					triggers.Dispose();
                 }
 
-                // TODO this probably isn't how we want to do this if we end up using more than one effect
+                // TODO: this probably isn't how we want to do this if we end up using more than one effect
                 Effect effect = getOrCreateEffect("Resources/Effects/effects");
                 effect.CurrentTechnique = effect.Techniques["Colored"];
                 effect.Parameters["xView"].SetValue(cameraView);
@@ -281,6 +343,7 @@ namespace SnailsPace.Core
                 effect.Parameters["xWorld"].SetValue(Matrix.Identity);
                 effect.Begin();
 
+				// Draw all the bounding and trigger boxes.
                 List<VertexPositionColorTexture[]>.Enumerator boundingBoxEnumerator = boundingBoxVertices.GetEnumerator();
                 while (boundingBoxEnumerator.MoveNext())
                 {
@@ -314,6 +377,7 @@ namespace SnailsPace.Core
                 batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
                 batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
 
+				// If we're fighting a box, draw them a health bar.
 				if (Engine.boss != null)
 				{
 					batch.Draw(Engine.bossHealthShadow, new Rectangle(100, 526, 600, 60), Color.White);
@@ -333,6 +397,7 @@ namespace SnailsPace.Core
                 Objects.Weapon currentWeapon = Player.helix.weapon;
                 for(int i = 0; i < Player.helix.inventory.Length; i++)
                 {
+					// Draw each item in the player's inventory.
                     batch.Draw(separator, new Rectangle(8, y++, 32, 1), new Rectangle(1, 0, 1, 1), Color.White);
                     
                     Objects.Weapon weapon = Player.helix.inventory[i];
@@ -344,8 +409,10 @@ namespace SnailsPace.Core
 
                     int tx = weapon.sprite.animationStart % 4, ty = weapon.sprite.animationStart / 4;
                     Rectangle spot, source;
+
                     if (currentWeapon == weapon)
                     {
+						// If this is the weapon we're using, make it pop out by displaying it bigger and with white text.
                         Color textColor = Color.White;
                         spot = new Rectangle(0, y, bigSize * 2, bigSize);
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(bigSize * 2, y), new Vector2(0.5f, 0.5f), textColor));
@@ -354,6 +421,7 @@ namespace SnailsPace.Core
                     }
                     else
                     {
+						// This isn't the weapon we're using, give it a smaller icon and gray text.
                         Color textColor = Color.LightGray;
                         spot = new Rectangle(0, y, smallSize * 2, smallSize);
                         strings.Add(new Objects.Text(weapon.name, font, new Vector2(smallSize * 2, y), new Vector2(0.4f, 0.4f), textColor));
@@ -380,21 +448,29 @@ namespace SnailsPace.Core
 			batch.Dispose();
         }
 
+		/// <summary>
+		/// Draw a GameObject with respect to the view frustum.
+		/// </summary>
+		/// <param name="obj">The GameObject to draw.</param>
+		/// <param name="viewFrustum">The view frustum.</param>
 		private void drawObject(Objects.GameObject obj, BoundingFrustum viewFrustum)
 		{
 			Dictionary<String, Objects.Sprite>.ValueCollection.Enumerator spriteEnumerator = obj.sprites.Values.GetEnumerator();
 
+			// Iterate over all this object's sprites.
 			while (spriteEnumerator.MoveNext())
 			{
+				// Check if this sprite is visible.
 				if (spriteEnumerator.Current.visible)
 				{
 					Vector3 objectPosition = new Vector3(obj.position + spriteEnumerator.Current.position, -obj.layer - spriteEnumerator.Current.layerOffset);
 					Vector3 objectScale = new Vector3(Vector2.Multiply(spriteEnumerator.Current.image.size, obj.scale), 1);
 
                     BoundingSphere sphere =  new BoundingSphere(objectPosition, objectScale.Length() );
+
+					// Only draw the object if we can actually see it.
 					if (viewFrustum.Intersects(sphere))
 					{
-
 						int xBlock = (int)(spriteEnumerator.Current.frame % spriteEnumerator.Current.image.blocks.X);
 						int yBlock = (int)((spriteEnumerator.Current.frame - xBlock) / spriteEnumerator.Current.image.blocks.X);
 
@@ -427,7 +503,7 @@ namespace SnailsPace.Core
 							objVertices[index].TextureCoordinate.Y = (yBlock + yMod) / spriteEnumerator.Current.image.blocks.Y;
 						}
 
-						// TODO this probably isn't how we want to do this if we end up using more than one effect
+						// TODO: this probably isn't how we want to do this if we end up using more than one effect
 						Effect effect = getOrCreateEffect(spriteEnumerator.Current);
 						effect.CurrentTechnique = effect.Techniques["Textured"];
 						effect.Parameters["xView"].SetValue(cameraView);
@@ -461,6 +537,9 @@ namespace SnailsPace.Core
 			spriteEnumerator.Dispose();
 		}
 
+		/// <summary>
+		/// Initialize the collection of vertices used by the renderer.
+		/// </summary>
 		private void setUpVertices()
 		{
 			vertices = new VertexPositionColorTexture[4];
