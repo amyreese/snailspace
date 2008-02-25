@@ -380,8 +380,14 @@ namespace SnailsPace.Core
 				// If we're fighting a boss, draw them a health bar.
 				if (Engine.boss != null)
 				{
-					batch.Draw(Engine.bossHealthShadow, new Rectangle(100, 526, 600, 60), Color.White);
-					batch.Draw(Engine.bossHealthBar, new Rectangle(118, 545, (int)((Engine.boss.health / (float)Engine.boss.maxHealth) * 566), 20), Color.White);
+                    int screenWidth = SnailsPace.videoConfig.getInt("width");
+                    int screenHeight = SnailsPace.videoConfig.getInt("height");
+
+                    int barWidth = 600, barHeight = 60, barMarginX = 18, barMarginY = 20;
+                    int barx = (screenWidth - barWidth) / 2;
+                    int bary = (screenHeight - barHeight) - 14;
+					batch.Draw(Engine.bossHealthShadow, new Rectangle(barx, bary, barWidth, barHeight), Color.White);
+					batch.Draw(Engine.bossHealthBar, new Rectangle(barx + barMarginX, bary + barMarginY, (int)((Engine.boss.health / (float)Engine.boss.maxHealth) * barWidth - 2 * barMarginX), barMarginY), Color.White);
 				}
             }
 
