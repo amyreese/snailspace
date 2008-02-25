@@ -1,6 +1,8 @@
 library('Weapons')
 library('WorldBuilding')
 
+Engine.sound:set("MusicTrack", 1)
+
 -- Scenery Sprite Definitions
 include("Scenery/Sprites.lua")
 

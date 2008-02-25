@@ -1,6 +1,8 @@
 library('Weapons')
 library('WorldBuilding')
 
+Engine.sound:set("MusicTrack", 1)
+
 -- Player creation and starting position
 startPosition = Vector2(0,0)
 --startPosition = Vector2(0, 3136) -- Tree Fort Door
