@@ -38,7 +38,7 @@ namespace SnailsPace.Screens.Menus
         /// </summary>
         protected override void SetupMenuItems()
         {
-            float itemY = spriteFont.LineSpacing * 6.4f;
+			float itemY = SnailsPace.videoConfig.getInt("height") / 2.2f;
             float itemX = 75.0f;
             menuItems = new MenuItem[11];
 			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
