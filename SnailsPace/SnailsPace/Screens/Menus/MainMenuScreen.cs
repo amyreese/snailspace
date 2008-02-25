@@ -65,8 +65,8 @@ namespace SnailsPace.Screens.Menus
         /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
-			float itemY = spriteFont.LineSpacing;
-			float itemX = 25.0f;
+			float itemY = SnailsPace.videoConfig.getInt("height") / 2.2f;
+			float itemX = 75.0f;
 
 			menuItems[0].Visible = !gameStarted;
 			menuItems[1].Visible = !gameStarted;
@@ -139,9 +139,9 @@ namespace SnailsPace.Screens.Menus
 					case 2:
 						snailsPace.toggleFullscreen(gameTime);
 						if (snailsPace.graphics.IsFullScreen)
-							menuItems[2] = new MenuItem("Windowed", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+							menuItems[2] = new MenuItem("Windowed", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing * 0.6f) * 4));
 						else
-							menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+							menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing * 0.6f) * 4));
 						menuItems[2].Selected = true;
 						break;
 				}
