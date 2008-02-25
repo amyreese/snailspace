@@ -234,5 +234,5 @@ exitPortalSprite.effect = "Resources/Effects/effects"
 exitPortalSprite.animationStart = 0
 exitPortalSprite.animationEnd = 7
 exitPortalSprite.frame = 0
-exitPortalSprite.animationDelay = 0.2
+exitPortalSprite.animationDelay = 0.1
 exitPortalSprite.timer = 0.0
