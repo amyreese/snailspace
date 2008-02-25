@@ -1,6 +1,6 @@
 
 xOffset = 3200
-yOffset = 160
+yOffset = 150
 
 galleryImage = Image()
 galleryImage.filename = "Resources/Textures/GalleryTable"
@@ -37,6 +37,7 @@ function GalleryCharacter(position, character)
 		char = Queen(charpos)
 		sprite.frame = 7
 	elseif character == "shaker" then
+		charpos = Vector2(position.X, position.Y + 200)
 		char = Shaker(charpos)
 		sprite.frame = 6
 	elseif character == "spider" then
@@ -71,12 +72,24 @@ function GalleryCharacter(position, character)
 	map.objects:Add( plat )
 end
 
+yOffset = 200
 GalleryCharacter(Vector2(xOffset-400, 10), "title")
 GalleryCharacter(Vector2(xOffset+(0*600),yOffset), "blackant")
-GalleryCharacter(Vector2(xOffset+(0.5*600),yOffset+250), "bee")
-GalleryCharacter(Vector2(xOffset+(1*600),yOffset), "fireant")
-GalleryCharacter(Vector2(xOffset+(1.5*600),yOffset+250), "spider")
-GalleryCharacter(Vector2(xOffset+(2*600),yOffset), "princess")
-GalleryCharacter(Vector2(xOffset+(2.5*600),yOffset+250), "shaker")
-GalleryCharacter(Vector2(xOffset+(3*600),yOffset), "queen")
-GalleryCharacter(Vector2(xOffset+(4.2*600),yOffset+100), "helix")
+GalleryCharacter(Vector2(xOffset+(1*600),yOffset+100), "bee")
+GalleryCharacter(Vector2(xOffset+(2*600),yOffset), "fireant")
+GalleryCharacter(Vector2(xOffset+(3*600),yOffset+100), "spider")
+GalleryCharacter(Vector2(xOffset+(4*600),yOffset), "princess")
+GalleryCharacter(Vector2(xOffset+(5*600),yOffset+100), "queen")
+GalleryCharacter(Vector2(xOffset+(6*600),yOffset), "shaker")
+GalleryCharacter(Vector2(xOffset+(7*600)+50,yOffset+50), "helix")
+
+--[[
+GalleryCharacter(Vector2(xOffset+(0*650),yOffset), "blackant")
+GalleryCharacter(Vector2(xOffset+(0.5*650),yOffset+230), "bee")
+GalleryCharacter(Vector2(xOffset+(1*650),yOffset), "fireant")
+GalleryCharacter(Vector2(xOffset+(1.5*650),yOffset+230), "spider")
+GalleryCharacter(Vector2(xOffset+(2*650),yOffset), "princess")
+GalleryCharacter(Vector2(xOffset+(2.5*650),yOffset+230), "queen")
+GalleryCharacter(Vector2(xOffset+(3.2*650),yOffset), "shaker")
+GalleryCharacter(Vector2(xOffset+(4.2*650),yOffset+100), "helix")
+]]--

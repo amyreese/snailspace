@@ -2,7 +2,7 @@ library('Weapons')
 library('WorldBuilding')
 
 -- Player creation and starting position
-startPosition = Vector2(-300,0)
+startPosition = Vector2(000,0)
 player = Player( startPosition, "generic" )
 
 weapon = Weapon.load("stinger")
@@ -62,10 +62,10 @@ LoadArea("Devs")
 LoadArea("Gallery")
 
 -- Set the bounds for this map
-map.bounds:Add(Vector2(-512, -196))
-map.bounds:Add(Vector2(-512, 2800))
-map.bounds:Add(Vector2(9400, 2800))
-map.bounds:Add(Vector2(9400, -196))
-map.bounds:Add(Vector2(-512, -196))
+map.bounds:Add(Vector2(-512, -150))
+map.bounds:Add(Vector2(-512, 670))
+map.bounds:Add(Vector2(9400, 670))
+map.bounds:Add(Vector2(9400, -150))
+map.bounds:Add(Vector2(-512, -150))
 
 --EndLevel.BuildLevelEnd( 5800, 0 )

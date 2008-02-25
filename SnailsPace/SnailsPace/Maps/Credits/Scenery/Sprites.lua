@@ -209,8 +209,8 @@ plywoodSprite.timer = 0.0
 
 creditsImage = Image()
 creditsImage.filename = "Resources/Textures/names/AdditionalCreditDetailsTable"
-creditsImage.blocks = Vector2(2.0 , 8.0)
-creditsImage.size = Vector2( 512.0, 128.0 )
+creditsImage.blocks = Vector2(1.0 , 8.0)
+creditsImage.size = Vector2( 1024.0, 128.0 )
 
 creditsSprite = Sprite()
 creditsSprite.image = creditsImage
