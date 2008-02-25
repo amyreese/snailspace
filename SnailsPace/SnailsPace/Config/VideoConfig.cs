@@ -8,6 +8,7 @@ namespace SnailsPace.Config
     {
         private String videoConfigFile = "Config/Video.lua";
 
+        // Load a LuaConfig specific to video configs
         public VideoConfig()
             : base()
         {
@@ -49,6 +50,7 @@ namespace SnailsPace.Config
             #endregion
         }
 
+        // Write changes to a file
         public void save()
         {
             this.writeFile(videoConfigFile);

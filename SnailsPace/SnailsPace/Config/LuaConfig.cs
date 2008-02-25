@@ -26,9 +26,7 @@ namespace SnailsPace
          * Initialize the dictionaries and the interpreter
          */
         public LuaConfig() : this( new Dictionary<String, Double>(), new Dictionary<String, String>() )
-        {     
-        }
-
+        {}
         public LuaConfig(Dictionary<String, Double> defaultDoubles, Dictionary<String, String> defaultStrings)
         {
             lua = new Lua();
@@ -104,6 +102,9 @@ namespace SnailsPace
             }
         }
 
+        /**
+         * Set a double value from an int parameter.
+         */
         public void setInt(String key, int value)
         {
             setDouble(key, value);
@@ -148,6 +149,9 @@ namespace SnailsPace
             }
         }
 
+        /**
+         * Get a double value cast as an integer.
+         */
         public int getInt(String key)
         {
             return (int)getDouble(key);
@@ -180,6 +184,7 @@ namespace SnailsPace
             try {
                 lua.DoFile(filename);
             
+                // Extract all the numeric values from the interpreter
                 Dictionary<String, Double>.Enumerator DoubleDefaultEnumerator = DoubleDefaultValues.GetEnumerator();
                 while( DoubleDefaultEnumerator.MoveNext() )
                 {
@@ -191,6 +196,7 @@ namespace SnailsPace
                 }
                 DoubleDefaultEnumerator.Dispose();
 
+                // Extract all the string values from the interpreter
                 Dictionary<String, String>.Enumerator StringDefaultEnumerator = StringDefaultValues.GetEnumerator();
                 while (StringDefaultEnumerator.MoveNext())
                 {
@@ -220,6 +226,7 @@ namespace SnailsPace
 
             TextWriter file = new StreamWriter(filename);
 
+            // Write out the numeric values
             Dictionary<String, Double>.Enumerator DoubleEnumerator = DoubleValues.GetEnumerator();
             while( DoubleEnumerator.MoveNext() )
             {
@@ -227,6 +234,7 @@ namespace SnailsPace
             }
             DoubleEnumerator.Dispose();
 
+            // Write out the string values
             Dictionary<String, String>.Enumerator StringEnumerator = StringValues.GetEnumerator();
             while( StringEnumerator.MoveNext() )
             {
@@ -238,7 +246,7 @@ namespace SnailsPace
         }
 
         /**
-         * Set the default values for the configuration dictionaries
+         * Set some default numeric values for the dictionaries
          */
         public void setDefaults(Dictionary<String, Double> values)
         {
@@ -250,6 +258,9 @@ namespace SnailsPace
             DoubleEnumerator.Dispose();
         }
 
+        /**
+         * Set some default string values for the dictionaries
+         */
         public void setDefaults(Dictionary<String, String> values)
         {
             Dictionary<String, String>.Enumerator StringEnumerator = values.GetEnumerator();

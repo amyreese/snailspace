@@ -8,6 +8,7 @@ namespace SnailsPace
     {
         private String gameConfigFile = "Config/Game.lua";
 
+        // Load a LuaConfig specific to game configs
         public GameConfig()
             : base()
         {
@@ -26,6 +27,7 @@ namespace SnailsPace
 
         }
 
+        // Write changes to a file
         public void save()
         {
             this.writeFile(gameConfigFile);

@@ -123,6 +123,7 @@ namespace SnailsPace.Core
             bool shift = false;
             bool alt = false;
 
+            // Handle modifier keys
             for (int pressedKeyIndex = 0; pressedKeyIndex < pressedKeys.Length; pressedKeyIndex++)
             {
                 String keyName = pressedKeys[pressedKeyIndex].ToString();
@@ -143,6 +144,7 @@ namespace SnailsPace.Core
                 }
             }
 
+            // Handle stupid MS key names
 			for( int pressedKeyIndex = 0; pressedKeyIndex < pressedKeys.Length; pressedKeyIndex++ ) {
 				String keyName = pressedKeys[pressedKeyIndex].ToString().ToLower();
                 if (keyName == "back")
