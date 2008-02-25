@@ -25,6 +25,8 @@ WorldBuilding.BuildObject( { xOffset=3.4 * woodSprite.image.size.X, yOffset=0, s
 WorldBuilding.BuildObject( { xOffset=4.2 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=4.6 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 
+SavePoints.BuildSavePoint( xOffset + 1200, yOffset - 3030 )
+
 -- Side walls
 for i=0,wallHeight - 1 do
 	-- Left
