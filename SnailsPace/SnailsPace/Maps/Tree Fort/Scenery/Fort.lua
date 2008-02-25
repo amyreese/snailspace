@@ -25,8 +25,6 @@ WorldBuilding.BuildObject( { xOffset=3.4 * woodSprite.image.size.X, yOffset=0, s
 WorldBuilding.BuildObject( { xOffset=4.2 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 WorldBuilding.BuildObject( { xOffset=4.6 * woodSprite.image.size.X, yOffset=0, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=newRotation() } )
 
-SavePoints.BuildSavePoint( xOffset + 1200, yOffset - 3030 )
-
 -- Side walls
 for i=0,wallHeight - 1 do
 	-- Left
@@ -38,6 +36,24 @@ end
 -- Right
 WorldBuilding.BuildObject( { xOffset=4.7 * woodSprite.image.size.X, yOffset=( 0.4 + 0.8 * wallHeight ) * woodSprite.image.size.X, sprite=woodSprite, xSizeMod=-16, ySizeMod=-16, rotation=MathHelper.PiOver2 + newRotation() } )
 
+
+-- Platforms leading to the Hive
+
+plat = GameObject()
+plat.sprites:Add("wood", woodSprite)
+plat.size = woodImage.size
+plat.collidable = true
+plat.position = Vector2(xOffset - 300, yOffset + 400)
+map.objects:Add(plat)
+
+SavePoints.BuildSavePoint( xOffset + -300, yOffset - 2630 )
+
+plat = GameObject()
+plat.sprites:Add("wood", woodSprite)
+plat.size = woodImage.size
+plat.collidable = true
+plat.position = Vector2(xOffset + 250, yOffset + 1050)
+map.objects:Add(plat)
 
 
 -- Ceiling
@@ -53,5 +69,8 @@ WorldBuilding.BuildObject( { xOffset=3.3 * woodSprite.image.size.X, yOffset=1.8 
 Spider(Vector2(xOffset + 1290, yOffset + 564))
 Spider(Vector2(xOffset + 1400, yOffset + 1100))
 
+Powerups.BuildWeaponPowerup( xOffset + 2150, 150, "flamethrower", 50 )
+
+-- Boss
 Hive( Vector2( xOffset - 1.8 * woodSprite.image.size.X, yOffset + ( 0.2 + 0.8 * wallHeight ) * woodSprite.image.size.X ) )
 EndLevel.BuildLevelEnd( - 2.2 * woodSprite.image.size.X, ( 0.4 + 0.8 * wallHeight ) * woodSprite.image.size.X )
