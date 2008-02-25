@@ -38,20 +38,20 @@ namespace SnailsPace.Screens.Menus
         /// </summary>
         protected override void SetupMenuItems()
         {
-            float itemY = spriteFont.LineSpacing;
-            float itemX = 25.0f;
+            float itemY = spriteFont.LineSpacing + 250;
+            float itemX = 75.0f;
             menuItems = new MenuItem[10];
 			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
-			menuItems[1] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-			menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
-			menuItems[3] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
-			menuItems[4] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
+			menuItems[1] = new MenuItem("Controls", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 2));
+			menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 4));
+			menuItems[3] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 6));
+			menuItems[4] = new MenuItem("Quit", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 8));
 
 			menuItems[5] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
-			menuItems[6] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
-            menuItems[7] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
-			menuItems[8] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
-			menuItems[9] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
+			menuItems[6] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 2));
+			menuItems[7] = new MenuItem("Controls", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 4));
+			menuItems[8] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 6));
+			menuItems[9] = new MenuItem("Quit", this, new Vector2(itemX, itemY + (spriteFont.LineSpacing - 18) * 8));
 
 			menuItemIndex = 0;
             ready = true;
