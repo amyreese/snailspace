@@ -6,6 +6,38 @@ WorldBuilding.BuildObject( { xOffset=0.1 * treetrunkImage.size.X, yOffset=0.42 *
 WorldBuilding.BuildSection( { height=4, width=18, xOffset=-1536, yOffset=-160, sprite=grassSprite, xOverlap=20, yOverlap=32, xSizeMod=-32, ySizeMod=-32, buildDown=true } )
 WorldBuilding.BuildObject( { xOffset=-1436, yOffset=-384 + fencePostImage.size.Y / 2, sprite=fencePostSprite, xSizeMod=-16, ySizeMod=0, rotation=0 } )
 
+rock = GameObject()
+rsprite = Sprite()
+rsprite.image = Image()
+rsprite.image.filename = "Resources/Textures/Rock"
+rsprite.image.blocks = Vector2(1,1)
+rsprite.image.size = Vector2(512,512)
+rsprite.effect = "Resources/Effects/effects"
+rsprite.visible = true
+rock.sprites:Add("Rock", rsprite)
+
+rbounds = GameObjectBoundsBuilder()
+rbounds:AddPoint(Vector2(-190,-40))
+rbounds:AddPoint(Vector2(-170,50))
+rbounds:AddPoint(Vector2(-100,120))
+rbounds:AddPoint(Vector2(-50,160))
+rbounds:AddPoint(Vector2(45,170))
+rbounds:AddPoint(Vector2(170,100))
+rbounds:AddPoint(Vector2(200,40))
+rbounds:AddPoint(Vector2(210,-20))
+rbounds:AddPoint(Vector2(160,-60))
+rbounds:AddPoint(Vector2(0,-80))
+rbounds:AddPoint(Vector2(-170,-60))
+rock.bounds = rbounds:BuildBounds()
+
+rock.position = Vector2( xOffset + 1500, yOffset )
+rock.size = rsprite.image.size
+rock.affectedByGravity = false
+rock.collidable = true	
+
+map.objects:Add(rock)
+
+Powerups.BuildWeaponPowerup( xOffset + 2000, 50, "minigun", 100 )
 
 rotmod = 2
 height = 6

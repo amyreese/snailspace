@@ -43,16 +43,24 @@ plat = GameObject()
 plat.sprites:Add("wood", woodSprite)
 plat.size = woodImage.size
 plat.collidable = true
-plat.position = Vector2(xOffset - 300, yOffset + 400)
+plat.position = Vector2(xOffset - 150, yOffset + 300)
 map.objects:Add(plat)
 
-SavePoints.BuildSavePoint( xOffset + -300, yOffset - 2630 )
+SavePoints.BuildSavePoint( xOffset + -150, yOffset - 2730 )
 
 plat = GameObject()
 plat.sprites:Add("wood", woodSprite)
 plat.size = woodImage.size
 plat.collidable = true
-plat.position = Vector2(xOffset + 250, yOffset + 1050)
+plat.position = Vector2(xOffset - 550, yOffset + 550)
+map.objects:Add(plat)
+
+
+plat = GameObject()
+plat.sprites:Add("wood", woodSprite)
+plat.size = woodImage.size
+plat.collidable = true
+plat.position = Vector2(xOffset + 450, yOffset + 1100)
 map.objects:Add(plat)
 
 

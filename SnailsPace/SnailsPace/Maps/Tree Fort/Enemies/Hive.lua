@@ -42,8 +42,8 @@ function Hive(startPos)
 	Hive.affectedByGravity = false
 	Hive.direction = Vector2(0,0)
 	Hive.maxVelocity = 0
-	Hive.health = 50
-	Hive.maxHealth = 50
+	Hive.health = 100
+	Hive.maxHealth = 100
 	Hive.weapon.ammunition = 0
 	Hive.name = "Hive"
 	Hive:setSprite("Stand")
@@ -60,7 +60,7 @@ end
 
 -- Bee Hive behavior function
 function HiveThinker( self, gameTime )
-	if AI.canSeeHelix(self, 900) then
+	if AI.canSeeHelix(self, 1200) then
 		if Engine.boss == nil then
 			Engine.boss = self
 		end
@@ -68,8 +68,8 @@ function HiveThinker( self, gameTime )
 		Engine.boss = nil
 	end
 
-	if AI.canSeeHelix( self, 1200 ) then
-		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 1.5 then
+	if AI.canSeeHelix( self, 1400 ) then
+		if gameTime.TotalRealTime.TotalSeconds - self.state.lastSpawned > 1 then
 			self.state.lastSpawned = gameTime.TotalRealTime.TotalSeconds
 			behav = "swarmHelix"
 			if math.random() > 0.5 then
