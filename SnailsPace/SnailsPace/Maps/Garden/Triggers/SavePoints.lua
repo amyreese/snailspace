@@ -35,6 +35,7 @@ function SavePoints.TriggerSave( trigger, saveObject, character, gameTime )
 			Engine.player:save(trigger.position)
 			Engine.sound:play("ding1")
 			character.health = character.maxHealth
+			character.fuel = character.maxFuel
 		end
 	end
 end
