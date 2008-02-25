@@ -29,12 +29,13 @@ namespace SnailsPace.Screens.Menus
 		{
 			float itemY = spriteFont.LineSpacing;
 			float itemX = 25.0f;
-			menuItems = new MenuItem[5];
+			menuItems = new MenuItem[6];
 			menuItems[0] = new MenuItem("Back to Menu", this, new Vector2(itemX, itemY));
 			menuItems[1] = new MenuItem("Infinite Health: " + SnailsPace.cheatInfiniteHealth , this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 1.5f));
 			menuItems[2] = new MenuItem("Infinite Fuel: " + SnailsPace.cheatInfiniteFuel, this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 3.0f));
 			menuItems[3] = new MenuItem("Infinite Ammo: " + SnailsPace.cheatInfiniteAmmo, this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4.5f));
 			menuItems[4] = new MenuItem("All Weapons: " + SnailsPace.cheatAllWeapons, this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6.0f));
+			menuItems[5] = new MenuItem("Level Select", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 7.5f));
 			menuItemIndex = 0;
 			ready = true;
 		}
@@ -80,6 +81,9 @@ namespace SnailsPace.Screens.Menus
 						SnailsPace.cheatAllWeapons = !SnailsPace.cheatAllWeapons;
 						menuItems[4] = new MenuItem("All Weapons: " + SnailsPace.cheatAllWeapons, this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6.0f));
 						menuItems[4].Selected = true;
+						break;
+					case 5:
+						snailsPace.changeState(SnailsPace.GameStates.LevelSelectMenu);
 						break;
 				}
 			}
