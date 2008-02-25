@@ -40,7 +40,7 @@ namespace SnailsPace.Screens.Menus
         {
             float itemY = spriteFont.LineSpacing;
             float itemX = 25.0f;
-            menuItems = new MenuItem[11];
+            menuItems = new MenuItem[10];
 			menuItems[0] = new MenuItem("Play Game", this, new Vector2(itemX, itemY));
 			menuItems[1] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
 			menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
@@ -50,9 +50,8 @@ namespace SnailsPace.Screens.Menus
 			menuItems[5] = new MenuItem("Resume Game", this, new Vector2(itemX, itemY));
 			menuItems[6] = new MenuItem("Exit Level", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 2));
             menuItems[7] = new MenuItem("Controls", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
-			menuItems[8] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
-			menuItems[9] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
-			menuItems[10] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 10));
+			menuItems[8] = new MenuItem("Cheats", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 6));
+			menuItems[9] = new MenuItem("Quit", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 8));
 
 			menuItemIndex = 0;
             ready = true;
@@ -65,6 +64,8 @@ namespace SnailsPace.Screens.Menus
         /// <param name="gameTime">GameTime for this update</param>
         public override void Update(GameTime gameTime)
         {
+			float itemY = spriteFont.LineSpacing;
+			float itemX = 25.0f;
 
 			menuItems[0].Visible = !gameStarted;
 			menuItems[1].Visible = !gameStarted;
@@ -77,7 +78,6 @@ namespace SnailsPace.Screens.Menus
 			menuItems[7].Visible = gameStarted;
 			menuItems[8].Visible = gameStarted;
 			menuItems[9].Visible = gameStarted;
-			menuItems[10].Visible = gameStarted;
 
 			if (!menuItems[menuItemIndex].Visible)
 			{
@@ -115,19 +115,23 @@ namespace SnailsPace.Screens.Menus
 						snailsPace.changeState(SnailsPace.GameStates.KeyBindingsMenu);
                         break;
 					case 4:
-					case 10:
+					case 9:
 						snailsPace.exitGame(gameTime);
                         break;
 					case 6:
 						gameStarted = false;
 						break;
 					case 3:
-					case 9:
+					case 8:
 						snailsPace.changeState(SnailsPace.GameStates.CheatMenu);
 						break;
 					case 2:
-					case 8:
 						snailsPace.toggleFullscreen(gameTime);
+						if (snailsPace.graphics.IsFullScreen)
+							menuItems[2] = new MenuItem("Windowed", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+						else
+							menuItems[2] = new MenuItem("Fullscreen", this, new Vector2(itemX, itemY + spriteFont.LineSpacing * 4));
+						menuItems[2].Selected = true;
 						break;
 				}
             }
