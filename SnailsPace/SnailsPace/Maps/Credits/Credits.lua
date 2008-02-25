@@ -36,6 +36,7 @@ include("Enemies/Bee.lua")
 include("Enemies/BlackAnt.lua")
 include("Enemies/FireAnt.lua")
 include("Enemies/Queen.lua")
+include("Enemies/RogueHelix.lua")
 include("Enemies/Shaker.lua")
 include("Enemies/Spider.lua")
 

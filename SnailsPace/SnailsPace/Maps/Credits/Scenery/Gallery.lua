@@ -8,7 +8,7 @@ galleryImage.blocks = Vector2(1,10)
 galleryImage.size = Vector2(512,100)
 
 function GalleryCharacter(position, character)
-	charpos = Vector2(position.X, position.Y + 150)
+	charpos = Vector2(position.X, position.Y + 100)
 	
 	sprite = Sprite()
 	sprite.image = galleryImage
@@ -26,6 +26,9 @@ function GalleryCharacter(position, character)
 	elseif character == "fireant" then
 		char = FireAnt(charpos)
 		sprite.frame = 3
+	elseif character == "helix" then
+		char = RogueHelix(charpos)
+		sprite.frame = 8
 	elseif character == "princess" then
 		char = Queen(charpos)
 		char.scale = Vector2(0.8, 0.8)
@@ -76,3 +79,4 @@ GalleryCharacter(Vector2(xOffset+(1.5*600),yOffset+250), "spider")
 GalleryCharacter(Vector2(xOffset+(2*600),yOffset), "princess")
 GalleryCharacter(Vector2(xOffset+(2.5*600),yOffset+250), "shaker")
 GalleryCharacter(Vector2(xOffset+(3*600),yOffset), "queen")
+GalleryCharacter(Vector2(xOffset+(4.2*600),yOffset+100), "helix")

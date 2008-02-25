@@ -27,7 +27,6 @@ sign.collidable = false
 sign.position = Vector2(xOffset-100,10)
 map.objects:Add(sign)
 
-
 Name( Vector2( xOffset + 0*(256+64), yOffset ), "joe" )
 Name( Vector2( xOffset + 1*(256+64), yOffset ), "pat" )
 Name( Vector2( xOffset + 2*(256+64), yOffset ), "josh" )

@@ -164,6 +164,9 @@
     <None Include="Maps\Credits\Enemies\BlackAnt.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Maps\Credits\Enemies\RogueHelix.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Maps\Credits\Enemies\FireAnt.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
