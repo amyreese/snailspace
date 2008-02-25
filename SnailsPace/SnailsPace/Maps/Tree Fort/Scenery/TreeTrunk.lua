@@ -37,7 +37,7 @@ rock.collidable = true
 
 map.objects:Add(rock)
 
-Powerups.BuildWeaponPowerup( xOffset + 2000, 50, "minigun", 100 )
+Powerups.BuildWeaponPowerup( xOffset + 2000, 50, "minigun", 150 )
 
 rotmod = 2
 height = 6

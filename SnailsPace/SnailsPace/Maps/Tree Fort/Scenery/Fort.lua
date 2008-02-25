@@ -82,3 +82,22 @@ Powerups.BuildWeaponPowerup( xOffset + 2150, 150, "flamethrower", 50 )
 -- Boss
 Hive( Vector2( xOffset - 1.8 * woodSprite.image.size.X, yOffset + ( 0.2 + 0.8 * wallHeight ) * woodSprite.image.size.X ) )
 EndLevel.BuildLevelEnd( - 2.2 * woodSprite.image.size.X, ( 0.4 + 0.8 * wallHeight ) * woodSprite.image.size.X )
+
+ssprite = savepointSprite:clone()
+ssprite.frame = 2
+ssprite.animationStart = 2
+ssprite.animationEnd = 2
+
+asprite = savepointSprite:clone()
+asprite.frame = 3
+asprite.animationStart = 3
+asprite.animationEnd = 3
+
+sign = GameObject()
+sign.sprites:Add("sign", ssprite)
+sign.sprites:Add("arrow", asprite)
+sign.size = savepointImage.size
+sign.collidable = false
+sign.position = Vector2( -900, yOffset + 1900 )
+sign.rotation = MathHelper.Pi
+map.objects:Add(sign)

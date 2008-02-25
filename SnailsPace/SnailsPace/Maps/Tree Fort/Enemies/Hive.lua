@@ -42,8 +42,8 @@ function Hive(startPos)
 	Hive.affectedByGravity = false
 	Hive.direction = Vector2(0,0)
 	Hive.maxVelocity = 0
-	Hive.health = 100
-	Hive.maxHealth = 100
+	Hive.health = 150
+	Hive.maxHealth = 150
 	Hive.weapon.ammunition = 0
 	Hive.name = "Hive"
 	Hive:setSprite("Stand")
@@ -53,6 +53,7 @@ function Hive(startPos)
 	}
 	function Hive.state:die(gameTime)
 		Engine.boss = nil;
+		Powerups.BuildFuelPowerup(-750, 1500)
 	end
 	map.characters:Add(Hive)
 	return Hive
