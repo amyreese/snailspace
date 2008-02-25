@@ -11,7 +11,7 @@ WorldBuilding.BuildRamp( {length=6, xOffset=144, yOffset=-640, sprite=dirtSprite
 WorldBuilding.BuildRamp( {length=12, xOffset=840, yOffset=-728, sprite=dirtSpriteS, overlap=10, rotation=0.05, layerOffset=2 } )
 WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y / 2 - 384, sprite=fencePostSprite, xSizeMod=-16, ySizeMod=0, rotation=0 } )
 WorldBuilding.BuildObject( { xOffset=512, yOffset=fencePostImage.size.Y - 512 - 128, sprite=woodSprite, xSizeMod=-16, ySizeMod=0, rotation=0.4 } )
-Powerups.BuildWeaponPowerup( 352, 128, "stinger", 100, 0.3 )
+Powerups.BuildWeaponPowerup( 200,fencePostImage.size.Y - 512, "stinger", 100, 0.2 )
 
 for i=0,8 do
 	bee = Bee( Vector2( xOffset + 128, yOffset + 222 + i * 276 ), "swarmHelixA" )
