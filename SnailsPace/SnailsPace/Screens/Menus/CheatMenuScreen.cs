@@ -19,7 +19,7 @@ namespace SnailsPace.Screens.Menus
 		/// <returns>The background image to be used for this menu</returns>
 		protected override string GetBackgroundImage()
 		{
-			return "Resources/Textures/SettingsScreen";
+			return "Resources/Textures/CheatsScreen";
 		}
 
 		/// <summary>

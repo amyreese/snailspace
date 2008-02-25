@@ -35,9 +35,10 @@ function Hive(startPos)
 	Hive = Character("generic")
 	Hive.sprites:Add("Stand", stand)
 	Hive.sprites:Add("Die", die)
-	Hive.size = Vector2(HiveImage.size.X / 3, HiveImage.size.Y / 3)
+	Hive.size = HiveImage.size
 	Hive.startPosition = startPos
 	Hive.position = startPos
+	Hive.bounds:Move(Vector2(-128, 128))
 	Hive.affectedByGravity = false
 	Hive.direction = Vector2(0,0)
 	Hive.maxVelocity = 0

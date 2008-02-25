@@ -505,6 +505,20 @@
       <Name>Boing - Rubber band 6</Name>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Textures\CheatsScreen.png">
+      <Name>CheatsScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Textures\LevelSelectScreen.png">
+      <Name>LevelSelectScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

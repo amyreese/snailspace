@@ -377,7 +377,7 @@ namespace SnailsPace.Core
                 batch.Draw(Engine.fuelIcon, new Rectangle(0, 24, 32, 32), Color.White);
                 batch.Draw(Engine.fuelBar, new Rectangle(32, 32, (int)((Player.helix.fuel / Player.helix.maxFuel) * 300), 16), Color.White);
 
-				// If we're fighting a box, draw them a health bar.
+				// If we're fighting a boss, draw them a health bar.
 				if (Engine.boss != null)
 				{
 					batch.Draw(Engine.bossHealthShadow, new Rectangle(100, 526, 600, 60), Color.White);
