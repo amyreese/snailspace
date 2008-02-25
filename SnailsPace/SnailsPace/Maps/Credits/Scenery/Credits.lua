@@ -1,7 +1,7 @@
 xOffset = 0
 yOffset = 0
 
-WorldBuilding.BuildSection( { width=44, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
+WorldBuilding.BuildSection( { width=40, xOffset=-512, yOffset=-160, sprite=grassSprite, xOverlap=20, xSizeMod=-32, ySizeMod=-32 } )
 WorldBuilding.BuildObject( { xOffset=0.1 * treetrunkImage.size.X + 3500, yOffset=0.40 * treetrunkImage.size.Y, sprite=treetrunkSprite, collidable=false, layerOffset=10 } )
 
 sign = GameObject()
@@ -62,5 +62,33 @@ for i=0,creditsImage.blocks.X * creditsImage.blocks.Y - 1 do
 	endLevelX = 1024 + i*(creditsImage.size.X - 8)
 end
 
-WorldBuilding.BuildObject( { xOffset=endLevelX, yOffset=128, sprite=exitPortalSprite, layer=0, collidable=false } )
-EndLevel.BuildLevelEnd( endLevelX, 128 )
+sign = GameObject()
+
+ssprite = savepointSprite:clone()
+ssprite.frame = 2
+ssprite.animationStart = 2
+ssprite.animationEnd = 2
+sign.sprites:Add("sign", ssprite)
+
+sprite = Sprite()
+sprite.image = Image()
+sprite.image.filename = "Resources/Textures/GalleryTable"
+sprite.image.blocks = Vector2(3,10)
+sprite.image.size = Vector2(170,100)
+
+sprite.position = Vector2(0,0)
+sprite.effect = "Resources/Effects/effects"
+sprite.layerOffset = -0.1
+sprite.visible = true
+sprite.frame = 2
+sprite.animationStart = 2
+sprite.animationEnd = 2
+
+sign.sprites:Add("title", sprite)
+sign.collidable = false
+sign.position = Vector2(endLevelX-200,10)
+sign.layer = 2
+map.objects:Add(sign)
+
+WorldBuilding.BuildObject( { xOffset=endLevelX + 200, yOffset=128, sprite=exitPortalSprite, layer=0, collidable=false } )
+EndLevel.BuildLevelEnd( endLevelX + 200, 128 )
