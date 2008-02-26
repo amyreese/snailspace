@@ -45,6 +45,7 @@ function Hive(startPos)
 	Hive.health = 150
 	Hive.maxHealth = 150
 	Hive.weapon.ammunition = 0
+	Hive.layer = 1.5
 	Hive.name = "Hive"
 	Hive:setSprite("Stand")
 	Hive.thinker = "HiveThinker"
