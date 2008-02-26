@@ -176,6 +176,7 @@ namespace SnailsPace.Core
             Vector2 currentPoint;
             GameObject mapBound;
 
+			// Draw invisible game objects corresponding to the bounding points defined by the map.
             for (int i = 1; i < map.bounds.Count; i++)
             {
                 currentPoint = map.bounds[i];
@@ -454,10 +455,12 @@ namespace SnailsPace.Core
             List<String> debugStrings = new List<String>();
             if (SnailsPace.debugHelixPosition)
             {
+				// Output helix's position
                 debugStrings.Add("Helix: (" + Player.helix.position.X + ", " + Player.helix.position.Y + ")");
             }
             if (SnailsPace.debugCameraPosition)
             {
+				// Output camera and crosshair coordinates
                 debugStrings.Add("Camera: (" + Renderer.cameraPosition.X + ", " + Renderer.cameraPosition.Y + ", " + Renderer.cameraPosition.Z + ")");
                 Vector3 cameraTargetPosition = gameRenderer.getCameraTargetPosition();
                 debugStrings.Add("Target: (" + cameraTargetPosition.X + ", " + cameraTargetPosition.Y + ", " + cameraTargetPosition.Z + ")");
@@ -486,6 +489,13 @@ namespace SnailsPace.Core
         #endregion
 
         #region Object Positioning & Movement
+		/// <summary>
+		/// Determine if an object is within specified bounds.
+		/// </summary>
+		/// <param name="objectToCheck">The GameObject to check.</param>
+		/// <param name="boundsCenter">The center of the specified bounds.</param>
+		/// <param name="boundsSize">The size of the specified bounds.</param>
+		/// <returns>Whether or not an object is within specified bounds.</returns>
         public bool IsWithinBounds(GameObject objectToCheck, Vector2 boundsCenter, Vector2 boundsSize)
         {
             float left = objectToCheck.position.X - objectToCheck.size.X / 2;
@@ -508,6 +518,14 @@ namespace SnailsPace.Core
             return false;
         }
 
+		/// <summary>
+		/// Determine if an object is moving within a specified bounds.
+		/// </summary>
+		/// <param name="movingObject">The GameObject to check.</param>
+		/// <param name="objectMovement">The movement vector of the specified bounds.</param>
+		/// <param name="boundsSize">The size of the specified bounds.</param>
+		/// <param name="boundsCenter">The center of the specified bounds.</param>
+		/// <returns>Whether or not an object is moving within a specified bounds.</returns>
         private bool IsMovingWithinBounds(GameObject movingObject, Vector2 objectMovement, Vector2 boundsSize, Vector2 boundsCenter)
         {
             if (movingObject.position.X < boundsCenter.X)
@@ -565,6 +583,12 @@ namespace SnailsPace.Core
             return true;
         }
 
+		/// <summary>
+		/// Get the velocity of a moving object.
+		/// </summary>
+		/// <param name="movingObject">The moving GameObject.</param>
+		/// <param name="elapsedTime">The amount of time elapsed.</param>
+		/// <returns>The object's velocity as a vector.</returns>
         private Vector2 GetObjectVelocity(GameObject movingObject, float elapsedTime)
         {
             Vector2 objectVelocity = Vector2.Zero;
@@ -643,6 +667,11 @@ namespace SnailsPace.Core
         #endregion
 
         #region Coordinate Manipulation
+		/// <summary>
+		/// Change mouse coordinates to game coordinates.
+		/// </summary>
+		/// <param name="mousePosition">The current position of the mouse, as reported by Windows.</param>
+		/// <returns>The current position of the mouse, in game space.</returns>
         public static Vector2 mouseToGame(Vector2 mousePosition)
         {
             int screenWidth = SnailsPace.videoConfig.getInt("width");
@@ -683,14 +712,12 @@ namespace SnailsPace.Core
 
         #region Collision Detection
         /// <summary>
-        /// 
+        /// Check for collisions between objects.
         /// </summary>
-        /// <param name="movingObject"></param>
-        /// <param name="collidableObjects"></param>
-        /// <param name="motionVector"></param>
-        /// <param name="remainingCollidableObjects"></param>
-        /// <param name="populateRemaining"></param>
-        /// <returns></returns>
+        /// <param name="movingObject">An object in motion.</param>
+        /// <param name="collidableObjects">All objects that could be collided with.</param>
+        /// <param name="motionVector">The vector of motion.</param>
+        /// <returns>The GameObject that has been collided with.</returns>
         private GameObject CheckForCollision(GameObject movingObject, List<GameObject> collidableObjects, Vector2 motionVector )
         {
             if (movingObject.collidable && collisionDetectionOn)

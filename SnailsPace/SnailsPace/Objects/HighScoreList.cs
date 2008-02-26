@@ -15,6 +15,9 @@ namespace SnailsPace.Objects
 
 		public Dictionary<String, List<Score>> accuracyScores;
 
+		/// <summary>
+		/// Construct a list of high scores.
+		/// </summary>
 		public HighScoreList()
 		{
 			pointsScores = new Dictionary<String, List<Score>>();
@@ -29,6 +32,12 @@ namespace SnailsPace.Objects
 			list2.Add(new Score(321,"testName"));
 		}
 
+		/// <summary>
+		/// Determine if this value for accuracy is high.
+		/// </summary>
+		/// <param name="map">The key for the score in the Dictionary.</param>
+		/// <param name="accuracy">The accuracy value.</param>
+		/// <returns></returns>
 		public Boolean isHighAccuracy(String map, int accuracy)
 		{
 			List<Score> mapScores;
@@ -59,6 +68,12 @@ namespace SnailsPace.Objects
 			return false;
 		}
 
+		/// <summary>
+		/// Determine if this value for points is high.
+		/// </summary>
+		/// <param name="map">The key for the score in the Dictionary.</param>
+		/// <param name="points">The points value.</param>
+		/// <returns></returns>
 		public Boolean isHighPoints(String map, int points)
 		{
 			List<Score> mapScores;
@@ -86,6 +101,12 @@ namespace SnailsPace.Objects
 			return false;
 		}
 
+		/// <summary>
+		/// Add a score to the high scores.
+		/// </summary>
+		/// <param name="map">The key for the score in the Dictionary.</param>
+		/// <param name="points">The amount of points.</param>
+		/// <param name="name">The name of the person the score belongs to.</param>
 		public void addPointsScore(String map, int points, String name)
 		{
 			if (isHighPoints(map, points))
@@ -108,6 +129,12 @@ namespace SnailsPace.Objects
 			}
 		}
 
+		/// <summary>
+		/// Add an accuracy score to the high scores.
+		/// </summary>
+		/// <param name="map">The key for the score in the Dictionary.</param>
+		/// <param name="points">The amount of accuracy.</param>
+		/// <param name="name">The name of the person the score belongs to.</param>
 		public void addAccuracyScore(String map, int accuracy, String name)
 		{
 			if (isHighAccuracy(map, accuracy))
