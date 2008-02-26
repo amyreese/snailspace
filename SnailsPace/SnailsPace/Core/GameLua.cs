@@ -7,10 +7,17 @@ namespace SnailsPace.Core
 {
     class GameLua : Lua
     {
+        /// <summary>
+        /// Initialize a Lua interpreter with no map.
+        /// </summary>
         public GameLua() : this("")
         {
         }
 
+        /// <summary>
+        /// Initialzie a Lua interpreter with a given map name.
+        /// </summary>
+        /// <param name="mapName">The map's folder name</param>
         public GameLua(String mapName)
             : base()
         {
@@ -96,6 +103,11 @@ end
             #endregion
         }
 
+        /// <summary>
+        /// Call an arbitrary, global Lua function with the given name and parameters
+        /// </summary>
+        /// <param name="function">The global Lua function's name</param>
+        /// <param name="args">Vararg parameters to the Lua function</param>
         public void Call(String function, params object[] args) 
         {
             try
@@ -121,6 +133,12 @@ end
             }
         }
 
+        /// <summary>
+        /// Call an arbitrary Lua table's method with the given name and parameters
+        /// </summary>
+        /// <param name="self">The LuaTable object with the target method</param>
+        /// <param name="function">The target method's name</param>
+        /// <param name="args">Vararg parameters to the Lua method</param>
         public void CallOn(LuaTable self, String function, params object[] args)
         {
             try
