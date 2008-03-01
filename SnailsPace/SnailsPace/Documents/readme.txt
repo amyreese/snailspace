@@ -55,14 +55,19 @@ Credits
 
 Joe Andrusyszyn	- Lead engine development, Tree Fort, Queen's Den, and Credits level 
 		  design, environment graphics, scoring.
+	joseph.andrusyszyn@gmail.com
 
 Pat Dobson	- Chloride Conundrum level design, character graphics, enemy AI,
 		  scoring.
+	pjd6457@rit.edu
 
 Josh Gruenberg	- Engine development, environment graphics, enemy weapons design,
 		  HUD, level balancing.
+	jrg0805@rit.edu
 
 John Reese	- Lua development, sound development, weapons design, level balancing,
 		  input handling, Credits level design, various graphics, physics.
+	jreese@leetcode.net
 
 Brian Schroth	- Camera movement, collision detection optimization, scoring.
+	bcs5888@rit.edu
