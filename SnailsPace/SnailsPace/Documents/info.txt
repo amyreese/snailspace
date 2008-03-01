@@ -1,0 +1,21 @@
+
+Snail's Pace
+
+--
+
+Description:
+
+A Snail’s Pace is a cross pollination of the shooter and platformer genres.  It centers around a snail named Helix who has acquired a jetpack and a gun, and he decides to kill garden variety enemies(pun intended) and oppressive bosses.  The game will combine platformer elements – running and jumping to avoid enemies – and shooter elements.  The controls will use an intuitive mouse/keyboard interface that the user will employ to make Helix “fly”, walk, and kill enemies.
+
+--
+
+Team Members:
+
+Joe Andrusyszyn
+Patrick Dobson
+Josh Gruenberg
+John Reese
+Brian Schroth
+
+--
+
